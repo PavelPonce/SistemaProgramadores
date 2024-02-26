@@ -10,6 +10,7 @@ namespace SistemaAcademiaProgramadores.Controllers
     {
         public ActionResult Index()
         {
+            //Esto sirve para Mandar la vista INdex
             return View();
         }
 
