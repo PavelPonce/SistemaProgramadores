@@ -8,6 +8,7 @@ namespace SistemaAcademiaProgramadores.Controllers
 {
     public class HomeController : Controller
     {
+        //HOLA
         public ActionResult Index()
         {
            
