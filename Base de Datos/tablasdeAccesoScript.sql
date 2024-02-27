@@ -12,17 +12,21 @@ CREATE TABLE Acces.tbUsuarios(
 	[Usuar_Contrasena] [varchar](max) NOT NULL,
 	[Usuar_Correo] [varchar](max) NULL,
 	[Usuar_UltimaSesion] [datetime] NULL,
-	[Instr_Id] [int] NULL,
+	[Instr_Id] [int] NOT NULL,
 	Roles_Id INT NOT NULL,
 	Usuar_Admin BIT DEFAULT 0,
 	CONSTRAINT PK_tbUsuarios_Usuar_Id PRIMARY KEY(Usuar_Id),
 	CONSTRAINT UQ_tbUsuarios_Usuar_Usuario UNIQUE(Usuar_Usuario),
+	CONSTRAINT FK_tbUsuarios_tbInstructores_Instr_Id FOREIGN KEY (Instr_Id) REFERENCES Acade.tbInstructores(Perso_Id)
+	CONSTRAINT FK_tbUsuarios_tbRoles_Roles_Id FOREIGN KEY (Roles_Id) REFERENCES Acces.tbRoles(Roles_Id)
 
 	[Usuar_UsuarioCreacion] [int] NOT NULL,
 	[Usuar_FechaCreacion] [datetime] NOT NULL,
 	[Usuar_UsuarioModificacion] [int] NULL,
 	[Usuar_FechaModificacion] [datetime] NULL,
 	[Usuar_Estado] [bit] DEFAULT 1,
+	CONSTRAINT FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion FOREIGN KEY(Usuar_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion FOREIGN KEY(Usuar_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 )
 GO
 CREATE TABLE Acces.tbPantallas(
