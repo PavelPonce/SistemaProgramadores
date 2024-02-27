@@ -17,7 +17,7 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            var tbUsuarios = db.tbUsuarios.Include(t => t.tbInstructore).Include(t => t.tbRole).Include(t => t.tbUsuario1).Include(t => t.tbUsuario2);
+            var tbUsuarios = db.tbUsuarios.Include(t => t.tbInstructore).Include(t => t.tbPersonas).Include(t => t.tbRole).Include(t => t.tbUsuario1).Include(t => t.tbUsuario2);
             return View(tbUsuarios.ToList());
         }
 

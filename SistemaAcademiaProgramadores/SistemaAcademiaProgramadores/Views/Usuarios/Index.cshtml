@@ -6,94 +6,135 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Nuevo", "Create")
-</p>
-<table class="table table-responsive table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_Usuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_Contrasena)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_Correo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_UltimaSesion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_Admin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_FechaCreacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_FechaModificacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuar_Estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tbInstructore.Instr_Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tbRole.Roles_Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tbUsuario1.Usuar_Usuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tbUsuario2.Usuar_Usuario)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_Usuario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_Contrasena)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_Correo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_UltimaSesion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_Admin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_FechaCreacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_FechaModificacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuar_Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tbInstructore.Instr_Telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tbRole.Roles_Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tbUsuario1.Usuar_Usuario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tbUsuario2.Usuar_Usuario)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Usuar_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Usuar_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Usuar_Id })
-        </td>
-    </tr>
-}
 
-</table>
+<section class="content">
+
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Title</h3>
+<div class="card-tools">
+<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+<i class="fas fa-minus"></i>
+</button>
+<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+<i class="fas fa-times"></i>
+</button>
+</div>
+</div>
+<div class="card-body">
+   <div class="btn btn-primary col-sm-1">
+            <i class="fa-plus-square-o">
+               @Html.ActionLink("Nuevo", "Create")
+            </i>
+    </div>
+        
+    <table class="table table-responsive table-striped ">
+        <tr class="thead-purple thead-justify-content-center">
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_Usuario)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_Contrasena)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_Correo)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_UltimaSesion)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_Admin)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_FechaCreacion)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_FechaModificacion)
+            </th>
+                    <th>
+                @Html.DisplayNameFor(model => model.Usuar_Estado)
+            </th>
+                                                            <th>
+                @Html.DisplayNameFor(model => model.tbInstructore.Instr_Telefono)
+            </th>
+                                            <th>
+                @Html.DisplayNameFor(model => model.tbRole.Roles_Descripcion)
+            </th>
+                                                                                <th>
+                @Html.DisplayNameFor(model => model.tbUsuario1.Usuar_Usuario)
+            </th>
+                        <th>
+                @Html.DisplayNameFor(model => model.tbUsuario2.Usuar_Usuario)
+            </th>
+                <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_Usuario)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_Contrasena)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_Correo)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_UltimaSesion)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_Admin)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_FechaCreacion)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_FechaModificacion)
+            </td>
+                    <td>
+                @Html.DisplayFor(modelItem => item.Usuar_Estado)
+            </td>
+                                                            <td>
+                @Html.DisplayFor(modelItem => item.tbInstructore.Instr_Telefono)
+            </td>
+                                            <td>
+                @Html.DisplayFor(modelItem => item.tbRole.Roles_Descripcion)
+            </td>
+                                                                                <td>
+                @Html.DisplayFor(modelItem => item.tbUsuario1.Usuar_Usuario)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.tbUsuario2.Usuar_Usuario)
+            </td>
+                <td>
+                <div class="btn btn-editar col-sm-12">
+                    <i class="fa fa-edit">@Html.ActionLink("Editar", "Edit", new { id=item.Usuar_Id })</i>
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-detalle col-sm-12">
+                    <i class="fa fa-edit">@Html.ActionLink("Detalles", "Details", new { id=item.Usuar_Id })</i>
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-danger col-sm-12">
+                    <i class="fa fa-edit">@Html.ActionLink("Borrar", "Delete", new { id=item.Usuar_Id })</i>
+                </div>
+            </td>
+            </tr>
+    }
+
+    </table>
+</div>
+
+<div class="card-footer">
+Footer
+</div>
+
+</div>
+
+</section>
+
+

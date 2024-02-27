@@ -4,6 +4,17 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+/*
+    primary: 824d9f
+    secondary: e0981f
+    danger: dc3545
+
+    primary secondary:b579d6
+
+*/
+
+
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -158,6 +169,13 @@ sub {
 
 sup {
   top: -.5em;
+}
+
+.btn a{
+    text-decoration:none;
+    color: #fff;
+}
+.btn a:hover{
 }
 
 a {
@@ -1715,7 +1733,15 @@ pre code {
 .table-hover .table-active:hover > th {
   background-color: rgba(0, 0, 0, 0.075);
 }
-
+.table .thead-justify-content-center th{
+    justify-content: center;
+    align-items: center;
+}
+.table .thead-purple th {
+    color: #fff;
+    background-color: #b579d6;
+    border-color: #32383e;
+}
 .table .thead-dark th {
   color: #fff;
   background-color: #212529;
@@ -2355,18 +2381,29 @@ a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
+.btn-editar {
+    color: #fff;
+    background-color: #eeb658;
+    border-color: #eeb658;
+}
+
+    .btn-editar:hover {
+        color: #fff;
+        background-color: #e0981f;
+        border-color: #e0981f;
+    }
 
 .btn-primary {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+    color: #fff;
+    background-color: #824d9f;
+    border-color: #824d9f;
 }
 
-.btn-primary:hover {
-  color: #fff;
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #fcb236;
+        border-color: #fcb236;
+    }
 
 .btn-primary:focus, .btn-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
