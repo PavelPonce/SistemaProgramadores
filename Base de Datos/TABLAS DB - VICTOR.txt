@@ -5,67 +5,105 @@ GO
 CREATE TABLE Acade.tbCursos(
 	Curso_Id INT IDENTITY,
 	Curso_Nombre VARCHAR(30) UNIQUE NOT NULL,
-	CONSTRAINT PK_tbCursos_Curso_Id PRIMARY KEY(Curso_Id)
+	[Curso_UsuarioCreacion] [int] NOT NULL,
+	[Curso_FechaCreacion] [datetime] NOT NULL,
+	[Curso_UsuarioModificacion] [int] NULL,
+	[Curso_FechaModificacion] [datetime] NULL,
+	[Curso_Estado] [bit] DEFAULT 1,
+	CONSTRAINT PK_tbCursos_Curso_Id PRIMARY KEY(Curso_Id),
+	CONSTRAINT FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion FOREIGN KEY(Curso_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion FOREIGN KEY(Curso_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
 CREATE TABLE Acade.tbGeneraciones(
 	Gener_Id INT IDENTITY,
 	Gener_Nombre VARCHAR(30) UNIQUE NOT NULL,
 	Gener_Anhio INT UNIQUE NOT NULL,
+	[Gener_UsuarioCreacion] [int] NOT NULL,
+	[Gener_FechaCreacion] [datetime] NOT NULL,
+	[Gener_UsuarioModificacion] [int] NULL,
+	[Gener_FechaModificacion] [datetime] NULL,
+	[Gener_Estado] [bit] DEFAULT 1,
 	CONSTRAINT PK_tbGeneraciones_Gener_Id PRIMARY KEY(Gener_Id),
-	CONSTRAINT CK_tbGeneraciones_Gener_Anhio CHECK(Gener_Anhio >= 1900)
+	CONSTRAINT CK_tbGeneraciones_Gener_Anhio CHECK(Gener_Anhio >= 1900),
+	CONSTRAINT FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion FOREIGN KEY(Gener_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion FOREIGN KEY(Gener_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
-CREATE TABLE Acade.tbCursosXgeneracion(
+CREATE TABLE Acade.tbCursosPorGeneracion(
 	CuGen_Id INT IDENTITY,
 	Curso_Id INT NOT NULL,
 	Gener_Id INT NOT NULL,
-	CONSTRAINT PK_tbCursosXgeneracion_CuGen_Id PRIMARY KEY(CuGen_Id),
-	CONSTRAINT FK_tbCursosXgeneracion_tbGeneraciones_Gener_Id FOREIGN KEY(Gener_Id) REFERENCES Acade.tbGeneraciones(Gener_Id),
-	CONSTRAINT FK_tbCursosXgeneracion_tbCursos_Curso_Id FOREIGN KEY(Curso_Id) REFERENCES Acade.tbCursos(Curso_Id)
+	[CuGen_UsuarioCreacion] [int] NOT NULL,
+	[CuGen_FechaCreacion] [datetime] NOT NULL,
+	[CuGen_UsuarioModificacion] [int] NULL,
+	[CuGen_FechaModificacion] [datetime] NULL,
+	[CuGen_Estado] [bit] DEFAULT 1,
+	CONSTRAINT PK_tbCursosPorGeneracion_CuGen_Id PRIMARY KEY(CuGen_Id),
+	CONSTRAINT FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id FOREIGN KEY(Gener_Id) REFERENCES Acade.tbGeneraciones(Gener_Id),
+	CONSTRAINT FK_tbCursosPorGeneracion_tbCursos_Curso_Id FOREIGN KEY(Curso_Id) REFERENCES Acade.tbCursos(Curso_Id),
+	CONSTRAINT FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion FOREIGN KEY(CuGen_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion FOREIGN KEY(CuGen_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
 CREATE TABLE Calif.tbActividades(
 	Activ_Id INT IDENTITY,
 	Activ_Nombre VARCHAR(30) UNIQUE NOT NULL,
-	CONSTRAINT PK_tbActividades_Activ_Id PRIMARY KEY(Activ_Id)
+	[Activ_UsuarioCreacion] [int] NOT NULL,
+	[Activ_FechaCreacion] [datetime] NOT NULL,
+	[Activ_UsuarioModificacion] [int] NULL,
+	[Activ_FechaModificacion] [datetime] NULL,
+	[Activ_Estado] [bit] DEFAULT 1,
+	CONSTRAINT PK_tbActividades_Activ_Id PRIMARY KEY(Activ_Id),
+	CONSTRAINT FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion FOREIGN KEY(Activ_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion FOREIGN KEY(Activ_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
-CREATE TABLE Calif.tbActividadesXcursoXgeneracion(
+CREATE TABLE Calif.tbActividadesPorCursoPorGeneracion(
+	ActCG_Id INT IDENTITY,
 	Activ_Id INT NOT NULL,
 	CuGen_Id INT NOT NULL,
-	AcCur_Nota NUMERIC(4,2) NOT NULL,
-	CONSTRAINT PK_tbActividadesXcursoXgeneracion_Activ_Id_CuGen_Id PRIMARY KEY(Activ_Id, CuGen_Id),
-	CONSTRAINT FK_tbActividadesXcursoXgeneracion_tbActividades_Activ_Id FOREIGN KEY(Activ_Id) REFERENCES Calif.tbActividades(Activ_Id),
-	CONSTRAINT FK_tbActividadesXcursoXgeneracion_tbCursosXgeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosXgeneracion(CuGen_Id)
+	ActCG_Nota NUMERIC(4,2) NOT NULL,
+	[ActCG_UsuarioCreacion] [int] NOT NULL,
+	[ActCG_FechaCreacion] [datetime] NOT NULL,
+	[ActCG_UsuarioModificacion] [int] NULL,
+	[ActCG_FechaModificacion] [datetime] NULL,
+	[ActCG_Estado] [bit] DEFAULT 1,
+	CONSTRAINT PK_tbActividadesPorCursoPorGeneracion_ActCG_Id PRIMARY KEY(ActCG_Id),
+	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id FOREIGN KEY(Activ_Id) REFERENCES Calif.tbActividades(Activ_Id),
+	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosXgeneracion(CuGen_Id),
+	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion FOREIGN KEY(ActCG_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion FOREIGN KEY(ActCG_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
-CREATE TABLE Acade.tbInstructores(
-	Instr_Id INT IDENTITY,
-	Instr_Nombre VARCHAR(30) UNIQUE NOT NULL,
-	CONSTRAINT PK_tbInstructores_Instr_Id PRIMARY KEY(Instr_Id)
-);
-CREATE TABLE Acade.tbInstructoresXcursoXgeneracion(
+CREATE TABLE Acade.tbInstructoresPorCursoPorGeneracion(
+	InsCG_Id INT IDENTITY,
 	Instr_Id INT NOT NULL,
 	CuGen_Id INT NOT NULL,
-	CONSTRAINT PK_tbInstructoresXcurso_Curso_Id_Gener_Id PRIMARY KEY(CuGen_Id, Instr_Id),
-	CONSTRAINT FK_tbInstructoresXcurso_tbInstructores_Instr_Id FOREIGN KEY(Instr_Id) REFERENCES Acade.tbInstructores(Instr_Id),
-	CONSTRAINT FK_tbInstructoresXcurso_tbCursosXgeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosXgeneracion(CuGen_Id)
-);
-CREATE TABLE Acade.tbAlumnos(
-	Alumn_Id INT IDENTITY,
-	Alumn_Nombre VARCHAR(30) UNIQUE NOT NULL,
-	Alumn_MotivoDesercion VARCHAR(30),
-	Gener_Id INT NOT NULL,
-	CONSTRAINT PK_tbAlumnos_Alumn_Id PRIMARY KEY(Alumn_Id),
-	CONSTRAINT FK_tbAlumnos_tbGeneraciones_Gener_Id FOREIGN KEY(Gener_Id) REFERENCES Acade.tbGeneraciones(Gener_Id)
+	[InsCG_UsuarioCreacion] [int] NOT NULL,
+	[InsCG_FechaCreacion] [datetime] NOT NULL,
+	[InsCG_UsuarioModificacion] [int] NULL,
+	[InsCG_FechaModificacion] [datetime] NULL,
+	[InsCG_Estado] [bit] DEFAULT 1,
+	CONSTRAINT PK_tbInstructoresPorCursoPorGeneracion_InsCG_Id PRIMARY KEY(InsCG_Id),
+	CONSTRAINT FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id FOREIGN KEY(Instr_Id) REFERENCES Acade.tbInstructores(Instr_Id),
+	CONSTRAINT FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosXgeneracion(CuGen_Id),
+	CONSTRAINT FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion FOREIGN KEY(InsCG_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion FOREIGN KEY(InsCG_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
 CREATE TABLE Calif.tbCalificaciones(
 	Calif_Id INT IDENTITY,
 	CuGen_Id INT NOT NULL,
 	Alumn_Id INT NOT NULL,
 	Calif_Nota NUMERIC(4,2),
+	[Calif_UsuarioCreacion] [int] NOT NULL,
+	[Calif_FechaCreacion] [datetime] NOT NULL,
+	[Calif_UsuarioModificacion] [int] NULL,
+	[Calif_FechaModificacion] [datetime] NULL,
+	[Calif_Estado] [bit] DEFAULT 1,
 	CONSTRAINT PK_tbCalificaciones_Calif_Id PRIMARY KEY(Calif_Id),
 	CONSTRAINT FK_tbCalificaciones_tbCursosXgeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosXgeneracion(CuGen_Id),
-	CONSTRAINT FK_tbCalificaciones_tbAlumnos_Alumn_Id FOREIGN KEY(Alumn_Id) REFERENCES Acade.tbAlumnos(Alumn_Id)
+	CONSTRAINT FK_tbCalificaciones_tbAlumnos_Alumn_Id FOREIGN KEY(Alumn_Id) REFERENCES Acade.tbAlumnos(Alumn_Id),
+	CONSTRAINT FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion FOREIGN KEY(Calif_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
+	CONSTRAINT FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion FOREIGN KEY(Calif_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
 GO
-ALTER PROCEDURE [dbo].[SP_tbCalificaciones_SeleccionarXcurso](
+ALTER PROCEDURE [dbo].[SP_tbCalificaciones_SeleccionarPorGeneracion](
 	@Gener_Id INT
 )
 AS
@@ -77,11 +115,11 @@ BEGIN
 		tbActividadesXcursoXgeneracion.AcCur_Nota AS NOTA_ACTIVIDAD,
 		tbGeneraciones.Gener_Nombre AS GENERACION
 	FROM Calif.tbCalificaciones AS tbCalificaciones INNER JOIN Acade.tbAlumnos AS tbAlumnos
-		ON tbCalificaciones.Alumn_Id = tbAlumnos.Alumn_Id INNER JOIN Acade.tbCursosXgeneracion AS tbCursosXgeneracion
-		ON tbCalificaciones.CuGen_Id = tbCursosXgeneracion.CuGen_Id INNER JOIN Acade.tbCursos AS tbCursos
-		ON tbCursosXgeneracion.Curso_Id = tbCursos.Curso_Id INNER JOIN Acade.tbGeneraciones AS tbGeneraciones
-		ON tbCursosXgeneracion.Gener_Id = tbGeneraciones.Gener_Id INNER JOIN Calif.tbActividadesXcursoXgeneracion AS tbActividadesXcursoXgeneracion
-		ON tbCalificaciones.CuGen_Id = tbActividadesXcursoXgeneracion.CuGen_Id INNER JOIN Calif.tbActividades AS tbActividades
-		ON tbActividadesXcursoXgeneracion.Activ_Id = tbActividades.Activ_Id
-	WHERE tbCursosXgeneracion.Gener_Id = @Gener_Id
+		ON tbCalificaciones.Alumn_Id = tbAlumnos.Alumn_Id INNER JOIN Acade.tbCursosPorGeneracion AS tbCursosPorGeneracion
+		ON tbCalificaciones.CuGen_Id = tbCursosPorGeneracion.CuGen_Id INNER JOIN Acade.tbCursos AS tbCursos
+		ON tbCursosPorGeneracion.Curso_Id = tbCursos.Curso_Id INNER JOIN Acade.tbGeneraciones AS tbGeneraciones
+		ON tbCursosPorGeneracion.Gener_Id = tbGeneraciones.Gener_Id INNER JOIN Calif.tbActividadesPorCursoPorGeneracion AS tbActividadesPorCursoPorGeneracion
+		ON tbCalificaciones.CuGen_Id = tbActividadesPorCursoPorGeneracion.CuGen_Id INNER JOIN Calif.tbActividades AS tbActividades
+		ON tbActividadesPorCursoPorGeneracion.Activ_Id = tbActividades.Activ_Id
+	WHERE tbCursosPorGeneracion.Gener_Id = @Gener_Id
 END
