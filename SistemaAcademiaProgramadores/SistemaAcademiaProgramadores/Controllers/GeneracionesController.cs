@@ -12,12 +12,12 @@ namespace SistemaAcademiaProgramadores.Controllers
 {
     public class GeneracionesController : Controller
     {
-        private dbAcademiaProgramadoresEntities db = new dbAcademiaProgramadoresEntities();
+        private dbAcademiaProgramadoresEntities1 db = new dbAcademiaProgramadoresEntities1();
 
         // GET: Generaciones
         public ActionResult Index()
         {
-            var tbGeneraciones = db.tbGeneraciones.Include(t => t.tbUsuario).Include(t => t.tbUsuario1);
+            var tbGeneraciones = db.tbGeneraciones.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
             return View(tbGeneraciones.ToList());
         }
 
@@ -28,12 +28,12 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbGeneracione tbGeneracione = db.tbGeneraciones.Find(id);
-            if (tbGeneracione == null)
+            tbGeneraciones tbGeneraciones = db.tbGeneraciones.Find(id);
+            if (tbGeneraciones == null)
             {
                 return HttpNotFound();
             }
-            return View(tbGeneracione);
+            return View(tbGeneraciones);
         }
 
         // GET: Generaciones/Create
@@ -49,18 +49,18 @@ namespace SistemaAcademiaProgramadores.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado")] tbGeneracione tbGeneracione)
+        public ActionResult Create([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado")] tbGeneraciones tbGeneraciones)
         {
             if (ModelState.IsValid)
             {
-                db.tbGeneraciones.Add(tbGeneracione);
+                db.tbGeneraciones.Add(tbGeneraciones);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneracione.Gener_UsuarioCreacion);
-            ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneracione.Gener_UsuarioModificacion);
-            return View(tbGeneracione);
+            ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioCreacion);
+            ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioModificacion);
+            return View(tbGeneraciones);
         }
 
         // GET: Generaciones/Edit/5
@@ -70,14 +70,14 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbGeneracione tbGeneracione = db.tbGeneraciones.Find(id);
-            if (tbGeneracione == null)
+            tbGeneraciones tbGeneraciones = db.tbGeneraciones.Find(id);
+            if (tbGeneraciones == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneracione.Gener_UsuarioCreacion);
-            ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneracione.Gener_UsuarioModificacion);
-            return View(tbGeneracione);
+            ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioCreacion);
+            ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioModificacion);
+            return View(tbGeneraciones);
         }
 
         // POST: Generaciones/Edit/5
@@ -85,17 +85,17 @@ namespace SistemaAcademiaProgramadores.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado")] tbGeneracione tbGeneracione)
+        public ActionResult Edit([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado")] tbGeneraciones tbGeneraciones)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbGeneracione).State = EntityState.Modified;
+                db.Entry(tbGeneraciones).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneracione.Gener_UsuarioCreacion);
-            ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneracione.Gener_UsuarioModificacion);
-            return View(tbGeneracione);
+            ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioCreacion);
+            ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioModificacion);
+            return View(tbGeneraciones);
         }
 
         // GET: Generaciones/Delete/5
@@ -105,12 +105,12 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tbGeneracione tbGeneracione = db.tbGeneraciones.Find(id);
-            if (tbGeneracione == null)
+            tbGeneraciones tbGeneraciones = db.tbGeneraciones.Find(id);
+            if (tbGeneraciones == null)
             {
                 return HttpNotFound();
             }
-            return View(tbGeneracione);
+            return View(tbGeneraciones);
         }
 
         // POST: Generaciones/Delete/5
@@ -118,8 +118,8 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tbGeneracione tbGeneracione = db.tbGeneraciones.Find(id);
-            db.tbGeneraciones.Remove(tbGeneracione);
+            tbGeneraciones tbGeneraciones = db.tbGeneraciones.Find(id);
+            db.tbGeneraciones.Remove(tbGeneraciones);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
