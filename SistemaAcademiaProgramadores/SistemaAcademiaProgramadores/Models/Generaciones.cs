@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SistemaAcademiaProgramadores.Models
 {
     [MetadataType(typeof(GeneracionesMetaData))]
-    public partial class tbGeneracione
+    public partial class tbGeneraciones
     {
 
     }
@@ -19,7 +19,7 @@ namespace SistemaAcademiaProgramadores.Models
         [Required(ErrorMessage = "El {0} es requerido")]
         [MaxLength(ErrorMessage = "El {0} solo puede tener como maximo 30 caracteres")]
         public string Gener_Nombre { get; set; }
-        
+
         [Display(Name = "Año")]
         [Required(ErrorMessage = "El {0} es requerido")]
         [RegularExpression("[0-9]*$", ErrorMessage = "El {0} solo puede contener numeros")]
