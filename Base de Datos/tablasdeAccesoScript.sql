@@ -17,6 +17,12 @@ CREATE TABLE Acces.tbUsuarios(
 	Usuar_Admin BIT DEFAULT 0,
 	CONSTRAINT PK_tbUsuarios_Usuar_Id PRIMARY KEY(Usuar_Id),
 	CONSTRAINT UQ_tbUsuarios_Usuar_Usuario UNIQUE(Usuar_Usuario),
+
+	[Usuar_UsuarioCreacion] [int] NOT NULL,
+	[Usuar_FechaCreacion] [datetime] NOT NULL,
+	[Usuar_UsuarioModificacion] [int] NULL,
+	[Usuar_FechaModificacion] [datetime] NULL,
+	[Usuar_Estado] [bit] DEFAULT 1,
 )
 GO
 CREATE TABLE Acces.tbPantallas(
