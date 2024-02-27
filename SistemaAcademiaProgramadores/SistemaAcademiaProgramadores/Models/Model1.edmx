@@ -1,0 +1,2459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbAcademiaProgramadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAlumnos">
+          <Key>
+            <PropertyRef Name="Perso_Id" />
+          </Key>
+          <Property Name="Perso_Id" Type="int" Nullable="false" />
+          <Property Name="Alumn_ColegioEgresion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Alumn_Universidad" Type="varchar" MaxLength="30" />
+          <Property Name="Alumn_Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Alumn_CorreoElectronico" Type="varchar(max)" />
+          <Property Name="Alumn_TituloEgresion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Alumn_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Alumn_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Alumn_UsuarioModificacion" Type="int" />
+          <Property Name="Alumn_FechaModificacion" Type="datetime" />
+          <Property Name="Alumn_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbCursos">
+          <Key>
+            <PropertyRef Name="Curso_Id" />
+          </Key>
+          <Property Name="Curso_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Curso_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Curso_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Curso_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Curso_UsuarioModificacion" Type="int" />
+          <Property Name="Curso_FechaModificacion" Type="datetime" />
+          <Property Name="Curso_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbCursosPorGeneracion">
+          <Key>
+            <PropertyRef Name="CuGen_Id" />
+          </Key>
+          <Property Name="CuGen_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Curso_Id" Type="int" Nullable="false" />
+          <Property Name="Gener_Id" Type="int" Nullable="false" />
+          <Property Name="CuGen_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="CuGen_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="CuGen_UsuarioModificacion" Type="int" />
+          <Property Name="CuGen_FechaModificacion" Type="datetime" />
+          <Property Name="CuGen_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbGeneraciones">
+          <Key>
+            <PropertyRef Name="Gener_Id" />
+          </Key>
+          <Property Name="Gener_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gener_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Gener_Anhio" Type="int" Nullable="false" />
+          <Property Name="Gener_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Gener_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Gener_UsuarioModificacion" Type="int" />
+          <Property Name="Gener_FechaModificacion" Type="datetime" />
+          <Property Name="Gener_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbInstructores">
+          <Key>
+            <PropertyRef Name="Perso_Id" />
+          </Key>
+          <Property Name="Perso_Id" Type="int" Nullable="false" />
+          <Property Name="Instr_Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Instr_CorreoElectronico" Type="varchar(max)" />
+          <Property Name="Instr_Pregrado" Type="varchar(max)" Nullable="false" />
+          <Property Name="Instr_Posgrado" Type="varchar(max)" Nullable="false" />
+          <Property Name="Instr_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Instr_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Instr_UsuarioModificacion" Type="int" />
+          <Property Name="Instr_FechaModificacion" Type="datetime" />
+          <Property Name="Instr_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbInstructoresPorCursoPorGeneracion">
+          <Key>
+            <PropertyRef Name="InsCG_Id" />
+          </Key>
+          <Property Name="InsCG_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Instr_Id" Type="int" Nullable="false" />
+          <Property Name="CuGen_Id" Type="int" Nullable="false" />
+          <Property Name="InsCG_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="InsCG_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="InsCG_UsuarioModificacion" Type="int" />
+          <Property Name="InsCG_FechaModificacion" Type="datetime" />
+          <Property Name="InsCG_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbPantallas">
+          <Key>
+            <PropertyRef Name="Panta_Id" />
+          </Key>
+          <Property Name="Panta_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Panta_Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Panta_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Panta_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Panta_UsuarioModificacion" Type="int" />
+          <Property Name="Panta_FechaModificacion" Type="datetime" />
+          <Property Name="Panta_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbPantallasPorRoles">
+          <Key>
+            <PropertyRef Name="Papro_Id" />
+          </Key>
+          <Property Name="Papro_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Panta_Id" Type="int" Nullable="false" />
+          <Property Name="Roles_Id" Type="int" Nullable="false" />
+          <Property Name="Papro_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Papro_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Papro_UsuarioModificacion" Type="int" />
+          <Property Name="Papro_FechaModificacion" Type="datetime" />
+          <Property Name="Papro_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbRoles">
+          <Key>
+            <PropertyRef Name="Roles_Id" />
+          </Key>
+          <Property Name="Roles_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Roles_Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbUsuarios">
+          <Key>
+            <PropertyRef Name="Usuar_Id" />
+          </Key>
+          <Property Name="Usuar_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuar_Usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Usuar_Contrasena" Type="varchar(max)" Nullable="false" />
+          <Property Name="Usuar_Correo" Type="varchar(max)" />
+          <Property Name="Usuar_UltimaSesion" Type="datetime" />
+          <Property Name="Instr_Id" Type="int" Nullable="false" />
+          <Property Name="Roles_Id" Type="int" Nullable="false" />
+          <Property Name="Usuar_Admin" Type="bit" />
+          <Property Name="Usuar_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Usuar_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuar_UsuarioModificacion" Type="int" />
+          <Property Name="Usuar_FechaModificacion" Type="datetime" />
+          <Property Name="Usuar_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbActividades">
+          <Key>
+            <PropertyRef Name="Activ_Id" />
+          </Key>
+          <Property Name="Activ_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Activ_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Activ_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Activ_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Activ_UsuarioModificacion" Type="int" />
+          <Property Name="Activ_FechaModificacion" Type="datetime" />
+          <Property Name="Activ_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbActividadesPorCursoPorGeneracion">
+          <Key>
+            <PropertyRef Name="ActCG_Id" />
+          </Key>
+          <Property Name="ActCG_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Activ_Id" Type="int" Nullable="false" />
+          <Property Name="CuGen_Id" Type="int" Nullable="false" />
+          <Property Name="ActCG_Nota" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="ActCG_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="ActCG_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="ActCG_UsuarioModificacion" Type="int" />
+          <Property Name="ActCG_FechaModificacion" Type="datetime" />
+          <Property Name="ActCG_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbCalificaciones">
+          <Key>
+            <PropertyRef Name="Calif_Id" />
+          </Key>
+          <Property Name="Calif_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CuGen_Id" Type="int" Nullable="false" />
+          <Property Name="Alumn_Id" Type="int" Nullable="false" />
+          <Property Name="Calif_Nota" Type="numeric" Precision="4" Scale="2" />
+          <Property Name="Calif_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Calif_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Calif_UsuarioModificacion" Type="int" />
+          <Property Name="Calif_FechaModificacion" Type="datetime" />
+          <Property Name="Calif_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbDepartamentos">
+          <Key>
+            <PropertyRef Name="Depar_Id" />
+          </Key>
+          <Property Name="Depar_Id" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Depar_Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Depar_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Depar_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Depar_UsuarioModificacion" Type="int" />
+          <Property Name="Depar_FechaModificacion" Type="datetime" />
+          <Property Name="Depar_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbEstadosCiviles">
+          <Key>
+            <PropertyRef Name="Estci_Id" />
+          </Key>
+          <Property Name="Estci_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estci_Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Estci_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Estci_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Estci_UsuarioModificacion" Type="int" />
+          <Property Name="Estci_FechaModificacion" Type="datetime" />
+          <Property Name="Estci_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbMunicipios">
+          <Key>
+            <PropertyRef Name="Munic_Id" />
+          </Key>
+          <Property Name="Munic_Id" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Munic_Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Depar_Id" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Munic_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Munic_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Munic_UsuarioModificacion" Type="int" />
+          <Property Name="Munic_FechaModificacion" Type="datetime" />
+          <Property Name="Munic_Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbPersonas">
+          <Key>
+            <PropertyRef Name="Perso_Id" />
+          </Key>
+          <Property Name="Perso_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Perso_Tipo" Type="char" MaxLength="1" />
+          <Property Name="Perso_PrimerNombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Perso_SegundoNombre" Type="varchar" MaxLength="30" />
+          <Property Name="Perso_PrimerApellido" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Perso_SegundoApellido" Type="varchar" MaxLength="30" />
+          <Property Name="Perso_FechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="Perso_Sexo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Estci_Id" Type="int" Nullable="false" />
+          <Property Name="Perso_Direccion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Munic_Id" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Perso_Telefono" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Perso_CorreoElectronico" Type="varchar(max)" Nullable="false" />
+          <Property Name="Perso_UsuarioCreacion" Type="int" Nullable="false" />
+          <Property Name="Perso_FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="Perso_UsuarioModificacion" Type="int" />
+          <Property Name="Perso_FechaModificacion" Type="datetime" />
+          <Property Name="Perso_Estado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_bInstructores_tbPersonas_Perso_Id">
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="1" />
+          <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbPersonas">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbInstructores">
+              <PropertyRef Name="Perso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbActividades" Type="Self.tbActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividades">
+              <PropertyRef Name="Activ_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbActividades" Type="Self.tbActividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividades">
+              <PropertyRef Name="Activ_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
+          <End Role="tbActividades" Type="Self.tbActividades" Multiplicity="1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividades">
+              <PropertyRef Name="Activ_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="Activ_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="ActCG_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="ActCG_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlumnos_tbPersonas_Perso_Id">
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="1" />
+          <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbPersonas">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbAlumnos">
+              <PropertyRef Name="Perso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbAlumnos">
+              <PropertyRef Name="Alumn_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbAlumnos">
+              <PropertyRef Name="Alumn_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id">
+          <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAlumnos">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="Alumn_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="CuGen_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="Calif_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="Calif_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursos">
+              <PropertyRef Name="Curso_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursos">
+              <PropertyRef Name="Curso_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
+          <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursos">
+              <PropertyRef Name="Curso_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="Curso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
+          <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbGeneraciones">
+              <PropertyRef Name="Gener_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="Gener_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbDepartamentos" Type="Self.tbDepartamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbDepartamentos">
+              <PropertyRef Name="Depar_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbDepartamentos" Type="Self.tbDepartamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbDepartamentos">
+              <PropertyRef Name="Depar_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbEstadosCiviles" Type="Self.tbEstadosCiviles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbEstadosCiviles">
+              <PropertyRef Name="Estci_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbEstadosCiviles" Type="Self.tbEstadosCiviles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbEstadosCiviles">
+              <PropertyRef Name="Estci_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbGeneraciones">
+              <PropertyRef Name="Gener_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbGeneraciones">
+              <PropertyRef Name="Gener_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructores">
+              <PropertyRef Name="Instr_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructores">
+              <PropertyRef Name="Instr_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
+          <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInstructores">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="Instr_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="InsCG_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="InsCG_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMunicipios_tbDepartamentos_Depar_Id">
+          <End Role="tbDepartamentos" Type="Self.tbDepartamentos" Multiplicity="1" />
+          <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbDepartamentos">
+              <PropertyRef Name="Depar_Id" />
+            </Principal>
+            <Dependent Role="tbMunicipios">
+              <PropertyRef Name="Depar_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbMunicipios">
+              <PropertyRef Name="Munic_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbMunicipios">
+              <PropertyRef Name="Munic_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPantallas" Type="Self.tbPantallas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallas">
+              <PropertyRef Name="Panta_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPantallas" Type="Self.tbPantallas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallas">
+              <PropertyRef Name="Panta_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbPantallas_Panta_Id">
+          <End Role="tbPantallas" Type="Self.tbPantallas" Multiplicity="1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPantallas">
+              <PropertyRef Name="Panta_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Panta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbRoles_Roles_Id">
+          <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="Roles_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Roles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Papro_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Papro_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbEstadosCiviles_Estci_Id">
+          <End Role="tbEstadosCiviles" Type="Self.tbEstadosCiviles" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbEstadosCiviles">
+              <PropertyRef Name="Estci_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Estci_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbMunicipios_Munic_Id">
+          <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMunicipios">
+              <PropertyRef Name="Munic_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Munic_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Perso_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Perso_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbInstructores_Instr_Id">
+          <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="1" />
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInstructores">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios">
+              <PropertyRef Name="Instr_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbRoles_Roles_Id">
+          <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="Roles_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios">
+              <PropertyRef Name="Roles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbUsuarios1" Type="Self.tbUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios1">
+              <PropertyRef Name="Usuar_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbUsuarios1" Type="Self.tbUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios1">
+              <PropertyRef Name="Usuar_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbAcademiaProgramadoresModelStoreContainer">
+          <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumnos" Schema="Acade" store:Type="Tables" />
+          <EntitySet Name="tbCursos" EntityType="Self.tbCursos" Schema="Acade" store:Type="Tables" />
+          <EntitySet Name="tbCursosPorGeneracion" EntityType="Self.tbCursosPorGeneracion" Schema="Acade" store:Type="Tables" />
+          <EntitySet Name="tbGeneraciones" EntityType="Self.tbGeneraciones" Schema="Acade" store:Type="Tables" />
+          <EntitySet Name="tbInstructores" EntityType="Self.tbInstructores" Schema="Acade" store:Type="Tables" />
+          <EntitySet Name="tbInstructoresPorCursoPorGeneracion" EntityType="Self.tbInstructoresPorCursoPorGeneracion" Schema="Acade" store:Type="Tables" />
+          <EntitySet Name="tbPantallas" EntityType="Self.tbPantallas" Schema="Acces" store:Type="Tables" />
+          <EntitySet Name="tbPantallasPorRoles" EntityType="Self.tbPantallasPorRoles" Schema="Acces" store:Type="Tables" />
+          <EntitySet Name="tbRoles" EntityType="Self.tbRoles" Schema="Acces" store:Type="Tables" />
+          <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" Schema="Acces" store:Type="Tables" />
+          <EntitySet Name="tbActividades" EntityType="Self.tbActividades" Schema="Calif" store:Type="Tables" />
+          <EntitySet Name="tbActividadesPorCursoPorGeneracion" EntityType="Self.tbActividadesPorCursoPorGeneracion" Schema="Calif" store:Type="Tables" />
+          <EntitySet Name="tbCalificaciones" EntityType="Self.tbCalificaciones" Schema="Calif" store:Type="Tables" />
+          <EntitySet Name="tbDepartamentos" EntityType="Self.tbDepartamentos" Schema="Mante" store:Type="Tables" />
+          <EntitySet Name="tbEstadosCiviles" EntityType="Self.tbEstadosCiviles" Schema="Mante" store:Type="Tables" />
+          <EntitySet Name="tbMunicipios" EntityType="Self.tbMunicipios" Schema="Mante" store:Type="Tables" />
+          <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" Schema="Mante" store:Type="Tables" />
+          <AssociationSet Name="FK_bInstructores_tbPersonas_Perso_Id" Association="Self.FK_bInstructores_tbPersonas_Perso_Id">
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" Association="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividades" EntitySet="tbActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" Association="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividades" EntitySet="tbActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
+            <End Role="tbActividades" EntitySet="tbActividades" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlumnos_tbPersonas_Perso_Id" Association="Self.FK_tbAlumnos_tbPersonas_Perso_Id">
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion" Association="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id" Association="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id">
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursos" EntitySet="tbCursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursos" EntitySet="tbCursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id" Association="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
+            <End Role="tbCursos" EntitySet="tbCursos" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" Association="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
+            <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" Association="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion" Association="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion" Association="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbEstadosCiviles" EntitySet="tbEstadosCiviles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion" Association="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbEstadosCiviles" EntitySet="tbEstadosCiviles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" Association="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" Association="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMunicipios_tbDepartamentos_Depar_Id" Association="Self.FK_tbMunicipios_tbDepartamentos_Depar_Id">
+            <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion" Association="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion" Association="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallas" EntitySet="tbPantallas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" Association="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallas" EntitySet="tbPantallas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbPantallas_Panta_Id" Association="Self.FK_tbPantallasPorRoles_tbPantallas_Panta_Id">
+            <End Role="tbPantallas" EntitySet="tbPantallas" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbRoles_Roles_Id" Association="Self.FK_tbPantallasPorRoles_tbRoles_Roles_Id">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion" Association="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbEstadosCiviles_Estci_Id" Association="Self.FK_tbPersonas_tbEstadosCiviles_Estci_Id">
+            <End Role="tbEstadosCiviles" EntitySet="tbEstadosCiviles" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbMunicipios_Munic_Id" Association="Self.FK_tbPersonas_tbMunicipios_Munic_Id">
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion" Association="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion" Association="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbInstructores_Instr_Id" Association="Self.FK_tbUsuarios_tbInstructores_Instr_Id">
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbRoles_Roles_Id" Association="Self.FK_tbUsuarios_tbRoles_Roles_Id">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion" Association="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" Association="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbAcademiaProgramadoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbAlumno">
+          <Key>
+            <PropertyRef Name="Perso_Id" />
+          </Key>
+          <Property Name="Perso_Id" Type="Int32" Nullable="false" />
+          <Property Name="Alumn_ColegioEgresion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Alumn_Universidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Alumn_Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Alumn_CorreoElectronico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Alumn_TituloEgresion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Alumn_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Alumn_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Alumn_UsuarioModificacion" Type="Int32" />
+          <Property Name="Alumn_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Alumn_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbPersona" Relationship="Self.FK_tbAlumnos_tbPersonas_Perso_Id" FromRole="tbAlumnos" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbAlumnos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbAlumnos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbCalificaciones" Relationship="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id" FromRole="tbAlumnos" ToRole="tbCalificaciones" />
+        </EntityType>
+        <EntityType Name="tbCurso">
+          <Key>
+            <PropertyRef Name="Curso_Id" />
+          </Key>
+          <Property Name="Curso_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Curso_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Curso_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Curso_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Curso_UsuarioModificacion" Type="Int32" />
+          <Property Name="Curso_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Curso_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" FromRole="tbCursos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" FromRole="tbCursos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbCursosPorGeneracions" Relationship="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id" FromRole="tbCursos" ToRole="tbCursosPorGeneracion" />
+        </EntityType>
+        <EntityType Name="tbCursosPorGeneracion">
+          <Key>
+            <PropertyRef Name="CuGen_Id" />
+          </Key>
+          <Property Name="CuGen_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Curso_Id" Type="Int32" Nullable="false" />
+          <Property Name="Gener_Id" Type="Int32" Nullable="false" />
+          <Property Name="CuGen_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="CuGen_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CuGen_UsuarioModificacion" Type="Int32" />
+          <Property Name="CuGen_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="CuGen_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbCurso" Relationship="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id" FromRole="tbCursosPorGeneracion" ToRole="tbCursos" />
+          <NavigationProperty Name="tbActividadesPorCursoPorGeneracions" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCursosPorGeneracion" ToRole="tbActividadesPorCursoPorGeneracion" />
+          <NavigationProperty Name="tbCalificaciones" Relationship="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCursosPorGeneracion" ToRole="tbCalificaciones" />
+          <NavigationProperty Name="tbGeneracione" Relationship="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" FromRole="tbCursosPorGeneracion" ToRole="tbGeneraciones" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" FromRole="tbCursosPorGeneracion" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" FromRole="tbCursosPorGeneracion" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbInstructoresPorCursoPorGeneracions" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCursosPorGeneracion" ToRole="tbInstructoresPorCursoPorGeneracion" />
+        </EntityType>
+        <EntityType Name="tbGeneracione">
+          <Key>
+            <PropertyRef Name="Gener_Id" />
+          </Key>
+          <Property Name="Gener_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gener_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gener_Anhio" Type="Int32" Nullable="false" />
+          <Property Name="Gener_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Gener_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gener_UsuarioModificacion" Type="Int32" />
+          <Property Name="Gener_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Gener_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbCursosPorGeneracions" Relationship="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" FromRole="tbGeneraciones" ToRole="tbCursosPorGeneracion" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" FromRole="tbGeneraciones" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" FromRole="tbGeneraciones" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbInstructore">
+          <Key>
+            <PropertyRef Name="Perso_Id" />
+          </Key>
+          <Property Name="Perso_Id" Type="Int32" Nullable="false" />
+          <Property Name="Instr_Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Instr_CorreoElectronico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Instr_Pregrado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Instr_Posgrado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Instr_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Instr_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Instr_UsuarioModificacion" Type="Int32" />
+          <Property Name="Instr_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Instr_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbPersona" Relationship="Self.FK_bInstructores_tbPersonas_Perso_Id" FromRole="tbInstructores" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" FromRole="tbInstructores" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" FromRole="tbInstructores" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbInstructoresPorCursoPorGeneracions" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" FromRole="tbInstructores" ToRole="tbInstructoresPorCursoPorGeneracion" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbUsuarios_tbInstructores_Instr_Id" FromRole="tbInstructores" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbInstructoresPorCursoPorGeneracion">
+          <Key>
+            <PropertyRef Name="InsCG_Id" />
+          </Key>
+          <Property Name="InsCG_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Instr_Id" Type="Int32" Nullable="false" />
+          <Property Name="CuGen_Id" Type="Int32" Nullable="false" />
+          <Property Name="InsCG_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="InsCG_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InsCG_UsuarioModificacion" Type="Int32" />
+          <Property Name="InsCG_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="InsCG_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbCursosPorGeneracion" />
+          <NavigationProperty Name="tbInstructore" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbInstructores" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbPantalla">
+          <Key>
+            <PropertyRef Name="Panta_Id" />
+          </Key>
+          <Property Name="Panta_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Panta_Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Panta_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Panta_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Panta_UsuarioModificacion" Type="Int32" />
+          <Property Name="Panta_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Panta_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbPantallas" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbPantallas" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbPantallasPorRoles" Relationship="Self.FK_tbPantallasPorRoles_tbPantallas_Panta_Id" FromRole="tbPantallas" ToRole="tbPantallasPorRoles" />
+        </EntityType>
+        <EntityType Name="tbPantallasPorRole">
+          <Key>
+            <PropertyRef Name="Papro_Id" />
+          </Key>
+          <Property Name="Papro_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Panta_Id" Type="Int32" Nullable="false" />
+          <Property Name="Roles_Id" Type="Int32" Nullable="false" />
+          <Property Name="Papro_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Papro_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Papro_UsuarioModificacion" Type="Int32" />
+          <Property Name="Papro_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Papro_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbPantalla" Relationship="Self.FK_tbPantallasPorRoles_tbPantallas_Panta_Id" FromRole="tbPantallasPorRoles" ToRole="tbPantallas" />
+          <NavigationProperty Name="tbRole" Relationship="Self.FK_tbPantallasPorRoles_tbRoles_Roles_Id" FromRole="tbPantallasPorRoles" ToRole="tbRoles" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbPantallasPorRoles" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbPantallasPorRoles" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbRole">
+          <Key>
+            <PropertyRef Name="Roles_Id" />
+          </Key>
+          <Property Name="Roles_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Roles_Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbPantallasPorRoles" Relationship="Self.FK_tbPantallasPorRoles_tbRoles_Roles_Id" FromRole="tbRoles" ToRole="tbPantallasPorRoles" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbUsuarios_tbRoles_Roles_Id" FromRole="tbRoles" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbUsuario">
+          <Key>
+            <PropertyRef Name="Usuar_Id" />
+          </Key>
+          <Property Name="Usuar_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuar_Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuar_Contrasena" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuar_Correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Usuar_UltimaSesion" Type="DateTime" Precision="3" />
+          <Property Name="Instr_Id" Type="Int32" Nullable="false" />
+          <Property Name="Roles_Id" Type="Int32" Nullable="false" />
+          <Property Name="Usuar_Admin" Type="Boolean" />
+          <Property Name="Usuar_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Usuar_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuar_UsuarioModificacion" Type="Int32" />
+          <Property Name="Usuar_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Usuar_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbAlumnos" Relationship="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbAlumnos" />
+          <NavigationProperty Name="tbAlumnos1" Relationship="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbAlumnos" />
+          <NavigationProperty Name="tbCursos" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCursos" />
+          <NavigationProperty Name="tbCursos1" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCursos" />
+          <NavigationProperty Name="tbCursosPorGeneracions" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCursosPorGeneracion" />
+          <NavigationProperty Name="tbCursosPorGeneracions1" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCursosPorGeneracion" />
+          <NavigationProperty Name="tbGeneraciones" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbGeneraciones" />
+          <NavigationProperty Name="tbGeneraciones1" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbGeneraciones" />
+          <NavigationProperty Name="tbInstructores" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbInstructores" />
+          <NavigationProperty Name="tbInstructores1" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbInstructores" />
+          <NavigationProperty Name="tbInstructore" Relationship="Self.FK_tbUsuarios_tbInstructores_Instr_Id" FromRole="tbUsuarios" ToRole="tbInstructores" />
+          <NavigationProperty Name="tbInstructoresPorCursoPorGeneracions" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbInstructoresPorCursoPorGeneracion" />
+          <NavigationProperty Name="tbInstructoresPorCursoPorGeneracions1" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbInstructoresPorCursoPorGeneracion" />
+          <NavigationProperty Name="tbPantallas" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbPantallas" />
+          <NavigationProperty Name="tbPantallas1" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbPantallas" />
+          <NavigationProperty Name="tbPantallasPorRoles" Relationship="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbPantallasPorRoles" />
+          <NavigationProperty Name="tbPantallasPorRoles1" Relationship="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbPantallasPorRoles" />
+          <NavigationProperty Name="tbRole" Relationship="Self.FK_tbUsuarios_tbRoles_Roles_Id" FromRole="tbUsuarios" ToRole="tbRoles" />
+          <NavigationProperty Name="tbActividades" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbActividades" />
+          <NavigationProperty Name="tbActividades1" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbActividades" />
+          <NavigationProperty Name="tbActividadesPorCursoPorGeneracions" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbActividadesPorCursoPorGeneracion" />
+          <NavigationProperty Name="tbActividadesPorCursoPorGeneracions1" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbActividadesPorCursoPorGeneracion" />
+          <NavigationProperty Name="tbCalificaciones" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCalificaciones" />
+          <NavigationProperty Name="tbCalificaciones1" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCalificaciones" />
+          <NavigationProperty Name="tbDepartamentos" Relationship="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbDepartamentos" />
+          <NavigationProperty Name="tbDepartamentos1" Relationship="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbDepartamentos" />
+          <NavigationProperty Name="tbEstadosCiviles" Relationship="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbEstadosCiviles" />
+          <NavigationProperty Name="tbEstadosCiviles1" Relationship="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbEstadosCiviles" />
+          <NavigationProperty Name="tbMunicipios" Relationship="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbMunicipios" />
+          <NavigationProperty Name="tbMunicipios1" Relationship="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbMunicipios" />
+          <NavigationProperty Name="tbPersonas" Relationship="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbPersonas1" Relationship="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbUsuarios1" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion" FromRole="tbUsuarios1" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios11" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbUsuarios1" />
+          <NavigationProperty Name="tbUsuario2" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" FromRole="tbUsuarios1" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbActividade">
+          <Key>
+            <PropertyRef Name="Activ_Id" />
+          </Key>
+          <Property Name="Activ_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Activ_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Activ_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Activ_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Activ_UsuarioModificacion" Type="Int32" />
+          <Property Name="Activ_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Activ_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" FromRole="tbActividades" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" FromRole="tbActividades" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbActividadesPorCursoPorGeneracions" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividades" ToRole="tbActividadesPorCursoPorGeneracion" />
+        </EntityType>
+        <EntityType Name="tbActividadesPorCursoPorGeneracion">
+          <Key>
+            <PropertyRef Name="ActCG_Id" />
+          </Key>
+          <Property Name="ActCG_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Activ_Id" Type="Int32" Nullable="false" />
+          <Property Name="CuGen_Id" Type="Int32" Nullable="false" />
+          <Property Name="ActCG_Nota" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="ActCG_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="ActCG_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ActCG_UsuarioModificacion" Type="Int32" />
+          <Property Name="ActCG_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="ActCG_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbCursosPorGeneracion" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbActividade" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbActividades" />
+        </EntityType>
+        <EntityType Name="tbCalificacione">
+          <Key>
+            <PropertyRef Name="Calif_Id" />
+          </Key>
+          <Property Name="Calif_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CuGen_Id" Type="Int32" Nullable="false" />
+          <Property Name="Alumn_Id" Type="Int32" Nullable="false" />
+          <Property Name="Calif_Nota" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="Calif_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Calif_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Calif_UsuarioModificacion" Type="Int32" />
+          <Property Name="Calif_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Calif_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbAlumno" Relationship="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id" FromRole="tbCalificaciones" ToRole="tbAlumnos" />
+          <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCalificaciones" ToRole="tbCursosPorGeneracion" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbDepartamento">
+          <Key>
+            <PropertyRef Name="Depar_Id" />
+          </Key>
+          <Property Name="Depar_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Depar_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Depar_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Depar_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Depar_UsuarioModificacion" Type="Int32" />
+          <Property Name="Depar_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Depar_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" FromRole="tbDepartamentos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion" FromRole="tbDepartamentos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbMunicipios" Relationship="Self.FK_tbMunicipios_tbDepartamentos_Depar_Id" FromRole="tbDepartamentos" ToRole="tbMunicipios" />
+        </EntityType>
+        <EntityType Name="tbEstadosCivile">
+          <Key>
+            <PropertyRef Name="Estci_Id" />
+          </Key>
+          <Property Name="Estci_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estci_Descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estci_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Estci_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estci_UsuarioModificacion" Type="Int32" />
+          <Property Name="Estci_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Estci_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion" FromRole="tbEstadosCiviles" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion" FromRole="tbEstadosCiviles" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbPersonas" Relationship="Self.FK_tbPersonas_tbEstadosCiviles_Estci_Id" FromRole="tbEstadosCiviles" ToRole="tbPersonas" />
+        </EntityType>
+        <EntityType Name="tbMunicipio">
+          <Key>
+            <PropertyRef Name="Munic_Id" />
+          </Key>
+          <Property Name="Munic_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Munic_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Depar_Id" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Munic_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Munic_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Munic_UsuarioModificacion" Type="Int32" />
+          <Property Name="Munic_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Munic_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion" FromRole="tbMunicipios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion" FromRole="tbMunicipios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbDepartamento" Relationship="Self.FK_tbMunicipios_tbDepartamentos_Depar_Id" FromRole="tbMunicipios" ToRole="tbDepartamentos" />
+          <NavigationProperty Name="tbPersonas" Relationship="Self.FK_tbPersonas_tbMunicipios_Munic_Id" FromRole="tbMunicipios" ToRole="tbPersonas" />
+        </EntityType>
+        <EntityType Name="tbPersona">
+          <Key>
+            <PropertyRef Name="Perso_Id" />
+          </Key>
+          <Property Name="Perso_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Perso_Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Perso_PrimerNombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Perso_SegundoNombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Perso_PrimerApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Perso_SegundoApellido" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Perso_FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Perso_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Estci_Id" Type="Int32" Nullable="false" />
+          <Property Name="Perso_Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Munic_Id" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Perso_Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Perso_CorreoElectronico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Perso_UsuarioCreacion" Type="Int32" Nullable="false" />
+          <Property Name="Perso_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Perso_UsuarioModificacion" Type="Int32" />
+          <Property Name="Perso_FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Perso_Estado" Type="Boolean" />
+          <NavigationProperty Name="tbAlumno" Relationship="Self.FK_tbAlumnos_tbPersonas_Perso_Id" FromRole="tbPersonas" ToRole="tbAlumnos" />
+          <NavigationProperty Name="tbInstructore" Relationship="Self.FK_bInstructores_tbPersonas_Perso_Id" FromRole="tbPersonas" ToRole="tbInstructores" />
+          <NavigationProperty Name="tbUsuario" Relationship="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion" FromRole="tbPersonas" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuario1" Relationship="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion" FromRole="tbPersonas" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbEstadosCivile" Relationship="Self.FK_tbPersonas_tbEstadosCiviles_Estci_Id" FromRole="tbPersonas" ToRole="tbEstadosCiviles" />
+          <NavigationProperty Name="tbMunicipio" Relationship="Self.FK_tbPersonas_tbMunicipios_Munic_Id" FromRole="tbPersonas" ToRole="tbMunicipios" />
+        </EntityType>
+        <Association Name="FK_tbAlumnos_tbPersonas_Perso_Id">
+          <End Role="tbPersonas" Type="Self.tbPersona" Multiplicity="1" />
+          <End Role="tbAlumnos" Type="Self.tbAlumno" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbPersonas">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbAlumnos">
+              <PropertyRef Name="Perso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbAlumnos" Type="Self.tbAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbAlumnos">
+              <PropertyRef Name="Alumn_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbAlumnos" Type="Self.tbAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbAlumnos">
+              <PropertyRef Name="Alumn_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id">
+          <End Role="tbAlumnos" Type="Self.tbAlumno" Multiplicity="1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAlumnos">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="Alumn_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbCursos" Type="Self.tbCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursos">
+              <PropertyRef Name="Curso_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbCursos" Type="Self.tbCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursos">
+              <PropertyRef Name="Curso_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
+          <End Role="tbCursos" Type="Self.tbCurso" Multiplicity="1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursos">
+              <PropertyRef Name="Curso_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="Curso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="CuGen_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
+          <End Role="tbGeneraciones" Type="Self.tbGeneracione" Multiplicity="1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbGeneraciones">
+              <PropertyRef Name="Gener_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="Gener_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCursosPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="CuGen_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbGeneraciones" Type="Self.tbGeneracione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbGeneraciones">
+              <PropertyRef Name="Gener_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbGeneraciones" Type="Self.tbGeneracione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbGeneraciones">
+              <PropertyRef Name="Gener_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bInstructores_tbPersonas_Perso_Id">
+          <End Role="tbPersonas" Type="Self.tbPersona" Multiplicity="1" />
+          <End Role="tbInstructores" Type="Self.tbInstructore" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbPersonas">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbInstructores">
+              <PropertyRef Name="Perso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbInstructores" Type="Self.tbInstructore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructores">
+              <PropertyRef Name="Instr_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbInstructores" Type="Self.tbInstructore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructores">
+              <PropertyRef Name="Instr_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
+          <End Role="tbInstructores" Type="Self.tbInstructore" Multiplicity="1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInstructores">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="Instr_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbInstructores_Instr_Id">
+          <End Role="tbInstructores" Type="Self.tbInstructore" Multiplicity="1" />
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbInstructores">
+              <PropertyRef Name="Perso_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios">
+              <PropertyRef Name="Instr_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="InsCG_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+              <PropertyRef Name="InsCG_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbPantallas" Type="Self.tbPantalla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallas">
+              <PropertyRef Name="Panta_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbPantallas" Type="Self.tbPantalla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallas">
+              <PropertyRef Name="Panta_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbPantallas_Panta_Id">
+          <End Role="tbPantallas" Type="Self.tbPantalla" Multiplicity="1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPantallas">
+              <PropertyRef Name="Panta_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Panta_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbRoles_Roles_Id">
+          <End Role="tbRoles" Type="Self.tbRole" Multiplicity="1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="Roles_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Roles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Papro_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbPantallasPorRoles" Type="Self.tbPantallasPorRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPantallasPorRoles">
+              <PropertyRef Name="Papro_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbRoles_Roles_Id">
+          <End Role="tbRoles" Type="Self.tbRole" Multiplicity="1" />
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="Roles_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios">
+              <PropertyRef Name="Roles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbActividades" Type="Self.tbActividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividades">
+              <PropertyRef Name="Activ_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbActividades" Type="Self.tbActividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividades">
+              <PropertyRef Name="Activ_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="ActCG_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="ActCG_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="Calif_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbCalificaciones" Type="Self.tbCalificacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="Calif_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbDepartamentos" Type="Self.tbDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbDepartamentos">
+              <PropertyRef Name="Depar_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbDepartamentos" Type="Self.tbDepartamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbDepartamentos">
+              <PropertyRef Name="Depar_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbEstadosCiviles" Type="Self.tbEstadosCivile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbEstadosCiviles">
+              <PropertyRef Name="Estci_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbEstadosCiviles" Type="Self.tbEstadosCivile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbEstadosCiviles">
+              <PropertyRef Name="Estci_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbMunicipios" Type="Self.tbMunicipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbMunicipios">
+              <PropertyRef Name="Munic_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbMunicipios" Type="Self.tbMunicipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbMunicipios">
+              <PropertyRef Name="Munic_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Perso_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbPersonas" Type="Self.tbPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Perso_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="1" />
+          <End Role="tbUsuarios1" Type="Self.tbUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios1">
+              <PropertyRef Name="Usuar_UsuarioCreacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion">
+          <End Role="tbUsuarios" Type="Self.tbUsuario" Multiplicity="0..1" />
+          <End Role="tbUsuarios1" Type="Self.tbUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="Usuar_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios1">
+              <PropertyRef Name="Usuar_UsuarioModificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
+          <End Role="tbActividades" Type="Self.tbActividade" Multiplicity="1" />
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividades">
+              <PropertyRef Name="Activ_Id" />
+            </Principal>
+            <Dependent Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="Activ_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbMunicipios_tbDepartamentos_Depar_Id">
+          <End Role="tbDepartamentos" Type="Self.tbDepartamento" Multiplicity="1" />
+          <End Role="tbMunicipios" Type="Self.tbMunicipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbDepartamentos">
+              <PropertyRef Name="Depar_Id" />
+            </Principal>
+            <Dependent Role="tbMunicipios">
+              <PropertyRef Name="Depar_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbEstadosCiviles_Estci_Id">
+          <End Role="tbEstadosCiviles" Type="Self.tbEstadosCivile" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbEstadosCiviles">
+              <PropertyRef Name="Estci_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Estci_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPersonas_tbMunicipios_Munic_Id">
+          <End Role="tbMunicipios" Type="Self.tbMunicipio" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMunicipios">
+              <PropertyRef Name="Munic_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="Munic_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbAcademiaProgramadoresEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumno" />
+          <EntitySet Name="tbCursos" EntityType="Self.tbCurso" />
+          <EntitySet Name="tbCursosPorGeneracions" EntityType="Self.tbCursosPorGeneracion" />
+          <EntitySet Name="tbGeneraciones" EntityType="Self.tbGeneracione" />
+          <EntitySet Name="tbInstructores" EntityType="Self.tbInstructore" />
+          <EntitySet Name="tbInstructoresPorCursoPorGeneracions" EntityType="Self.tbInstructoresPorCursoPorGeneracion" />
+          <EntitySet Name="tbPantallas" EntityType="Self.tbPantalla" />
+          <EntitySet Name="tbPantallasPorRoles" EntityType="Self.tbPantallasPorRole" />
+          <EntitySet Name="tbRoles" EntityType="Self.tbRole" />
+          <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuario" />
+          <EntitySet Name="tbActividades" EntityType="Self.tbActividade" />
+          <EntitySet Name="tbActividadesPorCursoPorGeneracions" EntityType="Self.tbActividadesPorCursoPorGeneracion" />
+          <EntitySet Name="tbCalificaciones" EntityType="Self.tbCalificacione" />
+          <EntitySet Name="tbDepartamentos" EntityType="Self.tbDepartamento" />
+          <EntitySet Name="tbEstadosCiviles" EntityType="Self.tbEstadosCivile" />
+          <EntitySet Name="tbMunicipios" EntityType="Self.tbMunicipio" />
+          <EntitySet Name="tbPersonas" EntityType="Self.tbPersona" />
+          <AssociationSet Name="FK_tbAlumnos_tbPersonas_Perso_Id" Association="Self.FK_tbAlumnos_tbPersonas_Perso_Id">
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion" Association="Self.FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id" Association="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id">
+            <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursos" EntitySet="tbCursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursos" EntitySet="tbCursos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id" Association="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
+            <End Role="tbCursos" EntitySet="tbCursos" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" Association="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
+            <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
+            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracions" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bInstructores_tbPersonas_Perso_Id" Association="Self.FK_bInstructores_tbPersonas_Perso_Id">
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" Association="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" Association="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbInstructores_Instr_Id" Association="Self.FK_tbUsuarios_tbInstructores_Instr_Id">
+            <End Role="tbInstructores" EntitySet="tbInstructores" />
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallas" EntitySet="tbPantallas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" Association="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallas" EntitySet="tbPantallas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbPantallas_Panta_Id" Association="Self.FK_tbPantallasPorRoles_tbPantallas_Panta_Id">
+            <End Role="tbPantallas" EntitySet="tbPantallas" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbRoles_Roles_Id" Association="Self.FK_tbPantallasPorRoles_tbRoles_Roles_Id">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion" Association="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPantallasPorRoles" EntitySet="tbPantallasPorRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbRoles_Roles_Id" Association="Self.FK_tbUsuarios_tbRoles_Roles_Id">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" Association="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividades" EntitySet="tbActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" Association="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividades" EntitySet="tbActividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" Association="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion" Association="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion" Association="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbEstadosCiviles" EntitySet="tbEstadosCiviles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion" Association="Self.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbEstadosCiviles" EntitySet="tbEstadosCiviles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion" Association="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion" Association="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion" Association="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion" Association="Self.FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion" Association="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" Association="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
+            <End Role="tbActividades" EntitySet="tbActividades" />
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbMunicipios_tbDepartamentos_Depar_Id" Association="Self.FK_tbMunicipios_tbDepartamentos_Depar_Id">
+            <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbEstadosCiviles_Estci_Id" Association="Self.FK_tbPersonas_tbEstadosCiviles_Estci_Id">
+            <End Role="tbEstadosCiviles" EntitySet="tbEstadosCiviles" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPersonas_tbMunicipios_Munic_Id" Association="Self.FK_tbPersonas_tbMunicipios_Munic_Id">
+            <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbAcademiaProgramadoresModelStoreContainer" CdmEntityContainer="dbAcademiaProgramadoresEntities">
+          <EntitySetMapping Name="tbAlumnos">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbAlumno">
+              <MappingFragment StoreEntitySet="tbAlumnos">
+                <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+                <ScalarProperty Name="Alumn_ColegioEgresion" ColumnName="Alumn_ColegioEgresion" />
+                <ScalarProperty Name="Alumn_Universidad" ColumnName="Alumn_Universidad" />
+                <ScalarProperty Name="Alumn_Telefono" ColumnName="Alumn_Telefono" />
+                <ScalarProperty Name="Alumn_CorreoElectronico" ColumnName="Alumn_CorreoElectronico" />
+                <ScalarProperty Name="Alumn_TituloEgresion" ColumnName="Alumn_TituloEgresion" />
+                <ScalarProperty Name="Alumn_UsuarioCreacion" ColumnName="Alumn_UsuarioCreacion" />
+                <ScalarProperty Name="Alumn_FechaCreacion" ColumnName="Alumn_FechaCreacion" />
+                <ScalarProperty Name="Alumn_UsuarioModificacion" ColumnName="Alumn_UsuarioModificacion" />
+                <ScalarProperty Name="Alumn_FechaModificacion" ColumnName="Alumn_FechaModificacion" />
+                <ScalarProperty Name="Alumn_Estado" ColumnName="Alumn_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCursos">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCurso">
+              <MappingFragment StoreEntitySet="tbCursos">
+                <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+                <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
+                <ScalarProperty Name="Curso_UsuarioCreacion" ColumnName="Curso_UsuarioCreacion" />
+                <ScalarProperty Name="Curso_FechaCreacion" ColumnName="Curso_FechaCreacion" />
+                <ScalarProperty Name="Curso_UsuarioModificacion" ColumnName="Curso_UsuarioModificacion" />
+                <ScalarProperty Name="Curso_FechaModificacion" ColumnName="Curso_FechaModificacion" />
+                <ScalarProperty Name="Curso_Estado" ColumnName="Curso_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCursosPorGeneracions">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCursosPorGeneracion">
+              <MappingFragment StoreEntitySet="tbCursosPorGeneracion">
+                <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
+                <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+                <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+                <ScalarProperty Name="CuGen_UsuarioCreacion" ColumnName="CuGen_UsuarioCreacion" />
+                <ScalarProperty Name="CuGen_FechaCreacion" ColumnName="CuGen_FechaCreacion" />
+                <ScalarProperty Name="CuGen_UsuarioModificacion" ColumnName="CuGen_UsuarioModificacion" />
+                <ScalarProperty Name="CuGen_FechaModificacion" ColumnName="CuGen_FechaModificacion" />
+                <ScalarProperty Name="CuGen_Estado" ColumnName="CuGen_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbGeneraciones">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbGeneracione">
+              <MappingFragment StoreEntitySet="tbGeneraciones">
+                <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+                <ScalarProperty Name="Gener_Nombre" ColumnName="Gener_Nombre" />
+                <ScalarProperty Name="Gener_Anhio" ColumnName="Gener_Anhio" />
+                <ScalarProperty Name="Gener_UsuarioCreacion" ColumnName="Gener_UsuarioCreacion" />
+                <ScalarProperty Name="Gener_FechaCreacion" ColumnName="Gener_FechaCreacion" />
+                <ScalarProperty Name="Gener_UsuarioModificacion" ColumnName="Gener_UsuarioModificacion" />
+                <ScalarProperty Name="Gener_FechaModificacion" ColumnName="Gener_FechaModificacion" />
+                <ScalarProperty Name="Gener_Estado" ColumnName="Gener_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbInstructores">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructore">
+              <MappingFragment StoreEntitySet="tbInstructores">
+                <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+                <ScalarProperty Name="Instr_Telefono" ColumnName="Instr_Telefono" />
+                <ScalarProperty Name="Instr_CorreoElectronico" ColumnName="Instr_CorreoElectronico" />
+                <ScalarProperty Name="Instr_Pregrado" ColumnName="Instr_Pregrado" />
+                <ScalarProperty Name="Instr_Posgrado" ColumnName="Instr_Posgrado" />
+                <ScalarProperty Name="Instr_UsuarioCreacion" ColumnName="Instr_UsuarioCreacion" />
+                <ScalarProperty Name="Instr_FechaCreacion" ColumnName="Instr_FechaCreacion" />
+                <ScalarProperty Name="Instr_UsuarioModificacion" ColumnName="Instr_UsuarioModificacion" />
+                <ScalarProperty Name="Instr_FechaModificacion" ColumnName="Instr_FechaModificacion" />
+                <ScalarProperty Name="Instr_Estado" ColumnName="Instr_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbInstructoresPorCursoPorGeneracions">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion">
+              <MappingFragment StoreEntitySet="tbInstructoresPorCursoPorGeneracion">
+                <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
+                <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
+                <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
+                <ScalarProperty Name="InsCG_UsuarioCreacion" ColumnName="InsCG_UsuarioCreacion" />
+                <ScalarProperty Name="InsCG_FechaCreacion" ColumnName="InsCG_FechaCreacion" />
+                <ScalarProperty Name="InsCG_UsuarioModificacion" ColumnName="InsCG_UsuarioModificacion" />
+                <ScalarProperty Name="InsCG_FechaModificacion" ColumnName="InsCG_FechaModificacion" />
+                <ScalarProperty Name="InsCG_Estado" ColumnName="InsCG_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPantallas">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantalla">
+              <MappingFragment StoreEntitySet="tbPantallas">
+                <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
+                <ScalarProperty Name="Panta_Descripcion" ColumnName="Panta_Descripcion" />
+                <ScalarProperty Name="Panta_UsuarioCreacion" ColumnName="Panta_UsuarioCreacion" />
+                <ScalarProperty Name="Panta_FechaCreacion" ColumnName="Panta_FechaCreacion" />
+                <ScalarProperty Name="Panta_UsuarioModificacion" ColumnName="Panta_UsuarioModificacion" />
+                <ScalarProperty Name="Panta_FechaModificacion" ColumnName="Panta_FechaModificacion" />
+                <ScalarProperty Name="Panta_Estado" ColumnName="Panta_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPantallasPorRoles">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantallasPorRole">
+              <MappingFragment StoreEntitySet="tbPantallasPorRoles">
+                <ScalarProperty Name="Papro_Id" ColumnName="Papro_Id" />
+                <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
+                <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
+                <ScalarProperty Name="Papro_UsuarioCreacion" ColumnName="Papro_UsuarioCreacion" />
+                <ScalarProperty Name="Papro_FechaCreacion" ColumnName="Papro_FechaCreacion" />
+                <ScalarProperty Name="Papro_UsuarioModificacion" ColumnName="Papro_UsuarioModificacion" />
+                <ScalarProperty Name="Papro_FechaModificacion" ColumnName="Papro_FechaModificacion" />
+                <ScalarProperty Name="Papro_Estado" ColumnName="Papro_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbRoles">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbRole">
+              <MappingFragment StoreEntitySet="tbRoles">
+                <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
+                <ScalarProperty Name="Roles_Descripcion" ColumnName="Roles_Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUsuarios">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbUsuario">
+              <MappingFragment StoreEntitySet="tbUsuarios">
+                <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
+                <ScalarProperty Name="Usuar_Usuario" ColumnName="Usuar_Usuario" />
+                <ScalarProperty Name="Usuar_Contrasena" ColumnName="Usuar_Contrasena" />
+                <ScalarProperty Name="Usuar_Correo" ColumnName="Usuar_Correo" />
+                <ScalarProperty Name="Usuar_UltimaSesion" ColumnName="Usuar_UltimaSesion" />
+                <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
+                <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
+                <ScalarProperty Name="Usuar_Admin" ColumnName="Usuar_Admin" />
+                <ScalarProperty Name="Usuar_UsuarioCreacion" ColumnName="Usuar_UsuarioCreacion" />
+                <ScalarProperty Name="Usuar_FechaCreacion" ColumnName="Usuar_FechaCreacion" />
+                <ScalarProperty Name="Usuar_UsuarioModificacion" ColumnName="Usuar_UsuarioModificacion" />
+                <ScalarProperty Name="Usuar_FechaModificacion" ColumnName="Usuar_FechaModificacion" />
+                <ScalarProperty Name="Usuar_Estado" ColumnName="Usuar_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActividades">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividade">
+              <MappingFragment StoreEntitySet="tbActividades">
+                <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
+                <ScalarProperty Name="Activ_Nombre" ColumnName="Activ_Nombre" />
+                <ScalarProperty Name="Activ_UsuarioCreacion" ColumnName="Activ_UsuarioCreacion" />
+                <ScalarProperty Name="Activ_FechaCreacion" ColumnName="Activ_FechaCreacion" />
+                <ScalarProperty Name="Activ_UsuarioModificacion" ColumnName="Activ_UsuarioModificacion" />
+                <ScalarProperty Name="Activ_FechaModificacion" ColumnName="Activ_FechaModificacion" />
+                <ScalarProperty Name="Activ_Estado" ColumnName="Activ_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbActividadesPorCursoPorGeneracions">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion">
+              <MappingFragment StoreEntitySet="tbActividadesPorCursoPorGeneracion">
+                <ScalarProperty Name="ActCG_Id" ColumnName="ActCG_Id" />
+                <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
+                <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
+                <ScalarProperty Name="ActCG_Nota" ColumnName="ActCG_Nota" />
+                <ScalarProperty Name="ActCG_UsuarioCreacion" ColumnName="ActCG_UsuarioCreacion" />
+                <ScalarProperty Name="ActCG_FechaCreacion" ColumnName="ActCG_FechaCreacion" />
+                <ScalarProperty Name="ActCG_UsuarioModificacion" ColumnName="ActCG_UsuarioModificacion" />
+                <ScalarProperty Name="ActCG_FechaModificacion" ColumnName="ActCG_FechaModificacion" />
+                <ScalarProperty Name="ActCG_Estado" ColumnName="ActCG_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCalificaciones">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificacione">
+              <MappingFragment StoreEntitySet="tbCalificaciones">
+                <ScalarProperty Name="Calif_Id" ColumnName="Calif_Id" />
+                <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
+                <ScalarProperty Name="Alumn_Id" ColumnName="Alumn_Id" />
+                <ScalarProperty Name="Calif_Nota" ColumnName="Calif_Nota" />
+                <ScalarProperty Name="Calif_UsuarioCreacion" ColumnName="Calif_UsuarioCreacion" />
+                <ScalarProperty Name="Calif_FechaCreacion" ColumnName="Calif_FechaCreacion" />
+                <ScalarProperty Name="Calif_UsuarioModificacion" ColumnName="Calif_UsuarioModificacion" />
+                <ScalarProperty Name="Calif_FechaModificacion" ColumnName="Calif_FechaModificacion" />
+                <ScalarProperty Name="Calif_Estado" ColumnName="Calif_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbDepartamentos">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbDepartamento">
+              <MappingFragment StoreEntitySet="tbDepartamentos">
+                <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
+                <ScalarProperty Name="Depar_Descripcion" ColumnName="Depar_Descripcion" />
+                <ScalarProperty Name="Depar_UsuarioCreacion" ColumnName="Depar_UsuarioCreacion" />
+                <ScalarProperty Name="Depar_FechaCreacion" ColumnName="Depar_FechaCreacion" />
+                <ScalarProperty Name="Depar_UsuarioModificacion" ColumnName="Depar_UsuarioModificacion" />
+                <ScalarProperty Name="Depar_FechaModificacion" ColumnName="Depar_FechaModificacion" />
+                <ScalarProperty Name="Depar_Estado" ColumnName="Depar_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbEstadosCiviles">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbEstadosCivile">
+              <MappingFragment StoreEntitySet="tbEstadosCiviles">
+                <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
+                <ScalarProperty Name="Estci_Descripcion" ColumnName="Estci_Descripcion" />
+                <ScalarProperty Name="Estci_UsuarioCreacion" ColumnName="Estci_UsuarioCreacion" />
+                <ScalarProperty Name="Estci_FechaCreacion" ColumnName="Estci_FechaCreacion" />
+                <ScalarProperty Name="Estci_UsuarioModificacion" ColumnName="Estci_UsuarioModificacion" />
+                <ScalarProperty Name="Estci_FechaModificacion" ColumnName="Estci_FechaModificacion" />
+                <ScalarProperty Name="Estci_Estado" ColumnName="Estci_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMunicipios">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbMunicipio">
+              <MappingFragment StoreEntitySet="tbMunicipios">
+                <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+                <ScalarProperty Name="Munic_Descripcion" ColumnName="Munic_Descripcion" />
+                <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
+                <ScalarProperty Name="Munic_UsuarioCreacion" ColumnName="Munic_UsuarioCreacion" />
+                <ScalarProperty Name="Munic_FechaCreacion" ColumnName="Munic_FechaCreacion" />
+                <ScalarProperty Name="Munic_UsuarioModificacion" ColumnName="Munic_UsuarioModificacion" />
+                <ScalarProperty Name="Munic_FechaModificacion" ColumnName="Munic_FechaModificacion" />
+                <ScalarProperty Name="Munic_Estado" ColumnName="Munic_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPersonas">
+            <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPersona">
+              <MappingFragment StoreEntitySet="tbPersonas">
+                <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+                <ScalarProperty Name="Perso_Tipo" ColumnName="Perso_Tipo" />
+                <ScalarProperty Name="Perso_PrimerNombre" ColumnName="Perso_PrimerNombre" />
+                <ScalarProperty Name="Perso_SegundoNombre" ColumnName="Perso_SegundoNombre" />
+                <ScalarProperty Name="Perso_PrimerApellido" ColumnName="Perso_PrimerApellido" />
+                <ScalarProperty Name="Perso_SegundoApellido" ColumnName="Perso_SegundoApellido" />
+                <ScalarProperty Name="Perso_FechaNacimiento" ColumnName="Perso_FechaNacimiento" />
+                <ScalarProperty Name="Perso_Sexo" ColumnName="Perso_Sexo" />
+                <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
+                <ScalarProperty Name="Perso_Direccion" ColumnName="Perso_Direccion" />
+                <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+                <ScalarProperty Name="Perso_Telefono" ColumnName="Perso_Telefono" />
+                <ScalarProperty Name="Perso_CorreoElectronico" ColumnName="Perso_CorreoElectronico" />
+                <ScalarProperty Name="Perso_UsuarioCreacion" ColumnName="Perso_UsuarioCreacion" />
+                <ScalarProperty Name="Perso_FechaCreacion" ColumnName="Perso_FechaCreacion" />
+                <ScalarProperty Name="Perso_UsuarioModificacion" ColumnName="Perso_UsuarioModificacion" />
+                <ScalarProperty Name="Perso_FechaModificacion" ColumnName="Perso_FechaModificacion" />
+                <ScalarProperty Name="Perso_Estado" ColumnName="Perso_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

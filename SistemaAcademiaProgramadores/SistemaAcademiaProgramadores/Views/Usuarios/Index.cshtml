@@ -1,0 +1,99 @@
+﻿@model IEnumerable<SistemaAcademiaProgramadores.Models.tbUsuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_Usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_Contrasena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_Correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_UltimaSesion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_Admin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_FechaCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_FechaModificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuar_Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbInstructore.Instr_Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbRole.Roles_Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbUsuario1.Usuar_Usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbUsuario2.Usuar_Usuario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_Usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_Contrasena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_Correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_UltimaSesion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_Admin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_FechaCreacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_FechaModificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuar_Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbInstructore.Instr_Telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbRole.Roles_Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbUsuario1.Usuar_Usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbUsuario2.Usuar_Usuario)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Usuar_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Usuar_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Usuar_Id })
+        </td>
+    </tr>
+}
+
+</table>
