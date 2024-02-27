@@ -37,7 +37,7 @@ CREATE TABLE Acces.tbPantallasPorRoles(
 	Papro_Id INT IDENTITY(1,1) NOT NULL,
 	Panta_Id INT NOT NULL,
 	Roles_Id INT NOT NULL,
-	CONSTRAINT PK_tbPantallasporRoles_Paxro_Id PRIMARY KEY(Papro_Id),
+	CONSTRAINT PK_tbPantallasPorRoles_Paxro_Id PRIMARY KEY(Papro_Id),
 	CONSTRAINT FK_tbPantallasPorRoles_tbPantallas_Panta_Id FOREIGN KEY(Panta_Id) REFERENCES Acces.tbPantallas(Panta_Id),
 	CONSTRAINT FK_tbPantallasPorRoles_tbRoles_Roles_Id FOREIGN KEY(Roles_Id) REFERENCES Acces.tbRoles(Roles_Id)
 )
