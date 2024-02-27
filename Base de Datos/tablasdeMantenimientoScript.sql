@@ -3,10 +3,12 @@ USE dbAcademiaProgramadores
 GO
 CREATE SCHEMA Mante
 GO
+ALTER TABLE Mante.tbDepartamentos
+ADD CONSTRAINT PK_tbDepartamentos_Depar_Id PRIMARY KEY(Depar_Id)
 CREATE TABLE Mante.tbDepartamentos(
 	[Depar_Id] [char](2) NOT NULL,
 	[Depar_Descripcion] [varchar](50) NOT NULL,
-	CONSTRAINT PK_tbDepartamentos_Depar_Id UNIQUE(Depar_Id),
+	CONSTRAINT PK_tbDepartamentos_Depar_Id PRIMARY KEY(Depar_Id),
 	CONSTRAINT UQ_tbDepartamentos_Depar_Descripcion UNIQUE(Depar_Descripcion),
 
 	[Depar_UsuarioCreacion] [int] NOT NULL,
@@ -18,6 +20,8 @@ CREATE TABLE Mante.tbDepartamentos(
 	CONSTRAINT FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion FOREIGN KEY(Depar_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 )
 GO
+ALTER TABLE Mante.tbMunicipios
+ADD CONSTRAINT FK_tbMunicipios_tbDepartamentos_Depar_Id FOREIGN KEY(Depar_Id) REFERENCES Mante.tbDepartamentos(Depar_Id)
 CREATE TABLE Mante.tbMunicipios(
 	[Munic_Id] [char](4) NOT NULL,
 	[Munic_Descripcion] [varchar](50) NOT NULL,
