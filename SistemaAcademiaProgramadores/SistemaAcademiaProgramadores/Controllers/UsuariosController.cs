@@ -132,6 +132,11 @@ namespace SistemaAcademiaProgramadores.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult CerrarSesion()
+        {
+            Session.Remove("Usuario");
+            return RedirectToAction("Login");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

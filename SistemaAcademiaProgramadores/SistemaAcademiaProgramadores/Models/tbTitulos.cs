@@ -12,27 +12,28 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbGeneraciones
+    public partial class tbTitulos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbGeneraciones()
+        public tbTitulos()
         {
-            this.tbCursosPorGeneracion = new HashSet<tbCursosPorGeneracion>();
+            this.tbAlumnos = new HashSet<tbAlumnos>();
+            this.tbInstructores = new HashSet<tbInstructores>();
         }
     
-        public int Gener_Id { get; set; }
-        public string Gener_Nombre { get; set; }
-        public int Gener_Anhio { get; set; }
-        public int Gener_UsuarioCreacion { get; set; }
-        public System.DateTime Gener_FechaCreacion { get; set; }
-        public Nullable<int> Gener_UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> Gener_FechaModificacion { get; set; }
-        public bool Gener_Estado { get; set; }
-        public System.DateTime Gener_FechaInicio { get; set; }
-        public Nullable<System.DateTime> Gener_FechaFin { get; set; }
+        public int Titul_Id { get; set; }
+        public string Titul_Nombre { get; set; }
+        public string Titul_Tipo { get; set; }
+        public int Titul_UsuarioCreacion { get; set; }
+        public System.DateTime Titul_FechaCreacion { get; set; }
+        public Nullable<int> Titul_UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> Titul_FechaModificacion { get; set; }
+        public bool Titul_Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracion { get; set; }
+        public virtual ICollection<tbAlumnos> tbAlumnos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInstructores> tbInstructores { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
     }
