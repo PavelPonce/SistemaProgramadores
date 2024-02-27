@@ -8,6 +8,32 @@ namespace SistemaAcademiaProgramadores
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //////////////////////// INSPINIA BUNDLES /////////////////////////
+            bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/css/bootstrap.min.css").Include(
+                      "~/Content/HTML5_Full_Version/css/bootstrap.min.css"));
+            bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css").Include(
+                      "~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css"));
+            bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/css/animate.css").Include(
+                      "~/Content/HTML5_Full_Version/css/animate.css"));
+            bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/css/style.css").Include(
+                      "~/Content/HTML5_Full_Version/css/style.css")); 
+            
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js").Include(
+                        "~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/popper.min.js").Include(
+            "~/Content/HTML5_Full_Version/js/popper.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/bootstrap.js").Include(
+            "~/Content/HTML5_Full_Version/js/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/plugins/metisMenu/jquery.metisMenu.js").Include(
+            "~/Content/HTML5_Full_Version/js/plugins/metisMenu/jquery.metisMenu.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/plugins/slimscroll/jquery.slimscroll.min.js").Include(
+            "~/Content/HTML5_Full_Version/js/plugins/slimscroll/jquery.slimscroll.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/inspinia.js").Include(
+            "~/Content/HTML5_Full_Version/js/inspinia.js"));
+            bundles.Add(new ScriptBundle("~/bundles/Content/HTML5_Full_Version/js/plugins/pace/pace.min.js").Include(
+            "~/Content/HTML5_Full_Version/js/plugins/pace/pace.min.js"));
+            //////////////////////// INSPINIA BUNDLES /////////////////////////
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
