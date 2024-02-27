@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="dbAcademiaProgramadoresModelStoreContainer" CdmEntityContainer="dbAcademiaProgramadoresEntities">
+  <EntityContainerMapping StorageEntityContainer="dbAcademiaProgramadoresModelStoreContainer" CdmEntityContainer="dbAcademiaProgramadoresEntities1">
     <EntitySetMapping Name="tbAlumnos">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbAlumno">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbAlumnos">
         <MappingFragment StoreEntitySet="tbAlumnos">
           <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
           <ScalarProperty Name="Alumn_ColegioEgresion" ColumnName="Alumn_ColegioEgresion" />
@@ -19,7 +19,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbCursos">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCurso">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCursos">
         <MappingFragment StoreEntitySet="tbCursos">
           <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
           <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
@@ -31,7 +31,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbCursosPorGeneracions">
+    <EntitySetMapping Name="tbCursosPorGeneracion">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCursosPorGeneracion">
         <MappingFragment StoreEntitySet="tbCursosPorGeneracion">
           <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
@@ -46,7 +46,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbGeneraciones">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbGeneracione">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbGeneraciones">
         <MappingFragment StoreEntitySet="tbGeneraciones">
           <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
           <ScalarProperty Name="Gener_Nombre" ColumnName="Gener_Nombre" />
@@ -60,7 +60,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbInstructores">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructore">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructores">
         <MappingFragment StoreEntitySet="tbInstructores">
           <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
           <ScalarProperty Name="Instr_Telefono" ColumnName="Instr_Telefono" />
@@ -75,7 +75,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbInstructoresPorCursoPorGeneracions">
+    <EntitySetMapping Name="tbInstructoresPorCursoPorGeneracion">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion">
         <MappingFragment StoreEntitySet="tbInstructoresPorCursoPorGeneracion">
           <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
@@ -90,7 +90,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbPantallas">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantalla">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantallas">
         <MappingFragment StoreEntitySet="tbPantallas">
           <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
           <ScalarProperty Name="Panta_Descripcion" ColumnName="Panta_Descripcion" />
@@ -103,7 +103,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbPantallasPorRoles">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantallasPorRole">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantallasPorRoles">
         <MappingFragment StoreEntitySet="tbPantallasPorRoles">
           <ScalarProperty Name="Papro_Id" ColumnName="Papro_Id" />
           <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
@@ -117,7 +117,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbRoles">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbRole">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbRoles">
         <MappingFragment StoreEntitySet="tbRoles">
           <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
           <ScalarProperty Name="Roles_Descripcion" ColumnName="Roles_Descripcion" />
@@ -125,7 +125,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbUsuarios">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbUsuario">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbUsuarios">
         <MappingFragment StoreEntitySet="tbUsuarios">
           <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
           <ScalarProperty Name="Usuar_Usuario" ColumnName="Usuar_Usuario" />
@@ -144,7 +144,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbActividades">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividade">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividades">
         <MappingFragment StoreEntitySet="tbActividades">
           <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
           <ScalarProperty Name="Activ_Nombre" ColumnName="Activ_Nombre" />
@@ -156,7 +156,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbActividadesPorCursoPorGeneracions">
+    <EntitySetMapping Name="tbActividadesPorCursoPorGeneracion">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion">
         <MappingFragment StoreEntitySet="tbActividadesPorCursoPorGeneracion">
           <ScalarProperty Name="ActCG_Id" ColumnName="ActCG_Id" />
@@ -172,7 +172,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbCalificaciones">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificacione">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificaciones">
         <MappingFragment StoreEntitySet="tbCalificaciones">
           <ScalarProperty Name="Calif_Id" ColumnName="Calif_Id" />
           <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
@@ -187,7 +187,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbDepartamentos">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbDepartamento">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbDepartamentos">
         <MappingFragment StoreEntitySet="tbDepartamentos">
           <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
           <ScalarProperty Name="Depar_Descripcion" ColumnName="Depar_Descripcion" />
@@ -200,7 +200,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbEstadosCiviles">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbEstadosCivile">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbEstadosCiviles">
         <MappingFragment StoreEntitySet="tbEstadosCiviles">
           <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
           <ScalarProperty Name="Estci_Descripcion" ColumnName="Estci_Descripcion" />
@@ -213,7 +213,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbMunicipios">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbMunicipio">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbMunicipios">
         <MappingFragment StoreEntitySet="tbMunicipios">
           <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
           <ScalarProperty Name="Munic_Descripcion" ColumnName="Munic_Descripcion" />
@@ -227,7 +227,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbPersonas">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPersona">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPersonas">
         <MappingFragment StoreEntitySet="tbPersonas">
           <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
           <ScalarProperty Name="Perso_Tipo" ColumnName="Perso_Tipo" />

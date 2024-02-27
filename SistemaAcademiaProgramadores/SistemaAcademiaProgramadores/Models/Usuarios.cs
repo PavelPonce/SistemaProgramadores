@@ -7,7 +7,7 @@ using System.Web;
 namespace SistemaAcademiaProgramadores.Models
 {
     [MetadataType(typeof(UsuariosMetaData))]
-    public partial class tbUsuario
+    public partial class tbUsuarios
     {
 
     }
