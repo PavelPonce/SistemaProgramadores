@@ -12,43 +12,43 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbUsuario
+    public partial class tbUsuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbUsuario()
+        public tbUsuarios()
         {
-            this.tbAlumnos = new HashSet<tbAlumno>();
-            this.tbAlumnos1 = new HashSet<tbAlumno>();
-            this.tbCursos = new HashSet<tbCurso>();
-            this.tbCursos1 = new HashSet<tbCurso>();
-            this.tbCursosPorGeneracions = new HashSet<tbCursosPorGeneracion>();
-            this.tbCursosPorGeneracions1 = new HashSet<tbCursosPorGeneracion>();
-            this.tbGeneraciones = new HashSet<tbGeneracione>();
-            this.tbGeneraciones1 = new HashSet<tbGeneracione>();
-            this.tbInstructores = new HashSet<tbInstructore>();
-            this.tbInstructores1 = new HashSet<tbInstructore>();
-            this.tbInstructoresPorCursoPorGeneracions = new HashSet<tbInstructoresPorCursoPorGeneracion>();
-            this.tbInstructoresPorCursoPorGeneracions1 = new HashSet<tbInstructoresPorCursoPorGeneracion>();
-            this.tbPantallas = new HashSet<tbPantalla>();
-            this.tbPantallas1 = new HashSet<tbPantalla>();
-            this.tbPantallasPorRoles = new HashSet<tbPantallasPorRole>();
-            this.tbPantallasPorRoles1 = new HashSet<tbPantallasPorRole>();
-            this.tbActividades = new HashSet<tbActividade>();
-            this.tbActividades1 = new HashSet<tbActividade>();
-            this.tbActividadesPorCursoPorGeneracions = new HashSet<tbActividadesPorCursoPorGeneracion>();
-            this.tbActividadesPorCursoPorGeneracions1 = new HashSet<tbActividadesPorCursoPorGeneracion>();
-            this.tbCalificaciones = new HashSet<tbCalificacione>();
-            this.tbCalificaciones1 = new HashSet<tbCalificacione>();
-            this.tbDepartamentos = new HashSet<tbDepartamento>();
-            this.tbDepartamentos1 = new HashSet<tbDepartamento>();
-            this.tbEstadosCiviles = new HashSet<tbEstadosCivile>();
-            this.tbEstadosCiviles1 = new HashSet<tbEstadosCivile>();
-            this.tbMunicipios = new HashSet<tbMunicipio>();
-            this.tbMunicipios1 = new HashSet<tbMunicipio>();
-            this.tbPersonas = new HashSet<tbPersona>();
-            this.tbPersonas1 = new HashSet<tbPersona>();
-            this.tbUsuarios1 = new HashSet<tbUsuario>();
-            this.tbUsuarios11 = new HashSet<tbUsuario>();
+            this.tbAlumnos = new HashSet<tbAlumnos>();
+            this.tbAlumnos1 = new HashSet<tbAlumnos>();
+            this.tbCursos = new HashSet<tbCursos>();
+            this.tbCursos1 = new HashSet<tbCursos>();
+            this.tbCursosPorGeneracion = new HashSet<tbCursosPorGeneracion>();
+            this.tbCursosPorGeneracion1 = new HashSet<tbCursosPorGeneracion>();
+            this.tbGeneraciones = new HashSet<tbGeneraciones>();
+            this.tbGeneraciones1 = new HashSet<tbGeneraciones>();
+            this.tbInstructores = new HashSet<tbInstructores>();
+            this.tbInstructores1 = new HashSet<tbInstructores>();
+            this.tbInstructoresPorCursoPorGeneracion = new HashSet<tbInstructoresPorCursoPorGeneracion>();
+            this.tbInstructoresPorCursoPorGeneracion1 = new HashSet<tbInstructoresPorCursoPorGeneracion>();
+            this.tbPantallas = new HashSet<tbPantallas>();
+            this.tbPantallas1 = new HashSet<tbPantallas>();
+            this.tbPantallasPorRoles = new HashSet<tbPantallasPorRoles>();
+            this.tbPantallasPorRoles1 = new HashSet<tbPantallasPorRoles>();
+            this.tbActividades = new HashSet<tbActividades>();
+            this.tbActividades1 = new HashSet<tbActividades>();
+            this.tbActividadesPorCursoPorGeneracion = new HashSet<tbActividadesPorCursoPorGeneracion>();
+            this.tbActividadesPorCursoPorGeneracion1 = new HashSet<tbActividadesPorCursoPorGeneracion>();
+            this.tbCalificaciones = new HashSet<tbCalificaciones>();
+            this.tbCalificaciones1 = new HashSet<tbCalificaciones>();
+            this.tbDepartamentos = new HashSet<tbDepartamentos>();
+            this.tbDepartamentos1 = new HashSet<tbDepartamentos>();
+            this.tbEstadosCiviles = new HashSet<tbEstadosCiviles>();
+            this.tbEstadosCiviles1 = new HashSet<tbEstadosCiviles>();
+            this.tbMunicipios = new HashSet<tbMunicipios>();
+            this.tbMunicipios1 = new HashSet<tbMunicipios>();
+            this.tbPersonas = new HashSet<tbPersonas>();
+            this.tbPersonas1 = new HashSet<tbPersonas>();
+            this.tbUsuarios1 = new HashSet<tbUsuarios>();
+            this.tbUsuarios11 = new HashSet<tbUsuarios>();
         }
     
         public int Usuar_Id { get; set; }
@@ -66,72 +66,72 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<bool> Usuar_Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbAlumno> tbAlumnos { get; set; }
+        public virtual ICollection<tbAlumnos> tbAlumnos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbAlumno> tbAlumnos1 { get; set; }
+        public virtual ICollection<tbAlumnos> tbAlumnos1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCurso> tbCursos { get; set; }
+        public virtual ICollection<tbCursos> tbCursos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCurso> tbCursos1 { get; set; }
+        public virtual ICollection<tbCursos> tbCursos1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracions { get; set; }
+        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracions1 { get; set; }
+        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracion1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbGeneracione> tbGeneraciones { get; set; }
+        public virtual ICollection<tbGeneraciones> tbGeneraciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbGeneracione> tbGeneraciones1 { get; set; }
+        public virtual ICollection<tbGeneraciones> tbGeneraciones1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInstructore> tbInstructores { get; set; }
+        public virtual ICollection<tbInstructores> tbInstructores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInstructore> tbInstructores1 { get; set; }
-        public virtual tbInstructore tbInstructore { get; set; }
+        public virtual ICollection<tbInstructores> tbInstructores1 { get; set; }
+        public virtual tbInstructores tbInstructores2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracions { get; set; }
+        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracions1 { get; set; }
+        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPantalla> tbPantallas { get; set; }
+        public virtual ICollection<tbPantallas> tbPantallas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPantalla> tbPantallas1 { get; set; }
+        public virtual ICollection<tbPantallas> tbPantallas1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPantallasPorRole> tbPantallasPorRoles { get; set; }
+        public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPantallasPorRole> tbPantallasPorRoles1 { get; set; }
-        public virtual tbRole tbRole { get; set; }
+        public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles1 { get; set; }
+        public virtual tbRoles tbRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbActividade> tbActividades { get; set; }
+        public virtual ICollection<tbActividades> tbActividades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbActividade> tbActividades1 { get; set; }
+        public virtual ICollection<tbActividades> tbActividades1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracions { get; set; }
+        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracions1 { get; set; }
+        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCalificacione> tbCalificaciones { get; set; }
+        public virtual ICollection<tbCalificaciones> tbCalificaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCalificacione> tbCalificaciones1 { get; set; }
+        public virtual ICollection<tbCalificaciones> tbCalificaciones1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbDepartamento> tbDepartamentos { get; set; }
+        public virtual ICollection<tbDepartamentos> tbDepartamentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbDepartamento> tbDepartamentos1 { get; set; }
+        public virtual ICollection<tbDepartamentos> tbDepartamentos1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbEstadosCivile> tbEstadosCiviles { get; set; }
+        public virtual ICollection<tbEstadosCiviles> tbEstadosCiviles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbEstadosCivile> tbEstadosCiviles1 { get; set; }
+        public virtual ICollection<tbEstadosCiviles> tbEstadosCiviles1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbMunicipio> tbMunicipios { get; set; }
+        public virtual ICollection<tbMunicipios> tbMunicipios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbMunicipio> tbMunicipios1 { get; set; }
+        public virtual ICollection<tbMunicipios> tbMunicipios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPersona> tbPersonas { get; set; }
+        public virtual ICollection<tbPersonas> tbPersonas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPersona> tbPersonas1 { get; set; }
+        public virtual ICollection<tbPersonas> tbPersonas1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbUsuario> tbUsuarios1 { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual ICollection<tbUsuarios> tbUsuarios1 { get; set; }
+        public virtual tbUsuarios tbUsuarios2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbUsuario> tbUsuarios11 { get; set; }
-        public virtual tbUsuario tbUsuario2 { get; set; }
+        public virtual ICollection<tbUsuarios> tbUsuarios11 { get; set; }
+        public virtual tbUsuarios tbUsuarios3 { get; set; }
     }
 }

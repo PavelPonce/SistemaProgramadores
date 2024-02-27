@@ -12,7 +12,7 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbPantallasPorRole
+    public partial class tbPantallasPorRoles
     {
         public int Papro_Id { get; set; }
         public int Panta_Id { get; set; }
@@ -23,9 +23,9 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> Papro_FechaModificacion { get; set; }
         public Nullable<bool> Papro_Estado { get; set; }
     
-        public virtual tbPantalla tbPantalla { get; set; }
-        public virtual tbRole tbRole { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual tbPantallas tbPantallas { get; set; }
+        public virtual tbRoles tbRoles { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
     }
 }

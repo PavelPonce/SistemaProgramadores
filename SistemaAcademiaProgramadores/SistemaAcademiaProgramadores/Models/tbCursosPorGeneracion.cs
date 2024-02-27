@@ -17,9 +17,9 @@ namespace SistemaAcademiaProgramadores.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbCursosPorGeneracion()
         {
-            this.tbActividadesPorCursoPorGeneracions = new HashSet<tbActividadesPorCursoPorGeneracion>();
-            this.tbCalificaciones = new HashSet<tbCalificacione>();
-            this.tbInstructoresPorCursoPorGeneracions = new HashSet<tbInstructoresPorCursoPorGeneracion>();
+            this.tbActividadesPorCursoPorGeneracion = new HashSet<tbActividadesPorCursoPorGeneracion>();
+            this.tbCalificaciones = new HashSet<tbCalificaciones>();
+            this.tbInstructoresPorCursoPorGeneracion = new HashSet<tbInstructoresPorCursoPorGeneracion>();
         }
     
         public int CuGen_Id { get; set; }
@@ -31,15 +31,15 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> CuGen_FechaModificacion { get; set; }
         public Nullable<bool> CuGen_Estado { get; set; }
     
-        public virtual tbCurso tbCurso { get; set; }
+        public virtual tbCursos tbCursos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracions { get; set; }
+        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCalificacione> tbCalificaciones { get; set; }
-        public virtual tbGeneracione tbGeneracione { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual ICollection<tbCalificaciones> tbCalificaciones { get; set; }
+        public virtual tbGeneraciones tbGeneraciones { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracions { get; set; }
+        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
     }
 }

@@ -12,25 +12,25 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbCurso
+    public partial class tbPantallas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbCurso()
+        public tbPantallas()
         {
-            this.tbCursosPorGeneracions = new HashSet<tbCursosPorGeneracion>();
+            this.tbPantallasPorRoles = new HashSet<tbPantallasPorRoles>();
         }
     
-        public int Curso_Id { get; set; }
-        public string Curso_Nombre { get; set; }
-        public int Curso_UsuarioCreacion { get; set; }
-        public System.DateTime Curso_FechaCreacion { get; set; }
-        public Nullable<int> Curso_UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> Curso_FechaModificacion { get; set; }
-        public Nullable<bool> Curso_Estado { get; set; }
+        public int Panta_Id { get; set; }
+        public string Panta_Descripcion { get; set; }
+        public int Panta_UsuarioCreacion { get; set; }
+        public System.DateTime Panta_FechaCreacion { get; set; }
+        public Nullable<int> Panta_UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> Panta_FechaModificacion { get; set; }
+        public Nullable<bool> Panta_Estado { get; set; }
     
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracions { get; set; }
+        public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
     }
 }

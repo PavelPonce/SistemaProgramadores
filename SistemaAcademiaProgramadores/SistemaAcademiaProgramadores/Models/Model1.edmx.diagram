@@ -4,24 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="86a00716710a4dfcba0898ae700b0be8" Name="Diagram1">
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbAlumno" Width="1.5" PointX="11.25" PointY="22.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCurso" Width="1.5" PointX="8.25" PointY="18" IsExpanded="true" />
+      <Diagram DiagramId="cd91cad2ff9d43cfb162df71937e8be2" Name="Diagram1">
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbAlumnos" Width="1.5" PointX="11.25" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCursos" Width="1.5" PointX="8.25" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCursosPorGeneracion" Width="1.5" PointX="13.5" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbGeneracione" Width="1.5" PointX="8.25" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbInstructore" Width="1.5" PointX="11.25" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbGeneraciones" Width="1.5" PointX="8.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbInstructores" Width="1.5" PointX="11.25" PointY="17.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Width="1.5" PointX="15.75" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPantalla" Width="1.5" PointX="8.25" PointY="30.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPantallasPorRole" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbRole" Width="1.5" PointX="0.75" PointY="23.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbUsuario" Width="1.5" PointX="6" PointY="18.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbActividade" Width="1.5" PointX="8.25" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPantallas" Width="1.5" PointX="8.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPantallasPorRoles" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbRoles" Width="1.5" PointX="0.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbUsuarios" Width="1.5" PointX="6" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbActividades" Width="1.5" PointX="8.25" PointY="33.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Width="1.5" PointX="15.75" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCalificacione" Width="1.5" PointX="18.75" PointY="22.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbDepartamento" Width="1.5" PointX="8.25" PointY="37.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbEstadosCivile" Width="1.5" PointX="8.25" PointY="41.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbMunicipio" Width="1.5" PointX="10.5" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPersona" Width="1.5" PointX="12.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCalificaciones" Width="1.5" PointX="18.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbDepartamentos" Width="1.5" PointX="8.25" PointY="37.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbEstadosCiviles" Width="1.5" PointX="8.25" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbMunicipios" Width="1.5" PointX="10.5" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPersonas" Width="1.5" PointX="12.75" PointY="28.75" IsExpanded="true" />
         <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbPersonas_Perso_Id" ManuallyRouted="false" />
         <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbUsuarios_5letras_UsuarioCreacion" ManuallyRouted="false" />
         <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbUsuarios_5letras_UsuarioModificacion" ManuallyRouted="false" />

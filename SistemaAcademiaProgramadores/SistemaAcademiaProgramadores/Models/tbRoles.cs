@@ -12,25 +12,21 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbDepartamento
+    public partial class tbRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbDepartamento()
+        public tbRoles()
         {
-            this.tbMunicipios = new HashSet<tbMunicipio>();
+            this.tbPantallasPorRoles = new HashSet<tbPantallasPorRoles>();
+            this.tbUsuarios = new HashSet<tbUsuarios>();
         }
     
-        public string Depar_Id { get; set; }
-        public string Depar_Descripcion { get; set; }
-        public int Depar_UsuarioCreacion { get; set; }
-        public System.DateTime Depar_FechaCreacion { get; set; }
-        public Nullable<int> Depar_UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> Depar_FechaModificacion { get; set; }
-        public Nullable<bool> Depar_Estado { get; set; }
+        public int Roles_Id { get; set; }
+        public string Roles_Descripcion { get; set; }
     
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbMunicipio> tbMunicipios { get; set; }
+        public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbUsuarios> tbUsuarios { get; set; }
     }
 }

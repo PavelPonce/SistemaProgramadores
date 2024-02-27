@@ -12,12 +12,12 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbAlumno
+    public partial class tbAlumnos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbAlumno()
+        public tbAlumnos()
         {
-            this.tbCalificaciones = new HashSet<tbCalificacione>();
+            this.tbCalificaciones = new HashSet<tbCalificaciones>();
         }
     
         public int Perso_Id { get; set; }
@@ -32,10 +32,10 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> Alumn_FechaModificacion { get; set; }
         public Nullable<bool> Alumn_Estado { get; set; }
     
-        public virtual tbPersona tbPersona { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual tbPersonas tbPersonas { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCalificacione> tbCalificaciones { get; set; }
+        public virtual ICollection<tbCalificaciones> tbCalificaciones { get; set; }
     }
 }

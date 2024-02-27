@@ -12,26 +12,25 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbGeneracione
+    public partial class tbActividades
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbGeneracione()
+        public tbActividades()
         {
-            this.tbCursosPorGeneracions = new HashSet<tbCursosPorGeneracion>();
+            this.tbActividadesPorCursoPorGeneracion = new HashSet<tbActividadesPorCursoPorGeneracion>();
         }
     
-        public int Gener_Id { get; set; }
-        public string Gener_Nombre { get; set; }
-        public int Gener_Anhio { get; set; }
-        public int Gener_UsuarioCreacion { get; set; }
-        public System.DateTime Gener_FechaCreacion { get; set; }
-        public Nullable<int> Gener_UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> Gener_FechaModificacion { get; set; }
-        public Nullable<bool> Gener_Estado { get; set; }
+        public int Activ_Id { get; set; }
+        public string Activ_Nombre { get; set; }
+        public int Activ_UsuarioCreacion { get; set; }
+        public System.DateTime Activ_FechaCreacion { get; set; }
+        public Nullable<int> Activ_UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> Activ_FechaModificacion { get; set; }
+        public Nullable<bool> Activ_Estado { get; set; }
     
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracions { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
     }
 }

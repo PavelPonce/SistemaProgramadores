@@ -12,27 +12,25 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbMunicipio
+    public partial class tbDepartamentos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbMunicipio()
+        public tbDepartamentos()
         {
-            this.tbPersonas = new HashSet<tbPersona>();
+            this.tbMunicipios = new HashSet<tbMunicipios>();
         }
     
-        public string Munic_Id { get; set; }
-        public string Munic_Descripcion { get; set; }
         public string Depar_Id { get; set; }
-        public int Munic_UsuarioCreacion { get; set; }
-        public System.DateTime Munic_FechaCreacion { get; set; }
-        public Nullable<int> Munic_UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> Munic_FechaModificacion { get; set; }
-        public Nullable<bool> Munic_Estado { get; set; }
+        public string Depar_Descripcion { get; set; }
+        public int Depar_UsuarioCreacion { get; set; }
+        public System.DateTime Depar_FechaCreacion { get; set; }
+        public Nullable<int> Depar_UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> Depar_FechaModificacion { get; set; }
+        public Nullable<bool> Depar_Estado { get; set; }
     
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
-        public virtual tbDepartamento tbDepartamento { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPersona> tbPersonas { get; set; }
+        public virtual ICollection<tbMunicipios> tbMunicipios { get; set; }
     }
 }

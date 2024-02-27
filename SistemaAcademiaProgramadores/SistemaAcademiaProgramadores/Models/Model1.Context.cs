@@ -13,10 +13,10 @@ namespace SistemaAcademiaProgramadores.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class dbAcademiaProgramadoresEntities : DbContext
+    public partial class dbAcademiaProgramadoresEntities1 : DbContext
     {
-        public dbAcademiaProgramadoresEntities()
-            : base("name=dbAcademiaProgramadoresEntities")
+        public dbAcademiaProgramadoresEntities1()
+            : base("name=dbAcademiaProgramadoresEntities1")
         {
         }
     
@@ -25,22 +25,22 @@ namespace SistemaAcademiaProgramadores.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbAlumno> tbAlumnos { get; set; }
-        public virtual DbSet<tbCurso> tbCursos { get; set; }
-        public virtual DbSet<tbCursosPorGeneracion> tbCursosPorGeneracions { get; set; }
-        public virtual DbSet<tbGeneracione> tbGeneraciones { get; set; }
-        public virtual DbSet<tbInstructore> tbInstructores { get; set; }
-        public virtual DbSet<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracions { get; set; }
-        public virtual DbSet<tbPantalla> tbPantallas { get; set; }
-        public virtual DbSet<tbPantallasPorRole> tbPantallasPorRoles { get; set; }
-        public virtual DbSet<tbRole> tbRoles { get; set; }
-        public virtual DbSet<tbUsuario> tbUsuarios { get; set; }
-        public virtual DbSet<tbActividade> tbActividades { get; set; }
-        public virtual DbSet<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracions { get; set; }
-        public virtual DbSet<tbCalificacione> tbCalificaciones { get; set; }
-        public virtual DbSet<tbDepartamento> tbDepartamentos { get; set; }
-        public virtual DbSet<tbEstadosCivile> tbEstadosCiviles { get; set; }
-        public virtual DbSet<tbMunicipio> tbMunicipios { get; set; }
-        public virtual DbSet<tbPersona> tbPersonas { get; set; }
+        public virtual DbSet<tbAlumnos> tbAlumnos { get; set; }
+        public virtual DbSet<tbCursos> tbCursos { get; set; }
+        public virtual DbSet<tbCursosPorGeneracion> tbCursosPorGeneracion { get; set; }
+        public virtual DbSet<tbGeneraciones> tbGeneraciones { get; set; }
+        public virtual DbSet<tbInstructores> tbInstructores { get; set; }
+        public virtual DbSet<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
+        public virtual DbSet<tbPantallas> tbPantallas { get; set; }
+        public virtual DbSet<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
+        public virtual DbSet<tbRoles> tbRoles { get; set; }
+        public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
+        public virtual DbSet<tbActividades> tbActividades { get; set; }
+        public virtual DbSet<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
+        public virtual DbSet<tbCalificaciones> tbCalificaciones { get; set; }
+        public virtual DbSet<tbDepartamentos> tbDepartamentos { get; set; }
+        public virtual DbSet<tbEstadosCiviles> tbEstadosCiviles { get; set; }
+        public virtual DbSet<tbMunicipios> tbMunicipios { get; set; }
+        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
     }
 }

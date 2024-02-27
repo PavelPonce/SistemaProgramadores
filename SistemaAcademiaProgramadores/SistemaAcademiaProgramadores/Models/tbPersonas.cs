@@ -12,7 +12,7 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbPersona
+    public partial class tbPersonas
     {
         public int Perso_Id { get; set; }
         public string Perso_Tipo { get; set; }
@@ -33,11 +33,11 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> Perso_FechaModificacion { get; set; }
         public Nullable<bool> Perso_Estado { get; set; }
     
-        public virtual tbAlumno tbAlumno { get; set; }
-        public virtual tbInstructore tbInstructore { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
-        public virtual tbEstadosCivile tbEstadosCivile { get; set; }
-        public virtual tbMunicipio tbMunicipio { get; set; }
+        public virtual tbAlumnos tbAlumnos { get; set; }
+        public virtual tbInstructores tbInstructores { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
+        public virtual tbEstadosCiviles tbEstadosCiviles { get; set; }
+        public virtual tbMunicipios tbMunicipios { get; set; }
     }
 }

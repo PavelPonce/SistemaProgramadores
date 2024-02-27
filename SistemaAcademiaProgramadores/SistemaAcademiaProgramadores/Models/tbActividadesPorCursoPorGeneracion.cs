@@ -25,8 +25,8 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<bool> ActCG_Estado { get; set; }
     
         public virtual tbCursosPorGeneracion tbCursosPorGeneracion { get; set; }
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
-        public virtual tbActividade tbActividade { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
+        public virtual tbActividades tbActividades { get; set; }
     }
 }

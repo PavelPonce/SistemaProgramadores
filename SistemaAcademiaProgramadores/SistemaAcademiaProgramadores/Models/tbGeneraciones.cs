@@ -12,25 +12,26 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbEstadosCivile
+    public partial class tbGeneraciones
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbEstadosCivile()
+        public tbGeneraciones()
         {
-            this.tbPersonas = new HashSet<tbPersona>();
+            this.tbCursosPorGeneracion = new HashSet<tbCursosPorGeneracion>();
         }
     
-        public int Estci_Id { get; set; }
-        public string Estci_Descripcion { get; set; }
-        public int Estci_UsuarioCreacion { get; set; }
-        public System.DateTime Estci_FechaCreacion { get; set; }
-        public Nullable<int> Estci_UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> Estci_FechaModificacion { get; set; }
-        public Nullable<bool> Estci_Estado { get; set; }
+        public int Gener_Id { get; set; }
+        public string Gener_Nombre { get; set; }
+        public int Gener_Anhio { get; set; }
+        public int Gener_UsuarioCreacion { get; set; }
+        public System.DateTime Gener_FechaCreacion { get; set; }
+        public Nullable<int> Gener_UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> Gener_FechaModificacion { get; set; }
+        public Nullable<bool> Gener_Estado { get; set; }
     
-        public virtual tbUsuario tbUsuario { get; set; }
-        public virtual tbUsuario tbUsuario1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPersona> tbPersonas { get; set; }
+        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracion { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
     }
 }
