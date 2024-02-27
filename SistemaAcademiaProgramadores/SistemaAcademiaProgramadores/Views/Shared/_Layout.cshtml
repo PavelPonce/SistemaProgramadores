@@ -11,8 +11,8 @@
     @Styles.Render("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css")
 
     @*<link href="~/Content/HTML5_Full_Version/css/animate.css" rel="stylesheet">*@
-    @*<link href="~/Content/HTML5_Full_Version/css/style.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/css/animate.css")
+    @*<link href="~/Content/HTML5_Full_Version/css/style.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/css/style.css")
     @*@Styles.Render("~/Content/css")*@
     @*@Scripts.Render("~/bundles/modernizr")*@
@@ -43,12 +43,30 @@
                             IN+
                         </div>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Acceso</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>@Html.ActionLink("Pantallas", "Index", "Pantallas")</li>
-                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
-                            <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                            @*<li>@Html.ActionLink("Pantallas", "Index", "Pantallas")</li>*@
+                            @*<li>@Html.ActionLink("Roles", "Index", "Roles")</li>*@
+                            <li><i class=""></i> @Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Mantenimiento</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*<li>@Html.ActionLink("Departamentos", "Index", "Departamentos")</li>*@
+                            @*<li>@Html.ActionLink("Municipios", "Index", "Municipios")</li>*@
+                            @*<li>@Html.ActionLink("EstadosCiviles", "Index", "EstadosCiviles")</li>*@
+                            @*<li>@Html.ActionLink("Personas", "Index", "Personas")</li>*@
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Academia</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*<li>@Html.ActionLink("Instructores", "Index", "Instructores")</li>*@
+                            @*<li>@Html.ActionLink("Alumnos", "Index", "Alumnos")</li>*@
+                            @*<li>@Html.ActionLink("Generaciones", "Index", "Generaciones")</li>*@
+                            @*<li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>*@
                         </ul>
                     </li>
                 </ul>
@@ -69,7 +87,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                            <span class="m-r-sm text-muted welcome-message">Academia de Programadores.</span>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -203,10 +221,10 @@
             </div>
             <div class="footer">
                 <div class="float-right">
-                    10GB of <strong>250GB</strong> Free.
+                    Version <strong>1.0</strong>.
                 </div>
                 <div>
-                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                    <strong>Copyright</strong> P&V &copy; 2024-2024
                 </div>
             </div>
 
