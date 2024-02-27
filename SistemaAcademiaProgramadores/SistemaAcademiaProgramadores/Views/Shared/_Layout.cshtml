@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
 
     @*<link href="~/Content/HTML5_Full_Version/css/bootstrap.min.css" rel="stylesheet">*@
-    @Styles.Render("~/Content/HTML5_Full_Version/css/bootstrap.min.css")
+    @Styles.Render("~/Content/HTML5_Full_Version/css/bootstrap.css")
     @*<link href="~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css")
 
@@ -46,6 +46,8 @@
                     <li class="active">
                         <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Acceso</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+                            <li>@Html.ActionLink("Pantallas", "Index", "Pantallas")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
                             <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
                         </ul>
                     </li>
@@ -215,7 +217,7 @@
     @*<script src="js/jquery-3.1.1.min.js"></script>*@
     @Scripts.Render("~/bundles/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
     @*<script src="js/popper.min.js"></script>*@
-    @Scripts.Render("~/bundles/Content/HTML5_Full_Version/js/popper.min.jsS")
+    @Scripts.Render("~/bundles/Content/HTML5_Full_Version/js/popper.min.js")
 
     @*<script src="js/bootstrap.js"></script>*@
     @Scripts.Render("~/bundles/Content/HTML5_Full_Version/js/bootstrap.js")

@@ -9,8 +9,8 @@ namespace SistemaAcademiaProgramadores
         public static void RegisterBundles(BundleCollection bundles)
         {
             //////////////////////// INSPINIA BUNDLES /////////////////////////
-            bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/css/bootstrap.min.css").Include(
-                      "~/Content/HTML5_Full_Version/css/bootstrap.min.css"));
+            bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/css/bootstrap.css").Include(
+                      "~/Content/HTML5_Full_Version/css/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css").Include(
                       "~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css"));
             bundles.Add(new StyleBundle("~/Content/HTML5_Full_Version/css/animate.css").Include(
