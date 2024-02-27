@@ -51,6 +51,7 @@ C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramad
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\roslyn\VBCSCompiler.exe
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\Antlr3.Runtime.dll
+C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\EntityFramework.dll
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\Newtonsoft.Json.dll
@@ -62,6 +63,7 @@ C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramad
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\System.Web.WebPages.dll
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\System.Web.WebPages.Razor.dll
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\WebGrease.dll
+C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\EntityFramework.xml
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\System.Web.Helpers.xml
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\System.Web.Mvc.xml
 C:\Users\pavel\OneDrive\Escritorio\SistemaProgramadores\SistemaAcademiaProgramadores\SistemaAcademiaProgramadores\bin\System.Web.Optimization.xml
