@@ -44,76 +44,129 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     PushIndent("    ");
 }
 #>
-<p>
-    @Html.ActionLink("Nuevo", "Create")
-</p>
-<table class="table table-responsive">
-    <tr>
-<#
-IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
-foreach (PropertyMetadata property in properties) {
-    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
-#>
-<#
-        // We do not want to show any association properties for which there is
-        // no associated foreign key.
-        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
-            continue;
+
+
+<section class="content">
+
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Title</h3>
+<div class="card-tools">
+<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+<i class="fas fa-minus"></i>
+</button>
+<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+<i class="fas fa-times"></i>
+</button>
+</div>
+</div>
+<div class="card-body">
+   <div class="btn btn-primary col-sm-12">
+            <i class="fa fa-plus-square-o">
+               @Html.ActionLink("Nuevo", "Create")
+            </i>
+    </div>
+        
+    <table class="table table-responsive table-striped ">
+        <tr class="thead-purple thead-justify-content-center">
+    <#
+    IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+    foreach (PropertyMetadata property in properties) {
+        if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+    #>
+    <#
+            // We do not want to show any association properties for which there is
+            // no associated foreign key.
+            if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+                continue;
+            }
+    #>
+            <th>
+                @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+            </th>
+    <#
         }
-#>
-        <th>
-            @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-        </th>
-<#
     }
-}
-#>
-        <th></th>
-    </tr>
+    #>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-<#
-foreach (PropertyMetadata property in properties) {
-    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
-#>
-<#
-        // We do not want to show any association properties for which there is
-        // no associated foreign key.
-        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
-            continue;
+    @foreach (var item in Model) {
+        <tr>
+    <#
+    foreach (PropertyMetadata property in properties) {
+        if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+    #>
+    <#
+            // We do not want to show any association properties for which there is
+            // no associated foreign key.
+            if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+                continue;
+            }
+    #>
+            <td>
+                @Html.DisplayFor(modelItem => <#= "item." + GetValueExpression(property) #>)
+            </td>
+    <#
         }
-#>
-        <td>
-            @Html.DisplayFor(modelItem => <#= "item." + GetValueExpression(property) #>)
-        </td>
-<#
     }
-}
 
-string pkName = GetPrimaryKeyName();
-if (pkName != null) {
-#>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.<#= pkName #> }) |
-            @Html.ActionLink("Details", "Details", new { id=item.<#= pkName #> }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.<#= pkName #> })
-        </td>
-<#
-} else {
-#>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-<#
-}
-#>
-    </tr>
-}
+    string pkName = GetPrimaryKeyName();
+    if (pkName != null) {
+    #>
+            <td>
+                <div class="btn btn-editar col-sm-12">
+                    <i class="fa fa-edit">@Html.ActionLink("Editar", "Edit", new { id=item.<#= pkName #> })</i>
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-detalle col-sm-12">
+                    <i class="fa fa-edit">@Html.ActionLink("Detalles", "Details", new { id=item.<#= pkName #> })</i>
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-danger col-sm-12">
+                    <i class="fa fa-trash-o">@Html.ActionLink("Borrar", "Delete", new { id=item.<#= pkName #> })</i>
+                </div>
+            </td>
+    <#
+    } else {
+    #>
+            <td>
+                <div class="btn btn-editar col-sm-12">
+                    <i class="fa fa-edit (alias)">@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })</i>
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-detalle col-sm-12">
+                    <i class="fa fa-eye">@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })</i>
+                </div>
+            
+            
+            </td>
+            <td>
+                <div class="btn btn-danger col-sm-12">
+                    <i class="fa fa-trash-o">@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })</i>
+                </div>
+            </td>
+    <#
+    }
+    #>
+        </tr>
+    }
 
-</table>
+    </table>
+</div>
+
+<div class="card-footer">
+Footer
+</div>
+
+</div>
+
+</section>
+
+
 <#
 // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
 #>
