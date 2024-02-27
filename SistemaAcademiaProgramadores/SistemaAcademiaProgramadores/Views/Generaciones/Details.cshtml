@@ -1,0 +1,74 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbGeneracione
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbGeneracione</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_Anhio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_Anhio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_FechaCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_FechaCreacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_FechaModificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_FechaModificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbUsuario.Usuar_Usuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbUsuario.Usuar_Usuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbUsuario1.Usuar_Usuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbUsuario1.Usuar_Usuario)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Gener_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
