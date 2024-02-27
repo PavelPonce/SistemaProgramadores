@@ -61,6 +61,8 @@ CREATE TABLE Mante.tbPersonas(
 	Estci_Id INT NOT NULL,
 	Perso_Direccion VARCHAR(MAX) NOT NULL,
 	Munic_Id CHAR(4) NOT NULL,
+	Perso_Telefono VARCHAR(15) NOT NULL,
+	Perso_CorreoElectronico VARCHAR(MAX) NOT NULL,
 	CONSTRAINT PK_tbPersonas_Perso_Id PRIMARY KEY(Perso_Id),
 	CONSTRAINT FK_tbPersonas_tbEstadosCiviles_Estci_Id FOREIGN KEY(Estci_Id) REFERENCES Mante.tbEstadosCiviles(Estci_Id),
 	CONSTRAINT FK_tbPersonas_tbMunicipios_Munic_Id FOREIGN KEY(Munic_Id) REFERENCES Mante.tbMunicipios(Munic_Id),
