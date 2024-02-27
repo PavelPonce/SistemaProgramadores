@@ -67,7 +67,7 @@ CREATE TABLE Calif.tbActividadesPorCursoPorGeneracion(
 	[ActCG_Estado] [bit] DEFAULT 1,
 	CONSTRAINT PK_tbActividadesPorCursoPorGeneracion_ActCG_Id PRIMARY KEY(ActCG_Id),
 	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id FOREIGN KEY(Activ_Id) REFERENCES Calif.tbActividades(Activ_Id),
-	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosXgeneracion(CuGen_Id),
+	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id FOREIGN KEY(CuGen_Id) REFERENCES Acade.tbCursosPorGeneracion(CuGen_Id),
 	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion FOREIGN KEY(ActCG_UsuarioCreacion) REFERENCES Acces.tbUsuarios(Usuar_Id),
 	CONSTRAINT FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion FOREIGN KEY(ActCG_UsuarioModificacion) REFERENCES Acces.tbUsuarios(Usuar_Id)
 );
