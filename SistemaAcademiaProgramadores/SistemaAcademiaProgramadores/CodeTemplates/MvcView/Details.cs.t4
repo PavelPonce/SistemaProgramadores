@@ -95,7 +95,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
     if (pkName != null) {
     #>
         <td class="col-sm-6">
-                <a class="btn btn-editar col-sm-4" href="@Url.Action("Edit", new { id=item.<#= pkName #> })">
+                <a class="btn btn-editar col-sm-4" href="@Url.Action("Edit", new { id = Model.<#= pkName #> })">
                     <i class="fa fa-edit"></i>
                 </a>
                <a class="btn btn-blue col-sm-1" href="@Url.Action("Index")">
@@ -107,7 +107,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
     } else {
     #>
          <td class="col-sm-6">
-                <a class="btn btn-editar col-sm-2" href="@Url.Action("Edit")" id="item.PrimaryKey">
+                <a class="btn btn-editar col-sm-2" href="@Url.Action("Edit")" id = Model.PrimaryKey>
                     <i class="fa fa-edit (alias)"></i>
                 </a>
                <a class="btn btn-blue col-sm-1" href="@Url.Action("Index")">
