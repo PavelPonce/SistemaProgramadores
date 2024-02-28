@@ -2,10 +2,22 @@
 
 @{
     ViewBag.Title = $"tbUsuarios".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary">Modificar @ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index")' class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,15 +26,7 @@
 
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">@ViewBag.Title</h3>
-<div class="card-tools">
-<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-<i class="fa fa-minus"></i>
-</button>
-<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-<i class="fa fa-times"></i>
-</button>
-</div>
+<h3 class="card-title text-primary">Editar @ViewBag.Title</h3>
 </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 <div class="card-body form-row">
@@ -31,7 +35,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_Usuario)
+            @Html.LabelFor(model => model.Usuar_Usuario, new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.EditorFor(model => model.Usuar_Usuario, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Usuar_Usuario, "", new { @class = "text-danger" })
@@ -40,7 +44,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_Contrasena)
+            @Html.LabelFor(model => model.Usuar_Contrasena, new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.EditorFor(model => model.Usuar_Contrasena, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Usuar_Contrasena, "", new { @class = "text-danger" })
@@ -49,7 +53,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_UltimaSesion)
+            @Html.LabelFor(model => model.Usuar_UltimaSesion, new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.EditorFor(model => model.Usuar_UltimaSesion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Usuar_UltimaSesion, "", new { @class = "text-danger" })
@@ -58,7 +62,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Instr_Id, "Instr_Id")
+            @Html.LabelFor(model => model.Instr_Id, "Instr_Id", new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.DropDownList("Instr_Id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Instr_Id, "", new { @class = "text-danger" })
@@ -67,7 +71,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Roles_Id, "Roles_Id")
+            @Html.LabelFor(model => model.Roles_Id, "Roles_Id", new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.DropDownList("Roles_Id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Roles_Id, "", new { @class = "text-danger" })
@@ -76,7 +80,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_Admin)
+            @Html.LabelFor(model => model.Usuar_Admin, new { @class = "text-primary w-100 text-left" })
             <div>
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Usuar_Admin)
@@ -87,7 +91,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_UsuarioCreacion, "Usuar_UsuarioCreacion")
+            @Html.LabelFor(model => model.Usuar_UsuarioCreacion, "Usuar_UsuarioCreacion", new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.DropDownList("Usuar_UsuarioCreacion", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Usuar_UsuarioCreacion, "", new { @class = "text-danger" })
@@ -96,7 +100,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_FechaCreacion)
+            @Html.LabelFor(model => model.Usuar_FechaCreacion, new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.EditorFor(model => model.Usuar_FechaCreacion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Usuar_FechaCreacion, "", new { @class = "text-danger" })
@@ -105,7 +109,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_UsuarioModificacion, "Usuar_UsuarioModificacion")
+            @Html.LabelFor(model => model.Usuar_UsuarioModificacion, "Usuar_UsuarioModificacion", new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.DropDownList("Usuar_UsuarioModificacion", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Usuar_UsuarioModificacion, "", new { @class = "text-danger" })
@@ -114,7 +118,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_FechaModificacion)
+            @Html.LabelFor(model => model.Usuar_FechaModificacion, new { @class = "text-primary w-100 text-left" })
             <div>
                 @Html.EditorFor(model => model.Usuar_FechaModificacion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Usuar_FechaModificacion, "", new { @class = "text-danger" })
@@ -123,7 +127,7 @@
 
         <div class="col-sm-6 mb-2">
 
-            @Html.LabelFor(model => model.Usuar_Estado)
+            @Html.LabelFor(model => model.Usuar_Estado, new { @class = "text-primary w-100 text-left" })
             <div>
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Usuar_Estado)
@@ -134,16 +138,36 @@
 
  </div>
   <div class="card-footer">
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="row mb-2">
+            <div class="col d-flex">
+                <input type="submit" value="Guardar" class="btn btn-primary flex-grow-1" />
             </div>
-            
-            <a class="btn btn-blue col-sm-1" href="@Url.Action("Index")">
-                <i class="fa fa-arrow-circle-o-left"></i>
-            </a>
+            <div class="col d-flex">
+                <input type="button" value="Limpiar" class="btn btn-primary btn-outline flex-grow-1" />
+            </div>
         </div>
+      <div class="row">
+        <a href='@Url.Action("Index")' class="btn btn-primary">
+        <i class="glyphicon glyphicon-arrow-left"></i> 
+        Regresar
+        </a>
+      </div>
     </div>
-   </div>
-   </section>
+        
+    </div>
+    </section>
+    <script>
+        document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
+            grupo.children[1].children[0].addEventListener('focus', () => {
+                grupo.children[0].classList.add('text-secondary')
+            })
+            grupo.children[1].children[0].addEventListener('blur', () => {
+                grupo.children[0].classList.remove('text-secondary')
+            })
+        })
+    </script>
    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

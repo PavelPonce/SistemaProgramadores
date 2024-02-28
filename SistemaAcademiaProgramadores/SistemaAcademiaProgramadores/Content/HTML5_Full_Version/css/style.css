@@ -13,7 +13,7 @@
     danger: dc3545
     detalle: 25d6b2
     editar: ff885c
-    naranja cutre: rgb(247,148,29)
+    naranja cutre: F8941D
 
 
     primary secondary:b579d6
@@ -1013,8 +1013,7 @@ h5 {
 }
 .nav-header {
     padding: 33px 25px;
-    background-color: rgb(247,148,29);
-    //background-image: url("patterns/header-profile.png");
+    background-color: #2C1B51;
 }
 .caret {
   display: inline-block;
@@ -1033,7 +1032,7 @@ h5 {
   transition: all 0.4s;
 }
 ul.nav-second-level {
-    background: rgb(247,148,29);
+    background: #2C1B51;
 }
 .nav > li.active {
     border-left: 4px solid #fff;
@@ -1049,7 +1048,7 @@ ul.nav-second-level {
   color: #fff;
 }
 .nav-header .text-muted {
-  color: #550e92 !important;
+    color: #F8941D !important;
 }
 .minimalize-styl-2 {
   padding: 4px 12px;
@@ -2841,20 +2840,20 @@ select.form-control:not([size]):not([multiple]) {
 }
 .form-control,
 .single-line {
-  background-color: #FFFFFF;
-  background-image: none;
-  border: 1px solid #e5e6e7;
-  border-radius: 1px;
-  color: inherit;
-  display: block;
-  padding: 6px 12px;
-  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  width: 100%;
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #550e92;
+    border-radius: 1px;
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
 }
-.form-control:focus,
-.single-line:focus {
-  border-color: #1ab394;
-}
+    .form-control:focus,
+    .single-line:focus {
+        border-color: #F8941D;
+    }
 .has-success .form-control,
 .has-success .form-control:focus {
   border-color: #1ab394;
@@ -4610,10 +4609,9 @@ video {
   padding: 0 20px;
 }
 .wrapper-content {
-  padding: 20px 10px 40px;
+  padding: 20px 0px 40px;
 }
 #page-wrapper {
-  padding: 0 15px;
   min-height: 568px;
   position: relative !important;
 }
@@ -5087,7 +5085,7 @@ table.table-mail tr td {
 }
 .navy-bg,
 .bg-primary {
-  background-color: #1ab394 !important;
+  background-color: #550e92 !important;
   color: #ffffff;
 }
 .lazur-bg,
@@ -5193,7 +5191,11 @@ table.table-mail tr td {
   color: #1ab394 !important;
 }
 .text-primary {
-  color: inherit !important;
+  color: #550e92 !important;
+  text-align: left;
+}
+.text-secondary {
+    color: #F8941D !important;
 }
 .text-success {
   color: #1c84c6 !important;
@@ -9655,11 +9657,12 @@ body.md-skin {
     background-clip: border-box;
     border: 0 solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
+    margin: 20px;
 }
 
 .card-header {
     background-color: transparent;
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    border-bottom: 1px solid rgba(85,14,146,0.6);
     padding: .75rem 1.25rem;
     position: relative;
     border-top-left-radius: .25rem;
