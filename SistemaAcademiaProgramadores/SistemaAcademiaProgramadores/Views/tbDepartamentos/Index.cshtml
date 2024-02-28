@@ -30,66 +30,72 @@
 
 
             <table class="table table-responsive table-striped table-bordered dataTables-example dataTable">
-                <tr class="thead-purple thead-justify-content-center">
-                    <th>
-                        @Html.DisplayNameFor(model => model.Depar_Descripcion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Depar_FechaCreacion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Depar_FechaModificacion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Depar_Estado)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.tbUsuarios.Usuar_Usuario)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.tbUsuarios1.Usuar_Usuario)
-                    </th>
+                <thead>
 
-                    <th></th>
+                    <tr class="thead-purple thead-justify-content-center">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Depar_Descripcion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Depar_FechaCreacion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Depar_FechaModificacion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Depar_Estado)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tbUsuarios.Usuar_Usuario)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tbUsuarios1.Usuar_Usuario)
+                        </th>
 
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Depar_Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Depar_FechaCreacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Depar_FechaModificacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Depar_Estado)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tbUsuarios.Usuar_Usuario)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tbUsuarios1.Usuar_Usuario)
-                        </td>
-                        <td class="col-sm-6">
-                            <a class="btn btn-editar col-sm-2" href="@Url.Action("Edit", new { id=item.Depar_Id })">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a class="btn btn-danger col-sm-2" href="@Url.Action("Delete", new { id=item.Depar_Id })">
-                                <i class="fa fa-trash-o"></i>
-                            </a>
-                            <a class="btn btn-detalle col-sm-2" href="@Url.Action("Details", new { id=item.Depar_Id })">
-                                <i class="fa fa-eye"></i>
-                            </a>
-
-                        </td>
+                        <th></th>
 
                     </tr>
-                }
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Depar_Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Depar_FechaCreacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Depar_FechaModificacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Depar_Estado)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tbUsuarios.Usuar_Usuario)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tbUsuarios1.Usuar_Usuario)
+                            </td>
+                            <td class="col-sm-6">
+                                <a class="btn btn-editar col-sm-2" href="@Url.Action("Edit", new { id=item.Depar_Id })">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger col-sm-2" href="@Url.Action("Delete", new { id=item.Depar_Id })">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a class="btn btn-detalle col-sm-2" href="@Url.Action("Details", new { id=item.Depar_Id })">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
 
             </table>
         </div>

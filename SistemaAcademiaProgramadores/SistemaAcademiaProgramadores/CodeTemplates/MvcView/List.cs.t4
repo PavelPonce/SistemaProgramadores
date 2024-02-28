@@ -66,7 +66,8 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     </div>
 
         
-    <table class="table table-responsive table-striped table-bordered dataTables-example">
+    <table class="table table-responsive table-striped table-bordered dataTables-example dataTable">
+    <thead>
         <tr class="thead-purple thead-justify-content-center">
     <#
     IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
@@ -90,7 +91,8 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
             <th></th>
            
         </tr>
-
+        </thead>
+        <tbody>
     @foreach (var item in Model) {
         <tr>
     <#
@@ -114,31 +116,35 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     string pkName = GetPrimaryKeyName();
     if (pkName != null) {
     #>
-            <td class="col-sm-6">
-                <a class="btn btn-editar col-sm-2" href="@Url.Action("Edit")">
-                    <i class="fa fa-edit"></i>
-                </a>
-                <a class="btn btn-danger col-sm-2" href="@Url.Action("Delete")">
-                    <i class="fa fa-trash-o"></i>
-                </a>
-                <a class="btn btn-detalle col-sm-2" href="@Url.Action("Details")">
-                    <i class="fa fa-eye"></i>
-                </a>
+            <td>
+                <div class="form-group">
+                    <a class="btn btn-editar col-sm-4" href="@Url.Action("Edit", new { id=item.<#= pkName #> })">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="btn btn-danger col-sm-4" href="@Url.Action("Delete", new { id=item.<#= pkName #> })">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                    <a class="btn btn-detalle col-sm-4" href="@Url.Action("Details", new { id=item.<#= pkName #> })">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </div>
             </td>
            
     <#
     } else {
     #>
-            <td class="col-sm-6">
-                <a class="btn btn-editar col-sm-2" href="@Url.Action("Edit")" id="item.PrimaryKey">
-                    <i class="fa fa-edit (alias)"></i>
-                </a>
-                 <a class="btn btn-detalle col-sm-2" href="@Url.Action("Details")" id="item.PrimaryKey">
-                    <i class="fa fa-eye"></i>
-                </a>
-                <a class="btn btn-danger col-sm-2" href="@Url.Action("Delete")" id="item.PrimaryKey">
-                    <i class="fa fa-trash-o"></i>
-                </a>
+            <td>
+                <div class="form-group">
+                    <a class="btn btn-editar col-sm-4" href="@Url.Action("Edit")" id="item.PrimaryKey">
+                        <i class="fa fa-edit (alias)"></i>
+                    </a>
+                     <a class="btn btn-detalle col-sm-4" href="@Url.Action("Details")" id="item.PrimaryKey">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a class="btn btn-danger col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
             </td>
            
     <#
@@ -146,7 +152,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     #>
         </tr>
     }
-
+    </tbody>
     </table>
 </div>
 
@@ -167,6 +173,7 @@ if(!IsPartialView && !IsLayoutPageSelected) {
     ClearIndent();
 #>
 </body>
+
 </html>
 <#
 }
