@@ -66,7 +66,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     </div>
 
         
-    <table class="table table-responsive table-striped table-bordered">
+    <table class="table table-responsive table-striped table-bordered dataTables-example">
         <tr class="thead-purple thead-justify-content-center">
     <#
     IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
