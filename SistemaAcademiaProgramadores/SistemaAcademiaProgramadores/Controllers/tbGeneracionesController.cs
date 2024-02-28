@@ -10,18 +10,18 @@ using SistemaAcademiaProgramadores.Models;
 
 namespace SistemaAcademiaProgramadores.Controllers
 {
-    public class GeneracionesController : Controller
+    public class tbGeneracionesController : Controller
     {
-        private dbAcademiaProgramadoresEntities1 db = new dbAcademiaProgramadoresEntities1();
+        private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
 
-        // GET: Generaciones
+        // GET: tbGeneraciones
         public ActionResult Index()
         {
             var tbGeneraciones = db.tbGeneraciones.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
             return View(tbGeneraciones.ToList());
         }
 
-        // GET: Generaciones/Details/5
+        // GET: tbGeneraciones/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +36,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbGeneraciones);
         }
 
-        // GET: Generaciones/Create
+        // GET: tbGeneraciones/Create
         public ActionResult Create()
         {
             ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
@@ -44,12 +44,12 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View();
         }
 
-        // POST: Generaciones/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: tbGeneraciones/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado")] tbGeneraciones tbGeneraciones)
+        public ActionResult Create([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado,Gener_FechaInicio,Gener_FechaFin")] tbGeneraciones tbGeneraciones)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbGeneraciones);
         }
 
-        // GET: Generaciones/Edit/5
+        // GET: tbGeneraciones/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,12 +80,12 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbGeneraciones);
         }
 
-        // POST: Generaciones/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: tbGeneraciones/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado")] tbGeneraciones tbGeneraciones)
+        public ActionResult Edit([Bind(Include = "Gener_Id,Gener_Nombre,Gener_Anhio,Gener_UsuarioCreacion,Gener_FechaCreacion,Gener_UsuarioModificacion,Gener_FechaModificacion,Gener_Estado,Gener_FechaInicio,Gener_FechaFin")] tbGeneraciones tbGeneraciones)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbGeneraciones);
         }
 
-        // GET: Generaciones/Delete/5
+        // GET: tbGeneraciones/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,7 +113,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbGeneraciones);
         }
 
-        // POST: Generaciones/Delete/5
+        // POST: tbGeneraciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

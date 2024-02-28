@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -49,6 +50,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.Gener_Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gener_FechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gener_FechaFin)
         </dd>
 
         <dt>

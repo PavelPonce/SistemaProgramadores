@@ -131,7 +131,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\tbGeneracionesController.cs" />
+    <Compile Include="Controllers\tbUsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,15 +150,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbActividades.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -1860,11 +1852,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\tbUsuarios\Create.cshtml" />
+    <Content Include="Views\tbUsuarios\Delete.cshtml" />
+    <Content Include="Views\tbUsuarios\Details.cshtml" />
+    <Content Include="Views\tbUsuarios\Edit.cshtml" />
+    <Content Include="Views\tbUsuarios\Index.cshtml" />
+    <Content Include="Views\tbGeneraciones\Create.cshtml" />
+    <Content Include="Views\tbGeneraciones\Delete.cshtml" />
+    <Content Include="Views\tbGeneraciones\Details.cshtml" />
+    <Content Include="Views\tbGeneraciones\Edit.cshtml" />
+    <Content Include="Views\tbGeneraciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

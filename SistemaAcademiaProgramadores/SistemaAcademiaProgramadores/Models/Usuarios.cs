@@ -22,8 +22,7 @@ namespace SistemaAcademiaProgramadores.Models
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "{0} es requerida")]
         public string Usuar_Contrasena { get; set; }
-        [Display(Name = "Correo")]
-        public string Usuar_Correo { get; set; }
+      
         [Display(Name = "Ultima Sesion")]
         public Nullable<System.DateTime> Usuar_UltimaSesion { get; set; }
         [Display(Name = "Instructor")]
