@@ -4442,13 +4442,7 @@ samp {
   border-bottom: 1px solid #e7eaec;
 }
 body {
-    background-image: url( https://www.ahm-honduras.com/procinco/images/BG.jpg);
-    background-color: #2C1A51;
-    background-repeat: no-repeat;
-    background-position: top center;
-}
-body {
-    background-color: #2C1B51;
+    background: #2C1B51;
     overflow-x: hidden;
     color: #000000;
     font-family: verdana, arial, helvetica;
@@ -9587,7 +9581,7 @@ body.md-skin {
     -o-transition: background-color 500ms linear;
     -ms-transition: background-color 500ms linear;
     transition: background-color 500ms linear;
-    background-color: #f3f3f4;
+    /*background-color: #f3f3f4;*/
   }
 }
 @media (max-width: 350px) {
