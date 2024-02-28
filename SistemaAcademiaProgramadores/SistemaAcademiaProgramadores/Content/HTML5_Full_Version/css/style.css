@@ -13,6 +13,8 @@
     danger: dc3545
     detalle: 25d6b2
     editar: ff885c
+    naranja cutre: rgb(247,148,29)
+
 
     primary secondary:b579d6
 
@@ -1571,6 +1573,18 @@ button:focus {
         background-color: #49c7ad;
         border-color: #49c7ad;
     }
+
+.btn-blue {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.btn-detalle:hover {
+    color: #fff;
+    background-color: #23659d;
+    border-color: #23659d;
+}
 
 
     .btn-detalle:focus,
