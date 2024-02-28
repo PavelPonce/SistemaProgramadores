@@ -1,0 +1,102 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbDepartamentos
+
+@{
+    ViewBag.Title = $"tbDepartamentos".Substring(2);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <section class="content">
+
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">@ViewBag.Title</h3>
+<div class="card-tools">
+<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+<i class="fa fa-minus"></i>
+</button>
+<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+<i class="fa fa-times"></i>
+</button>
+</div>
+</div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="card-body form-row">
+
+        @Html.HiddenFor(model => model.Depar_Id)
+
+        <div class="col-sm-6 mb-2">
+
+            @Html.LabelFor(model => model.Depar_Descripcion)
+            <div>
+                @Html.EditorFor(model => model.Depar_Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Depar_Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+
+            @Html.LabelFor(model => model.Depar_UsuarioCreacion, "Depar_UsuarioCreacion")
+            <div>
+                @Html.DropDownList("Depar_UsuarioCreacion", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Depar_UsuarioCreacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+
+            @Html.LabelFor(model => model.Depar_FechaCreacion)
+            <div>
+                @Html.EditorFor(model => model.Depar_FechaCreacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Depar_FechaCreacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+
+            @Html.LabelFor(model => model.Depar_UsuarioModificacion, "Depar_UsuarioModificacion")
+            <div>
+                @Html.DropDownList("Depar_UsuarioModificacion", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Depar_UsuarioModificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+
+            @Html.LabelFor(model => model.Depar_FechaModificacion)
+            <div>
+                @Html.EditorFor(model => model.Depar_FechaModificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Depar_FechaModificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-sm-6 mb-2">
+
+            @Html.LabelFor(model => model.Depar_Estado)
+            <div>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Depar_Estado)
+                    @Html.ValidationMessageFor(model => model.Depar_Estado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+ </div>
+  <div class="card-footer">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+            
+            <a class="btn btn-blue col-sm-1" href="@Url.Action("Index")">
+                <i class="fa fa-arrow-circle-o-left"></i>
+            </a>
+        </div>
+    </div>
+   </div>
+   </section>
+   }

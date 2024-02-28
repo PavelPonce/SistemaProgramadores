@@ -131,6 +131,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\tbDepartamentosController.cs" />
     <Compile Include="Controllers\tbGeneracionesController.cs" />
     <Compile Include="Controllers\tbUsuariosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1852,16 +1853,22 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\tbUsuarios\Create.cshtml" />
-    <Content Include="Views\tbUsuarios\Delete.cshtml" />
-    <Content Include="Views\tbUsuarios\Details.cshtml" />
-    <Content Include="Views\tbUsuarios\Edit.cshtml" />
-    <Content Include="Views\tbUsuarios\Index.cshtml" />
     <Content Include="Views\tbGeneraciones\Create.cshtml" />
     <Content Include="Views\tbGeneraciones\Delete.cshtml" />
     <Content Include="Views\tbGeneraciones\Details.cshtml" />
     <Content Include="Views\tbGeneraciones\Edit.cshtml" />
     <Content Include="Views\tbGeneraciones\Index.cshtml" />
+    <Content Include="Views\tbUsuarios\Create.cshtml" />
+    <Content Include="Views\tbUsuarios\Delete.cshtml" />
+    <Content Include="Views\tbUsuarios\Details.cshtml" />
+    <Content Include="Views\tbUsuarios\Edit.cshtml" />
+    <Content Include="Views\tbUsuarios\Index.cshtml" />
+    <Content Include="Views\tbDepartamentos\Create.cshtml" />
+    <Content Include="Views\tbDepartamentos\Delete.cshtml" />
+    <Content Include="Views\tbDepartamentos\Details.cshtml" />
+    <Content Include="Views\tbDepartamentos\Edit.cshtml" />
+    <Content Include="Views\tbDepartamentos\Index.cshtml" />
+    <Content Include="Views\tbDepartamentos\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
