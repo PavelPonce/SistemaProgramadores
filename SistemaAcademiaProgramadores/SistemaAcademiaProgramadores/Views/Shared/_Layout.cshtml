@@ -18,6 +18,27 @@
     @*@Scripts.Render("~/bundles/modernizr")*@
 
 </head>
+@*
+    MODAL DE BOOTSTRAP
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>*@
 <body class="">
 
     <div id="wrapper">
@@ -47,8 +68,18 @@
                     <li>
                         <a href="#"><i class="fa fa-lock"></i> <span class="nav-label">Acceso</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*<li>@Html.ActionLink("Pantallas", "Index", "Pantallas")</li>*@
-                            @*<li>@Html.ActionLink("Roles", "Index", "Roles")</li>*@
+                            @*@Url.Action("Index", "tbPantallas")*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Pantallas
+                                </a>
+                            </li>
+                            @*@Url.Action("Index", "tbRoles")*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Roles
+                                </a>
+                            </li>
                             <li>
                                 <a href="@Url.Action("Index", "tbUsuarios")">
                                     <i class="fa fa-users"></i> Usuarios
@@ -59,23 +90,84 @@
                     <li>
                         <a href="#"><i class="fa fa-wrench"></i> <span class="nav-label">Mantenimiento</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*<li>@Html.ActionLink("Departamentos", "Index", "Departamentos")</li>*@
-                            @*<li>@Html.ActionLink("Municipios", "Index", "Municipios")</li>*@
-                            @*<li>@Html.ActionLink("EstadosCiviles", "Index", "EstadosCiviles")</li>*@
-                            @*<li>@Html.ActionLink("Personas", "Index", "Personas")</li>*@
+                            @*<li>@Url.Action("Index", "tbDepartamentos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Departamentos
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbMunicipios")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Municipios
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbEstadosCiviles")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Estados Civiles
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbCentrosEducativos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Centros Educativos
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbTitulos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Titulos
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Academia</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*<li>@Html.ActionLink("Instructores", "Index", "Instructores")</li>*@
-                            @*<li>@Html.ActionLink("Alumnos", "Index", "Alumnos")</li>*@
-                            <li>@Html.ActionLink("Generaciones", "Index", "tbGeneraciones")</li>
-                            @*<li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>*@
+                            @*<li>@Url.Action("Index", "tbInstructores")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Instructores
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbAlumnos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Alumnos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "tbGeneraciones")">
+                                    <i class="fa fa-users"></i> Generaciones
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbCategorias")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Categorias
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbCursos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Cursos
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Calificaciones</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*<li>@Url.Action("Index", "tbCalificaciones")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Calificaciones
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
-
             </div>
         </nav>
 
