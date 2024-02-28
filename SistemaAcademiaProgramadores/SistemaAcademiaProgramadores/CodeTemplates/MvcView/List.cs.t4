@@ -43,7 +43,6 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 }
 #>
 
-
 <section class="content">
 
 <div class="card">
@@ -59,14 +58,14 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 </div>
 </div>
 <div class="card-body">
-    <div class="card-title">
-        <a href="@Url.Action("Create")" class="btn btn-primary col-sm-12 mb-4">
+    <div class="card-title col-sm-12">
+        <a href="@Url.Action("Create")" class="btn btn-primary col-sm-2 mb-4">
             <i class="fa fa-plus-square-o"> </i> Nuevo
         </a>
     </div>
 
         
-    <table class="table table-responsive table-striped table-bordered dataTables-example dataTable">
+    <table class="table table-responsive table-striped table-bordered dataTables-example">
     <thead>
         <tr class="thead-purple thead-justify-content-center">
     <#
@@ -80,11 +79,19 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
             if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
                 continue;
             }
+            if(!GetValueExpression(property).EndsWith("FechaCreacion") &&
+                !GetValueExpression(property).EndsWith("FechaModificacion") &&
+                !GetValueExpression(property).EndsWith("Estado") && 
+                !GetValueExpression(property).EndsWith("tbUsuarios.Usuar_Usuario") &&
+                !GetValueExpression(property).EndsWith("tbUsuarios1.Usuar_Usuario") &&
+                !GetValueExpression(property).EndsWith("tbUsuarios2.Usuar_Usuario") &&
+                !GetValueExpression(property).EndsWith("tbUsuarios3.Usuar_Usuario")){
     #>
             <th>
                 @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
             </th>
     <#
+            }
         }
     }
     #>            
@@ -105,11 +112,19 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
             if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
                 continue;
             }
+             if(!GetValueExpression(property).EndsWith("FechaCreacion") &&
+                !GetValueExpression(property).EndsWith("FechaModificacion") &&
+                !GetValueExpression(property).EndsWith("Estado") && 
+                !GetValueExpression(property).EndsWith("tbUsuarios.Usuar_Usuario") &&
+                !GetValueExpression(property).EndsWith("tbUsuarios1.Usuar_Usuario") &&
+                !GetValueExpression(property).EndsWith("tbUsuarios2.Usuar_Usuario") &&
+                !GetValueExpression(property).EndsWith("tbUsuarios3.Usuar_Usuario")){
     #>
             <td>
                 @Html.DisplayFor(modelItem => <#= "item." + GetValueExpression(property) #>)
             </td>
     <#
+            }
         }
     }
 
