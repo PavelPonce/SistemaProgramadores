@@ -9,7 +9,7 @@
     @Styles.Render("~/Content/HTML5_Full_Version/css/bootstrap.css")
     @*<link href="~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css")
-    @Styles.Render("~/Content/HTML5_Full_Version/css / plugins / dataTables / datatables.min.css")
+    @Styles.Render("~/Content/HTML5_Full_Version/css/plugins/dataTables/datatables.min.css")
     @*<link href="~/Content/HTML5_Full_Version/css/animate.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/css/animate.css")
     @*<link href="~/Content/HTML5_Full_Version/css/style.css" rel="stylesheet">*@
@@ -119,39 +119,7 @@
 
             <div class="wrapper wrapper-content">
                 <div class="text-center animated fadeInRightBig">
-                    <script>
 
-
-                        $(document).ready(function () {
-                            $('.dataTables-example').DataTable({
-                                pageLength: 25,
-                                responsive: true,
-                                dom: '<"html5buttons"B>lTfgitp',
-                                buttons: [
-                                    { extend: 'copy' },
-                                    { extend: 'csv' },
-                                    { extend: 'excel', title: 'ExampleFile' },
-                                    { extend: 'pdf', title: 'ExampleFile' },
-
-                                    {
-                                        extend: 'print',
-                                        customize: function (win) {
-                                            $(win.document.body).addClass('white-bg');
-                                            $(win.document.body).css('font-size', '10px');
-
-                                            $(win.document.body).find('table')
-                                                .addClass('compact')
-                                                .css('font-size', 'inherit');
-                                        }
-                                    }
-                                ]
-
-                            });
-
-                        });
-
-
-                    </script>
                     @RenderBody()
                 </div>
             </div>
@@ -194,7 +162,42 @@
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/dataTables.bootstrap4.min.js")
 
     @RenderSection("scripts", required: false)
+    <script>
+
+
+        // Upgrade button class name
+        $(document).ready(function () {
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+
+    </script>
 </body>
+
 @*<body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
