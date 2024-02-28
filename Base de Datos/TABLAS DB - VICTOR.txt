@@ -1,3 +1,17 @@
+ALTER PROCEDURE [Mante].[SP_tbMunicipios_INSERTAR]	
+(
+	@Munic_Id VARCHAR(4),
+	@Munic_Descripcion VARCHAR(50),
+	@Depar_Id VARCHAR(2),
+	@Munic_UsuarioCreacion INT,
+	@Munic_FechaCreacion DATETIME
+)
+AS 
+BEGIN
+	INSERT INTO Mante.tbMunicipios(Munic_Id, Munic_Descripcion, Depar_Id, Munic_UsuarioCreacion, Munic_FechaCreacion)
+	VALUES(@Munic_Id, @Munic_Descripcion, @Depar_Id, @Munic_UsuarioCreacion, @Munic_FechaCreacion)
+END
+---------------------------------------------------------------------
 CREATE SCHEMA Acade
 GO
 CREATE SCHEMA Calif
