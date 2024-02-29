@@ -1575,3 +1575,19 @@ BEGIN
 END
 
 GO
+
+
+CREATE PROCEDURE [Acces].[SP_tbUsuarios_LOGIN]
+	@Usuario VARCHAR(50),
+	@Contraseña VARCHAR(50)
+AS
+BEGIN 
+	SELECT	usu.Usuar_Id,
+			usu.Usuar_Contrasena,
+			CONCAT(per.Perso_PrimerNombre,' ',CASE WHEN per.Perso_SegundoNombre IS NULL THEN '' ELSE per.Perso_SegundoNombre + ' ' END, per.Perso_PrimerApellido, CASE WHEN per.Perso_SegundoApellido IS NULL THEN '' ELSE ' ' + per.Perso_SegundoNombre END) AS Perso_NombreCompleto,
+			per.*
+	FROM Acces.tbUsuarios AS usu INNER JOIN Acade.tbInstructores AS ins
+	ON usu.Instr_Id = ins.Perso_Id INNER JOIN Mante.tbPersonas AS per
+	ON ins.Perso_Id = per.Perso_Id
+	WHERE usu.Usuar_Id = @Usuario AND usu.Usuar_Contrasena = CONVERT (NVARCHAR (MAX), HASHBYTES ('SHA2_512', @Contraseña), 2);
+END
