@@ -14,6 +14,12 @@ namespace SistemaAcademiaProgramadores.Models
     
     public partial class tbActividadesPorCursoPorGeneracion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbActividadesPorCursoPorGeneracion()
+        {
+            this.tbCalificaciones = new HashSet<tbCalificaciones>();
+        }
+    
         public int ActCG_Id { get; set; }
         public int Activ_Id { get; set; }
         public int CuGen_Id { get; set; }
@@ -28,5 +34,7 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         public virtual tbActividades tbActividades { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCalificaciones> tbCalificaciones { get; set; }
     }
 }

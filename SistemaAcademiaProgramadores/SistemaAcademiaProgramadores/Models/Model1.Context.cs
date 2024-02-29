@@ -12,6 +12,8 @@ namespace SistemaAcademiaProgramadores.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class dbAcademiaProgramadoresEntities2 : DbContext
     {
@@ -45,5 +47,105 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual DbSet<tbMunicipios> tbMunicipios { get; set; }
         public virtual DbSet<tbPersonas> tbPersonas { get; set; }
         public virtual DbSet<tbTitulos> tbTitulos { get; set; }
+    
+        public virtual int SP_tbUsuarios_DELETE(Nullable<int> usuar_Id, Nullable<int> usuar_UsuarioModificacion, Nullable<System.DateTime> usuar_FechaModificacion)
+        {
+            var usuar_IdParameter = usuar_Id.HasValue ?
+                new ObjectParameter("Usuar_Id", usuar_Id) :
+                new ObjectParameter("Usuar_Id", typeof(int));
+    
+            var usuar_UsuarioModificacionParameter = usuar_UsuarioModificacion.HasValue ?
+                new ObjectParameter("Usuar_UsuarioModificacion", usuar_UsuarioModificacion) :
+                new ObjectParameter("Usuar_UsuarioModificacion", typeof(int));
+    
+            var usuar_FechaModificacionParameter = usuar_FechaModificacion.HasValue ?
+                new ObjectParameter("Usuar_FechaModificacion", usuar_FechaModificacion) :
+                new ObjectParameter("Usuar_FechaModificacion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_tbUsuarios_DELETE", usuar_IdParameter, usuar_UsuarioModificacionParameter, usuar_FechaModificacionParameter);
+        }
+    
+        public virtual int SP_tbUsuarios_INSERT(string usuar_Usuario, string usuar_Contrasena, Nullable<int> instr_Id, Nullable<int> roles_Id, Nullable<bool> usuar_Admin, Nullable<int> usuar_UsuarioCreacion, Nullable<System.DateTime> usuar_FechaCreacion)
+        {
+            var usuar_UsuarioParameter = usuar_Usuario != null ?
+                new ObjectParameter("Usuar_Usuario", usuar_Usuario) :
+                new ObjectParameter("Usuar_Usuario", typeof(string));
+    
+            var usuar_ContrasenaParameter = usuar_Contrasena != null ?
+                new ObjectParameter("Usuar_Contrasena", usuar_Contrasena) :
+                new ObjectParameter("Usuar_Contrasena", typeof(string));
+    
+            var instr_IdParameter = instr_Id.HasValue ?
+                new ObjectParameter("Instr_Id", instr_Id) :
+                new ObjectParameter("Instr_Id", typeof(int));
+    
+            var roles_IdParameter = roles_Id.HasValue ?
+                new ObjectParameter("Roles_Id", roles_Id) :
+                new ObjectParameter("Roles_Id", typeof(int));
+    
+            var usuar_AdminParameter = usuar_Admin.HasValue ?
+                new ObjectParameter("Usuar_Admin", usuar_Admin) :
+                new ObjectParameter("Usuar_Admin", typeof(bool));
+    
+            var usuar_UsuarioCreacionParameter = usuar_UsuarioCreacion.HasValue ?
+                new ObjectParameter("Usuar_UsuarioCreacion", usuar_UsuarioCreacion) :
+                new ObjectParameter("Usuar_UsuarioCreacion", typeof(int));
+    
+            var usuar_FechaCreacionParameter = usuar_FechaCreacion.HasValue ?
+                new ObjectParameter("Usuar_FechaCreacion", usuar_FechaCreacion) :
+                new ObjectParameter("Usuar_FechaCreacion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_tbUsuarios_INSERT", usuar_UsuarioParameter, usuar_ContrasenaParameter, instr_IdParameter, roles_IdParameter, usuar_AdminParameter, usuar_UsuarioCreacionParameter, usuar_FechaCreacionParameter);
+        }
+    
+        public virtual ObjectResult<SP_tbUsuarios_LOGIN_Result> SP_tbUsuarios_LOGIN(string usuario, string contraseña)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(string));
+    
+            var contraseñaParameter = contraseña != null ?
+                new ObjectParameter("Contraseña", contraseña) :
+                new ObjectParameter("Contraseña", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_tbUsuarios_LOGIN_Result>("SP_tbUsuarios_LOGIN", usuarioParameter, contraseñaParameter);
+        }
+    
+        public virtual int SP_tbUsuarios_UPDATE(Nullable<int> usuar_Id, string usuar_Usuario, string new_Usuar_Contrasena, Nullable<int> instr_Id, Nullable<int> roles_Id, Nullable<bool> usuar_Admin, Nullable<int> usuar_UsuarioModificacion, Nullable<System.DateTime> usuar_FechaModificacion)
+        {
+            var usuar_IdParameter = usuar_Id.HasValue ?
+                new ObjectParameter("Usuar_Id", usuar_Id) :
+                new ObjectParameter("Usuar_Id", typeof(int));
+    
+            var usuar_UsuarioParameter = usuar_Usuario != null ?
+                new ObjectParameter("Usuar_Usuario", usuar_Usuario) :
+                new ObjectParameter("Usuar_Usuario", typeof(string));
+    
+            var new_Usuar_ContrasenaParameter = new_Usuar_Contrasena != null ?
+                new ObjectParameter("New_Usuar_Contrasena", new_Usuar_Contrasena) :
+                new ObjectParameter("New_Usuar_Contrasena", typeof(string));
+    
+            var instr_IdParameter = instr_Id.HasValue ?
+                new ObjectParameter("Instr_Id", instr_Id) :
+                new ObjectParameter("Instr_Id", typeof(int));
+    
+            var roles_IdParameter = roles_Id.HasValue ?
+                new ObjectParameter("Roles_Id", roles_Id) :
+                new ObjectParameter("Roles_Id", typeof(int));
+    
+            var usuar_AdminParameter = usuar_Admin.HasValue ?
+                new ObjectParameter("Usuar_Admin", usuar_Admin) :
+                new ObjectParameter("Usuar_Admin", typeof(bool));
+    
+            var usuar_UsuarioModificacionParameter = usuar_UsuarioModificacion.HasValue ?
+                new ObjectParameter("Usuar_UsuarioModificacion", usuar_UsuarioModificacion) :
+                new ObjectParameter("Usuar_UsuarioModificacion", typeof(int));
+    
+            var usuar_FechaModificacionParameter = usuar_FechaModificacion.HasValue ?
+                new ObjectParameter("Usuar_FechaModificacion", usuar_FechaModificacion) :
+                new ObjectParameter("Usuar_FechaModificacion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_tbUsuarios_UPDATE", usuar_IdParameter, usuar_UsuarioParameter, new_Usuar_ContrasenaParameter, instr_IdParameter, roles_IdParameter, usuar_AdminParameter, usuar_UsuarioModificacionParameter, usuar_FechaModificacionParameter);
+        }
     }
 }

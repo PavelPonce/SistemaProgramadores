@@ -180,7 +180,7 @@
       <PropertyRef Name="Calif_Id" />
     </Key>
     <Property Name="Calif_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CuGen_Id" Type="int" Nullable="false" />
+    <Property Name="AcCG_Id" Type="int" Nullable="false" />
     <Property Name="Alumn_Id" Type="int" Nullable="false" />
     <Property Name="Calif_Nota" Type="numeric" Precision="4" Scale="2" Nullable="false" />
     <Property Name="Calif_UsuarioCreacion" Type="int" Nullable="false" />
@@ -444,15 +444,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+  <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+    <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="1" />
     <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
+      <Principal Role="tbActividadesPorCursoPorGeneracion">
+        <PropertyRef Name="ActCG_Id" />
       </Principal>
       <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="CuGen_Id" />
+        <PropertyRef Name="AcCG_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -996,6 +996,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="SP_tbUsuarios_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Usuar_Id" Type="int" Mode="In" />
+    <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_tbUsuarios_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Usuar_Usuario" Type="varchar" Mode="In" />
+    <Parameter Name="Usuar_Contrasena" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Instr_Id" Type="int" Mode="In" />
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Usuar_Admin" Type="bit" Mode="In" />
+    <Parameter Name="Usuar_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Usuar_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_tbUsuarios_LOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Usuario" Type="varchar" Mode="In" />
+    <Parameter Name="Contraseña" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_tbUsuarios_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Usuar_Id" Type="int" Mode="In" />
+    <Parameter Name="Usuar_Usuario" Type="varchar" Mode="In" />
+    <Parameter Name="New_Usuar_Contrasena" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Instr_Id" Type="int" Mode="In" />
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Usuar_Admin" Type="bit" Mode="In" />
+    <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
   <EntityContainer Name="dbAcademiaProgramadoresModelStoreContainer">
     <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumnos" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbCategorias" EntityType="Self.tbCategorias" Schema="Acade" store:Type="Tables" />
@@ -1073,8 +1101,8 @@
       <End Role="tbAlumnos" EntitySet="tbAlumnos" />
       <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+    <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
       <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
     </AssociationSet>
     <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">

@@ -23,10 +23,12 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<int> Calif_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Calif_FechaModificacion { get; set; }
         public bool Calif_Estado { get; set; }
+        public int AcCG_Id { get; set; }
     
         public virtual tbAlumnos tbAlumnos { get; set; }
         public virtual tbCursosPorGeneracion tbCursosPorGeneracion { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
+        public virtual tbActividadesPorCursoPorGeneracion tbActividadesPorCursoPorGeneracion { get; set; }
     }
 }

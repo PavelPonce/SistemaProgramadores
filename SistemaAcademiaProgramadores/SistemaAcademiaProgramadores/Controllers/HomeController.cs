@@ -35,6 +35,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 return View();
             }
+
         }
 
         public ActionResult About()

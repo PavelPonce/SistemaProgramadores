@@ -192,8 +192,8 @@
     <EntitySetMapping Name="tbCalificaciones">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificaciones">
         <MappingFragment StoreEntitySet="tbCalificaciones">
+          <ScalarProperty Name="AcCG_Id" ColumnName="AcCG_Id" />
           <ScalarProperty Name="Calif_Id" ColumnName="Calif_Id" />
-          <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
           <ScalarProperty Name="Alumn_Id" ColumnName="Alumn_Id" />
           <ScalarProperty Name="Calif_Nota" ColumnName="Calif_Nota" />
           <ScalarProperty Name="Calif_UsuarioCreacion" ColumnName="Calif_UsuarioCreacion" />
@@ -297,5 +297,34 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_DELETE" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_DELETE" />
+    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_INSERT" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_INSERT" />
+    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_LOGIN" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_LOGIN">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_tbUsuarios_LOGIN_Result">
+          <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
+          <ScalarProperty Name="Usuar_Contrasena" ColumnName="Usuar_Contrasena" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+          <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+          <ScalarProperty Name="Perso_PrimerNombre" ColumnName="Perso_PrimerNombre" />
+          <ScalarProperty Name="Perso_SegundoNombre" ColumnName="Perso_SegundoNombre" />
+          <ScalarProperty Name="Perso_PrimerApellido" ColumnName="Perso_PrimerApellido" />
+          <ScalarProperty Name="Perso_SegundoApellido" ColumnName="Perso_SegundoApellido" />
+          <ScalarProperty Name="Perso_FechaNacimiento" ColumnName="Perso_FechaNacimiento" />
+          <ScalarProperty Name="Perso_Sexo" ColumnName="Perso_Sexo" />
+          <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
+          <ScalarProperty Name="Perso_Direccion" ColumnName="Perso_Direccion" />
+          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+          <ScalarProperty Name="Perso_Telefono" ColumnName="Perso_Telefono" />
+          <ScalarProperty Name="Perso_CorreoElectronico" ColumnName="Perso_CorreoElectronico" />
+          <ScalarProperty Name="Perso_UsuarioCreacion" ColumnName="Perso_UsuarioCreacion" />
+          <ScalarProperty Name="Perso_FechaCreacion" ColumnName="Perso_FechaCreacion" />
+          <ScalarProperty Name="Perso_UsuarioModificacion" ColumnName="Perso_UsuarioModificacion" />
+          <ScalarProperty Name="Perso_FechaModificacion" ColumnName="Perso_FechaModificacion" />
+          <ScalarProperty Name="Perso_Estado" ColumnName="Perso_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_UPDATE" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_UPDATE" />
   </EntityContainerMapping>
 </Mapping>

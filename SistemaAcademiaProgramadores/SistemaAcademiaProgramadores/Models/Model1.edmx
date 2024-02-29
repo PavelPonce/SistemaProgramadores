@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbAcademiaProgramadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbAcademiaProgramadoresModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbAlumnos">
           <Key>
             <PropertyRef Name="Perso_Id" />
@@ -185,7 +185,7 @@
             <PropertyRef Name="Calif_Id" />
           </Key>
           <Property Name="Calif_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CuGen_Id" Type="int" Nullable="false" />
+          <Property Name="AcCG_Id" Type="int" Nullable="false" />
           <Property Name="Alumn_Id" Type="int" Nullable="false" />
           <Property Name="Calif_Nota" Type="numeric" Precision="4" Scale="2" Nullable="false" />
           <Property Name="Calif_UsuarioCreacion" Type="int" Nullable="false" />
@@ -449,15 +449,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
-          <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+        <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+          <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="1" />
           <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbCursosPorGeneracion">
-              <PropertyRef Name="CuGen_Id" />
+            <Principal Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="ActCG_Id" />
             </Principal>
             <Dependent Role="tbCalificaciones">
-              <PropertyRef Name="CuGen_Id" />
+              <PropertyRef Name="AcCG_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1001,6 +1001,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_tbUsuarios_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+          <Parameter Name="Usuar_Id" Type="int" Mode="In" />
+          <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
+          <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_tbUsuarios_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+          <Parameter Name="Usuar_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Usuar_Contrasena" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Instr_Id" Type="int" Mode="In" />
+          <Parameter Name="Roles_Id" Type="int" Mode="In" />
+          <Parameter Name="Usuar_Admin" Type="bit" Mode="In" />
+          <Parameter Name="Usuar_UsuarioCreacion" Type="int" Mode="In" />
+          <Parameter Name="Usuar_FechaCreacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_tbUsuarios_LOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Contraseña" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_tbUsuarios_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+          <Parameter Name="Usuar_Id" Type="int" Mode="In" />
+          <Parameter Name="Usuar_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="New_Usuar_Contrasena" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Instr_Id" Type="int" Mode="In" />
+          <Parameter Name="Roles_Id" Type="int" Mode="In" />
+          <Parameter Name="Usuar_Admin" Type="bit" Mode="In" />
+          <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
+          <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="dbAcademiaProgramadoresModelStoreContainer">
           <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumnos" Schema="Acade" store:Type="Tables" />
           <EntitySet Name="tbCategorias" EntityType="Self.tbCategorias" Schema="Acade" store:Type="Tables" />
@@ -1078,8 +1106,8 @@
             <End Role="tbAlumnos" EntitySet="tbAlumnos" />
             <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
-            <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+          <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
             <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
           </AssociationSet>
           <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
@@ -1263,8 +1291,7 @@
             <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbAcademiaProgramadoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1534,6 +1561,7 @@
           <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
           <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
           <NavigationProperty Name="tbActividades" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbActividades" />
+          <NavigationProperty Name="tbCalificaciones" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbCalificaciones" />
         </EntityType>
         <EntityType Name="tbCalificaciones">
           <Key>
@@ -1552,6 +1580,8 @@
           <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCalificaciones" ToRole="tbCursosPorGeneracion" />
           <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
           <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
+          <Property Name="AcCG_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" FromRole="tbCalificaciones" ToRole="tbActividadesPorCursoPorGeneracion" />
         </EntityType>
         <EntityType Name="tbCentrosEducativos">
           <Key>
@@ -2645,7 +2675,73 @@
             <End Role="tbMunicipios" EntitySet="tbMunicipios" />
             <End Role="tbPersonas" EntitySet="tbPersonas" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+            <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+            <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+          </AssociationSet>
+          <FunctionImport Name="SP_tbUsuarios_DELETE">
+            <Parameter Name="Usuar_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_UsuarioModificacion" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_FechaModificacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_tbUsuarios_INSERT">
+            <Parameter Name="Usuar_Usuario" Mode="In" Type="String" />
+            <Parameter Name="Usuar_Contrasena" Mode="In" Type="String" />
+            <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_Admin" Mode="In" Type="Boolean" />
+            <Parameter Name="Usuar_UsuarioCreacion" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_FechaCreacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_tbUsuarios_LOGIN" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_tbUsuarios_LOGIN_Result)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Contraseña" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_tbUsuarios_UPDATE">
+            <Parameter Name="Usuar_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_Usuario" Mode="In" Type="String" />
+            <Parameter Name="New_Usuar_Contrasena" Mode="In" Type="String" />
+            <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_Admin" Mode="In" Type="Boolean" />
+            <Parameter Name="Usuar_UsuarioModificacion" Mode="In" Type="Int32" />
+            <Parameter Name="Usuar_FechaModificacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
+        <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+          <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="1" />
+          <End Type="dbAcademiaProgramadoresModel.tbCalificaciones" Role="tbCalificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbActividadesPorCursoPorGeneracion">
+              <PropertyRef Name="ActCG_Id" />
+            </Principal>
+            <Dependent Role="tbCalificaciones">
+              <PropertyRef Name="AcCG_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SP_tbUsuarios_LOGIN_Result">
+          <Property Type="Int32" Name="Usuar_Id" Nullable="false" />
+          <Property Type="String" Name="Usuar_Contrasena" Nullable="false" />
+          <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+          <Property Type="Int32" Name="Perso_Id" Nullable="false" />
+          <Property Type="String" Name="Perso_PrimerNombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Perso_SegundoNombre" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Perso_PrimerApellido" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Perso_SegundoApellido" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="Perso_FechaNacimiento" Nullable="false" />
+          <Property Type="String" Name="Perso_Sexo" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="Estci_Id" Nullable="false" />
+          <Property Type="String" Name="Perso_Direccion" Nullable="false" />
+          <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="Perso_Telefono" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Perso_CorreoElectronico" Nullable="false" />
+          <Property Type="Int32" Name="Perso_UsuarioCreacion" Nullable="false" />
+          <Property Type="DateTime" Name="Perso_FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Perso_UsuarioModificacion" Nullable="true" />
+          <Property Type="DateTime" Name="Perso_FechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Perso_Estado" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2843,8 +2939,8 @@
           <EntitySetMapping Name="tbCalificaciones">
             <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificaciones">
               <MappingFragment StoreEntitySet="tbCalificaciones">
+                <ScalarProperty Name="AcCG_Id" ColumnName="AcCG_Id" />
                 <ScalarProperty Name="Calif_Id" ColumnName="Calif_Id" />
-                <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
                 <ScalarProperty Name="Alumn_Id" ColumnName="Alumn_Id" />
                 <ScalarProperty Name="Calif_Nota" ColumnName="Calif_Nota" />
                 <ScalarProperty Name="Calif_UsuarioCreacion" ColumnName="Calif_UsuarioCreacion" />
@@ -2948,6 +3044,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_tbUsuarios_DELETE" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_DELETE" />
+          <FunctionImportMapping FunctionImportName="SP_tbUsuarios_INSERT" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_INSERT" />
+          <FunctionImportMapping FunctionImportName="SP_tbUsuarios_LOGIN" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_LOGIN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_tbUsuarios_LOGIN_Result">
+                <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
+                <ScalarProperty Name="Usuar_Contrasena" ColumnName="Usuar_Contrasena" />
+                <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+                <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+                <ScalarProperty Name="Perso_PrimerNombre" ColumnName="Perso_PrimerNombre" />
+                <ScalarProperty Name="Perso_SegundoNombre" ColumnName="Perso_SegundoNombre" />
+                <ScalarProperty Name="Perso_PrimerApellido" ColumnName="Perso_PrimerApellido" />
+                <ScalarProperty Name="Perso_SegundoApellido" ColumnName="Perso_SegundoApellido" />
+                <ScalarProperty Name="Perso_FechaNacimiento" ColumnName="Perso_FechaNacimiento" />
+                <ScalarProperty Name="Perso_Sexo" ColumnName="Perso_Sexo" />
+                <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
+                <ScalarProperty Name="Perso_Direccion" ColumnName="Perso_Direccion" />
+                <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+                <ScalarProperty Name="Perso_Telefono" ColumnName="Perso_Telefono" />
+                <ScalarProperty Name="Perso_CorreoElectronico" ColumnName="Perso_CorreoElectronico" />
+                <ScalarProperty Name="Perso_UsuarioCreacion" ColumnName="Perso_UsuarioCreacion" />
+                <ScalarProperty Name="Perso_FechaCreacion" ColumnName="Perso_FechaCreacion" />
+                <ScalarProperty Name="Perso_UsuarioModificacion" ColumnName="Perso_UsuarioModificacion" />
+                <ScalarProperty Name="Perso_FechaModificacion" ColumnName="Perso_FechaModificacion" />
+                <ScalarProperty Name="Perso_Estado" ColumnName="Perso_Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_tbUsuarios_UPDATE" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_UPDATE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
