@@ -87,7 +87,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                 !GetValueExpression(property).EndsWith("tbUsuarios2.Usuar_Usuario") &&
                 !GetValueExpression(property).EndsWith("tbUsuarios3.Usuar_Usuario")){
     #>
-            <th>
+            <th class="bg-primary">
                 @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
             </th>
     <#
@@ -95,7 +95,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
         }
     }
     #>            
-            <th></th>
+            <th class="bg-primary">Acciones</th>
            
         </tr>
         </thead>
@@ -132,7 +132,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     if (pkName != null) {
     #>
             <td>
-                <div class="form-group">
+                <div class="d-flex justify-content-around align-items-center form-group">
                     <a class="btn btn-editar col-sm-4" href="@Url.Action("Edit", new { id=item.<#= pkName #> })">
                         <i class="fa fa-edit"></i>
                     </a>
