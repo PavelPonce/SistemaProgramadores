@@ -1,3 +1,20 @@
+//SP_tbCalificaciones_SELECT
+SELECT
+		CONCAT(tbPersonas.Perso_PrimerNombre, ' ', tbPersonas.Perso_PrimerApellido) AS ALUMNO,
+		tbCalificaciones.Calif_Nota AS NOTA,
+		CONCAT(tbActividades.Activ_Nombre, ' ', tbActividadesPorCursoPorGeneracion.ActCG_Nota) AS ACTIVIDAD,
+		tbCursos.Curso_Nombre AS CURSO,
+		tbGeneraciones.Gener_Estado AS GENERACION_AÑO
+	FROM Acade.tbCursosPorGeneracion AS tbCursosPorGeneracion INNER JOIN Acade.tbCursos AS tbCursos
+		ON tbCursosPorGeneracion.Curso_Id = tbCursos.Curso_Id INNER JOIN Acade.tbGeneraciones AS tbGeneraciones
+		ON tbCursosPorGeneracion.Gener_Id = tbGeneraciones.Gener_Id INNER JOIN Calif.tbActividadesPorCursoPorGeneracion AS tbActividadesPorCursoPorGeneracion
+		ON tbCursosPorGeneracion.CuGen_Id = tbActividadesPorCursoPorGeneracion.CuGen_Id	INNER JOIN Calif.tbActividades AS tbActividades
+		ON tbActividadesPorCursoPorGeneracion.Activ_Id = tbActividades.Activ_Id INNER JOIN Calif.tbCalificaciones AS tbCalificaciones
+		ON tbActividadesPorCursoPorGeneracion.ActCG_Id = tbCalificaciones.ActCG_Id INNER JOIN Acade.tbAlumnos AS tbAlumnos
+		ON tbCalificaciones.Alumn_Id = tbAlumnos.Perso_Id INNER JOIN Mante.tbPersonas AS tbPersonas
+		ON tbAlumnos.Perso_Id = tbPersonas.Perso_Id
+	WHERE tbCursosPorGeneracion.Curso_Id = 1 AND tbCursosPorGeneracion.Gener_Id = 1
+--------------------------------------------------------------------------------------------------------
 ALTER PROCEDURE [Mante].[SP_tbMunicipios_INSERTAR]	
 (
 	@Munic_Id VARCHAR(4),
