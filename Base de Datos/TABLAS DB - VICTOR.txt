@@ -1,3 +1,139 @@
+//TRIGGER ELIMINAR tbAlumnos
+CREATE TRIGGER TG_tbAlumnos_DELETE
+	ON Acade.tbAlumnos
+	AFTER DELETE
+AS
+BEGIN
+	INSERT INTO tbAlumnosBitacora(
+		 Perso_Id, 
+		 CenEd_IdColegio, 
+		 CenEd_IdUniversidad, 
+		 Titul_Id, 
+		 Alumn_UsuarioCreacion, 
+		 Alumn_FechaCreacion, 
+		 Alumn_UsuarioModificacion, 
+		 Alumn_FechaModificacion, 
+		 Alumn_Estado, 
+		 Alumn_Observaciones, 
+		 Alumn_FechaIngreso, 
+		 AlBit_Accion, 
+		 AlBit_FechaAccion
+	)
+	SELECT
+		Perso_Id, 
+		CenEd_IdColegio, 
+		CenEd_IdUniversidad, 
+		Titul_Id, 
+		Alumn_UsuarioCreacion, 
+		Alumn_FechaCreacion, 
+		Alumn_UsuarioModificacion, 
+		Alumn_FechaModificacion, 
+		Alumn_Estado, 
+		Alumn_Observaciones, 
+		Alumn_FechaIngreso,
+        'E',
+		GETDATE()
+    FROM
+        DELETED;
+END
+--------------------------------------------------------------------------------
+
+//TRIGGER MODIFICAR tbAlumnos
+CREATE TRIGGER TG_tbAlumnos_UPDATE
+	ON Acade.tbAlumnos
+	AFTER UPDATE
+AS
+BEGIN
+	INSERT INTO tbAlumnosBitacora(
+		 Perso_Id, 
+		 CenEd_IdColegio, 
+		 CenEd_IdUniversidad, 
+		 Titul_Id, 
+		 Alumn_UsuarioCreacion, 
+		 Alumn_FechaCreacion, 
+		 Alumn_UsuarioModificacion, 
+		 Alumn_FechaModificacion, 
+		 Alumn_Estado, 
+		 Alumn_Observaciones, 
+		 Alumn_FechaIngreso, 
+		 AlBit_Accion, 
+		 AlBit_FechaAccion
+	)
+	SELECT
+		Perso_Id, 
+		CenEd_IdColegio, 
+		CenEd_IdUniversidad, 
+		Titul_Id, 
+		Alumn_UsuarioCreacion, 
+		Alumn_FechaCreacion, 
+		Alumn_UsuarioModificacion, 
+		Alumn_FechaModificacion, 
+		Alumn_Estado, 
+		Alumn_Observaciones, 
+		Alumn_FechaIngreso,
+        'M',
+		GETDATE()
+    FROM
+        INSERTED;
+END
+--------------------------------------------------------------------------------
+//TRIGGER INSERTAR tbAlumnos
+CREATE TRIGGER TG_tbAlumnos_INSERT
+	ON Acade.tbAlumnos
+	AFTER INSERT
+AS
+BEGIN
+	INSERT INTO tbAlumnosBitacora(
+		 Perso_Id, 
+		 CenEd_IdColegio, 
+		 CenEd_IdUniversidad, 
+		 Titul_Id, 
+		 Alumn_UsuarioCreacion, 
+		 Alumn_FechaCreacion, 
+		 Alumn_UsuarioModificacion, 
+		 Alumn_FechaModificacion, 
+		 Alumn_Estado, 
+		 Alumn_Observaciones, 
+		 Alumn_FechaIngreso, 
+		 AlBit_Accion, 
+		 AlBit_FechaAccion
+	)
+	SELECT
+		Perso_Id, 
+		CenEd_IdColegio, 
+		CenEd_IdUniversidad, 
+		Titul_Id, 
+		Alumn_UsuarioCreacion, 
+		Alumn_FechaCreacion, 
+		Alumn_UsuarioModificacion, 
+		Alumn_FechaModificacion, 
+		Alumn_Estado, 
+		Alumn_Observaciones, 
+		Alumn_FechaIngreso,
+        'I',
+		GETDATE()
+    FROM
+        INSERTED;
+END
+--------------------------------------------------------------------------------
+//BITACORA DE ALUMNOS
+CREATE TABLE [Acade].[tbAlumnosBitacora](
+	[Perso_Id] [int],
+	[CenEd_IdColegio] [int],
+	[CenEd_IdUniversidad] [int],
+	[Titul_Id] [int],
+	[Alumn_UsuarioCreacion] [int],
+	[Alumn_FechaCreacion] [datetime],
+	[Alumn_UsuarioModificacion] [int],
+	[Alumn_FechaModificacion] [datetime],
+	[Alumn_Estado] [bit],
+	[Alumn_Observaciones] [varchar](150),
+	[Alumn_FechaIngreso] [datetime],
+	AlBit_Accion CHAR(1) NOT NULL,
+	AlBit_FechaAccion DATETIME,
+	CONSTRAINT CK_tbAlumnosBitacora_AlBit_Accion CHECK(AlBit_Accion IN('I', 'M', 'E'))
+)
+----------------------------------------------------------------------------------
 //SP_tbCalificaciones_SELECT
 SELECT
 		CONCAT(tbPersonas.Perso_PrimerNombre, ' ', tbPersonas.Perso_PrimerApellido) AS ALUMNO,
