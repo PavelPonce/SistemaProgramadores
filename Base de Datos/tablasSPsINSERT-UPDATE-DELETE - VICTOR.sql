@@ -741,12 +741,12 @@ GO
 GO
 
 CREATE PROCEDURE [Acces].[SP_tbUsuarios_INSERT] (
-	@Usuar_Usuario VARCHAR(50) NOT NULL,
-	@Usuar_Contrasena NVARCHAR(MAX) NOT NULL, -- Use NVARCHAR for better password storage
-	@Instr_Id INT NOT NULL,
-	@Roles_Id INT NOT NULL,
-	@Usuar_Admin BIT NOT NULL,
-	@Usuar_UsuarioCreacion INT NOT NULL,
+	@Usuar_Usuario VARCHAR(50) ,
+	@Usuar_Contrasena NVARCHAR(MAX) , -- Use NVARCHAR for better password storage
+	@Instr_Id INT ,
+	@Roles_Id INT ,
+	@Usuar_Admin BIT ,
+	@Usuar_UsuarioCreacion INT ,
 	@Usuar_FechaCreacion DATETIME
 )
 AS
@@ -794,7 +794,7 @@ CREATE PROCEDURE [Acces].[SP_tbUsuarios_UPDATE] (
 AS
 BEGIN
 
-	DECLARE @HashedPassword VARBINARY(MAX);
+	DECLARE @HashedPassword NVARCHAR(MAX);
 
 	-- If a new password is provided, hash it before updating
 	IF @New_Usuar_Contrasena IS NOT NULL
@@ -846,8 +846,8 @@ GO
 GO
 
 CREATE PROCEDURE [Calif].[SP_tbActividades_INSERT] (
-	@Activ_Nombre VARCHAR(30) NOT NULL,
-	@Activ_UsuarioCreacion INT NOT NULL,
+	@Activ_Nombre VARCHAR(30) ,
+	@Activ_UsuarioCreacion INT ,
 	@Activ_FechaCreacion DATETIME
 )
 AS
@@ -916,7 +916,7 @@ GO
 CREATE PROCEDURE [Calif].[SP_tbActividadesPorCursoPorGeneracion_INSERT] (
 	@Activ_Id INT,
 	@CuGen_Id INT,
-	@ActCG_Nota NUMERIC(4, 2) NOT NULL,
+	@ActCG_Nota NUMERIC(4, 2) ,
 	@ActCG_UsuarioCreacion INT,
 	@ActCG_FechaCreacion DATETIME
 )
@@ -948,7 +948,7 @@ CREATE PROCEDURE [Calif].[SP_tbActividadesPorCursoPorGeneracion_UPDATE] (
 	@ActCG_Id INT,
 	@Activ_Id INT,
 	@CuGen_Id INT,
-	@ActCG_Nota NUMERIC(4, 2) NOT NULL,
+	@ActCG_Nota NUMERIC(4, 2) ,
 	@ActCG_UsuarioModificacion INT,
 	@ActCG_FechaModificacion DATETIME
 )
@@ -995,7 +995,7 @@ GO
 CREATE PROCEDURE [Calif].[SP_tbCalificaciones_INSERT] (
 	@CuGen_Id INT,
 	@Alumn_Id INT,
-	@Calif_Nota NUMERIC(4, 2) NOT NULL,
+	@Calif_Nota NUMERIC(4, 2) ,
 	@Calif_UsuarioCreacion INT,
 	@Calif_FechaCreacion DATETIME
 )
@@ -1028,7 +1028,7 @@ CREATE PROCEDURE [Calif].[SP_tbCalificaciones_UPDATE] (
 	@Calif_Id INT,
 	@CuGen_Id INT,
 	@Alumn_Id INT,
-	@Calif_Nota NUMERIC(4, 2) NOT NULL,
+	@Calif_Nota NUMERIC(4, 2) ,
 	@Calif_UsuarioModificacion INT,
 	@Calif_FechaModificacion DATETIME
 )
@@ -1074,12 +1074,12 @@ GO
 
 -- SP_tbCentrosEducativos_INSERT
 CREATE PROCEDURE [Mante].[SP_tbCentrosEducativos_INSERT] (
-	@CenEd_Nombre VARCHAR(30) NOT NULL,
-	@CenEd_Direccion VARCHAR(150) NOT NULL,
-	@CenEd_Tipo CHAR(1) NOT NULL,
-	@Munic_Id VARCHAR(4) NOT NULL,
-	@CenEd_UsuarioCreacion INT NOT NULL,
-	@CenEd_FechaCreacion DATETIME NOT NULL
+	@CenEd_Nombre VARCHAR(30) ,
+	@CenEd_Direccion VARCHAR(150) ,
+	@CenEd_Tipo CHAR(1) ,
+	@Munic_Id VARCHAR(4) ,
+	@CenEd_UsuarioCreacion INT ,
+	@CenEd_FechaCreacion DATETIME 
 )
 AS
 BEGIN
@@ -1110,10 +1110,10 @@ GO
 -- SP_tbCentrosEducativos_UPDATE
 CREATE PROCEDURE [Mante].[SP_tbCentrosEducativos_UPDATE] (
 	@CenEd_Id INT,
-	@CenEd_Nombre VARCHAR(30) NOT NULL,
-	@CenEd_Direccion VARCHAR(150) NOT NULL,
-	@CenEd_Tipo CHAR(1) NOT NULL,
-	@Munic_Id VARCHAR(4) NOT NULL,
+	@CenEd_Nombre VARCHAR(30) ,
+	@CenEd_Direccion VARCHAR(150) ,
+	@CenEd_Tipo CHAR(1) ,
+	@Munic_Id VARCHAR(4) ,
 	@CenEd_UsuarioModificacion INT,
 	@CenEd_FechaModificacion DATETIME
 )
@@ -1160,10 +1160,10 @@ GO
 
 -- SP_tbDepartamentos_INSERT
 CREATE PROCEDURE [Mante].[SP_tbDepartamentos_INSERT] (
-	@Depar_Id CHAR(2) NOT NULL,
-	@Depar_Descripcion VARCHAR(50) NOT NULL,
-	@Depar_UsuarioCreacion INT NOT NULL,
-	@Depar_FechaCreacion DATETIME NOT NULL
+	@Depar_Id CHAR(2) ,
+	@Depar_Descripcion VARCHAR(50) ,
+	@Depar_UsuarioCreacion INT ,
+	@Depar_FechaCreacion DATETIME 
 )
 AS
 BEGIN
@@ -1189,8 +1189,8 @@ GO
 
 -- SP_tbDepartamentos_UPDATE
 CREATE PROCEDURE [Mante].[SP_tbDepartamentos_UPDATE] (
-	@Depar_Id CHAR(2) NOT NULL,
-	@Depar_Descripcion VARCHAR(50) NOT NULL,
+	@Depar_Id CHAR(2) ,
+	@Depar_Descripcion VARCHAR(50) ,
 	@Depar_UsuarioModificacion INT,
 	@Depar_FechaModificacion DATETIME
 )
@@ -1211,7 +1211,7 @@ GO
 
 -- SP_tbDepartamentos_DELETE
 CREATE PROCEDURE [Mante].[SP_tbDepartamentos_DELETE] (
-	@Depar_Id CHAR(2) NOT NULL,
+	@Depar_Id CHAR(2) ,
 	@Depar_UsuarioModificacion INT,
 	@Depar_FechaModificacion DATETIME
 )
@@ -1234,9 +1234,9 @@ GO
 
 -- SP_tbEstadosCiviles_INSERT
 CREATE PROCEDURE [Mante].[SP_tbEstadosCiviles_INSERT] (
-	@Estci_Descripcion VARCHAR(30) NOT NULL,
-	@Estci_UsuarioCreacion INT NOT NULL,
-	@Estci_FechaCreacion DATETIME NOT NULL
+	@Estci_Descripcion VARCHAR(30) ,
+	@Estci_UsuarioCreacion INT ,
+	@Estci_FechaCreacion DATETIME 
 )
 AS
 BEGIN
@@ -1261,7 +1261,7 @@ GO
 -- SP_tbEstadosCiviles_UPDATE
 CREATE PROCEDURE [Mante].[SP_tbEstadosCiviles_UPDATE] (
 	@Estci_Id INT,
-	@Estci_Descripcion VARCHAR(30) NOT NULL,
+	@Estci_Descripcion VARCHAR(30) ,
 	@Estci_UsuarioModificacion INT,
 	@Estci_FechaModificacion DATETIME
 )
@@ -1305,11 +1305,11 @@ GO
 
 -- SP_tbMunicipios_INSERT
 CREATE PROCEDURE [Mante].[SP_tbMunicipios_INSERT] (
-	@Munic_Id CHAR(4) NOT NULL,
-	@Munic_Descripcion VARCHAR(50) NOT NULL,
-	@Depar_Id CHAR(2) NOT NULL,
-	@Munic_UsuarioCreacion INT NOT NULL,
-	@Munic_FechaCreacion DATETIME NOT NULL
+	@Munic_Id CHAR(4) ,
+	@Munic_Descripcion VARCHAR(50) ,
+	@Depar_Id CHAR(2) ,
+	@Munic_UsuarioCreacion INT ,
+	@Munic_FechaCreacion DATETIME 
 )
 AS
 BEGIN
@@ -1337,9 +1337,9 @@ GO
 
 -- SP_tbMunicipios_UPDATE
 CREATE PROCEDURE [Mante].[SP_tbMunicipios_UPDATE] (
-	@Munic_Id CHAR(4) NOT NULL,
-	@Munic_Descripcion VARCHAR(50) NOT NULL,
-	@Depar_Id CHAR(2) NOT NULL,
+	@Munic_Id CHAR(4) ,
+	@Munic_Descripcion VARCHAR(50) ,
+	@Depar_Id CHAR(2) ,
 	@Munic_UsuarioModificacion INT,
 	@Munic_FechaModificacion DATETIME
 )
@@ -1361,7 +1361,7 @@ GO
 
 -- SP_tbMunicipios_DELETE
 CREATE PROCEDURE [Mante].[SP_tbMunicipios_DELETE] (
-	@Munic_Id CHAR(4) NOT NULL,
+	@Munic_Id CHAR(4) ,
 	@Munic_UsuarioModificacion INT,
 	@Munic_FechaModificacion DATETIME
 )
@@ -1384,19 +1384,19 @@ GO
 
 -- SP_tbPersonas_INSERT
 CREATE PROCEDURE [Mante].[SP_tbPersonas_INSERT] (
-	@Perso_PrimerNombre VARCHAR(30) NOT NULL,
+	@Perso_PrimerNombre VARCHAR(30) ,
 	@Perso_SegundoNombre VARCHAR(30) NULL,
-	@Perso_PrimerApellido VARCHAR(30) NOT NULL,
+	@Perso_PrimerApellido VARCHAR(30) ,
 	@Perso_SegundoApellido VARCHAR(30) NULL,
-	@Perso_FechaNacimiento DATE NOT NULL,
-	@Perso_Sexo CHAR(1) NOT NULL,
-	@Estci_Id INT NOT NULL,
-	@Perso_Direccion VARCHAR(MAX) NOT NULL,
-	@Munic_Id CHAR(4) NOT NULL,
-	@Perso_Telefono VARCHAR(15) NOT NULL,
-	@Perso_CorreoElectronico VARCHAR(MAX) NOT NULL,
-	@Perso_UsuarioCreacion INT NOT NULL,
-	@Perso_FechaCreacion DATETIME NOT NULL
+	@Perso_FechaNacimiento DATE ,
+	@Perso_Sexo CHAR(1) ,
+	@Estci_Id INT ,
+	@Perso_Direccion VARCHAR(MAX) ,
+	@Munic_Id CHAR(4) ,
+	@Perso_Telefono VARCHAR(15) ,
+	@Perso_CorreoElectronico VARCHAR(MAX) ,
+	@Perso_UsuarioCreacion INT ,
+	@Perso_FechaCreacion DATETIME 
 )
 AS
 BEGIN
@@ -1441,17 +1441,17 @@ GO
 -- SP_tbPersonas_UPDATE
 CREATE PROCEDURE [Mante].[SP_tbPersonas_UPDATE] (
 	@Perso_Id INT,
-	@Perso_PrimerNombre VARCHAR(30) NOT NULL,
+	@Perso_PrimerNombre VARCHAR(30) ,
 	@Perso_SegundoNombre VARCHAR(30) NULL,
-	@Perso_PrimerApellido VARCHAR(30) NOT NULL,
+	@Perso_PrimerApellido VARCHAR(30) ,
 	@Perso_SegundoApellido VARCHAR(30) NULL,
-	@Perso_FechaNacimiento DATE NOT NULL,
-	@Perso_Sexo CHAR(1) NOT NULL,
-	@Estci_Id INT NOT NULL,
-	@Perso_Direccion VARCHAR(MAX) NOT NULL,
-	@Munic_Id CHAR(4) NOT NULL,
-	@Perso_Telefono VARCHAR(15) NOT NULL,
-	@Perso_CorreoElectronico VARCHAR(MAX) NOT NULL,
+	@Perso_FechaNacimiento DATE ,
+	@Perso_Sexo CHAR(1) ,
+	@Estci_Id INT ,
+	@Perso_Direccion VARCHAR(MAX) ,
+	@Munic_Id CHAR(4) ,
+	@Perso_Telefono VARCHAR(15) ,
+	@Perso_CorreoElectronico VARCHAR(MAX) ,
 	@Perso_UsuarioModificacion INT,
 	@Perso_FechaModificacion DATETIME
 )
@@ -1505,10 +1505,10 @@ GO
 
 -- SP_tbTitulos_INSERT
 CREATE PROCEDURE [Mante].[SP_tbTitulos_INSERT] (
-	@Titul_Nombre VARCHAR(60) NOT NULL,
-	@Titul_Tipo CHAR(2) NOT NULL,
-	@Titul_UsuarioCreacion INT NOT NULL,
-	@Titul_FechaCreacion DATETIME NOT NULL
+	@Titul_Nombre VARCHAR(60) ,
+	@Titul_Tipo CHAR(2) ,
+	@Titul_UsuarioCreacion INT ,
+	@Titul_FechaCreacion DATETIME 
 )
 AS
 BEGIN
@@ -1535,8 +1535,8 @@ GO
 -- SP_tbTitulos_UPDATE
 CREATE PROCEDURE [Mante].[SP_tbTitulos_UPDATE] (
 	@Titul_Id INT,
-	@Titul_Nombre VARCHAR(60) NOT NULL,
-	@Titul_Tipo CHAR(2) NOT NULL,
+	@Titul_Nombre VARCHAR(60) ,
+	@Titul_Tipo CHAR(2) ,
 	@Titul_UsuarioModificacion INT,
 	@Titul_FechaModificacion DATETIME
 )
