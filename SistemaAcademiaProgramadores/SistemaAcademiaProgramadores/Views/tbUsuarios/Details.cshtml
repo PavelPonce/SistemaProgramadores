@@ -1,223 +1,149 @@
 ﻿@model SistemaAcademiaProgramadores.Models.tbUsuarios
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"tbUsuarios".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary">Detalle @ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index")' class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+    </div>
+</div>
 
 <section class="content">
 
 <div class="card">
-<div class="card-header">
-<h3 class="card-title">@ViewBag.Title</h3>
-<div class="card-tools">
-<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-<i class="fa fa-minus"></i>
-</button>
-<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-<i class="fa fa-times"></i>
-</button>
-</div>
-</div>
 <div class="card-body form-row">
         
       
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_Usuario)
-        </dt>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.Usuar_Usuario)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_Usuario)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Usuar_Usuario)
+            </dd>
         </dl>
      </div>
 
       
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_Contrasena)
-        </dt>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.Usuar_Contrasena)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_Contrasena)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Usuar_Contrasena)
+            </dd>
         </dl>
      </div>
 
       
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_UltimaSesion)
-        </dt>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.Usuar_UltimaSesion)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_UltimaSesion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Usuar_UltimaSesion)
+            </dd>
         </dl>
      </div>
 
       
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_Admin)
-        </dt>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.Usuar_Admin)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_Admin)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Usuar_Admin)
+            </dd>
+        </dl>
+     </div>      
+      
+      
+    <div class="col-sm-4">
+        <dl>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.tbInstructores2.Perso_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbInstructores2.Perso_Id)
+            </dd>
         </dl>
      </div>
 
       
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_FechaCreacion)
-        </dt>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.tbRoles2.Roles_Descripcion)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_FechaCreacion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.tbRoles2.Roles_Descripcion)
+            </dd>
         </dl>
-     </div>
-
+     </div>      
       
-    <div class="col-sm-6">
-        <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_FechaModificacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_FechaModificacion)
-        </dd>
-        </dl>
-     </div>
-
-      
-    <div class="col-sm-6">
-        <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuar_Estado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuar_Estado)
-        </dd>
-        </dl>
-     </div>
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    <div class="col-sm-6">
-        <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.tbInstructores2.Perso_Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbInstructores2.Perso_Id)
-        </dd>
-        </dl>
-     </div>
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    <div class="col-sm-6">
-        <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.tbRoles2.Roles_Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbRoles2.Roles_Descripcion)
-        </dd>
-        </dl>
-     </div>
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    <div class="col-sm-6">
-        <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.tbUsuarios2.Usuar_Usuario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbUsuarios2.Usuar_Usuario)
-        </dd>
-        </dl>
-     </div>
-
-      
-      
-    <div class="col-sm-6">
-        <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.tbUsuarios3.Usuar_Usuario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbUsuarios3.Usuar_Usuario)
-        </dd>
-        </dl>
-     </div>
-
     <p>
-            <td class="col-sm-6">
-                <a class="btn btn-editar col-sm-4" href="@Url.Action("Edit", new { id=item.Usuar_Id })">
-                    <i class="fa fa-edit"></i>
+            <div class="col-sm-4">
+                <a class="btn btn-primary btn-outline col-sm-12" href="@Url.Action("Edit", new { id = Model.Usuar_Id })">
+                    <i class="fa fa-edit mr-2"></i>Editar @ViewBag.Title
                 </a>
-               <a class="btn btn-blue col-sm-1" href="@Url.Action("Index")">
-                <i class="fa fa-arrow-circle-o-left"></i>
-             </a>
-                
-            </td>
+            </div>
         </p>
 </div>
 <div class="card-footer">
-   
+    <div class="card-title text-primary mb-4" style="font-size: 1.5rem;"> Auditoria </div>
+    <div class="w-100" style="overflow-x:scroll;">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="thead-justify-content-center">
+                    <th class="bg-primary">Accion</th>
+                    <th class="bg-primary">Usuario</th>
+                    <th class="bg-primary">Fecha</th>    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Creacion</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <td>
+                                @Html.DisplayFor(model => model.tbUsuarios2.Usuar_Usuario)
+                            </td>
+                                                        
+                                                                                                                            <td>
+                                @Html.DisplayFor(model => model.Usuar_FechaCreacion)
+                            </td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
+            
+                <tr>
+                    <td>Modificacion</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <td>
+                                @Html.DisplayFor(model => model.tbUsuarios3.Usuar_Usuario)
+                            </td>
+                        
+                                                                                                                                            <td>
+                                @Html.DisplayFor(model => model.Usuar_FechaModificacion)
+                            </td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </div>
 </section>
