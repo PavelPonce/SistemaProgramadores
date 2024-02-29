@@ -1,7 +1,7 @@
 ﻿@model SistemaAcademiaProgramadores.Models.tbUsuarios
 
 @{
-    ViewBag.Title = $"tbUsuarios".Substring(2);
+    ViewBag.Title = "tbUsuarios".Substring(2);
     ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -16,7 +16,6 @@
         </div>
     </div>
 </div>
-
 <section class="content">
 
 <div class="card">
@@ -72,7 +71,20 @@
                 @Html.DisplayFor(model => model.Usuar_Admin)
             </dd>
         </dl>
-     </div>      
+     </div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
     <div class="col-sm-4">
@@ -88,6 +100,14 @@
      </div>
 
       
+      
+      
+      
+      
+      
+      
+      
+      
     <div class="col-sm-4">
         <dl>
             <dt class="text-primary text-center">
@@ -98,14 +118,36 @@
                 @Html.DisplayFor(model => model.tbRoles2.Roles_Descripcion)
             </dd>
         </dl>
-     </div>      
+     </div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
     <p>
             <div class="col-sm-4">
-                <a class="btn btn-primary btn-outline col-sm-12" href="@Url.Action("Edit", new { id = Model.Usuar_Id })">
-                    <i class="fa fa-edit mr-2"></i>Editar @ViewBag.Title
-                </a>
-            </div>
+            <a class="btn btn-primary btn-outline col-sm-12" href="@Url.Action("Edit", new { id = Model.Usuar_Id })">
+                <i class="fa fa-edit mr-2"></i>Editar @ViewBag.Title
+            </a>
+        </div>
         </p>
 </div>
 <div class="card-footer">
@@ -113,34 +155,34 @@
     <div class="w-100" style="overflow-x:scroll;">
         <table class="table table-striped table-bordered">
             <thead>
-                <tr class="thead-justify-content-center">
+                <tr class="thead-purple thead-justify-content-center">
                     <th class="bg-primary">Accion</th>
                     <th class="bg-primary">Usuario</th>
-                    <th class="bg-primary">Fecha</th>    
+                    <th class="bg-primary">Fecha</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Creacion</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <td>
                                 @Html.DisplayFor(model => model.tbUsuarios2.Usuar_Usuario)
                             </td>
-                                                        
-                                                                                                                            <td>
+                                                                    
+                                                                                                                                                    <td>
                                 @Html.DisplayFor(model => model.Usuar_FechaCreacion)
                             </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </tr>
             
                 <tr>
                     <td>Modificacion</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <td>
                                 @Html.DisplayFor(model => model.tbUsuarios3.Usuar_Usuario)
                             </td>
-                        
-                                                                                                                                            <td>
+                            
+                                                                                                                                                                        <td>
                                 @Html.DisplayFor(model => model.Usuar_FechaModificacion)
                             </td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
             </tbody>
         </table>
     </div>
