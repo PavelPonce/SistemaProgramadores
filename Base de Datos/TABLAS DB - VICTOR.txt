@@ -1,3 +1,10 @@
+[HttpPost]
+public JsonResul CardarDDLmunicipios(string Dep_Id)
+{
+	var municipios = db.SP_().ToList();
+	return Json();
+}
+---------------------------------------------------------------
 //TRIGGER ELIMINAR tbAlumnos
 CREATE TRIGGER TG_tbAlumnos_DELETE
 	ON Acade.tbAlumnos

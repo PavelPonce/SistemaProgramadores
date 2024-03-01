@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    
+    @*<link href="~/Content/HTML5_Full_Version/css/bootstrap.min.css" rel="stylesheet">*@
+    @Styles.Render("~/Content/HTML5_Full_Version/css/bootstrap.css")
+    @*<link href="~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css" rel="stylesheet">*@
+    @Styles.Render("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Content/HTML5_Full_Version/css/plugins/dataTables/datatables.min.css")
+    @*<link href="~/Content/HTML5_Full_Version/css/animate.css" rel="stylesheet">*@
+    @Styles.Render("~/Content/HTML5_Full_Version/css/animate.css")
+    @*<link href="~/Content/HTML5_Full_Version/css/style.css" rel="stylesheet">*@
+    @Styles.Render("~/Content/HTML5_Full_Version/css/style.css")
+    @*@Styles.Render("~/Content/css")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+</head>
+@*
+    MODAL DE BOOTSTRAP
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+<body class="">
+
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <img alt="image" class="rounded-circle" src="~/Content/HTML5_Full_Version/img/profile_small.jpg" />
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">@@Session["Usuario"] .Persona.Nombre</span>
+                                <span class="text-muted text-xs block">@@Session["Usuario"].Rol <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li>
+                                    <a href="@Url.Action("CerrarSesion", "UsuariosController")">
+                                        <i class="fa fa-sign-out"></i>Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-lock"></i> <span class="nav-label">Acceso</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*@Url.Action("Index", "tbPantallas")*@
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-modal-window"></i> Pantallas
+                                </a>
+                            </li>
+                            @*@Url.Action("Index", "tbRoles")*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Roles
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "tbUsuarios")">
+                                    <i class="fa fa-users"></i> Usuarios
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-wrench"></i> <span class="nav-label">Mantenimiento</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*<li>@Url.Action("Index", "tbDepartamentos")</li>*@
+                            <li>
+                                <a href="@Url.Action("Index", "tbDepartamentos")">
+                                    <i class="glyphicon glyphicon-globe"></i> Departamentos
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbMunicipios")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-globe"></i> Municipios
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbEstadosCiviles")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-user"></i> Estados Civiles
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbCentrosEducativos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-building-o"></i> Centros Educativos
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbTitulos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-file-text"></i> Titulos
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Academia</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*<li>@Url.Action("Index", "tbInstructores")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Instructores
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbAlumnos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i> Alumnos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "tbGeneraciones")">
+                                    <i class="fa fa-users"></i> Generaciones
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbCategorias")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-book"></i> Categorias
+                                </a>
+                            </li>
+                            @*<li>@Url.Action("Index", "tbCursos")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-book"></i> Cursos
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Calificaciones</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            @*<li>@Url.Action("Index", "tbCalificaciones")</li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-files-o"></i> Calificaciones
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">Academia de Programadores.</span>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("CerrarSesion", "UsuariosController")">
+                                <i class="fa fa-sign-out"></i>Cerrar sesión
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            
+
+            <div class="wrapper wrapper-content">
+                <div class="text-center animated fadeInRightBig">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="footer">
+                <div class="float-right">
+                    Version <strong>1.0</strong>.
+                </div>
+                <div>
+                    <strong>Copyright</strong> P&V &copy; 2024-2024
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    @*<script src="js/jquery-3.1.1.min.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+    @*<script src="js/popper.min.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/popper.min.js")
+
+    @*<script src="js/bootstrap.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/bootstrap.js")
+
+    @*<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/metisMenu/jquery.metisMenu.js")
+
+    @*<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/slimscroll/jquery.slimscroll.min.js")
+
+    @Scripts.Render("~/Content/AdminLTE/dist/js/adminlte.js")
+
+    <!-- Custom and plugin javascript -->
+    @*<script src="js/inspinia.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/inspinia.js")
+
+    @*<script src="js/plugins/pace/pace.min.js"></script>*@
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/pace/pace.min.js")
+
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/datatables.min.js")
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/dataTables.bootstrap4.min.js")
+
+    @RenderSection("scripts", required: false)
+    <script>
+
+
+        // Upgrade button class name
+        $(document).ready(function () {
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+
+    </script>
+</body>
+
+@*<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>*@
+</html>
+
+
+
+
+
+
+
+
+
+
+-----------------------------Error.cshtml
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <hgroup>
+        <h1>Error.</h1>
+        <h2>An error occurred while processing your request.</h2>
+    </hgroup>
+</body>
+</html>
