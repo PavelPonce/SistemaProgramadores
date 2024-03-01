@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      body, input, button {
+        font-family: Georgia, Helvetica;
+        font-size: 17px;
+        color: #ecf0f1;
+      }
+
+      .parent {
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 50px 0;
+        padding: 20px;
+        display: grid;
+        place-items: center;
+      }
+
+      .gh-fork {
+        position: fixed;
+        top: 0;
+        right: 0;
+        border: 0;
+      }
+      .wrapper {
+        width: 100%;
+        display: flex;
+        gap: 20px;
+        max-width: 500px;
+      }
+      .listBox {
+        display: table-cell;
+        background-color: rgba(0, 0, 0, 0.2);
+        width: 50%;
+      }
+      .listBox > div,
+      .gu-mirror {
+        margin: 10px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: opacity 0.4s ease-in-out;
+      }
+      .listBox > div {
+        cursor: move;
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+      }
+      .gu-mirror {
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+      }
+      .gu-mirror {
+        position: fixed !important;
+        margin: 0 !important;
+        z-index: 9999 !important;
+        opacity: 0.8;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+        filter: alpha(opacity=80);
+      }
+      .gu-hide {
+        display: none !important;
+      }
+      .gu-unselectable {
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+      }
+      .gu-transit {
+        opacity: 0.2;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+        filter: alpha(opacity=20);
+      }
+    </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="wrapper">
+      <div id="left-defaults" class="listBox">
+        <h1 style="text-align: center; margin-top: 20px; margin-bottom: 0; padding: 10px;">Pantallas</h1>
+        <div>Pantalla 1</div>
+        <div>Pantalla 2</div>
+        <div>Pantalla 3</div>
+        <div>Pantalla 4</div>
+        <div>Pantalla 5</div>
+      </div>
+      <div id="right-defaults" class="listBox">
+        <h1 style="text-align: center; margin-top: 20px; margin-bottom: 0; padding: 10px;">Rol "X"</h1>
+      </div>
+    </div>
+  </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.js'></script>
+    <script>
+        dragula([document.getElementById("left-defaults"), document.getElementById("right-defaults")])
+    </script>
+</body>
+</html>
