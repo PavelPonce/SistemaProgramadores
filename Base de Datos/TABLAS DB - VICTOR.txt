@@ -1,3 +1,85 @@
+ALTER PROCEDURE [Calif].[SP_Calificaciones_Seleccionar](
+	@Curso_Id INT,
+	@Gener_Id INT
+)
+AS 
+BEGIN
+	BEGIN TRY
+		CREATE TABLE #tbActividadesPorCurso (
+			ALUMNO VARCHAR(60)	
+		)
+		DECLARE @SQLquery NVARCHAR(MAX) = ''
+		DECLARE Cursor_Actividades CURSOR FOR
+			SELECT
+				CONCAT(tbActividades.Activ_Nombre, ' ', tbActividadesPorCursoPorGeneracion.ActCG_Nota) AS ACTIVIDAD,
+				tbCursos.Curso_Nombre AS CURSO,
+				tbGeneraciones.Gener_Anhio AS GENERACION_AÑO
+			FROM Acade.tbInstructoresPorCursoPorGeneracion AS tbInstructoresPorCursoPorGeneracion INNER JOIN Acade.tbCursos AS tbCursos
+				ON tbInstructoresPorCursoPorGeneracion.Curso_Id = tbCursos.Curso_Id INNER JOIN Acade.tbGeneraciones AS tbGeneraciones
+				ON tbInstructoresPorCursoPorGeneracion.Gener_Id = tbGeneraciones.Gener_Id INNER JOIN Calif.tbActividadesPorCursoPorGeneracion AS tbActividadesPorCursoPorGeneracion
+				ON tbInstructoresPorCursoPorGeneracion.InsCG_Id = tbActividadesPorCursoPorGeneracion.InsCG_Id INNER JOIN Calif.tbActividades AS tbActividades
+				ON tbActividadesPorCursoPorGeneracion.Activ_Id = tbActividades.Activ_Id
+			WHERE tbInstructoresPorCursoPorGeneracion.Curso_Id = @Curso_Id AND tbInstructoresPorCursoPorGeneracion.Gener_Id = @Gener_Id
+		OPEN Cursor_Actividades
+		DECLARE @Actividad VARCHAR(60), @Curso_Nombre VARCHAR(30), @Gener_Anhio INT
+		FETCH NEXT FROM Cursor_Actividades INTO @Actividad, @Curso_Nombre, @Gener_Anhio
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @SQLquery += 'ALTER TABLE #tbActividadesPorCurso ADD ['+@Actividad+'%] NUMERIC(4,2) DEFAULT 0;'
+			FETCH NEXT FROM Cursor_Actividades INTO @Actividad, @Curso_Nombre, @Gener_Anhio
+		END
+			SET @SQLquery += 'ALTER TABLE #tbActividadesPorCurso ADD CURSO VARCHAR(30); ALTER TABLE #tbActividadesPorCurso ADD GENERACION VARCHAR(30);'
+		CLOSE Cursor_Actividades
+		DEALLOCATE Cursor_Actividades;
+
+		EXEC sp_executesql @SQLquery;
+		SET @SQLquery = ''
+
+		DECLARE Cursor_Notas CURSOR FOR
+			SELECT
+				CONCAT(tbPersonas.Perso_PrimerNombre, ' ', tbPersonas.Perso_PrimerApellido) AS ALUMNO,
+				CONCAT(tbActividades.Activ_Nombre, ' ', tbActividadesPorCursoPorGeneracion.ActCG_Nota) AS ACTIVIDAD,
+				tbCalificaciones.Calif_Nota AS NOTA,
+				tbCursos.Curso_Nombre AS CURSO,
+				tbGeneraciones.Gener_Nombre AS GENERACION
+			FROM Acade.tbInstructoresPorCursoPorGeneracion AS tbInstructoresPorCursoPorGeneracion INNER JOIN Acade.tbCursos AS tbCursos
+				ON tbInstructoresPorCursoPorGeneracion.Curso_Id = tbCursos.Curso_Id INNER JOIN Acade.tbGeneraciones AS tbGeneraciones
+				ON tbInstructoresPorCursoPorGeneracion.Gener_Id = tbGeneraciones.Gener_Id INNER JOIN Calif.tbActividadesPorCursoPorGeneracion AS tbActividadesPorCursoPorGeneracion
+				ON tbInstructoresPorCursoPorGeneracion.InsCG_Id = tbActividadesPorCursoPorGeneracion.InsCG_Id INNER JOIN Calif.tbActividades AS tbActividades
+				ON tbActividadesPorCursoPorGeneracion.Activ_Id = tbActividades.Activ_Id INNER JOIN Calif.tbCalificaciones AS tbCalificaciones
+				ON tbActividadesPorCursoPorGeneracion.ActCG_Id = tbCalificaciones.ActCG_Id INNER JOIN Acade.tbAlumnos AS tbAlumnos
+				ON tbCalificaciones.Alumn_Id = tbAlumnos.Perso_Id INNER JOIN Mante.tbPersonas AS tbPersonas
+				ON tbAlumnos.Perso_Id = tbPersonas.Perso_Id
+			WHERE tbInstructoresPorCursoPorGeneracion.Curso_Id = @Curso_Id AND tbInstructoresPorCursoPorGeneracion.Gener_Id = @Gener_Id
+		OPEN Cursor_Notas
+		DECLARE @Alumno VARCHAR(60), @ColumnaActividad VARCHAR(60), @Nota NUMERIC(4,2), @Curso VARCHAR(30), @Generacion VARCHAR(30)
+		FETCH NEXT FROM Cursor_Notas INTO @Alumno, @ColumnaActividad, @Nota, @Curso, @Generacion
+		DECLARE @AlumnosYaIngresados TABLE(NOMBREALUMNO VARCHAR(60))
+		WHILE @@FETCH_STATUS = 0
+		BEGIN 
+			IF (SELECT COUNT(*) FROM @AlumnosYaIngresados WHERE NOMBREALUMNO = @Alumno) > 0
+			BEGIN
+				SET @SQLquery += 'UPDATE #tbActividadesPorCurso SET ['+@ColumnaActividad+'%] = '+CAST(@Nota AS VARCHAR(5))+' WHERE #tbActividadesPorCurso.ALUMNO = '''+@Alumno+''';';
+			END
+			ELSE
+			BEGIN
+				SET @SQLquery += 'INSERT INTO #tbActividadesPorCurso(ALUMNO, ['+@ColumnaActividad+'%], CURSO, GENERACION) VALUES('''+@Alumno+''', '+CAST(@Nota AS VARCHAR(5))+', '''+@Curso+''', '''+@Generacion+''');'
+				INSERT INTO @AlumnosYaIngresados SELECT @Alumno
+				--SET @SQLquery += 'INSERT INTO #tbActividadesPorCurso(ALUMNO, ['+@ColumnaActividad+'%]) VALUES('''+@Alumno+''', '+CAST(@Nota AS VARCHAR(5))+');'
+			END
+			FETCH NEXT FROM Cursor_Notas INTO @Alumno, @ColumnaActividad, @Nota, @Curso, @Generacion
+		END
+		CLOSE Cursor_Notas
+		DEALLOCATE Cursor_Notas;
+		EXEC sp_executesql @SQLquery;
+		SELECT * FROM #tbActividadesPorCurso;
+		DROP TABLE #tbActividadesPorCurso;
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+------------------------------------------------------------
 [HttpPost]
 public JsonResul CardarDDLmunicipios(string Dep_Id)
 {
