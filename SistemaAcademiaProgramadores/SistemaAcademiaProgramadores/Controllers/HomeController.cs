@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,8 +28,12 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 foreach (var item in usuario)
                 {
-                    Session["Usuario"] = item;
+                    Session["Usuario"] = item.Perso_PrimerNombre;
+
                 }
+                string nombre = Session["Usuario"].ToString();
+                Session["txtUsuario"] = txtUsuario;
+
                 return RedirectToAction("Index");
             }
             else
@@ -51,5 +56,22 @@ namespace SistemaAcademiaProgramadores.Controllers
 
             return View();
         }
+        public JsonResult llenarInputs(string id, string spLlenarEditar)
+        {
+            //var selectall = db.tbDepartamentos.Select("*").Where(t => t.Depar_Id == id).ToList();
+            //var selectall = new List<>;
+
+            switch (spLlenarEditar)
+            {
+                case "tbDepartamentos":
+                    return  Json(db.SP_tbDepartamentos_LlenarEditar(id).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbTitulos":
+                    return Json(db.SP_tbTitulos_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+            }
+
+            //var tbDepartamentos = db.tbDepartamentos.Find(id);
+            return Json(0);
+        }
+
     }
 }

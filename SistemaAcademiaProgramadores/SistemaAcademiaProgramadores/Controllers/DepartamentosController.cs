@@ -10,18 +10,18 @@ using SistemaAcademiaProgramadores.Models;
 
 namespace SistemaAcademiaProgramadores.Controllers
 {
-    public class tbDepartamentosController : Controller
+    public class DepartamentosController : Controller
     {
         private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
 
-        // GET: tbDepartamentos
+        // GET: Departamentos
         public ActionResult Index()
         {
             var tbDepartamentos = db.tbDepartamentos.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
             return View(tbDepartamentos.ToList());
         }
 
-        // GET: tbDepartamentos/Details/5
+        // GET: Departamentos/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -36,7 +36,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbDepartamentos);
         }
 
-        // GET: tbDepartamentos/Create
+        // GET: Departamentos/Create
         public ActionResult Create()
         {
             ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
@@ -44,20 +44,13 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View();
         }
 
-        // POST: tbDepartamentos/Create
+        // POST: Departamentos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Depar_Id,Depar_Descripcion,Depar_UsuarioCreacion,Depar_FechaCreacion,Depar_UsuarioModificacion,Depar_FechaModificacion,Depar_Estado")] tbDepartamentos tbDepartamentos)
         {
-            ModelState.Remove("Depar_UsuarioModificacion");
-            ModelState.Remove("Depar_UsuarioCreacion");
-            ModelState.Remove("Depar_FechaCreacion");
-            ModelState.Remove("Depar_FechaModificacion");
-            tbDepartamentos.Depar_UsuarioCreacion = 1;
-            tbDepartamentos.Depar_FechaCreacion = DateTime.Now;
-
             if (ModelState.IsValid)
             {
                 db.tbDepartamentos.Add(tbDepartamentos);
@@ -70,7 +63,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbDepartamentos);
         }
 
-        // GET: tbDepartamentos/Edit/5
+        // GET: Departamentos/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -87,13 +80,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbDepartamentos);
         }
 
-        // POST: tbDepartamentos/Edit/5
+        // POST: Departamentos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Depar_Id,Depar_Descripcion,Depar_UsuarioCreacion,Depar_FechaCreacion,Depar_UsuarioModificacion,Depar_FechaModificacion,Depar_Estado")] tbDepartamentos tbDepartamentos)
         {
+            tbDepartamentos.Depar_UsuarioCreacion = 1;
+            tbDepartamentos.Depar_FechaCreacion = DateTime.Now;
+            tbDepartamentos.Depar_UsuarioModificacion = 1;
+            tbDepartamentos.Depar_FechaModificacion = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Entry(tbDepartamentos).State = EntityState.Modified;
@@ -105,7 +103,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbDepartamentos);
         }
 
-        // GET: tbDepartamentos/Delete/5
+        // GET: Departamentos/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -120,7 +118,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             return View(tbDepartamentos);
         }
 
-        // POST: tbDepartamentos/Delete/5
+        // POST: Departamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
