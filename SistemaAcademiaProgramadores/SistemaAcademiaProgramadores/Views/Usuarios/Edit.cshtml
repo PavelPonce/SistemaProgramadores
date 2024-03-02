@@ -89,53 +89,6 @@
             </div>
         </div>
 
-        <div class="col-sm-6 mb-2">
-
-            @Html.LabelFor(model => model.Usuar_UsuarioCreacion, "Usuar_UsuarioCreacion", new { @class = "text-primary w-100 text-left" })
-            <div>
-                @Html.DropDownList("Usuar_UsuarioCreacion", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Usuar_UsuarioCreacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-sm-6 mb-2">
-
-            @Html.LabelFor(model => model.Usuar_FechaCreacion, new { @class = "text-primary w-100 text-left" })
-            <div>
-                @Html.EditorFor(model => model.Usuar_FechaCreacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Usuar_FechaCreacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-sm-6 mb-2">
-
-            @Html.LabelFor(model => model.Usuar_UsuarioModificacion, "Usuar_UsuarioModificacion", new { @class = "text-primary w-100 text-left" })
-            <div>
-                @Html.DropDownList("Usuar_UsuarioModificacion", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Usuar_UsuarioModificacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-sm-6 mb-2">
-
-            @Html.LabelFor(model => model.Usuar_FechaModificacion, new { @class = "text-primary w-100 text-left" })
-            <div>
-                @Html.EditorFor(model => model.Usuar_FechaModificacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Usuar_FechaModificacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-sm-6 mb-2">
-
-            @Html.LabelFor(model => model.Usuar_Estado, new { @class = "text-primary w-100 text-left" })
-            <div>
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Usuar_Estado)
-                    @Html.ValidationMessageFor(model => model.Usuar_Estado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
  </div>
   <div class="card-footer">
       <div class="d-flex align-items-center justify-content-around">

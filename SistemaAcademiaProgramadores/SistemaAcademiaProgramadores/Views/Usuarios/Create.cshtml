@@ -7,7 +7,6 @@
 }
 
 
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h1 class="text-primary">Crear @ViewBag.Title</h1>
@@ -38,6 +37,7 @@
                             @Html.ValidationMessageFor(model => model.Usuar_Usuario, "", new { @class = "text-danger" })
                         </div>
             </div>
+        
       
         
 
@@ -49,6 +49,7 @@
                             @Html.ValidationMessageFor(model => model.Usuar_Contrasena, "", new { @class = "text-danger" })
                         </div>
             </div>
+        
       
         
 
@@ -60,6 +61,7 @@
                             @Html.ValidationMessageFor(model => model.Usuar_UltimaSesion, "", new { @class = "text-danger" })
                         </div>
             </div>
+        
       
         
 
@@ -69,8 +71,9 @@
                     <div >
                             @Html.DropDownList("Instr_Id", null, htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Instr_Id, "", new { @class = "text-danger" })
-                        </div>
+                    </div>
             </div>
+        
       
         
 
@@ -82,6 +85,7 @@
                                 @Html.ValidationMessageFor(model => model.Roles_Id, "", new { @class = "text-danger" })
                         </div>
             </div>
+        
       
         
 
@@ -95,63 +99,7 @@
                                 </div>
                     </div>
             </div>
-      
         
-
-      
-            <div class="col-sm-6 mb-2">
-                    @Html.LabelFor(model => model.Usuar_UsuarioCreacion, "Usuar_UsuarioCreacion", new { @class = "text-primary w-100 text-left" })
-                    <div >
-                            @Html.DropDownList("Usuar_UsuarioCreacion", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Usuar_UsuarioCreacion, "", new { @class = "text-danger" })
-                        </div>
-            </div>
-      
-        
-
-      
-            <div class="col-sm-6 mb-2">
-                    @Html.LabelFor(model => model.Usuar_FechaCreacion, new { @class = "text-primary w-100 text-left" })
-                    <div >
-                        @Html.EditorFor(model => model.Usuar_FechaCreacion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Usuar_FechaCreacion, "", new { @class = "text-danger" })
-                        </div>
-            </div>
-      
-        
-
-      
-            <div class="col-sm-6 mb-2">
-                    @Html.LabelFor(model => model.Usuar_UsuarioModificacion, "Usuar_UsuarioModificacion", new { @class = "text-primary w-100 text-left" })
-                    <div >
-                            @Html.DropDownList("Usuar_UsuarioModificacion", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Usuar_UsuarioModificacion, "", new { @class = "text-danger" })
-                        </div>
-            </div>
-      
-        
-
-      
-            <div class="col-sm-6 mb-2">
-                    @Html.LabelFor(model => model.Usuar_FechaModificacion, new { @class = "text-primary w-100 text-left" })
-                    <div >
-                        @Html.EditorFor(model => model.Usuar_FechaModificacion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Usuar_FechaModificacion, "", new { @class = "text-danger" })
-                        </div>
-            </div>
-      
-        
-
-      
-            <div class="col-sm-6 mb-2">
-                    @Html.LabelFor(model => model.Usuar_Estado, new { @class = "text-primary w-100 text-left" })
-                    <div >
-                        <div class="checkbox">
-                        @Html.EditorFor(model => model.Usuar_Estado)
-                                @Html.ValidationMessageFor(model => model.Usuar_Estado, "", new { @class = "text-danger" })
-                                </div>
-                    </div>
-            </div>
       
         
 
@@ -178,7 +126,3 @@
 }
 
 
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
