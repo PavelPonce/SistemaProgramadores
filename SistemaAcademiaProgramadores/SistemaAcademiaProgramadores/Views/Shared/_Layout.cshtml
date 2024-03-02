@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    
+
     @*<link href="~/Content/HTML5_Full_Version/css/bootstrap.min.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/css/bootstrap.css")
     @*<link href="~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css" rel="stylesheet">*@
@@ -19,26 +19,26 @@
 
 </head>
 @*
-    MODAL DE BOOTSTRAP
-  <div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        MODAL DE BOOTSTRAP
+      <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 <body class="">
 
     <div id="wrapper">
@@ -68,20 +68,20 @@
                     <li>
                         <a href="#"><i class="fa fa-lock"></i> <span class="nav-label">Acceso</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*@Url.Action("Index", "tbPantallas")*@
+                            @*@Url.Action("Index", "Pantallas")*@
                             <li>
                                 <a href="#">
                                     <i class="glyphicon glyphicon-modal-window"></i> Pantallas
                                 </a>
                             </li>
-                            @*@Url.Action("Index", "tbRoles")*@
+                            @*@Url.Action("Index", "Roles")*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-users"></i> Roles
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Index", "tbUsuarios")">
+                                <a href="@Url.Action("Index", "Usuarios")">
                                     <i class="fa fa-users"></i> Usuarios
                                 </a>
                             </li>
@@ -90,33 +90,33 @@
                     <li>
                         <a href="#"><i class="fa fa-wrench"></i> <span class="nav-label">Mantenimiento</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*<li>@Url.Action("Index", "tbDepartamentos")</li>*@
+                            @*<li>@Url.Action("Index", "Departamentos")</li>*@
                             <li>
-                                <a href="@Url.Action("Index", "tbDepartamentos")">
+                                <a href="@Url.Action("Index", "Departamentos")">
                                     <i class="glyphicon glyphicon-globe"></i> Departamentos
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbMunicipios")</li>*@
+                            @*<li>@Url.Action("Index", "Municipios")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="glyphicon glyphicon-globe"></i> Municipios
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbEstadosCiviles")</li>*@
+                            @*<li>@Url.Action("Index", "EstadosCiviles")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="glyphicon glyphicon-user"></i> Estados Civiles
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbCentrosEducativos")</li>*@
+                            @*<li>@Url.Action("Index", "CentrosEducativos")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-building-o"></i> Centros Educativos
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbTitulos")</li>*@
+                            @*<li>@Url.Action("Index", "Titulos")</li>*@
                             <li>
-                                <a href="#">
+                                <a href="@Url.Action("Index", "Titulos")">
                                     <i class="fa fa-file-text"></i> Titulos
                                 </a>
                             </li>
@@ -125,30 +125,30 @@
                     <li>
                         <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Academia</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*<li>@Url.Action("Index", "tbInstructores")</li>*@
+                            @*<li>@Url.Action("Index", "Instructores")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-users"></i> Instructores
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbAlumnos")</li>*@
+                            @*<li>@Url.Action("Index", "Alumnos")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-users"></i> Alumnos
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Index", "tbGeneraciones")">
+                                <a href="@Url.Action("Index", "Generaciones")">
                                     <i class="fa fa-users"></i> Generaciones
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbCategorias")</li>*@
+                            @*<li>@Url.Action("Index", "Categorias")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-book"></i> Categorias
                                 </a>
                             </li>
-                            @*<li>@Url.Action("Index", "tbCursos")</li>*@
+                            @*<li>@Url.Action("Index", "Cursos")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-book"></i> Cursos
@@ -159,7 +159,7 @@
                     <li>
                         <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Calificaciones</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            @*<li>@Url.Action("Index", "tbCalificaciones")</li>*@
+                            @*<li>@Url.Action("Index", "Calificaciones")</li>*@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-files-o"></i> Calificaciones
@@ -190,7 +190,7 @@
 
                 </nav>
             </div>
-            
+
 
             <div class="wrapper wrapper-content">
                 <div class="text-center animated fadeInRightBig">
@@ -237,7 +237,7 @@
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/dataTables.bootstrap4.min.js")
 
     @RenderSection("scripts", required: false)
-    <script>
+<script>
 
 
         // Upgrade button class name
@@ -245,24 +245,16 @@
             $('.dataTables-example').DataTable({
                 pageLength: 25,
                 responsive: true,
+                language: {
+                    url: '~/Content/HTML5_Full_Version/js/plugins/dataTables/esLanguageDataTable.json'
+                },
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy' },
                     { extend: 'csv' },
-                    { extend: 'excel', title: 'ExampleFile' },
-                    { extend: 'pdf', title: 'ExampleFile' },
+                    { extend: 'excel', title: '@ViewBag.Title' },
+                    { extend: 'pdf', title: '@ViewBag.Title' },
 
-                    {
-                        extend: 'print',
-                        customize: function (win) {
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
+                   
                 ]
 
             });
@@ -270,39 +262,47 @@
         });
 
 
-    </script>
+</script>
 </body>
 
 @*<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
-                </ul>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-</body>*@
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    </body>*@
 </html>
+
+
+
+
+
+
+
+
