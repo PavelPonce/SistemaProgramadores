@@ -57,7 +57,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <div class="card">
 <div class="card-body">
     <div class="text-left w-100 mb-4">
-        <a href="@Url.Action("Create")" class="btn btn-primary btn-outline" style="font-size: 1.2rem;">
+        <a href="@Url.Action("Create")" class="btn btn-primary btn-outline">
             <i class="fa fa-plus-square-o"> </i> Nuevo
         </a>
     </div>
@@ -175,7 +175,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </button>*@
-                        <a class="btn btn-delete btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </a>

@@ -1,0 +1,132 @@
+﻿@model IEnumerable<SistemaAcademiaProgramadores.Models.tbPantallasPorRoles>
+
+@{
+    ViewBag.Title = $"tbPantallasPorRoles".Substring(2);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary" style="font-size: 1.8rem;">@ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index", "Home")' class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+
+<div class="card">
+<div class="card-body">
+    <div class="text-left w-100 mb-4">
+        <a href="@Url.Action("Create")" class="btn btn-primary btn-outline" style="font-size: 1.2rem;">
+            <i class="fa fa-plus-square-o"> </i> Nuevo
+        </a>
+    </div>
+
+    <div class="w-100" style="overflow-x:scroll;">
+        <table class="table table-striped table-bordered dataTables-example">
+        <thead>
+            <tr class="thead-purple thead-justify-content-center">
+                                                <th class="bg-primary">
+                    @Html.DisplayNameFor(model => model.tbPantallas.Panta_Descripcion)
+                </th>
+                                <th class="bg-primary">
+                    @Html.DisplayNameFor(model => model.tbRoles.Roles_Descripcion)
+                </th>
+                                    
+                <th class="bg-primary">Acciones</th>
+           
+            </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                                                <td>
+                    @Html.DisplayFor(modelItem => item.tbPantallas.Panta_Descripcion)
+                </td>
+                                <td>
+                    @Html.DisplayFor(modelItem => item.tbRoles.Roles_Descripcion)
+                </td>
+                                        <td>
+                    <div class="d-flex justify-content-around align-items-center form-group mx-2" style="gap: 10px;">
+                        @*<button data-id="@item.ID" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-edit (alias)"></i>
+                            Editar
+                        </button>*@
+                        <a class="btn btn-warning btn-outline btn-xs col-sm-4" href="@Url.Action("Edit")" id="item.PrimaryKey">
+                            <i class="fa fa-edit (alias)"></i>
+                            Editar
+                        </a>
+                         <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details")" id="item.PrimaryKey">
+                            <i class="fa fa-eye"></i>
+                            Detalles
+                        </a>
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-delete btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </button>*@
+                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </a>
+                    </div>
+                </td>
+           
+                    </tr>
+        }
+        </tbody>
+        </table>
+    </div>    
+</div>
+
+</div>
+
+</section>
+
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+
+    $('.btnEditar').click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : 'tbPantallasPorRoles'}),
+
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                                    $('#Papro_Id').val(value.Papro_Id)
+                                    $('#Panta_Id').val(value.Panta_Id)
+                                    $('#Roles_Id').val(value.Roles_Id)
+                                })
+                   
+            },
+            
+        })
+
+        $('#modalEditar').modal('show');
+    })
+</script>
+
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @*@Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbPantallasPorRoles())*@
+        </div>
+    </div>
+</div>
+
+
