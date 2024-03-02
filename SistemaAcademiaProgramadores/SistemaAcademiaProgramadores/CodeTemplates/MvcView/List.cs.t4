@@ -131,17 +131,25 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
         #>
                 <td>
                     <div class="d-flex justify-content-around align-items-center form-group mx-2" style="gap: 10px;">
-                        <a class="btn btn-warning btn-outline btn-xs col-sm-4" href="@Url.Action("Edit", new { id=item.<#= pkName #> })">
-                            <i class="fa fa-edit mr-1"></i>
+                        @*<button data-id="@item.ID" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-edit (alias)"></i>
+                            Editar
+                        </button>*@
+                        <a class="btn btn-warning btn-outline btn-xs col-sm-4" href="@Url.Action("Edit")" id="item.PrimaryKey">
+                            <i class="fa fa-edit (alias)"></i>
                             Editar
                         </a>
-                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete", new { id=item.<#= pkName #> })">
-                            <i class="fa fa-trash-o mr-1"></i>
-                            Eliminar
-                        </a>
-                        <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details", new { id=item.<#= pkName #> })">
-                            <i class="fa fa-eye mr-1"></i>
+                         <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details")" id="item.PrimaryKey">
+                            <i class="fa fa-eye"></i>
                             Detalles
+                        </a>
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-delete btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </button>*@
+                        <a class="btn btn-delete btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
                         </a>
                     </div>
                 </td>
@@ -151,17 +159,25 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
         #>
                 <td>
                     <div class="d-flex justify-content-around align-items-center form-group mx-2" style="gap: 10px;"">
+                        @*<button data-id="@item.ID" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-edit (alias)"></i>
+                            Editar
+                        </button>*@
                         <a class="btn btn-warning btn-outline btn-xs col-sm-4" href="@Url.Action("Edit")" id="item.PrimaryKey">
                             <i class="fa fa-edit (alias)"></i>
                             Editar
                         </a>
-                        <a class="btn btn-delete btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
-                            <i class="fa fa-trash-o"></i>
-                            Eliminar
-                        </a>
                          <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details")" id="item.PrimaryKey">
                             <i class="fa fa-eye"></i>
                             Detalles
+                        </a>
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-delete btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </button>*@
+                        <a class="btn btn-delete btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
                         </a>
                     </div>
                 </td>
@@ -180,6 +196,69 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 
 </section>
 
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+
+    $('.btnEditar').click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : '<#= ViewDataTypeShortName #>'}),
+
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                <#
+                    foreach (PropertyMetadata property in ModelMetadata.Properties) {
+
+                        if (property.Scaffold && !property.IsAssociation) {
+                            if(!GetValueExpression(property).EndsWith("FechaCreacion") &&
+                                    !GetValueExpression(property).EndsWith("FechaModificacion") &&
+                                    !GetValueExpression(property).EndsWith("Estado") && 
+                                    !GetValueExpression(property).EndsWith("tbUsuarios.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("tbUsuarios1.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("tbUsuarios2.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("tbUsuarios3.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("UsuarioCreacion") &&
+                                    !GetValueExpression(property).EndsWith("FechaCreacion") && 
+                                    !GetValueExpression(property).EndsWith("UsuarioModificacion") &&
+                                    !GetValueExpression(property).EndsWith("FechaModificacion")){
+                #>
+                    $('#<#= property.PropertyName #>').val(value.<#= property.PropertyName #>)
+                <#
+                            }
+                        }
+                    }
+                #>
+                })
+                   
+            },
+            
+        })
+
+        $('#modalEditar').modal('show');
+    })
+</script>
+
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @*@Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())*@
+        </div>
+    </div>
+</div>
+
 
 <#
 // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
@@ -188,6 +267,9 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 if(!IsPartialView && !IsLayoutPageSelected) {
     ClearIndent();
 #>
+
+  
+
 </body>
 
 </html>

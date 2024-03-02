@@ -1,4 +1,4 @@
-﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ template language="C#" HostSpecific="True" #>
 <#@ output extension=".cshtml" #>
 <#@ include file="Imports.include.t4" #>
 @model <#= ViewDataTypeName #>
@@ -15,45 +15,39 @@ if(IsPartialView) {
 } else if(IsLayoutPageSelected) {
 #>
 
-    @{
-        ViewBag.Title = $"<#= ViewDataTypeShortName #>".Substring(2);
-        ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
-    <#
-        if (!String.IsNullOrEmpty(LayoutPageFile)) {
-        #>
-            Layout = "<#= LayoutPageFile#>";
-        <#
-        }
-    #>
-    }
+@{
+    ViewBag.Title = $"<#= ViewDataTypeShortName #>".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+
 <#
 } else {
 #>
 
-    @{
-        Layout = null;
-    }
+@{
+    Layout = null;
+}
 
-    <!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title><#= ViewName #></title>
-    </head>
-    <body>
-    <#
-        PushIndent("    ");
+<#
+    PushIndent("    ");
 }
 #>
 <#
 if (ReferenceScriptLibraries) {
-    #>
-    <#
+#>
+<#
     if (!IsLayoutPageSelected && IsBundleConfigPresent) {
-    #>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
+#>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 
 <#
     }
@@ -72,26 +66,12 @@ if (ReferenceScriptLibraries) {
 <#
 }
 #>
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h1 class="text-primary">Modificar @ViewBag.Title</h1>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a href='@Url.Action("Index")' class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-        </div>
-    </div>
-</div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <section class="content">
+               <div class="modal-body form-row">
 
-<div class="card">
-<div class="card-header">
-<h3 class="card-title text-primary">Editar @ViewBag.Title</h3>
-</div>
 <# 
     if (isControlHtmlAttributesSupported) {
 #>
@@ -103,13 +83,13 @@ if (ReferenceScriptLibraries) {
 <#      
     }
 #>
-<div class="card-body form-row">
+
 
 <#
-    foreach (PropertyMetadata property in ModelMetadata.Properties) {
+foreach (PropertyMetadata property in ModelMetadata.Properties) {
 
-        if (property.Scaffold && !property.IsAssociation) {
-            if(!GetValueExpression(property).EndsWith("FechaCreacion") &&
+    if (property.Scaffold && !property.IsAssociation) {
+        if(!GetValueExpression(property).EndsWith("FechaCreacion") &&
                     !GetValueExpression(property).EndsWith("FechaModificacion") &&
                     !GetValueExpression(property).EndsWith("Estado") && 
                     !GetValueExpression(property).EndsWith("tbUsuarios.Usuar_Usuario") &&
@@ -146,15 +126,15 @@ if (ReferenceScriptLibraries) {
                 if (property.IsForeignKey) {
 #>
 <# 
-                    if (isControlHtmlAttributesSupported) {
+                if (isControlHtmlAttributesSupported) {
 #>
                     @Html.DropDownList("<#= property.PropertyName #>", null, htmlAttributes: new { @class = "form-control" })
 <#
-                    } else {
+                } else {
 #>
                     @Html.DropDownList("<#= property.PropertyName #>", String.Empty)
 <#
-                    }
+                }
 #>
 <#
                 } else  if (isControlHtmlAttributesSupported) {
@@ -202,25 +182,23 @@ if (ReferenceScriptLibraries) {
 #>
                 </div>
                 </div>
+            
 <#
-            }
-
+           }
         }
     }
 
 }          
 #>
- </div>
-  <div class="card-footer">
-      <div class="d-flex align-items-center justify-content-around">
-        <a href='@Url.Action("Index")' class="btn btn-primary btn-outline"><i class="fa fa-times"></i> Cancelar</a>
-        <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
-      </div>
-    </div>
-        
-    </div>
-    </section>
-    <script>
+
+       </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                    <i class="fa fa-times"></i> Cancelar
+                </button>
+            </div>
+            <script>
         document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
             grupo.children[1].children[0].addEventListener('focus', () => {
                 grupo.children[0].classList.add('text-secondary')
@@ -230,7 +208,8 @@ if (ReferenceScriptLibraries) {
             })
         })
     </script>
-   }
+  
+}
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 #>
