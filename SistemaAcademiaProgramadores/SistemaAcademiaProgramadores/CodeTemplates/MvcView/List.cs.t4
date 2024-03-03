@@ -204,7 +204,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <script>
     
     @*$('.btnEditar').click(function () {
-        var id = document.GetElementById("<#= property.PropertyName #>").value;
+        var id = $(this).data("id");
 
         $.ajax({
             url: "/Home/llenarInputs",
@@ -246,10 +246,17 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 
         $('#modalEditar').modal('show');
     })*@
- 
+    
+     @*$('.btnNuevo').click(function () {
+            $('#modalNuevo').modal('show');
+        })
+     *@
 </script>
 
-@*<div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+@*
+@using (Ajax.BeginForm("Create",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmNuevo{ViewBag.Title}" }))
+{
+<div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -258,11 +265,24 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.tbUsuarios())
+            <div class="modal-body form-row justify-content-center" id=$"frmNuevo{ViewBag.Title}">
+                @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
+            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                        <i class="fa fa-times"></i> Cancelar
+                    </button>
+                </div>
         </div>
     </div>
-</div>*@
-@*<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+</div>
+}
+*@
+@*
+@using (Ajax.BeginForm("Edit",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmEditar{ViewBag.Title}" }))
+{
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -271,10 +291,20 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
+            <div class="modal-body form-row justify-content-center" id=$"frmEditar{ViewBag.Title}">
+                @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
+            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                        <i class="fa fa-times"></i> Cancelar
+                    </button>
+                </div>
         </div>
     </div>
-</div>*@
+</div>
+}
+*@
 
 
 <#

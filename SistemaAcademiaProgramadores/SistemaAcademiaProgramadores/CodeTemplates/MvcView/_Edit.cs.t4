@@ -61,16 +61,14 @@ if (ReferenceScriptLibraries) {
 
 <#
     }
-#>
 
-<#
 }
 #>
 
-@using (Html.BeginForm())
-{
+
+
+
     @Html.AntiForgeryToken()
-               <div class="modal-body form-row">
 <# 
     if (isControlHtmlAttributesSupported) {
 #>
@@ -190,13 +188,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 }          
 #>
 
-       </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
-                <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
-                    <i class="fa fa-times"></i> Cancelar
-                </button>
-            </div>
+      
             <script>
         document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
             grupo.children[1].children[0].addEventListener('focus', () => {
@@ -208,7 +200,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
         })
     </script>
   
-}
+
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 #>
