@@ -143,11 +143,11 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        @*<button data-id="@item.ID" class="btnEliminar btn btn-delete btn-outline btn-xs col-sm-4">
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </button>*@
-                        <a class="btn btn-delete btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </a>
@@ -171,7 +171,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        @*<button data-id="@item.ID" class="btnEliminar btn btn-delete btn-outline btn-xs col-sm-4">
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </button>*@
@@ -200,7 +200,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 
 <script>
 
-    $('.btnEditar').click(function () {
+    @*$('.btnEditar').click(function () {
         var id = $(this).data("id");
 
         $.ajax({
@@ -242,10 +242,10 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
         })
 
         $('#modalEditar').modal('show');
-    })
+    })*@
 </script>
 
-<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+@*<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -257,7 +257,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
             @*@Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())*@
         </div>
     </div>
-</div>
+</div>*@
 
 
 <#
