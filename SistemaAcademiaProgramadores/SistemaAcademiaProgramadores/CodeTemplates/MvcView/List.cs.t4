@@ -204,7 +204,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <script>
     
     @*$('.btnEditar').click(function () {
-        var id = $(this).data("id");
+        var id = document.GetElementById("<#= property.PropertyName #>").value;
 
         $.ajax({
             url: "/Home/llenarInputs",
@@ -246,12 +246,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 
         $('#modalEditar').modal('show');
     })*@
-    @*
-
-    $('.btnNuevo').click(function(){
-        $('#modalNuevo').modal('show');
-    })
-    *@
+ 
 </script>
 
 @*<div class="modal" id="modalNuevo" tabindex="-1" role="dialog">

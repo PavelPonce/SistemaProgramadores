@@ -71,7 +71,6 @@ if (ReferenceScriptLibraries) {
 {
     @Html.AntiForgeryToken()
                <div class="modal-body form-row">
-
 <# 
     if (isControlHtmlAttributesSupported) {
 #>

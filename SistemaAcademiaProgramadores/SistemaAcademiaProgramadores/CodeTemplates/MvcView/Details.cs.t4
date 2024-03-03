@@ -56,11 +56,16 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 <section class="content">
 
 <div class="card">
-<div class="card-body form-row">
-        
+<div class="card-body">
+        <div class="form-row justify-content-center">
 <#
 foreach (PropertyMetadata property in ModelMetadata.Properties) {
+        if (property.IsPrimaryKey) {
+        #>
+                    @Html.HiddenFor(model => model.<#= property.PropertyName #>)
 
+        <#
+         } 
     if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
 #>      
 <#
@@ -76,46 +81,53 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
                 !GetValueExpression(property).EndsWith("tbUsuarios1.Usuar_Usuario") &&
                 !GetValueExpression(property).EndsWith("tbUsuarios2.Usuar_Usuario") &&
                 !GetValueExpression(property).EndsWith("tbUsuarios3.Usuar_Usuario")){
-#>    <div class="col-sm-4">
-        <dl>
-            <dt class="text-primary text-center">
-                @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
-            </dt>
+             
+            #>    <div class="col-sm-4">
+                    <dl>
+                        <dt class="text-primary text-center">
+                            @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+                        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.<#= GetValueExpression(property) #>)
-            </dd>
-        </dl>
-     </div>
+                        <dd>
+                            @Html.DisplayFor(model => model.<#= GetValueExpression(property) #>)
+                        </dd>
+                    </dl>
+                 </div>
 
 <#
+            
         }
     }
 
 }
 #>
-    <p>
+    </div>
     <#
     string pkName = GetPrimaryKeyName();
     if (pkName != null) {
     #>
-        <div class="col-sm-4">
-            <a class="btn btn-primary btn-outline col-sm-12" href="@Url.Action("Edit", new { id = Model.<#= pkName #> })">
-                <i class="fa fa-edit mr-2"></i>Editar @ViewBag.Title
+       <div class="d-flex justify-content-end">
+            @*<button data-id="item.ID" class="btnEditar btn btn-primary btn-outline">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </button>*@
+            <a class="btn btn-primary btn-outline" href="@Url.Action("Edit", new { id = Model.<#= pkName #> })">
+                <i class="fa fa-edit mr-2"></i>Editar
             </a>
-        </div>
+       </div>
     <#
     } else {
     #>
-        <div class="col-sm-4">
-            <a class="btn btn-primary btn-outline col-sm-12" href="@Url.Action("Edit") id=Model.PrimaryKey">
+        <div class="d-flex justify-content-end">
+            @*<button data-id="item.ID" class="btnEditar btn btn-primary btn-outline">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </button>*@
+            <a class="btn btn-primary btn-outline" href="@Url.Action("Edit") id=Model.PrimaryKey">
                 <i class="fa fa-edit mr-2"></i>Editar @ViewBag.Title
             </a>
         </div>
     <#
     }
     #>
-    </p>
 </div>
 <div class="card-footer">
     <div class="card-title text-primary mb-4" style="font-size: 1.5rem;"> Auditoria </div>
@@ -228,7 +240,73 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 </div>
 </div>
 </section>
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
 
+<script>
+    
+    @*$('.btnEditar').click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : '<#= ViewDataTypeShortName #>'}),
+
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                <#
+                    foreach (PropertyMetadata property in ModelMetadata.Properties) {
+
+                        if (property.Scaffold && !property.IsAssociation) {
+                            if(!GetValueExpression(property).EndsWith("FechaCreacion") &&
+                                    !GetValueExpression(property).EndsWith("FechaModificacion") &&
+                                    !GetValueExpression(property).EndsWith("Estado") && 
+                                    !GetValueExpression(property).EndsWith("tbUsuarios.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("tbUsuarios1.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("tbUsuarios2.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("tbUsuarios3.Usuar_Usuario") &&
+                                    !GetValueExpression(property).EndsWith("UsuarioCreacion") &&
+                                    !GetValueExpression(property).EndsWith("FechaCreacion") && 
+                                    !GetValueExpression(property).EndsWith("UsuarioModificacion") &&
+                                    !GetValueExpression(property).EndsWith("FechaModificacion")){
+                #>
+                    $('#<#= property.PropertyName #>').val(value.<#= property.PropertyName #>)
+                <#
+                            }
+                        }
+                    }
+                #>
+                })
+                   
+            },
+            
+        })
+
+        $('#modalEditar').modal('show');
+    })*@
+    @*
+
+    $('.btnNuevo').click(function(){
+        $('#modalNuevo').modal('show');
+    })
+    *@
+</script>
+@*<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
+        </div>
+    </div>
+</div>*@
 <#
 // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
 #>
