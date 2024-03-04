@@ -148,14 +148,11 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
+                        <button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
-                        </button>*@
-                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete", new { id=item.<#= pkName #> })">
-                            <i class="fa fa-trash-o"></i>
-                            Eliminar
-                        </a>
+                        </button>
+                        
                     </div>
                 </td>
            
