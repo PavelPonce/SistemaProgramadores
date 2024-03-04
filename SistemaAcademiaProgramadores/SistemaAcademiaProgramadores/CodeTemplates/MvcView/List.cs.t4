@@ -12,7 +12,9 @@ if(IsPartialView) {
 #>
 
 @{
-    ViewBag.Title = $"<#= ViewDataTypeShortName #>".Substring(2);
+    ViewBag.Title = $"<#= ViewDataTypeShortName #>".Substring(2);  
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+
 <#
 if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
@@ -146,14 +148,10 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-3">
+                        <button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-3">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
-                        </button>*@
-                        <a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete", new { id=item.<#= pkName #> })">
-                            <i class="fa fa-trash-o"></i>
-                            Eliminar
-                        </a>
+                        </button>
                     </div>
                 </td>
            
@@ -174,14 +172,10 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
+                        <button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
-                        </button>*@
-                        <a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete")" id="item.PrimaryKey">
-                            <i class="fa fa-trash-o"></i>
-                            Eliminar
-                        </a>
+                        </button>
                     </div>
                 </td>
            
@@ -214,7 +208,6 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
             data: JSON.stringify({id : id, spLlenarEditar : '<#= ViewDataTypeShortName #>'}),
 
             success: function (data) {
-                console.log(data);
                 $.each(data, function (key, value) {
                 <#
                     foreach (PropertyMetadata property in ModelMetadata.Properties) {
@@ -246,42 +239,46 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 
         $('#modalEditar').modal('show');
     })*@
-    
+
+    @*$('.btnEliminar').click(function () {
+        var id = $(this).data("id");
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ id: id, spLlenarEditar: '<#= ViewDataTypeShortName #>' }),
+
+             success: function (data) {
+                $.each(data, function (key, value) {
+                <#
+                    foreach (PropertyMetadata property in ModelMetadata.Properties) {
+
+                        if (property.Scaffold && !property.IsAssociation) {
+                            if(property.IsPrimaryKey){
+                #>
+                    $('#Row_Id').val(value.<#= property.PropertyName #>)
+                <#
+                            }
+                        }
+                    }
+                #>
+                })
+                   
+            },
+
+        })
+        $('#modalEliminar').modal('show');
+    })*@
+
      @*$('.btnNuevo').click(function () {
             $('#modalNuevo').modal('show');
         })
      *@
 </script>
 
+
 @*
-@using (Ajax.BeginForm("Create",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmNuevo{ViewBag.Title}" }))
-{
-<div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body form-row justify-content-center" id=$"frmNuevo{ViewBag.Title}">
-                @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
-            </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-                    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
-                        <i class="fa fa-times"></i> Cancelar
-                    </button>
-                </div>
-        </div>
-    </div>
-</div>
-}
-*@
-@*
-@using (Ajax.BeginForm("Edit",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmEditar{ViewBag.Title}" }))
-{
 <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -291,20 +288,48 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body form-row justify-content-center" id=$"frmEditar{ViewBag.Title}">
                 @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
-            </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-                    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
-                        <i class="fa fa-times"></i> Cancelar
-                    </button>
-                </div>
+            
+                
         </div>
     </div>
 </div>
-}
+
 *@
+@*
+<div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
+            
+        </div>
+    </div>
+</div>
+*@
+
+<div class="modal" id="modalEliminar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card-body form-row justify-content-center">
+                Esta seguro que desea eliminar este registro?
+            </div>
+            @Html.Partial("_Delete", new SistemaAcademiaProgramadores.Models.<#= ViewDataTypeShortName #>())
+
+        </div>
+    </div>
+</div>
 
 
 <#

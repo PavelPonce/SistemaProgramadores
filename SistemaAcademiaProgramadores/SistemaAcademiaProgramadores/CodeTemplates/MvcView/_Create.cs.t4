@@ -10,7 +10,10 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 // The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
 if(IsPartialView) {
 #>
+    @{
+        ViewBag.Title = $"<#= ViewDataTypeShortName #>".Substring(2);  
 
+    }
 <#
 } else if(IsLayoutPageSelected) {
 #>
@@ -65,8 +68,10 @@ if (ReferenceScriptLibraries) {
 <#
 }
 #>
-
+@using (Html.BeginForm("Create",(string)ViewBag.Title)) 
+{
     @Html.AntiForgeryToken()
+           <div class="modal-body form-row justify-content-center">
            <# 
     if (isControlHtmlAttributesSupported) {
 #>
@@ -179,7 +184,13 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 
 }
 #>
-           
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                    <i class="fa fa-times"></i> Cancelar
+                </button>
+            </div>
             <script>
         document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
             grupo.children[1].children[0].addEventListener('focus', () => {
@@ -191,7 +202,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
         })
     </script>
   
-
+}
 
 <#
 if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
