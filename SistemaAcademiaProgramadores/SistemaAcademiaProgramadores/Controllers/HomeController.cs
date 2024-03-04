@@ -64,9 +64,13 @@ namespace SistemaAcademiaProgramadores.Controllers
             switch (spLlenarEditar)
             {
                 case "tbDepartamentos":
-                    return  Json(db.SP_tbDepartamentos_LlenarEditar(id).ToList(), JsonRequestBehavior.AllowGet);
+                    return  Json(db.SP_Departamentos_LlenarEditar(id).ToList(), JsonRequestBehavior.AllowGet);
                 case "tbTitulos":
-                    return Json(db.SP_tbTitulos_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                    return Json(db.SP_Titulos_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbMunicipios":
+                    return Json(db.SP_Municipios_LlenarEditar(id).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbEstadosCiviles":
+                    return Json(db.SP_EstadosCiviles_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
             }
 
             //var tbDepartamentos = db.tbDepartamentos.Find(id);
