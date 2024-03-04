@@ -1,3 +1,121 @@
+ALTER PROCEDURE [Acces].[SP_Usuarios_Insertar] (
+	@Usuar_Usuario VARCHAR(50),
+	@Usuar_Contrasena NVARCHAR(MAX), -- Use NVARCHAR for better password storage
+	@Instr_Id INT,
+	@Roles_Id INT,
+	@Usuar_Admin BIT ,
+	@Usuar_UsuarioCreacion INT ,
+	@Usuar_FechaCreacion DATETIME
+)
+AS
+BEGIN
+
+	BEGIN TRY
+			DECLARE @HashedPassword NVARCHAR(MAX);
+			SET @HashedPassword = CONVERT(NVARCHAR(MAX), HASHBYTES('SHA2_512', @Usuar_Contrasena),2);
+
+			INSERT INTO [Acces].[tbUsuarios] (
+				[Usuar_Usuario],
+				[Usuar_Contrasena], -- Store the hashed password
+				[Instr_Id],
+				[Roles_Id],
+				[Usuar_Admin],
+				[Usuar_UsuarioCreacion],
+				[Usuar_FechaCreacion]
+			)
+			VALUES (
+				@Usuar_Usuario,
+				@HashedPassword,
+				@Instr_Id,
+				@Roles_Id,
+				@Usuar_Admin,
+				@Usuar_UsuarioCreacion,
+				@Usuar_FechaCreacion
+			)
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+
+ALTER PROCEDURE [Acces].[SP_Usuarios_Login]
+	@Usuario VARCHAR(50),
+	@Contrasena NVARCHAR(50)
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE @HASHBYTES NVARCHAR(MAX) = CONVERT(NVARCHAR (MAX), HASHBYTES ('SHA2_512', @Contrasena), 2);		
+		SELECT @HASHBYTES
+		SELECT	usu.Usuar_Id,
+				usu.Usuar_Contrasena,
+				CONCAT(per.Perso_PrimerNombre,' ',CASE WHEN per.Perso_SegundoNombre IS NULL THEN '' ELSE per.Perso_SegundoNombre + ' ' END, per.Perso_PrimerApellido, CASE WHEN per.Perso_SegundoApellido IS NULL THEN '' ELSE ' ' + per.Perso_SegundoNombre END) AS Perso_NombreCompleto,
+				per.*
+		FROM Acces.tbUsuarios AS usu INNER JOIN Acade.tbInstructores AS ins
+			ON usu.Instr_Id = ins.Perso_Id INNER JOIN Mante.tbPersonas AS per
+			ON ins.Perso_Id = per.Perso_Id
+		WHERE usu.Usuar_Usuario = @Usuario AND usu.Usuar_Contrasena = @HASHBYTES;
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT 0
+	END CATCH
+END
+------------------------------------------------------------------------------------
+ALTER PROCEDURE [Acces].[SP_PantallasPorRoles_InsertarEliminar] (
+	@Panta_IdsXML XML,
+	@Roles_Id INT,
+	@Papro_UsuarioCreacion INT,
+	@Papro_FechaCreacion DATETIME
+)
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE @SQLquery NVARCHAR(MAX) = ''
+		DECLARE Cursor_PantallasPorRoles CURSOR FOR
+			SELECT
+				x.y.value('.', 'INT') AS Panta_Id,
+				x.y.value('local-name(.)', 'BIT') AS EsInsercion
+			FROM
+				@Panta_IdsXML.nodes('/Panta_IdsXML/*') AS x(y);
+		OPEN Cursor_PantallasPorRoles
+		DECLARE @Panta_Id INT, @EsInsercion INT
+		FETCH NEXT FROM Cursor_PantallasPorRoles INTO @Panta_Id, @EsInsercion
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			IF @EsInsercion = 1
+			BEGIN
+				SET @SQLquery += 'INSERT INTO Acces.tbPantallasPorRoles(Panta_Id, Roles_Id, Papro_UsuarioCreacion, Papro_FechaCreacion) VALUES('+CAST(@Panta_Id AS VARCHAR(5))+', '+CAST(@Roles_Id AS VARCHAR(5))+', '+CAST(@Papro_UsuarioCreacion AS VARCHAR(5))+', '''+ CAST(@Papro_FechaCreacion AS VARCHAR(30)) +''');'
+			END
+			ELSE
+			BEGIN
+				SET @SQLquery += 'DELETE FROM Acces.tbPantallasPorRoles WHERE Panta_Id = '+CAST(@Panta_Id AS VARCHAR(5))+' AND Roles_Id = '+CAST(@Roles_Id AS VARCHAR(5))+';'
+			END
+			FETCH NEXT FROM Cursor_PantallasPorRoles INTO @Panta_Id, @EsInsercion
+		END
+		CLOSE Cursor_PantallasPorRoles
+		DEALLOCATE Cursor_PantallasPorRoles;
+		EXEC sp_executesql @SQLquery;
+		SELECT 1
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_MESSAGE();
+		SELECT 0;
+	END CATCH
+END
+-------------------------------------------------------------------------------------
+CREATE PROCEDURE [Acces].[SP_PantallasPorRoles_Seleccionar]
+	@Roles_Id INT
+AS
+BEGIN 
+	SELECT
+		tbPantallasPorRoles.Papro_Id,
+		tbPantallasPorRoles.Roles_Id,
+		tbPantallasPorRoles.Panta_Id
+	FROM Acces.tbPantallasPorRoles
+	WHERE tbPantallasPorRoles.Roles_Id = @Roles_Id
+END
+--------------------------------------------------------------------------------------
 ALTER PROCEDURE [Calif].[SP_Calificaciones_Seleccionar](
 	@Curso_Id INT,
 	@Gener_Id INT
