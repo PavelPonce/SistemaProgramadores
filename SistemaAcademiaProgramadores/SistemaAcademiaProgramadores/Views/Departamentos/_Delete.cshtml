@@ -1,0 +1,67 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbDepartamentos
+
+@{
+    ViewBag.Title = $"tbDepartamentos".Substring(2);
+}
+
+@using (Html.BeginForm("Delete", (string)ViewBag.Title, FormMethod.Post,new { @id = "formEliminar", @name = "formEliminar" }))
+{
+
+                @Html.AntiForgeryToken()
+            
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+<div class="modal-footer">
+    @Html.HiddenFor(model => model.Depar_Id, new { @id = "Row_Id", @name = "Row_Id" })
+    <button type="submit" onsubmit="submitEliminar()" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
+    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+        <i class="fa fa-times"></i> Cancelar
+    </button>
+</div>
+
+}
+<script>
+    var my_func = function (event) {
+        if (localStorage.getItem("Row_Id") != $('#Row_Id').val()) {
+            event.preventDefault();
+        }
+    };
+    var form = document.getElementById("formEliminar");
+
+    form.addEventListener("submit",my_func, true);
+</script>
+
+@*<input type="hidden" value="@ViewBag.Title" id="controllerName"/>
+    <div class="modal-footer">
+        <input id="Row_Id" type="hidden"/>
+        <button type="button" id="btnEliminar" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
+        <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+            <i class="fa fa-times"></i> Cancelar
+        </button>
+    </div>
+
+    <script>
+        $('#btnEliminar').click(function () {
+            var id = $('#Row_Id').val();
+            var controller = $('#controllerName').val()
+            console.log(id)
+
+            $.ajax({
+                url: "/" + controller + "/Eliminar",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ id: id }),
+                success: function (data) {
+                        window.location.href = "@Url.Action("Index")" ;
+                    },
+            })
+        })
+    </script>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
