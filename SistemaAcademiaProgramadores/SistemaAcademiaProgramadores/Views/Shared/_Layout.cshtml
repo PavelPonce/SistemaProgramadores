@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Academia de Programadores</title>
 
     @*<link href="~/Content/HTML5_Full_Version/css/bootstrap.min.css" rel="stylesheet">*@
     @Styles.Render("~/Content/HTML5_Full_Version/css/bootstrap.css")
@@ -98,7 +98,7 @@
                             </li>
                             @*<li>@Url.Action("Index", "Municipios")</li>*@
                             <li>
-                                <a href="#">
+                                <a href="@Url.Action("Index", "Municipios")">
                                     <i class="glyphicon glyphicon-globe"></i> Municipios
                                 </a>
                             </li>
@@ -232,21 +232,23 @@
 
     @*<script src="js/plugins/pace/pace.min.js"></script>*@
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/pace/pace.min.js")
-
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/datatables.min.js")
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/dataTables.bootstrap4.min.js")
 
-    @RenderSection("scripts", required: false)
-<script>
+    @*@RenderSection("scripts", required: false)*@
+    <script>
 
 
         // Upgrade button class name
         $(document).ready(function () {
             $('.dataTables-example').DataTable({
-                pageLength: 25,
+                pageLength: 10,
                 responsive: true,
                 language: {
-                    url: '~/Content/HTML5_Full_Version/js/plugins/dataTables/esLanguageDataTable.json'
+                    url: '../../Content/HTML5_Full_Version/js/plugins/dataTables/esLanguageDataTable.json'
                 },
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
@@ -254,7 +256,7 @@
                     { extend: 'excel', title: '@ViewBag.Title' },
                     { extend: 'pdf', title: '@ViewBag.Title' },
 
-                   
+
                 ]
 
             });
@@ -262,7 +264,7 @@
         });
 
 
-</script>
+    </script>
 </body>
 
 @*<body>
