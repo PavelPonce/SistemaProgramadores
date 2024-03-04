@@ -62,7 +62,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 foreach (PropertyMetadata property in ModelMetadata.Properties) {
     if(property.IsPrimaryKey){
 #>
-    @Html.HiddenFor(model => model.<#= GetValueExpression(property) #>)
+    @Html.HiddenFor(model => model.<#= GetValueExpression(property) #>, new { @id = "Item_Id"})
 <#
     
     }else if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
@@ -248,17 +248,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 
 <script>
     @*$('.btnEditar').click(function () {
-        <#
-            foreach (PropertyMetadata property in ModelMetadata.Properties) {
-                if (property.Scaffold && !property.IsAssociation) {
-                    if(property.IsPrimaryKey){
-        #>
-        var id = document.getElementById("<#= property.PropertyName #>").value;
-        <#
-                    }
-                }
-            }
-        #>
+        var id = document.getElementById("Item_Id").value;
 
         $.ajax({
             url: "/Home/llenarInputs",
@@ -301,17 +291,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
     })*@
 
     @*$('.btnEliminar').click(function () {
-        <#
-            foreach (PropertyMetadata property in ModelMetadata.Properties) {
-                if (property.Scaffold && !property.IsAssociation) {
-                    if(property.IsPrimaryKey){
-        #>
-        var id = document.getElementById("<#= property.PropertyName #>").value;
-        <#
-                    }
-                }
-            }
-        #>        
+        var id = document.getElementById("Item_Id").value;
         
             $.ajax({
             url: "/Home/llenarInputs",
