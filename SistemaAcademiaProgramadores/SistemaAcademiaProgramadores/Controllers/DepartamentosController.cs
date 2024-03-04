@@ -49,11 +49,11 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Depar_Id,Depar_Descripcion,Depar_UsuarioCreacion,Depar_FechaCreacion,Depar_UsuarioModificacion,Depar_FechaModificacion,Depar_Estado")] tbDepartamentos tbDepartamentos)
+        public ActionResult Create([Bind(Include = "Depar_Id,Depar_Descripcion")] tbDepartamentos tbDepartamentos)
         {
             if (ModelState.IsValid)
             {
-                db.tbDepartamentos.Add(tbDepartamentos);
+                db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, 1, DateTime.Now);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,16 +85,11 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Depar_Id,Depar_Descripcion,Depar_UsuarioCreacion,Depar_FechaCreacion,Depar_UsuarioModificacion,Depar_FechaModificacion,Depar_Estado")] tbDepartamentos tbDepartamentos)
-        {
-            tbDepartamentos.Depar_UsuarioCreacion = 1;
-            tbDepartamentos.Depar_FechaCreacion = DateTime.Now;
-            tbDepartamentos.Depar_UsuarioModificacion = 1;
-            tbDepartamentos.Depar_FechaModificacion = DateTime.Now;
-
+        public ActionResult Edit([Bind(Include = "Depar_Id, Depar_Descripcion")] tbDepartamentos tbDepartamentos)
+        { 
             if (ModelState.IsValid)
             {
-                db.Entry(tbDepartamentos).State = EntityState.Modified;
+                db.SP_Departamentos_Modificar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -121,13 +116,14 @@ namespace SistemaAcademiaProgramadores.Controllers
         // POST: Departamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirm([Bind(Include = "Depar_Id")] tbDepartamentos tbDepartamentos)
         {
-            tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
-            db.tbDepartamentos.Remove(tbDepartamentos);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                db.SP_Departamentos_Eliminar(tbDepartamentos.Depar_Id);
+                db.SaveChanges();
+                return RedirectToAction("Index");   
         }
+       
+      
 
         protected override void Dispose(bool disposing)
         {
