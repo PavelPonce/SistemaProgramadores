@@ -15,23 +15,6 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 }
 <input type="hidden" value="@ViewBag.Title" id="controllerName"/>
 
-@using (Html.BeginForm("DeleteUpd",(string)ViewBag.Title))
-{
-
-@Html.AntiForgeryToken()
-
-
-<div class="modal-footer">
-    <input id="Row_Id" type="hidden"/>
-    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
-    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
-        <i class="fa fa-times"></i> Cancelar
-    </button>
-</div>
-
-}
-
-@*
 <div class="modal-footer">
     <input id="Row_Id" type="hidden"/>
     <button type="button" id="btnEliminar" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
@@ -39,6 +22,25 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
         <i class="fa fa-times"></i> Cancelar
     </button>
 </div>
+<script>
+    $('#btnEliminar').click(function () {
+        var id = $('#Row_Id').val();
+        var controller = $('#controllerName').val()
+
+        $.ajax({
+            url: "/" + controller + "/DeleteUpd",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ id: id }),
+            success: function (data) {
+                window.location.href = "@Url.Action("Index")";
+            },
+        })
+    })
+</script>
+@*
+
 
 <script>
     $('#btnEliminar').click(function () {
