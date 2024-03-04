@@ -148,10 +148,14 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        <button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-3">
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-3">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
-                        </button>
+                        </button>*@
+                        <a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete", new { id=item.<#= pkName #> })">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </a>
                     </div>
                 </td>
            
@@ -172,10 +176,14 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        <button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
+                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
-                        </button>
+                        </button>*@
+                        <a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete")" id="item.PrimaryKey">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </a>
                     </div>
                 </td>
            
@@ -312,7 +320,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
     </div>
 </div>
 *@
-
+*@
 <div class="modal" id="modalEliminar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -330,7 +338,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
         </div>
     </div>
 </div>
-
+*@
 
 <#
 // The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
