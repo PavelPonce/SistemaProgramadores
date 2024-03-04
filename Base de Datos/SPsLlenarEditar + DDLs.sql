@@ -38,7 +38,15 @@ GO
 CREATE PROCEDURE Mante.SP_Titulos_DropDownList
 AS
 BEGIN
-	SELECT Titul_Tipo,
+	SELECT	T.Titul_Tipo,
 			CASE Titul_Tipo WHEN 'DO' THEN 'Doctorado' WHEN 'PO' THEN 'Posgrado' WHEN 'PR' THEN 'Pregrado' ELSE 'Bachiller' END AS Titul_TipoDescripcion
-	FROM Mante.tbTitulos
+	FROM(
+		SELECT 'DO' AS Titul_Tipo
+		UNION ALL
+		SELECT 'PO' AS Titul_Tipo
+		UNION ALL
+		SELECT 'PR' AS Titul_Tipo
+		UNION ALL
+		SELECT 'BA' AS Titul_Tipo
+	) AS T
 END

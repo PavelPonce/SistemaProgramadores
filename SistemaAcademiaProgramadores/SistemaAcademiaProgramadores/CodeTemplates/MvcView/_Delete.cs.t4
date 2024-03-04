@@ -15,7 +15,7 @@ bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
 }
 <input type="hidden" value="@ViewBag.Title" id="controllerName"/>
 
-@using (Html.BeginForm("EliminarUpd",(string)ViewBag.Title))
+@using (Html.BeginForm("DeleteUpd",(string)ViewBag.Title))
 {
 
 @Html.AntiForgeryToken()
