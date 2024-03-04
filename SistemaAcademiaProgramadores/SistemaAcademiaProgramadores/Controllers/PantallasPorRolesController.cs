@@ -6,21 +6,58 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SistemaAcademiaProgramadores.Attributes;
 using SistemaAcademiaProgramadores.Models;
 
 namespace SistemaAcademiaProgramadores.Controllers
 {
+    [CustomAuthorize]
     public class PantallasPorRolesController : Controller
     {
         private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
+
 
         // GET: PantallasPorRoles
         public ActionResult Index()
         {
             var tbPantallasPorRoles = db.tbPantallasPorRoles.Include(t => t.tbPantallas).Include(t => t.tbRoles).Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
-            return View(tbPantallasPorRoles.ToList());
+            var tbPantallas = db.tbPantallas.ToList();
+            var tbRoles = db.tbRoles.ToList();
+            //return View(tbPantallasPorRoles.ToList());
+            return View(new Tuple<IEnumerable<tbPantallasPorRoles>, IEnumerable<tbPantallas>, IEnumerable<tbRoles>>(tbPantallasPorRoles, tbPantallas, tbRoles));
         }
-
+        
+        public JsonResult LlenarPantallasPorRol(string Roles_Id)
+        {
+            return Json(db.SP_PantallasPorRoles_SeleccionarPantallasPorRol(int.Parse(Roles_Id)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        //FORMATO DEL XML: 
+         //   <Panta_IdsXML>
+		       // <False>1</False>
+		       // <True>2</True>
+		       // <True>3</True>
+		       // <False>16</False>
+	        //</Panta_IdsXML>
+        public JsonResult ModificarPantallasPorRol(List<string> pantallasPorHabilitar, List<string> pantallasPorDeshabilitar, int Roles_Id)
+        {
+            var Panta_IdsXML = "<Panta_IdsXML>";
+            if (pantallasPorHabilitar != null)
+                foreach (var Panta_Id in pantallasPorHabilitar)
+                {
+                    Panta_IdsXML += $"<True>{Panta_Id}</True>";
+                }
+            { 
+            }
+            if (pantallasPorDeshabilitar != null)
+            {
+                foreach (var Panta_Id in pantallasPorDeshabilitar)
+                {
+                    Panta_IdsXML += $"<False>{Panta_Id}</False>";
+                }
+            }
+            Panta_IdsXML += "</Panta_IdsXML>";
+            return Json(db.SP_PantallasPorRoles_InsertarEliminar(Panta_IdsXML,Roles_Id,1,DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+        }
         // GET: PantallasPorRoles/Details/5
         public ActionResult Details(int? id)
         {
