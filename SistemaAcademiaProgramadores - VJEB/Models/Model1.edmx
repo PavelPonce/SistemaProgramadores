@@ -985,6 +985,13 @@
           <Parameter Name="Curso_Id" Type="int" Mode="In" />
           <Parameter Name="Gener_Id" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_Calificaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+          <Parameter Name="ActCG_Id" Type="varchar" Mode="In" />
+          <Parameter Name="Alumn_Id" Type="varchar" Mode="In" />
+          <Parameter Name="Calif_Nota" Type="numeric" Mode="In" />
+          <Parameter Name="Calif_UsuarioModificacion" Type="varchar" Mode="In" />
+          <Parameter Name="Calif_FechaModificacion" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="SP_Calificaciones_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
           <Parameter Name="Curso_Id" Type="int" Mode="In" />
           <Parameter Name="Gener_Id" Type="int" Mode="In" />
@@ -2181,6 +2188,13 @@
             <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
             <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_Calificaciones_Modificar" ReturnType="Collection(Int32)">
+            <Parameter Name="ActCG_Id" Mode="In" Type="String" />
+            <Parameter Name="Alumn_Id" Mode="In" Type="String" />
+            <Parameter Name="Calif_Nota" Mode="In" Type="Decimal" />
+            <Parameter Name="Calif_UsuarioModificacion" Mode="In" Type="String" />
+            <Parameter Name="Calif_FechaModificacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="tbCalificaciones">
           <Key>
@@ -3161,6 +3175,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Calificaciones_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Modificar" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

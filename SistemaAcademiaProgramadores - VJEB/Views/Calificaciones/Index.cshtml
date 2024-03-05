@@ -135,89 +135,149 @@
     //}
     $('#ddlGeneraciones').change(() => {
         Gener_Id = $('#ddlGeneraciones').val();
-        $.ajax({
-            url: "/Calificaciones/LlenarCursosDdl",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ Gener_Id }),
-            success: function (data) {
-                $.each(data, function (key, value) {
-                    let htmlOptionElement = new Option(value.Curso_Nombre, value.Curso_Id);
-                    document.getElementById('ddlCursos').appendChild(htmlOptionElement);
-                })
-            },
-        })
+        if (Gener_Id !== "") {
+            $.ajax({
+                url: "/Calificaciones/LlenarCursosDdl",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Gener_Id }),
+                success: function (data) {
+                    let ddlCursosChildren = document.getElementById("ddlCursos").children;
+                    for (let i = ddlCursosChildren.length-1; i > 0; i--) {
+                        ddlCursosChildren[i].remove();
+                    }
+                    $.each(data, function (key, value) {
+                        let htmlOptionElement = new Option(value.Curso_Nombre, value.Curso_Id);
+                         
+                        document.getElementById('ddlCursos').appendChild(htmlOptionElement);
+                    })
+                },
+            })
+        }
     })
     $('#ddlCursos').change(() => {
         Gener_Id = $('#ddlGeneraciones').val();
         Curso_Id = $('#ddlCursos').val();
-        $.ajax({
-            url: "/Calificaciones/CargarActividades",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ Gener_Id, Curso_Id }),
-            success: function (data) {
-                let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
-                if (document.getElementById("ALUMNO")) {
-                    calificacionesTheadTr.innerHTML = "";
-                    document.getElementById("calificacionesTbody").innerHTML = "";
-                }
-                let alumnoCellHeaderElement = document.createElement("th");
-                alumnoCellHeaderElement.id = "ALUMNO";
-                alumnoCellHeaderElement.classList.add("bg-primary");
-                alumnoCellHeaderElement.textContent = "Alumno";
-                calificacionesTheadTr.appendChild(alumnoCellHeaderElement);
-                $.each(data, function (key, value) {
-                    let cellHeaderElement = document.createElement("th");
-                    cellHeaderElement.id = value.ActCG_Id;
-                    cellHeaderElement.classList.add("bg-primary");
-                    cellHeaderElement.textContent = value.Activ_Nombre + " " + value.ActCG_Nota + "%";
-                    calificacionesTheadTr.appendChild(cellHeaderElement);
-                })
-                let totalCellHeaderElement = document.createElement("th");
-                totalCellHeaderElement.id = "Total";
-                totalCellHeaderElement.classList.add("bg-primary");
-                totalCellHeaderElement.textContent = "Total";
-                calificacionesTheadTr.appendChild(totalCellHeaderElement);
-            },
-        })
-        $.ajax({
-            url: "/Calificaciones/CargarCalificaciones",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ Gener_Id, Curso_Id }),
-            success: function (data) {
-                let calificacionesTbody = document.getElementById("calificacionesTbody");
-                let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
-                $.each(data, function (key, value) {
-                    let tableRowElement = document.createElement("tr");
-                    let alumnoTableCell = document.createElement("td");
-                    alumnoTableCell.classList.add("p-0");
-                    alumnoTableCell.textContent = value.ALUMNO;
-                    alumnoTableCell.style.minWidth = "350px";
-                    tableRowElement.appendChild(alumnoTableCell);
-                    for (let i = 0; i < calificacionesTheadTr.children.length - 2; i++) {
-                        let notaTableCell = document.createElement("td");
-                        notaTableCell.classList.add("p-0");
-                        let txtInput = document.createElement("input");
-                        txtInput.disabled = true;
-                        txtInput.value = "0.00";
-                        txtInput.classList.add("w-100");
-                        notaTableCell.appendChild(txtInput);
-                        tableRowElement.appendChild(notaTableCell);
+        if (Gener_Id !== "" && Curso_Id !== "") {
+            $.ajax({
+                url: "/Calificaciones/CargarActividades",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Gener_Id, Curso_Id }),
+                success: function (data) {
+                    let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
+                    if (document.getElementById("ALUMNO")) {
+                        calificacionesTheadTr.innerHTML = "";
+                        document.getElementById("calificacionesTbody").innerHTML = "";
                     }
-                    calificacionesTbody.appendChild(tableRowElement);
-                    let totalTableCell = document.createElement("td");
-                    totalTableCell.textContent = "100.00";
-                    totalTableCell.classList.add("p-0");
-                    tableRowElement.appendChild(totalTableCell);
-                    console.log(value);
-                })
-            },
-        })
+                    let alumnoCellHeaderElement = document.createElement("th");
+                    alumnoCellHeaderElement.id = "ALUMNO";
+                    alumnoCellHeaderElement.classList.add("bg-primary");
+                    alumnoCellHeaderElement.textContent = "Alumno";
+                    calificacionesTheadTr.appendChild(alumnoCellHeaderElement);
+                    $.each(data, function (key, value) {
+                        let cellHeaderElement = document.createElement("th");
+                        cellHeaderElement.id = value.ActCG_Id;
+                        cellHeaderElement.classList.add("bg-primary");
+                        cellHeaderElement.textContent = value.Activ_Nombre + " " + value.ActCG_Nota + "%";
+                        calificacionesTheadTr.appendChild(cellHeaderElement);
+                    })
+                    let totalCellHeaderElement = document.createElement("th");
+                    totalCellHeaderElement.id = "Total";
+                    totalCellHeaderElement.classList.add("bg-primary");
+                    totalCellHeaderElement.textContent = "Total";
+                    calificacionesTheadTr.appendChild(totalCellHeaderElement);
+                    $.ajax({
+                        url: "/Calificaciones/CargarCalificaciones",
+                        method: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ Gener_Id, Curso_Id }),
+                        success: function (data) {
+                            let calificacionesTbody = document.getElementById("calificacionesTbody");
+                            let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
+                            let alumnosMap = new Map();
+                            let calificacionesMap = new Map();
+                            $.each(data, function (key, value) {
+                                alumnosMap.set(value.Perso_Id, value.ALUMNO);
+                                if (calificacionesMap.has(value.Perso_Id)) {
+                                    let nuevoMapCalificaciones = calificacionesMap.get(value.Perso_Id)
+                                    nuevoMapCalificaciones.set(value.ActCG_Id.toString(), value.Calif_Nota);
+                                } else {
+                                    calificacionesMap.set(value.Perso_Id, new Map().set(value.ActCG_Id.toString(), value.Calif_Nota));
+                                }
+                            })
+                            for (let item of calificacionesMap) {
+                                let tableRowElement = document.createElement("tr");
+                                let alumnoTableCell = document.createElement("td");
+                                alumnoTableCell.id = item[0];
+                                alumnoTableCell.classList.add("p-0");
+                                alumnoTableCell.textContent = alumnosMap.get(item[0]);
+                                alumnoTableCell.style.minWidth = "350px";
+                                tableRowElement.appendChild(alumnoTableCell);
+                                for (let i = 0; i < calificacionesTheadTr.children.length - 2; i++) {
+                                    let notaTableCell = document.createElement("td");
+                                    notaTableCell.style.position = "relative";
+                                    notaTableCell.style.padding = "0 5px";
+                                    notaTableCell.style.textAlign = "left";
+                                    let txtInput = document.createElement("input");
+                                    txtInput.disabled = true;
+                                    txtInput.id = calificacionesTheadTr.children[i + 1].id;
+                                    txtInput.value = item[1].get(calificacionesTheadTr.children[i + 1].id);
+                                    notaTableCell.textContent = item[1].get(calificacionesTheadTr.children[i + 1].id);
+                                    txtInput.classList.add("w-100");
+                                    txtInput.style.position = "absolute";
+                                    txtInput.style.zIndex = -1;
+                                    txtInput.style.left = 0;
+                                    txtInput.style.padding = "0 5px";
+                                    txtInput.style.border = 0;
+                                    notaTableCell.appendChild(txtInput);
+                                    tableRowElement.appendChild(notaTableCell);
+                                }
+                                calificacionesTbody.appendChild(tableRowElement);
+                                let totalTableCell = document.createElement("td");
+                                totalTableCell.textContent = "100.00";
+                                totalTableCell.classList.add("p-0");
+                                tableRowElement.appendChild(totalTableCell);
+                                for (let i = tableRowElement.children.length - 1; i > 0; i--) {
+                                    tableRowElement.addEventListener("dblclick", () => {
+                                        if (tableRowElement.children[i].children.length > 0) {
+                                            tableRowElement.children[i].children[0].style.zIndex = "auto";
+                                            tableRowElement.children[i].children[0].disabled = false;
+                                            tableRowElement.children[i].children[0].focus();
+                                            tableRowElement.children[i].children[0].addEventListener("change", (event) => {
+                                                console.log(event.target.value, "val");
+                                                console.log(event.target.id, "id");
+                                                let nuevoMapCalificaciones = calificacionesMap.get(item[0]);
+                                                console.log(nuevoMapCalificaciones);
+                                                nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                                modificarNota(item[0], event.target.id, event.target.value);
+                                                console.log(calificacionesMap);
+                                            });
+                                        }
+                                    })
+                                }
+                                function modificarNota(Alumn_Id, ActCG_Id, Calif_Nota) {
+                                    console.log(Alumn_Id, ActCG_Id, Calif_Nota);
+                                    $.ajax({
+                                        url: "/Calificaciones/ModificarNota",
+                                        method: "POST",
+                                        dataType: "json",
+                                        contentType: "application/json; charset=utf-8",
+                                        data: JSON.stringify({ Alumn_Id, ActCG_Id, Calif_Nota }),
+                                        success: function (data) {
+                                            console.log(data);
+                                        },
+                                    })
+                                }
+                            }
+                        },
+                    })
+                },
+            })
+        }
     })
 </script>
 

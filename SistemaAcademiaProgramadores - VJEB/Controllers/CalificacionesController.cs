@@ -12,7 +12,6 @@ using SistemaAcademiaProgramadores.Models;
 
 namespace SistemaAcademiaProgramadores.Controllers
 {
-     //"Auditoria, Instructor, Reporteria, Gerencial, Digitador"
     [CustomAuthorize]
     public class CalificacionesController : Controller
     {
@@ -40,6 +39,10 @@ namespace SistemaAcademiaProgramadores.Controllers
         public JsonResult CargarCalificaciones(string Gener_Id, string Curso_Id)
         {
             return Json(db.SP_Calificaciones2_Seleccionar(int.Parse(Curso_Id), int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ModificarNota(string Alumn_Id, string ActCG_Id, string Calif_Nota)
+        {
+            return Json(db.SP_Calificaciones_Modificar(ActCG_Id, Alumn_Id, decimal.Parse(Calif_Nota),Session["Usuar_Id"].ToString(), DateTime.Now), JsonRequestBehavior.AllowGet);
         }
         // GET: Calificaciones/Details/5
         public ActionResult Details(int? id)
