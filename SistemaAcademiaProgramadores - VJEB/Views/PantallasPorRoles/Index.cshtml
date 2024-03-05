@@ -1,0 +1,143 @@
+﻿@model Tuple<IEnumerable<SistemaAcademiaProgramadores.Models.tbPantallasPorRoles>, IEnumerable<SistemaAcademiaProgramadores.Models.tbPantallas>, IEnumerable<SistemaAcademiaProgramadores.Models.tbRoles>>
+@{
+    ViewBag.Title = $"tbPantallasPorRoles".Substring(2);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/HTML5_Full_Version/css/plugins/dragula/dragula.css")
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary" style="font-size: 1.8rem;">Pantallas por rol</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index", "Home")' class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="card py-4" style="display: grid; place-items: center; overflow: auto;">
+        <div class="card-body-dragula">
+            <div id="pantallasListBox" class="listBox">
+                <h1 id="pantallasListBoxH1" class="bg-white text-center mt-2 p-2 text-primary">Pantallas</h1>
+                @foreach (var pantalla in Model.Item2)
+                {
+                    <div id="@pantalla.Panta_Id">@pantalla.Panta_Descripcion</div>
+                }
+            </div>
+            <div id="rolesListBox" class="listBox">
+                <select id="ddlRoles" class="form-control mt-2 p-2 text-primary text-center h-auto" style="font-size: x-large;">
+                    <option class="" value="">Seleccionar rol</option>
+                    @foreach (var rol in Model.Item3)
+                    {
+                        <option value="@rol.Roles_Id">@rol.Roles_Descripcion</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="card-body-dragula" style="justify-content: end;">
+            <button id="btnGuardar" class="btn btn-primary mt-4"><i class="fa fa-save mr-2"></i>Guardar</button>
+        </div>
+    </div>
+</section>
+
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+@Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dragula/dragula.js")
+
+<script>
+    dragula([document.getElementById("pantallasListBox"), document.getElementById("rolesListBox")])
+    let pantallasListBox = document.getElementById("pantallasListBox");
+    let rolesListBox = document.getElementById("rolesListBox");
+    let mapPantallasListBoxChildren = new Map();
+    let setIdPantallasPorRol = new Set();
+    $(document).ready(() => {
+        for (let i = 0; i < pantallasListBox.children.length; i++) {
+            mapPantallasListBoxChildren.set(pantallasListBox.children[i].id, pantallasListBox.children[i]);
+        }
+    })
+    let Roles_Id = $('#ddlRoles').val();
+    $('#btnGuardar').click(() => {
+        document.getElementById('btnGuardar').setAttribute("disabled", "disabled");
+        Roles_Id = $('#ddlRoles').val();
+        if (Roles_Id) {
+            let pantallasPorDeshabilitar = [];
+            let pantallasPorHabilitar = [];
+            let setPantallasSeleccionadas = new Set();
+            for (let i = 0; i < rolesListBox.children.length; i++) {
+                if (rolesListBox.children[i].id !== "ddlRoles") {
+                    setPantallasSeleccionadas.add(rolesListBox.children[i].id);
+                }
+            }
+            for (let idPantallaSeleccionada of setPantallasSeleccionadas) {
+                if (!setIdPantallasPorRol.has(idPantallaSeleccionada)) {
+                    pantallasPorHabilitar.push(idPantallaSeleccionada);
+                }
+            }
+            for (let Panta_Id of setIdPantallasPorRol) {
+                if (!setPantallasSeleccionadas.has(Panta_Id)) {
+                    pantallasPorDeshabilitar.push(Panta_Id);
+                }
+            }
+            $.ajax({
+                url: "/PantallasPorRoles/ModificarPantallasPorRol",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ pantallasPorHabilitar, pantallasPorDeshabilitar, Roles_Id }),
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById('btnGuardar').removeAttribute("disabled");
+                },
+            })
+        }
+    })
+    $('#ddlRoles').change(() => {
+        Roles_Id = $('#ddlRoles').val();
+        if (Roles_Id) {
+            $.ajax({
+                url: "/PantallasPorRoles/LlenarPantallasPorRol",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Roles_Id}),
+                success: function (data) {
+                    while (rolesListBox.children.length > 1) {
+                        rolesListBox.removeChild(rolesListBox.lastChild);
+                    }
+                    setIdPantallasPorRol.clear();
+                    $.each(data, function (key, value) {
+                        setIdPantallasPorRol.add(value.Panta_Id.toString());
+                    })
+                    for (let item of mapPantallasListBoxChildren) {
+                        if (item[0] !== "pantallasListBoxH1") {
+                            if (document.getElementById(item[0])) {
+                                document.getElementById(item[0]).remove();
+                            }
+                            if (setIdPantallasPorRol.has(item[0])) {
+                                rolesListBox.appendChild(mapPantallasListBoxChildren.get(item[0]));
+                            } else {
+                                pantallasListBox.appendChild(mapPantallasListBoxChildren.get(item[0]));
+                            }
+                        }
+                    }
+                },
+            })
+        }
+    })
+</script>
+
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @*@Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbPantallasPorRoles())*@
+        </div>
+    </div>
+</div>
+
+

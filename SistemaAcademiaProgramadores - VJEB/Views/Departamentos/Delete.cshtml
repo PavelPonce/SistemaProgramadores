@@ -1,0 +1,73 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbDepartamentos
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbDepartamentos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Depar_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depar_Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Depar_FechaCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depar_FechaCreacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Depar_FechaModificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depar_FechaModificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Depar_Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depar_Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbUsuarios.Usuar_Usuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbUsuarios.Usuar_Usuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbUsuarios1.Usuar_Usuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbUsuarios1.Usuar_Usuario)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

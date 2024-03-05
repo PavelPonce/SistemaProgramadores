@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3749e21ef5fa4a9fad7235d9d5dabe8f" Name="Diagram1" ZoomLevel="68">
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbAlumnos" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCategorias" Width="1.5" PointX="17.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCursos" Width="1.5" PointX="19.5" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbGeneraciones" Width="1.5" PointX="16.5" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbInstructores" Width="1.5" PointX="6" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbRoles" Width="1.5" PointX="16.5" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbUsuarios" Width="1.5" PointX="14.25" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbActividades" Width="1.5" PointX="16.5" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCentrosEducativos" Width="1.5" PointX="16.5" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPersonas" Width="1.5" PointX="21" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbTitulos" Width="1.5" PointX="0.75" PointY="23.125" IsExpanded="true" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbPersonas_Perso_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbTitulos_Titul_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbUsuarios_Alumn_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbUsuarios_Alumn_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCursos_tbCategorias_Categ_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_bInstructores_tbPersonas_Perso_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructores_tbTitulos_Titul_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbUsuarios_tbInstructores_Instr_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbRoles_tbUsuarios_Roles_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbRoles_tbUsuarios_Roles_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbUsuarios_tbRoles_Roles_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPersonas_tbUsuarios_Perso_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPersonas_tbUsuarios_Perso_UsuarioModificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbCalificaciones" Width="1.5" PointX="26.25" PointY="23" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbAlumnos_Alumn_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructores_tbCentrosEducativos_CenEd_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Width="1.5" PointX="21.625" PointY="17.875" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Width="1.5" PointX="23.875" PointY="22.375" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPantallasPorRoles" Width="1.5" PointX="18.75" PointY="19" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbDepartamentos" Width="1.5" PointX="16.5" PointY="35.875" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbEstadosCiviles" Width="1.5" PointX="16.5" PointY="7.375" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbMunicipios" Width="1.5" PointX="18.75" PointY="27.25" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPantallasPorRoles_tbRoles_Roles_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbEstadosCiviles_tbUsuarios_Estci_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbMunicipios_tbUsuarios_Munic_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbMunicipios_tbDepartamentos_Depar_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPersonas_tbEstadosCiviles_Estci_Id" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPersonas_tbMunicipios_Munic_Id" />
+        <EntityTypeShape EntityType="dbAcademiaProgramadoresModel.tbPantallas" Width="1.5" PointX="16.5" PointY="40" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" />
+        <AssociationConnector Association="dbAcademiaProgramadoresModel.FK_tbPantallasPorRoles_tbPantallas_Panta_Id" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

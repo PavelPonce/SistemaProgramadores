@@ -1,0 +1,277 @@
+﻿@model Tuple<IEnumerable<SistemaAcademiaProgramadores.Models.tbCalificaciones>, IEnumerable<SistemaAcademiaProgramadores.Models.tbGeneraciones>, IEnumerable<SistemaAcademiaProgramadores.Models.tbCursos>>
+
+@{
+    ViewBag.Title = $"tbCalificaciones".Substring(2);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary" style="font-size: 1.8rem;">@ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index", "Home")' class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-around w-100 mb-4" style="gap: 10px;">
+                <select id="ddlGeneraciones" class="form-control text-primary" style="max-width: 250px;">
+                    <option value="">--Seleccionar generacion--</option>
+                    @foreach (var generacion in Model.Item2)
+                    {
+                        <option value="@generacion.Gener_Id" class="form-control">@generacion.Gener_Nombre</option>
+                    }
+                </select>
+                <select id="ddlCursos" class="form-control text-primary" style="max-width: 250px;">
+                    <option value="">--Seleccionar curso--</option>
+                </select>
+            </div>
+            <div class="w-100" style="overflow-x:scroll;">
+                <table class="table table-striped table-bordered dataTables-example">
+                    <thead>
+                        <tr id="calificacionesTheadTr" class="thead-purple thead-justify-content-center">
+                        </tr>
+                    </thead>
+                    <tbody id="calificacionesTbody">
+                    </tbody>
+                </table>
+                @*<table class="table table-striped table-bordered dataTables-example">
+            <thead>
+                <tr class="thead-purple thead-justify-content-center">
+                    <th class="bg-primary">
+                        @Html.DisplayNameFor(model => model.tbAlumnos.Alumn_Observaciones)
+                    </th>
+                    <th class="bg-primary">
+                        @Html.DisplayNameFor(model => model.Item1.tbAlumnos.Alumn_Observaciones)
+                    </th>
+                    <th class="bg-primary">
+                        @Html.DisplayNameFor(model => model.Item1.tbActividadesPorCursoPorGeneracion.ActCG_Id)
+                    </th>
+
+                    <th class="bg-primary" style="max-width: 50px;">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Item1)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Calif_Nota)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbAlumnos.Alumn_Observaciones)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbActividadesPorCursoPorGeneracion.ActCG_Id)
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center align-items-center form-group mx-2" style="gap: 10px;">
+                                <a class="btn btn-warning btn-outline btn-xs col-sm-3" href="@Url.Action("Edit", new { id=item.Calif_Id })">
+                                    <i class="fa fa-edit (alias)"></i>
+                                    Editar
+                                </a>
+                                <a class="btn btn-info btn-outline btn-xs col-sm-3" href="@Url.Action("Details", new { id=item.Calif_Id })">
+                                    <i class="fa fa-eye"></i>
+                                    Detalles
+                                </a>
+                                <a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete", new { id=item.Calif_Id })">
+                                    <i class="fa fa-trash-o"></i>
+                                    Eliminar
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>*@
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+    let hrefSearch = window.location.search;
+    let Gener_Id = "";
+    let Curso_Id = "";
+    if (hrefSearch !== "") {
+        let hrefSplitted = hrefSearch.split("&");
+        Gener_Id = hrefSplitted[0][hrefSplitted[0].length - 1];
+        Curso_Id = hrefSplitted[1][hrefSplitted[1].length - 1];
+    }
+    //$(document).ready(() => {
+    //    if (Gener_Id !== "") {
+    //        $("#ddlGeneraciones").val(Gener_Id);
+    //        llenarCursosDdl();
+    //    }
+    //})
+    //function llenarCursosDdl() {
+    //    $.ajax({
+    //        url: "/Calificaciones/LlenarCursosDdl",
+    //        method: "POST",
+    //        dataType: "json",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: JSON.stringify({ Gener_Id }),
+    //        success: function (data) {
+    //            console.log(data);
+    //            $.each(data, function (key, value) {
+    //                let htmlOptionElement = new HTMLOptionElement();
+    //                htmlOptionElement.value = value.Curso_Id;
+    //                htmlOptionElement.text = value.Curso_Nombre;
+    //                document.getElementById('ddlCursos').appendChild(new HTMLOptionElement());
+    //            })
+    //        },
+    //    })
+    //}
+    $('#ddlGeneraciones').change(() => {
+        Gener_Id = $('#ddlGeneraciones').val();
+        $.ajax({
+            url: "/Calificaciones/LlenarCursosDdl",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Gener_Id }),
+            success: function (data) {
+                $.each(data, function (key, value) {
+                    let htmlOptionElement = new Option(value.Curso_Nombre, value.Curso_Id);
+                    document.getElementById('ddlCursos').appendChild(htmlOptionElement);
+                })
+            },
+        })
+    })
+    $('#ddlCursos').change(() => {
+        Gener_Id = $('#ddlGeneraciones').val();
+        Curso_Id = $('#ddlCursos').val();
+        $.ajax({
+            url: "/Calificaciones/CargarActividades",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Gener_Id, Curso_Id }),
+            success: function (data) {
+                let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
+                if (document.getElementById("ALUMNO")) {
+                    calificacionesTheadTr.innerHTML = "";
+                    document.getElementById("calificacionesTbody").innerHTML = "";
+                }
+                let alumnoCellHeaderElement = document.createElement("th");
+                alumnoCellHeaderElement.id = "ALUMNO";
+                alumnoCellHeaderElement.classList.add("bg-primary");
+                alumnoCellHeaderElement.textContent = "Alumno";
+                calificacionesTheadTr.appendChild(alumnoCellHeaderElement);
+                $.each(data, function (key, value) {
+                    let cellHeaderElement = document.createElement("th");
+                    cellHeaderElement.id = value.ActCG_Id;
+                    cellHeaderElement.classList.add("bg-primary");
+                    cellHeaderElement.textContent = value.Activ_Nombre + " " + value.ActCG_Nota + "%";
+                    calificacionesTheadTr.appendChild(cellHeaderElement);
+                })
+                let totalCellHeaderElement = document.createElement("th");
+                totalCellHeaderElement.id = "Total";
+                totalCellHeaderElement.classList.add("bg-primary");
+                totalCellHeaderElement.textContent = "Total";
+                calificacionesTheadTr.appendChild(totalCellHeaderElement);
+            },
+        })
+        $.ajax({
+            url: "/Calificaciones/CargarCalificaciones",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Gener_Id, Curso_Id }),
+            success: function (data) {
+                let calificacionesTbody = document.getElementById("calificacionesTbody");
+                let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
+                $.each(data, function (key, value) {
+                    let tableRowElement = document.createElement("tr");
+                    let alumnoTableCell = document.createElement("td");
+                    alumnoTableCell.classList.add("p-0");
+                    alumnoTableCell.textContent = value.ALUMNO;
+                    alumnoTableCell.style.minWidth = "350px";
+                    tableRowElement.appendChild(alumnoTableCell);
+                    for (let i = 0; i < calificacionesTheadTr.children.length - 2; i++) {
+                        let notaTableCell = document.createElement("td");
+                        notaTableCell.classList.add("p-0");
+                        let txtInput = document.createElement("input");
+                        txtInput.disabled = true;
+                        txtInput.value = "0.00";
+                        txtInput.classList.add("w-100");
+                        notaTableCell.appendChild(txtInput);
+                        tableRowElement.appendChild(notaTableCell);
+                    }
+                    calificacionesTbody.appendChild(tableRowElement);
+                    let totalTableCell = document.createElement("td");
+                    totalTableCell.textContent = "100.00";
+                    totalTableCell.classList.add("p-0");
+                    tableRowElement.appendChild(totalTableCell);
+                    console.log(value);
+                })
+            },
+        })
+    })
+</script>
+
+@*
+    @using (Ajax.BeginForm("Create",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmNuevo{ViewBag.Title}" }))
+    {
+    <div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-row justify-content-center" id=$"frmNuevo{ViewBag.Title}">
+                    @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.tbCalificaciones())
+                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Cancelar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    }
+*@
+@*
+    @using (Ajax.BeginForm("Edit",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmEditar{ViewBag.Title}" }))
+    {
+    <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-row justify-content-center" id=$"frmEditar{ViewBag.Title}">
+                    @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbCalificaciones())
+                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Cancelar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    }
+*@
+
+

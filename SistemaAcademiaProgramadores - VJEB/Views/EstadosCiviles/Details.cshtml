@@ -1,0 +1,151 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbEstadosCiviles
+
+@{
+    ViewBag.Title = "tbEstadosCiviles".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary">Detalle @ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index")' class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+
+<div class="card">
+<div class="card-body">
+        <div class="form-row justify-content-center">
+                    @Html.HiddenFor(model => model.Estci_Id)
+
+              
+    <div class="col-sm-4">
+                    <dl>
+                        <dt class="text-primary text-center">
+                            @Html.DisplayNameFor(model => model.Estci_Descripcion)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Estci_Descripcion)
+                        </dd>
+                    </dl>
+                 </div>
+
+      
+      
+      
+      
+      
+    </div>
+           <div class="d-flex justify-content-end">
+            @*<button data-id="item.ID" class="btnEditar btn btn-primary btn-outline">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </button>*@
+            <a class="btn btn-primary btn-outline" href="@Url.Action("Edit", new { id = Model.Estci_Id })">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </a>
+       </div>
+    </div>
+<div class="card-footer">
+    <div class="card-title text-primary mb-4" style="font-size: 1.5rem;"> Auditoria </div>
+    <div class="w-100" style="overflow-x:scroll;">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="thead-purple thead-justify-content-center">
+                    <th class="bg-primary">Accion</th>
+                    <th class="bg-primary">Usuario</th>
+                    <th class="bg-primary">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Creacion</td>
+                                                                                                                                            <td>
+                                @Html.DisplayFor(model => model.tbUsuarios.Usuar_Usuario)
+                            </td>
+                                                                    
+                                                                                        <td>
+                                @Html.DisplayFor(model => model.Estci_FechaCreacion)
+                            </td>
+                                                                                                                    </tr>
+            
+                <tr>
+                    <td>Modificacion</td>
+                                                                                                                                                                <td>
+                                @Html.DisplayFor(model => model.tbUsuarios1.Usuar_Usuario)
+                            </td>
+                                                
+                                                                                                            <td>
+                                @Html.DisplayFor(model => model.Estci_FechaModificacion)
+                            </td>
+                                                                                                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</section>
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+    
+    @*$('.btnEditar').click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : 'tbEstadosCiviles'}),
+
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (key, value) {
+                                    $('#Estci_Id').val(value.Estci_Id)
+                                    $('#Estci_Descripcion').val(value.Estci_Descripcion)
+                                })
+                   
+            },
+            
+        })
+
+        $('#modalEditar').modal('show');
+    })*@
+    @*
+
+    $('.btnNuevo').click(function(){
+        $('#modalNuevo').modal('show');
+    })
+    *@
+</script>
+@using (Ajax.BeginForm(ViewName,ViewBag.Title, new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmNuevo{ViewBag.Title}" }))
+{
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body form-row justify-content-center" id=$"frmNuevo{ViewBag.Title}">
+                @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbEstadosCiviles())
+            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                        <i class="fa fa-times"></i> Cancelar
+                    </button>
+                </div>
+        </div>
+    </div>
+</div>
+}
+*@
