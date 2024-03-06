@@ -6,32 +6,13 @@
     var Actividades = SP_ActividadesPorCursoPorGeneracion_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result>();
     var SP_InstructoresPorCursoPorGeneracion_Seleccionar = Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>;
     var Cursos = SP_InstructoresPorCursoPorGeneracion_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>();
-    var SP_Calificaciones2_Seleccionar = Session["SP_Calificaciones2_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_Calificaciones2_Seleccionar_Result>;
-    var Calificaciones = SP_Calificaciones2_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_Calificaciones2_Seleccionar_Result>();
+    var AlumnosDictionary = Session["AlumnosDictionary"] as Dictionary<int, string> ?? new Dictionary<int, string>();
+    var CalificacionesDictionary = Session["CalificacionesDictionary"] as Dictionary<int, Dictionary<string, decimal>> ?? new Dictionary<int, Dictionary<string, decimal>>();
+    //var CalificacionesDictionary = CalificacionesDictionarySession?.ToList() ;
 
-    Dictionary<int, string> alumnosMap = new Dictionary<int, string>();
-    Dictionary<int, Dictionary<string, decimal>> CalificacionesDictionary = new Dictionary<int, Dictionary<string, decimal>>();
-
-    foreach (var calificacion in Calificaciones)
-    {
-        int persoId = calificacion.Perso_Id;
-        string alumno = calificacion.ALUMNO;
-        int actCGId = calificacion.ActCG_Id;
-        decimal califNota = calificacion.Calif_Nota;
-
-        alumnosMap[persoId] = alumno;
-
-        if (CalificacionesDictionary.ContainsKey(persoId))
-        {
-            var nuevoMapCalificaciones = CalificacionesDictionary[persoId];
-            nuevoMapCalificaciones[actCGId.ToString()] = califNota;
-        }
-        else
-        {
-            CalificacionesDictionary[persoId] = new Dictionary<string, decimal> { { actCGId.ToString(), califNota } };
-        }
-    }
-    //var Gener_Id = Session["Gener_Id"].ToString();
+    Session.Remove("SP_ActividadesPorCursoPorGeneracion_Seleccionar");
+    Session.Remove("SP_InstructoresPorCursoPorGeneracion_Seleccionar");
+    Session.Remove("SP_Calificaciones2_Seleccionar");
     ViewBag.Title = $"tbCalificaciones".Substring(2);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -47,7 +28,6 @@
     </div>
 </div>
 <section class="content">
-
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-around w-100 mb-4" style="gap: 10px;">
@@ -116,13 +96,26 @@
                             @foreach (var calificacion in CalificacionesDictionary)
                             {
                             <tr>
-                                <td id="@calificacion.Key" class="p-0" style="min-width: 350px;">@alumnosMap[calificacion.Key]</td>
-                                @foreach (var calificacionPorAlumno in calificacion.Value)
+                                <td id="@calificacion.Key" class="p-0" style="min-width: 350px;">@AlumnosDictionary[calificacion.Key]</td>
+
+                                @foreach (var actividad in Actividades)
                                 {
-                                    <td style="position: relative; text-align: left; padding: 0 5px;">
-                                        <input id="@calificacionPorAlumno.Key" onfocus="this.oldvalue = this.value;" onchange="establecerAntiguoValor(this);this.oldValue = this.value" value="@calificacionPorAlumno.Value" disabled style="position: absolute; z-index: -1; left: 0; padding: 0 5px; border: 0; width: 100%;"/>
-                                        @calificacionPorAlumno.Value
-                                    </td>
+                                    if (Convert.ToBoolean(calificacion.Value.TryGetValue(actividad.ActCG_Id.ToString(), out decimal nota)))
+                                    {
+                                        <td id="@actividad.ActCG_Id" style="position: relative; text-align: left; padding: 0 5px;">
+                                            @*onfocus="this.oldvalue = this.value;" onchange="establecerAntiguoValor(this);this.oldValue = this.value" value="@calificacion[actividad.ActCG_Id.ToString()].Value"*@
+                                            <input id="@actividad.ActCG_Id" value="@nota" disabled style="position: absolute; z-index: -1; left: 0; padding: 0 5px; border: 0; width: 100%;" />
+                                            @nota.ToString()
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td id="@actividad.ActCG_Id" style="position: relative; text-align: left; padding: 0 5px;">
+                                            @*onfocus="this.oldvalue = this.value;" onchange="establecerAntiguoValor(this);this.oldValue = this.value" value="@calificacion[actividad.ActCG_Id.ToString()].Value"*@
+                                            <input id="@actividad.ActCG_Id" value="0" disabled style="position: absolute; z-index: -1; left: 0; padding: 0 5px; border: 0; width: 100%;" />
+                                            0
+                                        </td>
+                                    }
                                 }
                                 <td class="p-0"></td>
                             </tr>
@@ -143,9 +136,7 @@
                 }
             </div>
         </div>
-
     </div>
-
 </section>
 
 @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
@@ -160,17 +151,44 @@
         Gener_Id = hrefSplitted[0][hrefSplitted[0].length - 1];
         Curso_Id = hrefSplitted[1][hrefSplitted[1].length - 1];
     }
+    let alumnosMap = new Map();
+    let calificacionesMap = new Map();
     $(document).ready(() => {
+        if (hrefSearch !== "") {
+            $.ajax({
+                url: "/Calificaciones/ObtenerCalificacionesDictionary",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ nada: "" }),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        let actividadNotaMap = new Map();
+                        for (let key in value.Value) {
+                            actividadNotaMap.set(key.toString(), value.Value[key])
+                        }
+                        calificacionesMap.set(value.Key.toString(), actividadNotaMap)
+                    })
+                },
+            })
+        }
         //SI HAY SESIONES DE GENER Y CURSO GUARDAR EL DICIONARIO EN CALIFICACIONES_MAP
     })
     function habilitarEdicion() {
         if (edicionHabilitada) {
-            document.getElementById("btnHabilitarEdicion").textContent = "Solo lectura";
-        } else {
             document.getElementById("btnHabilitarEdicion").textContent = "Editar";
+            document.querySelectorAll("tbody tr").forEach(tr => {
+                for (let i = tr.children.length - 1; i > 0; i--) {
+                    if (i !== tr.children.length - 1) {
+                        tr.children[i].children[0].style.zIndex = -1;
+                        tr.children[i].children[0].disabled = true;
+                    }
+                }
+            })
+        } else {
+            document.getElementById("btnHabilitarEdicion").textContent = "Solo lectura";
         }
         edicionHabilitada = !edicionHabilitada;
-
     }
     function sumarNotas(tableRowElement) {
         let suma = 0;
@@ -203,34 +221,49 @@
             },
         })
     }
-    let previousCalif_Nota = 0;
-    function establecerAntiguoValor(textBox) {
-        previousCalif_Nota = textBox.oldValue;
-    }
     document.querySelectorAll("tbody tr").forEach(tr => {
         for (let i = tr.children.length - 1; i > 0; i--) {
             if (i === tr.children.length - 1) {
                 tr.children[i].textContent = sumarNotas(tr);
-            } 
+            }
             tr.addEventListener("dblclick", () => {
-                console.log('ping');
                 if (tr.children[i].children.length > 0)
                 {
-                    tr.children[i].children[0].style.zIndex = "auto";
-                    tr.children[i].children[0].disabled = false;
-                    tr.children[i].children[0].focus();
-                    tr.children[i].children[0].addEventListener("change", (event) => {
-                        let textoEncabezado = document.getElementById("calificacionesTheadTr").children[i].textContent;
-                        let puntajeActividad = parseFloat(textoEncabezado.substring(textoEncabezado.length - 6, textoEncabezado.length - 1));
-                        if (event.target.value > puntajeActividad) {
-                            alert("El nuevo puntaje supera el puntaje de la actividad");
-                            console.log(previousCalif_Nota);
-                            tr.children[i].children[0].value = previousCalif_Nota;
-                        } else {
-                            modificarNota(tr.children[0].id, event.target.id, event.target.value);
-                            tr.children[tr.children.length - 1].textContent = sumarNotas(tr).toString();
-                        }
-                    });
+                    if (edicionHabilitada) {
+                        tr.children[i].children[0].style.zIndex = "auto";
+                        tr.children[i].children[0].disabled = false;
+                        tr.children[i].children[0].focus();
+                        tr.children[i].children[0].addEventListener("change", (event) => {
+                            console.log(calificacionesMap);
+                            let Alumn_Id = tr.children[0].id;
+                            let nuevoMapCalificaciones = calificacionesMap.get(Alumn_Id);
+                            console.log(nuevoMapCalificaciones)
+                            let actividadHeaderText = calificacionesTheadTr.children[i].textContent;
+                            let puntajeActividad = actividadHeaderText.substring(actividadHeaderText.length - 6, actividadHeaderText.length - 1);
+                            console.log(puntajeActividad, "puntajeActividad")
+                            console.log(event.target.value, "event.target.value")
+                            console.log(nuevoMapCalificaciones.get(event.target.id), "antiguo valor")
+                            if (event.target.value > puntajeActividad) {
+                                console.log("Nota del alumno excede el puntaje de la actividad");
+                                tr.children[i].textContent = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                let txtInput = document.createElement("input");
+                                txtInput.id = event.target.id;
+                                txtInput.value = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                txtInput.classList.add("w-100");
+                                txtInput.style.position = "absolute";
+                                txtInput.style.left = 0;
+                                txtInput.style.padding = "0 5px";
+                                txtInput.style.border = 0;
+                                tr.children[i].appendChild(txtInput);
+                            } else {
+                                nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(Alumn_Id, event.target.id, event.target.value) : modificarNota(Alumn_Id, event.target.id, event.target.value);
+                                nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                tr.children[tr.children.length - 1].textContent = sumarNotas(tr).toString();
+                            }
+                        });
+                    } else {
+                        console.log("Edicion Inhabilitada")
+                    }
                 }
             })
         }
@@ -245,6 +278,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({ Gener_Id }),
                 success: function (data) {
+                    calificacionesMap.clear();
                     let ddlCursosChildren = document.getElementById("ddlCursos").children;
                     for (let i = ddlCursosChildren.length - 1; i > 0; i--) {
                         ddlCursosChildren[i].remove();
@@ -268,6 +302,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({ Gener_Id, Curso_Id }),
                 success: function (data) {
+                    calificacionesMap.clear();
                     let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
                     if (document.getElementById("ALUMNO")) {
                         calificacionesTheadTr.innerHTML = "";
@@ -282,7 +317,8 @@
                         let cellHeaderElement = document.createElement("th");
                         cellHeaderElement.id = value.ActCG_Id;
                         cellHeaderElement.classList.add("bg-primary");
-                        cellHeaderElement.textContent = value.Activ_Nombre + " " + value.ActCG_Nota + "%";
+
+                        cellHeaderElement.textContent = value.Activ_Nombre + " " + parseFloat(value.ActCG_Nota).toFixed(2) + "%";
                         calificacionesTheadTr.appendChild(cellHeaderElement);
                     })
                     let totalCellHeaderElement = document.createElement("th");
@@ -297,15 +333,13 @@
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({ Gener_Id, Curso_Id }),
                         success: function (data) {
-                            let alumnosMap = new Map();
-                            let calificacionesMap = new Map();
                             $.each(data, function (key, value) {
-                                alumnosMap.set(value.Perso_Id, value.ALUMNO);
-                                if (calificacionesMap.has(value.Perso_Id)) {
-                                    let nuevoMapCalificaciones = calificacionesMap.get(value.Perso_Id)
+                                alumnosMap.set(value.Perso_Id.toString(), value.ALUMNO);
+                                if (calificacionesMap.has(value.Perso_Id.toString())) {
+                                    let nuevoMapCalificaciones = calificacionesMap.get(value.Perso_Id.toString())
                                     nuevoMapCalificaciones.set(value.ActCG_Id.toString(), value.Calif_Nota);
                                 } else {
-                                    calificacionesMap.set(value.Perso_Id, new Map().set(value.ActCG_Id.toString(), value.Calif_Nota));
+                                    calificacionesMap.set(value.Perso_Id.toString(), new Map().set(value.ActCG_Id.toString(), value.Calif_Nota));
                                 }
                             })
                             let calificacionesTbody = document.getElementById("calificacionesTbody");
@@ -318,7 +352,6 @@
                                 alumnoTableCell.textContent = alumnosMap.get(item[0]);
                                 alumnoTableCell.style.minWidth = "350px";
                                 tableRowElement.appendChild(alumnoTableCell);
-
                                 let total = 0;
                                 for (let i = 0; i < calificacionesTheadTr.children.length - 2; i++) {
                                     let notaTableCell = document.createElement("td");
@@ -329,8 +362,8 @@
                                     let txtInput = document.createElement("input");
                                     txtInput.disabled = true;
                                     txtInput.id = calificacionesTheadTr.children[i + 1].id;
-                                    txtInput.value = item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0;
-                                    notaTableCell.textContent = item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0;
+                                    txtInput.value = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id)).toFixed(2) ?? 0;
+                                    notaTableCell.textContent = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id)).toFixed(2) ?? 0;
                                     total += parseFloat(notaTableCell.textContent);
                                     txtInput.classList.add("w-100");
                                     txtInput.style.position = "absolute";
@@ -353,10 +386,36 @@
                                             tableRowElement.children[i].children[0].disabled = false;
                                             tableRowElement.children[i].children[0].focus();
                                             tableRowElement.children[i].children[0].addEventListener("change", (event) => {
-                                                let nuevoMapCalificaciones = calificacionesMap.get(item[0]);
-                                                nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(item[0], event.target.id, event.target.value) : modificarNota(item[0], event.target.id, event.target.value);
-                                                nuevoMapCalificaciones.set(event.target.id, event.target.value);
-                                                tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
+                                                console.log(calificacionesMap);
+                                                let Alumn_Id = tableRowElement.children[0].id;
+                                                let nuevoMapCalificaciones = calificacionesMap.get(Alumn_Id);
+                                                console.log(nuevoMapCalificaciones)
+                                                let actividadHeaderText = calificacionesTheadTr.children[i].textContent;
+                                                let puntajeActividad = actividadHeaderText.substring(actividadHeaderText.length - 6, actividadHeaderText.length - 1);
+                                                console.log(puntajeActividad, "puntajeActividad")
+                                                console.log(event.target.value, "event.target.value")
+                                                console.log(nuevoMapCalificaciones.get(event.target.id), "antiguo valor")
+                                                if (event.target.value > puntajeActividad) {
+                                                    console.log("Nota del alumno excede el puntaje de la actividad");
+                                                    tableRowElement.children[i].textContent = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                                    let txtInput = document.createElement("input");
+                                                    txtInput.id = event.target.id;
+                                                    txtInput.value = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                                    txtInput.classList.add("w-100");
+                                                    txtInput.style.position = "absolute";
+                                                    txtInput.style.left = 0;
+                                                    txtInput.style.padding = "0 5px";
+                                                    txtInput.style.border = 0;
+                                                    tableRowElement.children[i].appendChild(txtInput);
+                                                } else {
+                                                    nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(Alumn_Id, event.target.id, event.target.value) : modificarNota(Alumn_Id, event.target.id, event.target.value);
+                                                    nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                                    tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
+                                                    //let nuevoMapCalificaciones = calificacionesMap.get(item[0]);
+                                                    //nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(item[0], event.target.id, event.target.value) : modificarNota(item[0], event.target.id, event.target.value);
+                                                    //nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                                    //tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
+                                                }
                                             });
                                         }
                                     })

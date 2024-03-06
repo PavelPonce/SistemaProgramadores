@@ -17,24 +17,56 @@ namespace SistemaAcademiaProgramadores.Controllers
     public class CalificacionesController : Controller
     {
         private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
-
         // GET: Calificaciones
         public ActionResult Index(int? Gener_Id, int? Curso_Id)
         {
             var tbGeneraciones = db.tbGeneraciones.ToList();
             if (Gener_Id != null && Curso_Id != null)
             {
-                Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(int.Parse(Session["Perso_Id"].ToString()), Gener_Id).ToList();
-                Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] = db.SP_ActividadesPorCursoPorGeneracion_Seleccionar(Curso_Id, Gener_Id).ToList();
-                Session["SP_Calificaciones2_Seleccionar"] = db.SP_Calificaciones2_Seleccionar(Curso_Id, Gener_Id).ToList();
+                //Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(int.Parse(Session["Perso_Id"].ToString()), Gener_Id).ToList();
+                //Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] = db.SP_ActividadesPorCursoPorGeneracion_Seleccionar(Curso_Id, Gener_Id).ToList();
+                //Session["SP_Calificaciones2_Seleccionar"] = db.SP_Calificaciones2_Seleccionar(Curso_Id, Gener_Id).ToList();
+
+                var Cursos = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(int.Parse(Session["Perso_Id"].ToString()), Gener_Id).ToList();
+                var Actividades = db.SP_ActividadesPorCursoPorGeneracion_Seleccionar(Curso_Id, Gener_Id).ToList();
+                var Calificaciones = db.SP_Calificaciones2_Seleccionar(Curso_Id, Gener_Id).ToList();
                 Session["Gener_Id"] = Gener_Id;
                 Session["Curso_Id"] = Curso_Id;
+                Dictionary<int, string> AlumnosDictionary = new Dictionary<int, string>();
+                Dictionary<int, Dictionary<string, decimal>> CalificacionesDictionary = new Dictionary<int, Dictionary<string, decimal>>();
+                foreach (var calificacionItem in Calificaciones)    
+                {
+                    int persoId = calificacionItem.Perso_Id;
+                    string alumno = calificacionItem.ALUMNO;
+                    int actCGId = calificacionItem.ActCG_Id;
+                    decimal califNota = calificacionItem.Calif_Nota;
+
+                    AlumnosDictionary[persoId] = alumno;
+
+                    if (CalificacionesDictionary.ContainsKey(persoId))
+                    {
+                        var nuevaCalificacion = CalificacionesDictionary[persoId];
+                        nuevaCalificacion[actCGId.ToString()] = califNota;
+                    }
+                    else
+                    {
+                        CalificacionesDictionary[persoId] = new Dictionary<string, decimal> { { actCGId.ToString(), califNota } };
+                    }
+                }
+                Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] = Actividades;
+                Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] = Cursos;
+                Session["CalificacionesDictionary"] = CalificacionesDictionary;
+                Session["AlumnosDictionary"] = AlumnosDictionary;
             }
             return View(tbGeneraciones);
         }
+        public JsonResult ObtenerCalificacionesDictionary(string nada)
+        {
+            var CalificacionesDictionary = Session["CalificacionesDictionary"] as Dictionary<int, Dictionary<string, decimal>> ?? new Dictionary<int, Dictionary<string, decimal>>();
+            return Json(CalificacionesDictionary.ToList(), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult LlenarCursosDdl(string Gener_Id)
         {
-            //el caso del usuario victor no es un instructor
             return Json(db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(int.Parse(Session["Perso_Id"].ToString()), int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
         }
         public JsonResult CargarActividades(string Gener_Id, string Curso_Id)
