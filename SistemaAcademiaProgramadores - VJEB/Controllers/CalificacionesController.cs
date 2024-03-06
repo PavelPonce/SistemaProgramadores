@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -20,12 +21,16 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Calificaciones
         public ActionResult Index(int? Gener_Id, int? Curso_Id)
         {
-            var tbCalificaciones = db.tbCalificaciones.Include(t => t.tbAlumnos).Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1).Include(t => t.tbActividadesPorCursoPorGeneracion);
             var tbGeneraciones = db.tbGeneraciones.ToList();
-            var tbCursos = db.tbCursos.ToList();
-            //Session["Gener_Id"] = Gener_Id;
-            //Session["Curso_Id"] = Curso_Id;
-            return View(new Tuple<IEnumerable<tbCalificaciones>, IEnumerable<tbGeneraciones>, IEnumerable<tbCursos>>(tbCalificaciones, tbGeneraciones, tbCursos));
+            if (Gener_Id != null && Curso_Id != null)
+            {
+                Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(int.Parse(Session["Perso_Id"].ToString()), Gener_Id).ToList();
+                Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] = db.SP_ActividadesPorCursoPorGeneracion_Seleccionar(Curso_Id, Gener_Id).ToList();
+                Session["SP_Calificaciones2_Seleccionar"] = db.SP_Calificaciones2_Seleccionar(Curso_Id, Gener_Id).ToList();
+                Session["Gener_Id"] = Gener_Id;
+                Session["Curso_Id"] = Curso_Id;
+            }
+            return View(tbGeneraciones);
         }
         public JsonResult LlenarCursosDdl(string Gener_Id)
         {
@@ -39,6 +44,10 @@ namespace SistemaAcademiaProgramadores.Controllers
         public JsonResult CargarCalificaciones(string Gener_Id, string Curso_Id)
         {
             return Json(db.SP_Calificaciones2_Seleccionar(int.Parse(Curso_Id), int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult CrearNota(string Alumn_Id, string ActCG_Id, string Calif_Nota)
+        {
+            return Json(db.SP_Calificaciones_Insertar(ActCG_Id, Alumn_Id, decimal.Parse(Calif_Nota), Session["Usuar_Id"].ToString(), DateTime.Now), JsonRequestBehavior.AllowGet);
         }
         public JsonResult ModificarNota(string Alumn_Id, string ActCG_Id, string Calif_Nota)
         {

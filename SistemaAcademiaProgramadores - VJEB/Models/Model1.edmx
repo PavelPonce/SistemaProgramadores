@@ -985,6 +985,13 @@
           <Parameter Name="Curso_Id" Type="int" Mode="In" />
           <Parameter Name="Gener_Id" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_Calificaciones_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+          <Parameter Name="ActCG_Id" Type="varchar" Mode="In" />
+          <Parameter Name="Alumn_Id" Type="varchar" Mode="In" />
+          <Parameter Name="Calif_Nota" Type="numeric" Mode="In" />
+          <Parameter Name="Calif_UsuarioCreacion" Type="varchar" Mode="In" />
+          <Parameter Name="Calif_FechaCreacion" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="SP_Calificaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
           <Parameter Name="ActCG_Id" Type="varchar" Mode="In" />
           <Parameter Name="Alumn_Id" Type="varchar" Mode="In" />
@@ -2195,6 +2202,13 @@
             <Parameter Name="Calif_UsuarioModificacion" Mode="In" Type="String" />
             <Parameter Name="Calif_FechaModificacion" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="SP_Calificaciones_Insertar" ReturnType="Collection(Int32)">
+            <Parameter Name="ActCG_Id" Mode="In" Type="String" />
+            <Parameter Name="Alumn_Id" Mode="In" Type="String" />
+            <Parameter Name="Calif_Nota" Mode="In" Type="Decimal" />
+            <Parameter Name="Calif_UsuarioCreacion" Mode="In" Type="String" />
+            <Parameter Name="Calif_FechaCreacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="tbCalificaciones">
           <Key>
@@ -3176,6 +3190,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_Calificaciones_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Modificar" />
+          <FunctionImportMapping FunctionImportName="SP_Calificaciones_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Insertar" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,6 +1,37 @@
-﻿@model Tuple<IEnumerable<SistemaAcademiaProgramadores.Models.tbCalificaciones>, IEnumerable<SistemaAcademiaProgramadores.Models.tbGeneraciones>, IEnumerable<SistemaAcademiaProgramadores.Models.tbCursos>>
+﻿@model IEnumerable<SistemaAcademiaProgramadores.Models.tbGeneraciones>
+
 
 @{
+    var SP_ActividadesPorCursoPorGeneracion_Seleccionar = Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result>;
+    var Actividades = SP_ActividadesPorCursoPorGeneracion_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result>();
+    var SP_InstructoresPorCursoPorGeneracion_Seleccionar = Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>;
+    var Cursos = SP_InstructoresPorCursoPorGeneracion_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>();
+    var SP_Calificaciones2_Seleccionar = Session["SP_Calificaciones2_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_Calificaciones2_Seleccionar_Result>;
+    var Calificaciones = SP_Calificaciones2_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_Calificaciones2_Seleccionar_Result>();
+
+    Dictionary<int, string> alumnosMap = new Dictionary<int, string>();
+    Dictionary<int, Dictionary<string, decimal>> CalificacionesDictionary = new Dictionary<int, Dictionary<string, decimal>>();
+
+    foreach (var calificacion in Calificaciones)
+    {
+        int persoId = calificacion.Perso_Id;
+        string alumno = calificacion.ALUMNO;
+        int actCGId = calificacion.ActCG_Id;
+        decimal califNota = calificacion.Calif_Nota;
+
+        alumnosMap[persoId] = alumno;
+
+        if (CalificacionesDictionary.ContainsKey(persoId))
+        {
+            var nuevoMapCalificaciones = CalificacionesDictionary[persoId];
+            nuevoMapCalificaciones[actCGId.ToString()] = califNota;
+        }
+        else
+        {
+            CalificacionesDictionary[persoId] = new Dictionary<string, decimal> { { actCGId.ToString(), califNota } };
+        }
+    }
+    //var Gener_Id = Session["Gener_Id"].ToString();
     ViewBag.Title = $"tbCalificaciones".Substring(2);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -22,75 +53,94 @@
             <div class="d-flex justify-content-around w-100 mb-4" style="gap: 10px;">
                 <select id="ddlGeneraciones" class="form-control text-primary" style="max-width: 250px;">
                     <option value="">--Seleccionar generacion--</option>
-                    @foreach (var generacion in Model.Item2)
+                    @foreach (var generacion in Model)
                     {
-                        <option value="@generacion.Gener_Id" class="form-control">@generacion.Gener_Nombre</option>
+                        if (Session["Gener_Id"] == null)
+                        {
+                            <option value="@generacion.Gener_Id" class="form-control">@generacion.Gener_Nombre</option>
+                        }
+                        else
+                        {
+                            if (generacion.Gener_Id == int.Parse(Session["Gener_Id"].ToString()))
+                            {
+                                <option value="@generacion.Gener_Id" class="form-control" selected>@generacion.Gener_Nombre</option>
+                            }
+                            else
+                            {
+                                <option value="@generacion.Gener_Id" class="form-control">@generacion.Gener_Nombre</option>
+                            }
+                        }
                     }
                 </select>
                 <select id="ddlCursos" class="form-control text-primary" style="max-width: 250px;">
                     <option value="">--Seleccionar curso--</option>
+                    @if (Cursos.Count > 0)
+                    {
+                        foreach (var curso in Cursos)
+                        {
+                            if (Session["Curso_Id"] == null)
+                            {
+                                <option value="@curso.Curso_Id" class="form-control">@curso.Curso_Nombre</option>
+                            }
+                            else
+                            {
+                                if (curso.Curso_Id == int.Parse(Session["Curso_Id"].ToString()))
+                                {
+                                    <option value="@curso.Curso_Id" class="form-control" selected>@curso.Curso_Nombre</option>
+                                }
+                                else
+                                {
+                                    <option value="@curso.Curso_Id" class="form-control">@curso.Curso_Nombre</option>
+                                }
+                            }
+                        }
+                    }
                 </select>
+                <button id="btnHabilitarEdicion" class="btn btn-primary btn-outline" onclick="habilitarEdicion()"><i class="fa fa-edit (alias)"></i> Editar</button>
             </div>
             <div class="w-100" style="overflow-x:scroll;">
-                <table class="table table-striped table-bordered dataTables-example">
-                    <thead>
-                        <tr id="calificacionesTheadTr" class="thead-purple thead-justify-content-center">
-                        </tr>
-                    </thead>
-                    <tbody id="calificacionesTbody">
-                    </tbody>
-                </table>
-                @*<table class="table table-striped table-bordered dataTables-example">
-            <thead>
-                <tr class="thead-purple thead-justify-content-center">
-                    <th class="bg-primary">
-                        @Html.DisplayNameFor(model => model.tbAlumnos.Alumn_Observaciones)
-                    </th>
-                    <th class="bg-primary">
-                        @Html.DisplayNameFor(model => model.Item1.tbAlumnos.Alumn_Observaciones)
-                    </th>
-                    <th class="bg-primary">
-                        @Html.DisplayNameFor(model => model.Item1.tbActividadesPorCursoPorGeneracion.ActCG_Id)
-                    </th>
-
-                    <th class="bg-primary" style="max-width: 50px;">Acciones</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Item1)
+                @if (Actividades.Count > 0)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Calif_Nota)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tbAlumnos.Alumn_Observaciones)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.tbActividadesPorCursoPorGeneracion.ActCG_Id)
-                        </td>
-                        <td>
-                            <div class="d-flex justify-content-center align-items-center form-group mx-2" style="gap: 10px;">
-                                <a class="btn btn-warning btn-outline btn-xs col-sm-3" href="@Url.Action("Edit", new { id=item.Calif_Id })">
-                                    <i class="fa fa-edit (alias)"></i>
-                                    Editar
-                                </a>
-                                <a class="btn btn-info btn-outline btn-xs col-sm-3" href="@Url.Action("Details", new { id=item.Calif_Id })">
-                                    <i class="fa fa-eye"></i>
-                                    Detalles
-                                </a>
-                                <a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete", new { id=item.Calif_Id })">
-                                    <i class="fa fa-trash-o"></i>
-                                    Eliminar
-                                </a>
-                            </div>
-                        </td>
-
-                    </tr>
+                    <table class="table table-striped table-bordered dataTables-example">
+                        <thead>
+                            <tr id="calificacionesTheadTr" class="thead-purple thead-justify-content-center">
+                                <th id="ALUMNO" class="bg-primary">Alumno</th>
+                                @foreach (var item in Actividades)
+                                {
+                                    <th id="@item.ActCG_Id" class="bg-primary">@item.Activ_Nombre @item.ActCG_Nota%</th>
+                                }
+                                <th class="bg-primary">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calificacionesTbody">
+                            @foreach (var calificacion in CalificacionesDictionary)
+                            {
+                            <tr>
+                                <td id="@calificacion.Key" class="p-0" style="min-width: 350px;">@alumnosMap[calificacion.Key]</td>
+                                @foreach (var calificacionPorAlumno in calificacion.Value)
+                                {
+                                    <td style="position: relative; text-align: left; padding: 0 5px;">
+                                        <input id="@calificacionPorAlumno.Key" onfocus="this.oldvalue = this.value;" onchange="establecerAntiguoValor(this);this.oldValue = this.value" value="@calificacionPorAlumno.Value" disabled style="position: absolute; z-index: -1; left: 0; padding: 0 5px; border: 0; width: 100%;"/>
+                                        @calificacionPorAlumno.Value
+                                    </td>
+                                }
+                                <td class="p-0"></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
                 }
-            </tbody>
-        </table>*@
+                else
+                {
+                    <table class="table table-striped table-bordered dataTables-example">
+                        <thead>
+                            <tr id="calificacionesTheadTr" class="thead-purple thead-justify-content-center">
+                            </tr>
+                        </thead>
+                        <tbody id="calificacionesTbody">
+                        </tbody>
+                    </table>
+                }
             </div>
         </div>
 
@@ -101,6 +151,7 @@
 @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
 
 <script>
+    let edicionHabilitada = false;
     let hrefSearch = window.location.search;
     let Gener_Id = "";
     let Curso_Id = "";
@@ -109,30 +160,81 @@
         Gener_Id = hrefSplitted[0][hrefSplitted[0].length - 1];
         Curso_Id = hrefSplitted[1][hrefSplitted[1].length - 1];
     }
-    //$(document).ready(() => {
-    //    if (Gener_Id !== "") {
-    //        $("#ddlGeneraciones").val(Gener_Id);
-    //        llenarCursosDdl();
-    //    }
-    //})
-    //function llenarCursosDdl() {
-    //    $.ajax({
-    //        url: "/Calificaciones/LlenarCursosDdl",
-    //        method: "POST",
-    //        dataType: "json",
-    //        contentType: "application/json; charset=utf-8",
-    //        data: JSON.stringify({ Gener_Id }),
-    //        success: function (data) {
-    //            console.log(data);
-    //            $.each(data, function (key, value) {
-    //                let htmlOptionElement = new HTMLOptionElement();
-    //                htmlOptionElement.value = value.Curso_Id;
-    //                htmlOptionElement.text = value.Curso_Nombre;
-    //                document.getElementById('ddlCursos').appendChild(new HTMLOptionElement());
-    //            })
-    //        },
-    //    })
-    //}
+    $(document).ready(() => {
+        //SI HAY SESIONES DE GENER Y CURSO GUARDAR EL DICIONARIO EN CALIFICACIONES_MAP
+    })
+    function habilitarEdicion() {
+        if (edicionHabilitada) {
+            document.getElementById("btnHabilitarEdicion").textContent = "Solo lectura";
+        } else {
+            document.getElementById("btnHabilitarEdicion").textContent = "Editar";
+        }
+        edicionHabilitada = !edicionHabilitada;
+
+    }
+    function sumarNotas(tableRowElement) {
+        let suma = 0;
+        for (let i = tableRowElement.children.length - 2; i > 0; i--) {
+            suma += parseFloat(tableRowElement.children[i].children[0].value);
+        }
+        return suma;
+    }
+    function crearNota(Alumn_Id, ActCG_Id, Calif_Nota) {
+        $.ajax({
+            url: "/Calificaciones/CrearNota",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Alumn_Id, ActCG_Id, Calif_Nota }),
+            success: function (data) {
+                console.log(data, "resAjax");
+            },
+        })
+    }
+    function modificarNota(Alumn_Id, ActCG_Id, Calif_Nota) {
+        $.ajax({
+            url: "/Calificaciones/ModificarNota",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Alumn_Id, ActCG_Id, Calif_Nota }),
+            success: function (data) {
+                console.log(data, "resAjax");
+            },
+        })
+    }
+    let previousCalif_Nota = 0;
+    function establecerAntiguoValor(textBox) {
+        previousCalif_Nota = textBox.oldValue;
+    }
+    document.querySelectorAll("tbody tr").forEach(tr => {
+        for (let i = tr.children.length - 1; i > 0; i--) {
+            if (i === tr.children.length - 1) {
+                tr.children[i].textContent = sumarNotas(tr);
+            } 
+            tr.addEventListener("dblclick", () => {
+                console.log('ping');
+                if (tr.children[i].children.length > 0)
+                {
+                    tr.children[i].children[0].style.zIndex = "auto";
+                    tr.children[i].children[0].disabled = false;
+                    tr.children[i].children[0].focus();
+                    tr.children[i].children[0].addEventListener("change", (event) => {
+                        let textoEncabezado = document.getElementById("calificacionesTheadTr").children[i].textContent;
+                        let puntajeActividad = parseFloat(textoEncabezado.substring(textoEncabezado.length - 6, textoEncabezado.length - 1));
+                        if (event.target.value > puntajeActividad) {
+                            alert("El nuevo puntaje supera el puntaje de la actividad");
+                            console.log(previousCalif_Nota);
+                            tr.children[i].children[0].value = previousCalif_Nota;
+                        } else {
+                            modificarNota(tr.children[0].id, event.target.id, event.target.value);
+                            tr.children[tr.children.length - 1].textContent = sumarNotas(tr).toString();
+                        }
+                    });
+                }
+            })
+        }
+    })
     $('#ddlGeneraciones').change(() => {
         Gener_Id = $('#ddlGeneraciones').val();
         if (Gener_Id !== "") {
@@ -144,12 +246,11 @@
                 data: JSON.stringify({ Gener_Id }),
                 success: function (data) {
                     let ddlCursosChildren = document.getElementById("ddlCursos").children;
-                    for (let i = ddlCursosChildren.length-1; i > 0; i--) {
+                    for (let i = ddlCursosChildren.length - 1; i > 0; i--) {
                         ddlCursosChildren[i].remove();
                     }
                     $.each(data, function (key, value) {
                         let htmlOptionElement = new Option(value.Curso_Nombre, value.Curso_Id);
-                         
                         document.getElementById('ddlCursos').appendChild(htmlOptionElement);
                     })
                 },
@@ -196,8 +297,6 @@
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({ Gener_Id, Curso_Id }),
                         success: function (data) {
-                            let calificacionesTbody = document.getElementById("calificacionesTbody");
-                            let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
                             let alumnosMap = new Map();
                             let calificacionesMap = new Map();
                             $.each(data, function (key, value) {
@@ -209,6 +308,8 @@
                                     calificacionesMap.set(value.Perso_Id, new Map().set(value.ActCG_Id.toString(), value.Calif_Nota));
                                 }
                             })
+                            let calificacionesTbody = document.getElementById("calificacionesTbody");
+                            let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
                             for (let item of calificacionesMap) {
                                 let tableRowElement = document.createElement("tr");
                                 let alumnoTableCell = document.createElement("td");
@@ -217,16 +318,20 @@
                                 alumnoTableCell.textContent = alumnosMap.get(item[0]);
                                 alumnoTableCell.style.minWidth = "350px";
                                 tableRowElement.appendChild(alumnoTableCell);
+
+                                let total = 0;
                                 for (let i = 0; i < calificacionesTheadTr.children.length - 2; i++) {
                                     let notaTableCell = document.createElement("td");
+                                    notaTableCell.id = calificacionesTheadTr.children[i + 1].id;
                                     notaTableCell.style.position = "relative";
                                     notaTableCell.style.padding = "0 5px";
                                     notaTableCell.style.textAlign = "left";
                                     let txtInput = document.createElement("input");
                                     txtInput.disabled = true;
                                     txtInput.id = calificacionesTheadTr.children[i + 1].id;
-                                    txtInput.value = item[1].get(calificacionesTheadTr.children[i + 1].id);
-                                    notaTableCell.textContent = item[1].get(calificacionesTheadTr.children[i + 1].id);
+                                    txtInput.value = item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0;
+                                    notaTableCell.textContent = item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0;
+                                    total += parseFloat(notaTableCell.textContent);
                                     txtInput.classList.add("w-100");
                                     txtInput.style.position = "absolute";
                                     txtInput.style.zIndex = -1;
@@ -238,7 +343,7 @@
                                 }
                                 calificacionesTbody.appendChild(tableRowElement);
                                 let totalTableCell = document.createElement("td");
-                                totalTableCell.textContent = "100.00";
+                                totalTableCell.textContent = total.toString();
                                 totalTableCell.classList.add("p-0");
                                 tableRowElement.appendChild(totalTableCell);
                                 for (let i = tableRowElement.children.length - 1; i > 0; i--) {
@@ -248,31 +353,16 @@
                                             tableRowElement.children[i].children[0].disabled = false;
                                             tableRowElement.children[i].children[0].focus();
                                             tableRowElement.children[i].children[0].addEventListener("change", (event) => {
-                                                console.log(event.target.value, "val");
-                                                console.log(event.target.id, "id");
                                                 let nuevoMapCalificaciones = calificacionesMap.get(item[0]);
-                                                console.log(nuevoMapCalificaciones);
+                                                nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(item[0], event.target.id, event.target.value) : modificarNota(item[0], event.target.id, event.target.value);
                                                 nuevoMapCalificaciones.set(event.target.id, event.target.value);
-                                                modificarNota(item[0], event.target.id, event.target.value);
-                                                console.log(calificacionesMap);
+                                                tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
                                             });
                                         }
                                     })
                                 }
-                                function modificarNota(Alumn_Id, ActCG_Id, Calif_Nota) {
-                                    console.log(Alumn_Id, ActCG_Id, Calif_Nota);
-                                    $.ajax({
-                                        url: "/Calificaciones/ModificarNota",
-                                        method: "POST",
-                                        dataType: "json",
-                                        contentType: "application/json; charset=utf-8",
-                                        data: JSON.stringify({ Alumn_Id, ActCG_Id, Calif_Nota }),
-                                        success: function (data) {
-                                            console.log(data);
-                                        },
-                                    })
-                                }
                             }
+                            console.log(calificacionesMap);
                         },
                     })
                 },
