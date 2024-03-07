@@ -1,0 +1,197 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion
+
+@{
+    ViewBag.Title = $"tbActividadesPorCursoPorGeneracion".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary">Detalle @ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index")' class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+
+<div class="card">
+<div class="card-body">
+        <div class="form-row justify-content-center">
+    @Html.HiddenFor(model => model.ActCG_Id, new { @id = "Item_Id"})
+      
+    <div class="col-sm-4">
+        <dl>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.ActCG_Nota)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ActCG_Nota)
+            </dd>
+        </dl>
+     </div>
+
+      
+      
+      
+      
+    <div class="col-sm-4">
+        <dl>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.tbInstructoresPorCursoPorGeneracion.InsCG_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbInstructoresPorCursoPorGeneracion.InsCG_Id)
+            </dd>
+        </dl>
+     </div>
+
+      
+      
+      
+    <div class="col-sm-4">
+        <dl>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.tbActividades.Activ_Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbActividades.Activ_Nombre)
+            </dd>
+        </dl>
+     </div>
+
+      
+    </div>
+            <div class="d-flex justify-content-end" style="gap: 10px;">
+
+            @*<button class="btnEditar btn btn-primary btn-outline">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </button>*@
+            <button class="btnEliminar btn btn-danger btn-outline" onclick="Eliminar()">
+                <i class="fa fa-trash mr-2"></i>Eliminar
+            </button>
+            <a class="btn btn-primary btn-outline" href="@Url.Action("Edit", new { id = Model.ActCG_Id })">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </a>
+        </div>
+    </div>
+<div class="card-footer">
+    <div class="card-title text-primary mb-4" style="font-size: 1.5rem;"> Auditoria </div>
+    <div class="w-100" style="overflow-x:scroll;">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="thead-purple thead-justify-content-center">
+                    <th class="bg-primary">Accion</th>
+                    <th class="bg-primary">Usuario</th>
+                    <th class="bg-primary">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Creacion</td>
+                                                                                                                                                                                    <td>
+                                @Html.DisplayFor(model => model.tbUsuarios.Usuar_Usuario)
+                            </td>
+                                                                                        
+                                                                                        <td>
+                                @Html.DisplayFor(model => model.ActCG_FechaCreacion)
+                            </td>
+                                                                                                                                                                                </tr>
+            
+                <tr>
+                    <td>Modificacion</td>
+                                                                                                                                                                                                        <td>
+                                @Html.DisplayFor(model => model.tbUsuarios1.Usuar_Usuario)
+                            </td>
+                                                                    
+                                                                                                            <td>
+                                @Html.DisplayFor(model => model.ActCG_FechaModificacion)
+                            </td>
+                                                                                                                                                            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</section>
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+    @*$('.btnEditar').click(function () {
+        var id = document.getElementById("Item_Id").value;
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : 'tbActividadesPorCursoPorGeneracion'}),
+
+            success: function (data) {
+                $.each(data, function (key, value) {
+                                    $('#ActCG_Id').val(value.ActCG_Id)
+                                    $('#Activ_Id').val(value.Activ_Id)
+                                    $('#InsCG_Id').val(value.InsCG_Id)
+                                    $('#ActCG_Nota').val(value.ActCG_Nota)
+                                })
+                   
+            },
+            
+        })
+
+        $('#modalEditar').modal('show');
+    })*@
+
+    function Eliminar()
+    {
+        var id = document.getElementById("Item_Id").value;
+        $('#Row_Id').val(id);
+
+        localStorage.setItem("Row_Id", id);
+
+        $('#modalEliminar').modal('show');
+    }
+</script>
+
+@*
+<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion())
+            
+                
+        </div>
+    </div>
+</div>
+*@
+
+<div class="modal" id="modalEliminar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card-body form-row justify-content-center">
+                Esta seguro que desea eliminar este registro?
+            </div>
+            @Html.Partial("_Delete", new SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion())
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,339 @@
+﻿@model Tuple<IEnumerable<SistemaAcademiaProgramadores.Models.tbInstructoresPorCursoPorGeneracion>, IEnumerable<SistemaAcademiaProgramadores.Models.tbInstructores>, IEnumerable<SistemaAcademiaProgramadores.Models.tbCursos>, IEnumerable<SistemaAcademiaProgramadores.Models.tbGeneraciones>>
+
+@{
+    ViewBag.Title = $"tbInstructoresPorCursoPorGeneracion".Substring(2);
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary" style="font-size: 1.8rem;">@ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index", "Home")' class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+
+    <div class="card">
+        
+        <div class="card-body form-row justify-content-center">
+            <div class="text-left w-100 mb-4">
+                <button class="btnNuevo btn btn-primary btn-outline">
+                    <i class="fa fa-plus-square-o"> </i> Nuevo
+                </button>
+                @*<a href="@Url.Action("Create")" class="btn btn-primary btn-outline">
+                <i class="fa fa-plus-square-o"> </i> Nuevo
+            </a>*@
+            </div>
+            <div class="card-body form d-flex justify-content-end mb-4">
+                <div>
+                    @Html.DropDownList("Instr_Id", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="card-body-dragula">
+                <div id="cursosListBox" class="listBox">
+                    <h1 id="cursosListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Cursos</h1>
+                    @foreach (var curso in Model.Item3)
+                    {
+                        <div id="@curso.Curso_Id" class="d-flex justify-content-between">
+                            <div>
+                                @curso.Curso_Nombre
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div id="generacionListBox" class="listBox">
+                    <select id="ddlGeneraciones" class="form-control mt-2 p-2 text-primary text-center h-auto no-drag" style="font-size: x-large;">
+                        <option class="" value="">Seleccionar Generacion</option>
+                        @foreach (var generacion in Model.Item4)
+                        {
+                            <option value="@generacion.Gener_Id">@generacion.Gener_Nombre</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="card-body-dragula" style="justify-content: end;">
+                <button id="btnGuardar" class="btn btn-primary mt-4"><i class="fa fa-save mr-2"></i>Guardar</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dragula/dragula.js")
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+
+
+    var dragulaList = dragula([document.getElementById("cursosListBox"), document.getElementById("generacionListBox")], {
+        accepts: function (el, target) {
+            return !
+                el.classList.contains('no-drag');
+        }
+    })
+    let cursosListBox = document.getElementById("cursosListBox");
+    let generacionListBox = document.getElementById("generacionListBox");
+    let mapCursosListBoxChildren = new Map();
+    let setIdInstructoresPorCursoPorGeneracion = new Set();
+    $(document).ready(() => {
+        for (let i = 0; i < cursosListBox.children.length; i++) {
+            mapCursosListBoxChildren.set(cursosListBox.children[i].id, cursosListBox.children[i]);
+        }
+    })
+    let Gener_Id = $('#ddlGeneraciones').val();
+    $('#btnGuardar').click(() => {
+        document.getElementById('btnGuardar').setAttribute("disabled", "disabled");
+        Gener_Id = $('#ddlGeneraciones').val();
+        if (Gener_Id) {
+            let cursosPorDeshabilitar = [];
+            let cursosPorHabilitar = [];
+            let setCursosSeleccionados = new Set();
+            let setIdInstructordeCursoSeleccionado = [];
+            for (let i = 0; i < generacionListBox.children.length; i++) {
+                if (generacionListBox.children[i].id !== "ddlGeneraciones") {
+                    setCursosSeleccionados.add(generacionListBox.children[i].id);
+                    setIdInstructordeCursoSeleccionado.push(generacionListBox.children[i].children[1].children[0].id);
+                }
+            }
+
+            var i = 0;
+            for (let idCursoSeleccionado of setCursosSeleccionados) {
+                if (!setIdInstructoresPorCursoPorGeneracion.has(idCursoSeleccionado)) {
+                    cursosPorHabilitar.push(idCursoSeleccionado);
+                    cursosPorHabilitar.push(setIdInstructordeCursoSeleccionado[i]);
+                }
+                i += 1;
+            }
+            for (let Curso_Id of setIdInstructoresPorCursoPorGeneracion) {
+                if (!setCursosSeleccionados.has(Curso_Id)) {
+                    cursosPorDeshabilitar.push(Curso_Id);
+                }
+            }
+            $.ajax({
+                url: "/InstructoresPorCursoPorGeneracion/ModificarCursosPorGeneracion",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ cursosPorHabilitar, cursosPorDeshabilitar, Gener_Id }),
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById('btnGuardar').removeAttribute("disabled");
+                },
+            })
+        }
+    })
+
+    $('#ddlGeneraciones').change(() => {
+        Gener_Id = $('#ddlGeneraciones').val();
+        if (Gener_Id) {
+            $.ajax({
+                url: "/InstructoresPorCursoPorGeneracion/LlenarCursosPorGeneracion",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Gener_Id }),
+              
+                success: function (data) {
+                    while (generacionListBox.children.length > 1) {
+                        generacionListBox.removeChild(generacionListBox.lastChild);
+                    }
+                    //let instructoresMap = new Map();
+
+                    //setIdInstructoresPorCursoPorGeneracion.clear();
+
+                    let instructorId = [];
+                    let instructorNombre = [];
+
+                    let iterador = 0;
+
+                    $.each(data, function (key, value) {
+                        //instructoresMap.set(value.Instr_Id.toString(), value.Perso_NombreCompleto)
+                        
+                        setIdInstructoresPorCursoPorGeneracion.add(value.Curso_Id.toString());
+
+                        instructorId[iterador] = value.Instr_Id;
+                        instructorNombre[iterador] = value.Perso_NombreCompleto;
+
+                        //if (setIdInstructoresPorCursoPorGeneracion.has(value.Curso_Id.toString())) {
+                        //    let nuevosetIdInstructoresPorCursoPorGeneracion = setIdInstructoresPorCursoPorGeneracion.get(value.Curso_Id.toString());
+                        //    nuevosetIdInstructoresPorCursoPorGeneracion.set(value.Curso_Id.toString(), );
+                        //} else {
+                        ////}
+                        iterador += 1;
+                        
+                    })
+                  
+
+                    iterador = 0;
+                    for (let item of mapCursosListBoxChildren) {
+
+                        if (item[0] !== "cursosListBoxH1") {
+                            if (document.getElementById(item[0])) {
+                                document.getElementById(item[0]).remove();
+                            }
+                            if (setIdInstructoresPorCursoPorGeneracion.has(item[0])) {
+
+                                var instructorValue = instructorId[iterador];
+                                let instructorText = instructorNombre[iterador];
+
+                                var divInstructor = document.createElement('div');
+                                divInstructor.style.fontSize = '0.7rem';
+                                divInstructor.style.color = 'black';
+                                divInstructor.style.verticalAlign = 'bottom';
+
+                                var textNode = document.createTextNode(instructorText);
+                                divInstructor.appendChild(textNode);
+
+                                var inputElement = document.createElement('input');
+                                inputElement.type = 'hidden';
+                                inputElement.id = instructorValue;
+                                inputElement.name = 'Instr_Id1';
+
+                                divInstructor.appendChild(inputElement);
+
+                                mapCursosListBoxChildren.get(item[0]).appendChild(divInstructor)
+
+                                generacionListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
+                                iterador += 1;
+                            } else {
+                                cursosListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
+                            }
+                        }
+                    }
+                },
+            })
+        }
+    })
+    
+
+    dragulaList.on('drop', function (el, target, source, sibling) {
+        if (target == document.getElementById("generacionListBox")) {
+            var instructorValue = $('#Instr_Id').val();
+            let instructorText = document.querySelector('#Instr_Id option:checked').text;
+
+            @*Creacion de Append de instructor*@
+            var divElement = document.createElement('div');
+            divElement.style.fontSize = '0.7rem';
+            divElement.style.color = 'black';
+            divElement.style.verticalAlign = 'bottom';
+
+            // Add text content
+            var textNode = document.createTextNode(instructorText);
+            divElement.appendChild(textNode);
+
+            // Create the input element
+            var inputElement = document.createElement('input');
+            inputElement.type = 'hidden';
+            inputElement.id = instructorValue;
+            inputElement.name = 'Instr_Id';
+
+            // Append input element to the div
+            divElement.appendChild(inputElement);
+
+            // Append the div to cur_div
+            el.appendChild(divElement);
+            @* Creacion de Append de instructor *@
+        }
+    })
+    
+
+
+    @*$('.btnEditar').click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : 'tbInstructoresPorCursoPorGeneracion'}),
+
+            success: function (data) {
+                $.each(data, function (key, value) {
+                                    $('#InsCG_Id').val(value.InsCG_Id)
+                                    $('#Instr_Id').val(value.Instr_Id)
+                                    $('#Gener_Id').val(value.Gener_Id)
+                                    $('#Curso_Id').val(value.Curso_Id)
+                                })
+
+            },
+
+        })
+
+        $('#modalEditar').modal('show');
+    })*@
+
+    // function Eliminar(id)
+    //{
+    //    $("#Row_Id").val(id);
+
+    //    localStorage.setItem("Row_Id", id);
+
+    //    $('#modalEliminar').modal('show');
+    //}
+
+     $('.btnNuevo').click(function () {
+            $('#modalNuevo').modal('show');
+        })
+     
+</script>
+
+
+@*
+    <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbInstructoresPorCursoPorGeneracion())
+
+
+            </div>
+        </div>
+    </div>
+
+*@
+
+    <div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.tbCursos())
+
+            </div>
+        </div>
+    </div>
+
+
+@*<div class="modal" id="modalEliminar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body form-row justify-content-center">
+                    Esta seguro que desea eliminar este registro?
+                </div>
+                @Html.Partial("_Delete", new SistemaAcademiaProgramadores.Models.tbInstructoresPorCursoPorGeneracion())
+
+            </div>
+        </div>
+    </div>*@
+
+

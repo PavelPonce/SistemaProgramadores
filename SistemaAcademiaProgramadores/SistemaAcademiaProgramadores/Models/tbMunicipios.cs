@@ -18,6 +18,7 @@ namespace SistemaAcademiaProgramadores.Models
         public tbMunicipios()
         {
             this.tbPersonas = new HashSet<tbPersonas>();
+            this.tbCentrosEducativos = new HashSet<tbCentrosEducativos>();
         }
     
         public string Munic_Id { get; set; }
@@ -34,5 +35,7 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual tbDepartamentos tbDepartamentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbPersonas> tbPersonas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbCentrosEducativos> tbCentrosEducativos { get; set; }
     }
 }

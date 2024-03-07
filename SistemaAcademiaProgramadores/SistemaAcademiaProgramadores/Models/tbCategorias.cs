@@ -28,6 +28,8 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> Categ_FechaModificacion { get; set; }
         public bool Categ_Estado { get; set; }
     
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbCursos> tbCursos { get; set; }
     }

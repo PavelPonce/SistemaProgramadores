@@ -17,8 +17,8 @@ namespace SistemaAcademiaProgramadores.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbInstructores()
         {
-            this.tbInstructoresPorCursoPorGeneracion = new HashSet<tbInstructoresPorCursoPorGeneracion>();
             this.tbUsuarios2 = new HashSet<tbUsuarios>();
+            this.tbInstructoresPorCursoPorGeneracion = new HashSet<tbInstructoresPorCursoPorGeneracion>();
         }
     
         public int Perso_Id { get; set; }
@@ -35,8 +35,8 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbUsuarios> tbUsuarios2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
     }
 }

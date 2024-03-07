@@ -27,6 +27,7 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<int> Panta_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Panta_FechaModificacion { get; set; }
         public bool Panta_Estado { get; set; }
+        public string Panta_Esquema { get; set; }
     
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }

@@ -4,6 +4,7 @@
     <EntitySetMapping Name="tbAlumnos">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbAlumnos">
         <MappingFragment StoreEntitySet="tbAlumnos">
+          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
           <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
           <ScalarProperty Name="CenEd_IdColegio" ColumnName="CenEd_IdColegio" />
           <ScalarProperty Name="CenEd_IdUniversidad" ColumnName="CenEd_IdUniversidad" />
@@ -15,19 +16,6 @@
           <ScalarProperty Name="Alumn_Estado" ColumnName="Alumn_Estado" />
           <ScalarProperty Name="Alumn_Observaciones" ColumnName="Alumn_Observaciones" />
           <ScalarProperty Name="Alumn_FechaIngreso" ColumnName="Alumn_FechaIngreso" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbCategorias">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCategorias">
-        <MappingFragment StoreEntitySet="tbCategorias">
-          <ScalarProperty Name="Categ_Id" ColumnName="Categ_Id" />
-          <ScalarProperty Name="Categ_Nombre" ColumnName="Categ_Nombre" />
-          <ScalarProperty Name="Categ_UsuarioCreacion" ColumnName="Categ_UsuarioCreacion" />
-          <ScalarProperty Name="Categ_FechaCreacion" ColumnName="Categ_FechaCreacion" />
-          <ScalarProperty Name="Categ_UsuarioModificacion" ColumnName="Categ_UsuarioModificacion" />
-          <ScalarProperty Name="Categ_FechaModificacion" ColumnName="Categ_FechaModificacion" />
-          <ScalarProperty Name="Categ_Estado" ColumnName="Categ_Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -45,36 +33,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbCursosPorGeneracion">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCursosPorGeneracion">
-        <MappingFragment StoreEntitySet="tbCursosPorGeneracion">
-          <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
-          <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
-          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
-          <ScalarProperty Name="CuGen_UsuarioCreacion" ColumnName="CuGen_UsuarioCreacion" />
-          <ScalarProperty Name="CuGen_FechaCreacion" ColumnName="CuGen_FechaCreacion" />
-          <ScalarProperty Name="CuGen_UsuarioModificacion" ColumnName="CuGen_UsuarioModificacion" />
-          <ScalarProperty Name="CuGen_FechaModificacion" ColumnName="CuGen_FechaModificacion" />
-          <ScalarProperty Name="CuGen_Estado" ColumnName="CuGen_Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbGeneraciones">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbGeneraciones">
-        <MappingFragment StoreEntitySet="tbGeneraciones">
-          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
-          <ScalarProperty Name="Gener_Nombre" ColumnName="Gener_Nombre" />
-          <ScalarProperty Name="Gener_Anhio" ColumnName="Gener_Anhio" />
-          <ScalarProperty Name="Gener_UsuarioCreacion" ColumnName="Gener_UsuarioCreacion" />
-          <ScalarProperty Name="Gener_FechaCreacion" ColumnName="Gener_FechaCreacion" />
-          <ScalarProperty Name="Gener_UsuarioModificacion" ColumnName="Gener_UsuarioModificacion" />
-          <ScalarProperty Name="Gener_FechaModificacion" ColumnName="Gener_FechaModificacion" />
-          <ScalarProperty Name="Gener_Estado" ColumnName="Gener_Estado" />
-          <ScalarProperty Name="Gener_FechaInicio" ColumnName="Gener_FechaInicio" />
-          <ScalarProperty Name="Gener_FechaFin" ColumnName="Gener_FechaFin" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbInstructores">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructores">
         <MappingFragment StoreEntitySet="tbInstructores">
@@ -89,23 +47,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbInstructoresPorCursoPorGeneracion">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion">
-        <MappingFragment StoreEntitySet="tbInstructoresPorCursoPorGeneracion">
-          <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
-          <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
-          <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
-          <ScalarProperty Name="InsCG_UsuarioCreacion" ColumnName="InsCG_UsuarioCreacion" />
-          <ScalarProperty Name="InsCG_FechaCreacion" ColumnName="InsCG_FechaCreacion" />
-          <ScalarProperty Name="InsCG_UsuarioModificacion" ColumnName="InsCG_UsuarioModificacion" />
-          <ScalarProperty Name="InsCG_FechaModificacion" ColumnName="InsCG_FechaModificacion" />
-          <ScalarProperty Name="InsCG_Estado" ColumnName="InsCG_Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbPantallas">
       <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbPantallas">
         <MappingFragment StoreEntitySet="tbPantallas">
+          <ScalarProperty Name="Panta_Esquema" ColumnName="Panta_Esquema" />
           <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
           <ScalarProperty Name="Panta_Descripcion" ColumnName="Panta_Descripcion" />
           <ScalarProperty Name="Panta_UsuarioCreacion" ColumnName="Panta_UsuarioCreacion" />
@@ -171,52 +116,6 @@
           <ScalarProperty Name="Activ_UsuarioModificacion" ColumnName="Activ_UsuarioModificacion" />
           <ScalarProperty Name="Activ_FechaModificacion" ColumnName="Activ_FechaModificacion" />
           <ScalarProperty Name="Activ_Estado" ColumnName="Activ_Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbActividadesPorCursoPorGeneracion">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion">
-        <MappingFragment StoreEntitySet="tbActividadesPorCursoPorGeneracion">
-          <ScalarProperty Name="ActCG_Id" ColumnName="ActCG_Id" />
-          <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
-          <ScalarProperty Name="CuGen_Id" ColumnName="CuGen_Id" />
-          <ScalarProperty Name="ActCG_Nota" ColumnName="ActCG_Nota" />
-          <ScalarProperty Name="ActCG_UsuarioCreacion" ColumnName="ActCG_UsuarioCreacion" />
-          <ScalarProperty Name="ActCG_FechaCreacion" ColumnName="ActCG_FechaCreacion" />
-          <ScalarProperty Name="ActCG_UsuarioModificacion" ColumnName="ActCG_UsuarioModificacion" />
-          <ScalarProperty Name="ActCG_FechaModificacion" ColumnName="ActCG_FechaModificacion" />
-          <ScalarProperty Name="ActCG_Estado" ColumnName="ActCG_Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbCalificaciones">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificaciones">
-        <MappingFragment StoreEntitySet="tbCalificaciones">
-          <ScalarProperty Name="AcCG_Id" ColumnName="AcCG_Id" />
-          <ScalarProperty Name="Calif_Id" ColumnName="Calif_Id" />
-          <ScalarProperty Name="Alumn_Id" ColumnName="Alumn_Id" />
-          <ScalarProperty Name="Calif_Nota" ColumnName="Calif_Nota" />
-          <ScalarProperty Name="Calif_UsuarioCreacion" ColumnName="Calif_UsuarioCreacion" />
-          <ScalarProperty Name="Calif_FechaCreacion" ColumnName="Calif_FechaCreacion" />
-          <ScalarProperty Name="Calif_UsuarioModificacion" ColumnName="Calif_UsuarioModificacion" />
-          <ScalarProperty Name="Calif_FechaModificacion" ColumnName="Calif_FechaModificacion" />
-          <ScalarProperty Name="Calif_Estado" ColumnName="Calif_Estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbCentrosEducativos">
-      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCentrosEducativos">
-        <MappingFragment StoreEntitySet="tbCentrosEducativos">
-          <ScalarProperty Name="CenEd_Id" ColumnName="CenEd_Id" />
-          <ScalarProperty Name="CenEd_Nombre" ColumnName="CenEd_Nombre" />
-          <ScalarProperty Name="CenEd_Direccion" ColumnName="CenEd_Direccion" />
-          <ScalarProperty Name="CenEd_Tipo" ColumnName="CenEd_Tipo" />
-          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
-          <ScalarProperty Name="CenEd_UsuarioCreacion" ColumnName="CenEd_UsuarioCreacion" />
-          <ScalarProperty Name="CenEd_FechaCreacion" ColumnName="CenEd_FechaCreacion" />
-          <ScalarProperty Name="CenEd_UsuarioModificacion" ColumnName="CenEd_UsuarioModificacion" />
-          <ScalarProperty Name="CenEd_FechaModificacion" ColumnName="CenEd_FechaModificacion" />
-          <ScalarProperty Name="CenEd_Estado" ColumnName="CenEd_Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -297,34 +196,415 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_DELETE" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_DELETE" />
-    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_INSERT" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_INSERT" />
-    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_LOGIN" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_LOGIN">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_tbUsuarios_LOGIN_Result">
-          <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
-          <ScalarProperty Name="Usuar_Contrasena" ColumnName="Usuar_Contrasena" />
-          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+    <EntitySetMapping Name="tbInstructoresPorCursoPorGeneracion">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion">
+        <MappingFragment StoreEntitySet="tbInstructoresPorCursoPorGeneracion">
+          <ScalarProperty Name="InsCG_Estado" ColumnName="InsCG_Estado" />
+          <ScalarProperty Name="InsCG_FechaModificacion" ColumnName="InsCG_FechaModificacion" />
+          <ScalarProperty Name="InsCG_UsuarioModificacion" ColumnName="InsCG_UsuarioModificacion" />
+          <ScalarProperty Name="InsCG_FechaCreacion" ColumnName="InsCG_FechaCreacion" />
+          <ScalarProperty Name="InsCG_UsuarioCreacion" ColumnName="InsCG_UsuarioCreacion" />
+          <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+          <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
+          <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbActividadesPorCursoPorGeneracion">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion">
+        <MappingFragment StoreEntitySet="tbActividadesPorCursoPorGeneracion">
+          <ScalarProperty Name="ActCG_Estado" ColumnName="ActCG_Estado" />
+          <ScalarProperty Name="ActCG_FechaModificacion" ColumnName="ActCG_FechaModificacion" />
+          <ScalarProperty Name="ActCG_UsuarioModificacion" ColumnName="ActCG_UsuarioModificacion" />
+          <ScalarProperty Name="ActCG_FechaCreacion" ColumnName="ActCG_FechaCreacion" />
+          <ScalarProperty Name="ActCG_UsuarioCreacion" ColumnName="ActCG_UsuarioCreacion" />
+          <ScalarProperty Name="ActCG_Nota" ColumnName="ActCG_Nota" />
+          <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
+          <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
+          <ScalarProperty Name="ActCG_Id" ColumnName="ActCG_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbCalificaciones">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCalificaciones">
+        <MappingFragment StoreEntitySet="tbCalificaciones">
+          <ScalarProperty Name="Calif_Estado" ColumnName="Calif_Estado" />
+          <ScalarProperty Name="Calif_FechaModificacion" ColumnName="Calif_FechaModificacion" />
+          <ScalarProperty Name="Calif_UsuarioModificacion" ColumnName="Calif_UsuarioModificacion" />
+          <ScalarProperty Name="Calif_FechaCreacion" ColumnName="Calif_FechaCreacion" />
+          <ScalarProperty Name="Calif_UsuarioCreacion" ColumnName="Calif_UsuarioCreacion" />
+          <ScalarProperty Name="Calif_Nota" ColumnName="Calif_Nota" />
+          <ScalarProperty Name="Alumn_Id" ColumnName="Alumn_Id" />
+          <ScalarProperty Name="ActCG_Id" ColumnName="ActCG_Id" />
+          <ScalarProperty Name="Calif_Id" ColumnName="Calif_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbAlumnosBitacora">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbAlumnosBitacora">
+        <MappingFragment StoreEntitySet="tbAlumnosBitacora">
+          <ScalarProperty Name="AlBit_FechaAccion" ColumnName="AlBit_FechaAccion" />
+          <ScalarProperty Name="AlBit_Accion" ColumnName="AlBit_Accion" />
+          <ScalarProperty Name="Alumn_FechaIngreso" ColumnName="Alumn_FechaIngreso" />
+          <ScalarProperty Name="Alumn_Observaciones" ColumnName="Alumn_Observaciones" />
+          <ScalarProperty Name="Alumn_Estado" ColumnName="Alumn_Estado" />
+          <ScalarProperty Name="Alumn_FechaModificacion" ColumnName="Alumn_FechaModificacion" />
+          <ScalarProperty Name="Alumn_UsuarioModificacion" ColumnName="Alumn_UsuarioModificacion" />
+          <ScalarProperty Name="Alumn_FechaCreacion" ColumnName="Alumn_FechaCreacion" />
+          <ScalarProperty Name="Alumn_UsuarioCreacion" ColumnName="Alumn_UsuarioCreacion" />
+          <ScalarProperty Name="Titul_Id" ColumnName="Titul_Id" />
+          <ScalarProperty Name="CenEd_IdUniversidad" ColumnName="CenEd_IdUniversidad" />
+          <ScalarProperty Name="CenEd_IdColegio" ColumnName="CenEd_IdColegio" />
           <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
-          <ScalarProperty Name="Perso_PrimerNombre" ColumnName="Perso_PrimerNombre" />
-          <ScalarProperty Name="Perso_SegundoNombre" ColumnName="Perso_SegundoNombre" />
-          <ScalarProperty Name="Perso_PrimerApellido" ColumnName="Perso_PrimerApellido" />
-          <ScalarProperty Name="Perso_SegundoApellido" ColumnName="Perso_SegundoApellido" />
-          <ScalarProperty Name="Perso_FechaNacimiento" ColumnName="Perso_FechaNacimiento" />
-          <ScalarProperty Name="Perso_Sexo" ColumnName="Perso_Sexo" />
-          <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
-          <ScalarProperty Name="Perso_Direccion" ColumnName="Perso_Direccion" />
-          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
-          <ScalarProperty Name="Perso_Telefono" ColumnName="Perso_Telefono" />
-          <ScalarProperty Name="Perso_CorreoElectronico" ColumnName="Perso_CorreoElectronico" />
-          <ScalarProperty Name="Perso_UsuarioCreacion" ColumnName="Perso_UsuarioCreacion" />
-          <ScalarProperty Name="Perso_FechaCreacion" ColumnName="Perso_FechaCreacion" />
-          <ScalarProperty Name="Perso_UsuarioModificacion" ColumnName="Perso_UsuarioModificacion" />
-          <ScalarProperty Name="Perso_FechaModificacion" ColumnName="Perso_FechaModificacion" />
-          <ScalarProperty Name="Perso_Estado" ColumnName="Perso_Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Alumnos_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Alumnos_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Alumnos_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Alumnos_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Alumnos_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Alumnos_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Categorias_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Categorias_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Categorias_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Categorias_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Categorias_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Categorias_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Cursos_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Cursos_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Cursos_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Cursos_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Cursos_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Cursos_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Generaciones_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Generaciones_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Generaciones_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Generaciones_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Generaciones_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Generaciones_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Instructores_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Instructores_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Instructores_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Instructores_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Instructores_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Instructores_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Pantallas_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Pantallas_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Pantallas_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Pantallas_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Pantallas_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Pantallas_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_PantallasPorRoles_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_PantallasPorRoles_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_PantallasPorRoles_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_PantallasPorRoles_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_PantallasPorRoles_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_PantallasPorRoles_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Roles_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Roles_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Roles_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Roles_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Roles_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Roles_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Usuarios_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Usuarios_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Usuarios_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Usuarios_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Usuarios_Login" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Usuarios_Login">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Usuarios_Login_Result">
+          <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+          <ScalarProperty Name="Usuar_Usuario" ColumnName="Usuar_Usuario" />
+          <ScalarProperty Name="Usuar_Admin" ColumnName="Usuar_Admin" />
+          <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
+          <ScalarProperty Name="Roles_Descripcion" ColumnName="Roles_Descripcion" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="SP_tbUsuarios_UPDATE" FunctionName="dbAcademiaProgramadoresModel.Store.SP_tbUsuarios_UPDATE" />
+    <FunctionImportMapping FunctionImportName="SP_Usuarios_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Usuarios_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Usuarios_Seleccionar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Usuarios_Seleccionar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Usuarios_Seleccionar_Result">
+          <ScalarProperty Name="Usuar_Id" ColumnName="Usuar_Id" />
+          <ScalarProperty Name="Usuar_Usuario" ColumnName="Usuar_Usuario" />
+          <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Actividades_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Actividades_Eliminar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Actividades_Eliminar_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Actividades_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Actividades_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Actividades_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Actividades_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursoPorGeneracion_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursoPorGeneracion_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursoPorGeneracion_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursoPorGeneracion_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursoPorGeneracion_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursoPorGeneracion_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Calificaciones_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Calificaciones_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Calificaciones_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Calificaciones_Seleccionar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Calificaciones_Seleccionar" />
+    <FunctionImportMapping FunctionImportName="SP_CentrosEducativos_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_CentrosEducativos_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_CentrosEducativos_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_CentrosEducativos_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_CentrosEducativos_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_CentrosEducativos_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Departamentos_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Departamentos_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Departamentos_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Departamentos_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Departamentos_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Departamentos_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Departamentos_LlenarEditar_Result">
+          <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
+          <ScalarProperty Name="Depar_Descripcion" ColumnName="Depar_Descripcion" />
+          <ScalarProperty Name="Depar_UsuarioCreacion" ColumnName="Depar_UsuarioCreacion" />
+          <ScalarProperty Name="Depar_FechaCreacion" ColumnName="Depar_FechaCreacion" />
+          <ScalarProperty Name="Depar_UsuarioModificacion" ColumnName="Depar_UsuarioModificacion" />
+          <ScalarProperty Name="Depar_FechaModificacion" ColumnName="Depar_FechaModificacion" />
+          <ScalarProperty Name="Depar_Estado" ColumnName="Depar_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Departamentos_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Departamentos_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_EstadosCiviles_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_EstadosCiviles_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_EstadosCiviles_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_EstadosCiviles_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_EstadosCiviles_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_EstadosCiviles_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Municipios_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Municipios_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Municipios_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Municipios_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Municipios_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Municipios_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Personas_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Personas_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Personas_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Personas_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Personas_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Personas_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Titulos_Eliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_Eliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Titulos_Insertar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_Insertar" />
+    <FunctionImportMapping FunctionImportName="SP_Titulos_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Titulos_LlenarEditar_Result">
+          <ScalarProperty Name="Titul_Id" ColumnName="Titul_Id" />
+          <ScalarProperty Name="Titul_Nombre" ColumnName="Titul_Nombre" />
+          <ScalarProperty Name="Titul_Tipo" ColumnName="Titul_Tipo" />
+          <ScalarProperty Name="Titul_UsuarioCreacion" ColumnName="Titul_UsuarioCreacion" />
+          <ScalarProperty Name="Titul_FechaCreacion" ColumnName="Titul_FechaCreacion" />
+          <ScalarProperty Name="Titul_UsuarioModificacion" ColumnName="Titul_UsuarioModificacion" />
+          <ScalarProperty Name="Titul_FechaModificacion" ColumnName="Titul_FechaModificacion" />
+          <ScalarProperty Name="Titul_Estado" ColumnName="Titul_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Titulos_Modificar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_Modificar" />
+    <FunctionImportMapping FunctionImportName="SP_Municipios_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Municipios_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Municipios_LlenarEditar_Result1">
+          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+          <ScalarProperty Name="Munic_Descripcion" ColumnName="Munic_Descripcion" />
+          <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
+          <ScalarProperty Name="Munic_UsuarioCreacion" ColumnName="Munic_UsuarioCreacion" />
+          <ScalarProperty Name="Munic_FechaCreacion" ColumnName="Munic_FechaCreacion" />
+          <ScalarProperty Name="Munic_UsuarioModificacion" ColumnName="Munic_UsuarioModificacion" />
+          <ScalarProperty Name="Munic_FechaModificacion" ColumnName="Munic_FechaModificacion" />
+          <ScalarProperty Name="Munic_Estado" ColumnName="Munic_Estado" />
+          <ScalarProperty Name="Depar_Descripcion" ColumnName="Depar_Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbCentrosEducativos">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCentrosEducativos">
+        <MappingFragment StoreEntitySet="tbCentrosEducativos">
+          <ScalarProperty Name="CenEd_Estado" ColumnName="CenEd_Estado" />
+          <ScalarProperty Name="CenEd_FechaModificacion" ColumnName="CenEd_FechaModificacion" />
+          <ScalarProperty Name="CenEd_UsuarioModificacion" ColumnName="CenEd_UsuarioModificacion" />
+          <ScalarProperty Name="CenEd_FechaCreacion" ColumnName="CenEd_FechaCreacion" />
+          <ScalarProperty Name="CenEd_UsuarioCreacion" ColumnName="CenEd_UsuarioCreacion" />
+          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+          <ScalarProperty Name="CenEd_Tipo" ColumnName="CenEd_Tipo" />
+          <ScalarProperty Name="CenEd_Direccion" ColumnName="CenEd_Direccion" />
+          <ScalarProperty Name="CenEd_Nombre" ColumnName="CenEd_Nombre" />
+          <ScalarProperty Name="CenEd_Id" ColumnName="CenEd_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_EstadosCiviles_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_EstadosCiviles_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_EstadosCiviles_LlenarEditar_Result">
+          <ScalarProperty Name="Estci_Id" ColumnName="Estci_Id" />
+          <ScalarProperty Name="Estci_Descripcion" ColumnName="Estci_Descripcion" />
+          <ScalarProperty Name="Estci_UsuarioCreacion" ColumnName="Estci_UsuarioCreacion" />
+          <ScalarProperty Name="Estci_FechaCreacion" ColumnName="Estci_FechaCreacion" />
+          <ScalarProperty Name="Estci_UsuarioModificacion" ColumnName="Estci_UsuarioModificacion" />
+          <ScalarProperty Name="Estci_FechaModificacion" ColumnName="Estci_FechaModificacion" />
+          <ScalarProperty Name="Estci_Estado" ColumnName="Estci_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_PantallasPorRoles_SeleccionarPantallasPorRol" FunctionName="dbAcademiaProgramadoresModel.Store.SP_PantallasPorRoles_SeleccionarPantallasPorRol">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_PantallasPorRoles_SeleccionarPantallasPorRol_Result">
+          <ScalarProperty Name="Papro_Id" ColumnName="Papro_Id" />
+          <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
+          <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
+          <ScalarProperty Name="Panta_Descripcion" ColumnName="Panta_Descripcion" />
+          <ScalarProperty Name="Panta_Esquema" ColumnName="Panta_Esquema" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_PantallasPorRoles_SeleccionarRolesPorPantalla" FunctionName="dbAcademiaProgramadoresModel.Store.SP_PantallasPorRoles_SeleccionarRolesPorPantalla">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_PantallasPorRoles_SeleccionarRolesPorPantalla_Result">
+          <ScalarProperty Name="Papro_Id" ColumnName="Papro_Id" />
+          <ScalarProperty Name="Panta_Id" ColumnName="Panta_Id" />
+          <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
+          <ScalarProperty Name="Roles_Descripcion" ColumnName="Roles_Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_PantallasPorRoles_InsertarEliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_PantallasPorRoles_InsertarEliminar" />
+    <FunctionImportMapping FunctionImportName="SP_Titulos_DropDownListTipos" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_DropDownListTipos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Titulos_DropDownListTipos_Result">
+          <ScalarProperty Name="Titul_Tipo" ColumnName="Titul_Tipo" />
+          <ScalarProperty Name="Titul_TipoDescripcion" ColumnName="Titul_TipoDescripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_CentrosEducativos_DropDownListTipo" FunctionName="dbAcademiaProgramadoresModel.Store.SP_CentrosEducativos_DropDownListTipo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_CentrosEducativos_DropDownListTipo_Result">
+          <ScalarProperty Name="CenEd_Tipo" ColumnName="CenEd_Tipo" />
+          <ScalarProperty Name="CenEd_TipoDescripcion" ColumnName="CenEd_TipoDescripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Municipios_DropDownListMunicipios" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Municipios_DropDownListMunicipios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Municipios_DropDownListMunicipios_Result">
+          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+          <ScalarProperty Name="Munic_Descripcion" ColumnName="Munic_Descripcion" />
+          <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
+          <ScalarProperty Name="Munic_UsuarioCreacion" ColumnName="Munic_UsuarioCreacion" />
+          <ScalarProperty Name="Munic_FechaCreacion" ColumnName="Munic_FechaCreacion" />
+          <ScalarProperty Name="Munic_UsuarioModificacion" ColumnName="Munic_UsuarioModificacion" />
+          <ScalarProperty Name="Munic_FechaModificacion" ColumnName="Munic_FechaModificacion" />
+          <ScalarProperty Name="Munic_Estado" ColumnName="Munic_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbCategorias">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbCategorias">
+        <MappingFragment StoreEntitySet="tbCategorias">
+          <ScalarProperty Name="Categ_Estado" ColumnName="Categ_Estado" />
+          <ScalarProperty Name="Categ_FechaModificacion" ColumnName="Categ_FechaModificacion" />
+          <ScalarProperty Name="Categ_UsuarioModificacion" ColumnName="Categ_UsuarioModificacion" />
+          <ScalarProperty Name="Categ_FechaCreacion" ColumnName="Categ_FechaCreacion" />
+          <ScalarProperty Name="Categ_UsuarioCreacion" ColumnName="Categ_UsuarioCreacion" />
+          <ScalarProperty Name="Categ_Nombre" ColumnName="Categ_Nombre" />
+          <ScalarProperty Name="Categ_Id" ColumnName="Categ_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Categorias_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Categorias_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Categorias_LlenarEditar_Result">
+          <ScalarProperty Name="Categ_Id" ColumnName="Categ_Id" />
+          <ScalarProperty Name="Categ_Nombre" ColumnName="Categ_Nombre" />
+          <ScalarProperty Name="Categ_UsuarioCreacion" ColumnName="Categ_UsuarioCreacion" />
+          <ScalarProperty Name="Categ_FechaCreacion" ColumnName="Categ_FechaCreacion" />
+          <ScalarProperty Name="Categ_UsuarioModificacion" ColumnName="Categ_UsuarioModificacion" />
+          <ScalarProperty Name="Categ_FechaModificacion" ColumnName="Categ_FechaModificacion" />
+          <ScalarProperty Name="Categ_Estado" ColumnName="Categ_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Cursos_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Cursos_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Cursos_LlenarEditar_Result">
+          <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+          <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
+          <ScalarProperty Name="Categ_Id" ColumnName="Categ_Id" />
+          <ScalarProperty Name="Curso_UsuarioCreacion" ColumnName="Curso_UsuarioCreacion" />
+          <ScalarProperty Name="Curso_FechaCreacion" ColumnName="Curso_FechaCreacion" />
+          <ScalarProperty Name="Curso_UsuarioModificacion" ColumnName="Curso_UsuarioModificacion" />
+          <ScalarProperty Name="Curso_FechaModificacion" ColumnName="Curso_FechaModificacion" />
+          <ScalarProperty Name="Curso_Estado" ColumnName="Curso_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Generaciones_LlenarEditar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Generaciones_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Generaciones_LlenarEditar_Result">
+          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+          <ScalarProperty Name="Gener_Nombre" ColumnName="Gener_Nombre" />
+          <ScalarProperty Name="Gener_Anhio" ColumnName="Gener_Anhio" />
+          <ScalarProperty Name="Gener_UsuarioCreacion" ColumnName="Gener_UsuarioCreacion" />
+          <ScalarProperty Name="Gener_FechaCreacion" ColumnName="Gener_FechaCreacion" />
+          <ScalarProperty Name="Gener_UsuarioModificacion" ColumnName="Gener_UsuarioModificacion" />
+          <ScalarProperty Name="Gener_FechaModificacion" ColumnName="Gener_FechaModificacion" />
+          <ScalarProperty Name="Gener_Estado" ColumnName="Gener_Estado" />
+          <ScalarProperty Name="Gener_FechaInicio" ColumnName="Gener_FechaInicio" />
+          <ScalarProperty Name="Gener_FechaFin" ColumnName="Gener_FechaFin" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_CentrosEducativos_LlenarEditar1" FunctionName="dbAcademiaProgramadoresModel.Store.SP_CentrosEducativos_LlenarEditar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_CentrosEducativos_LlenarEditar1_Result">
+          <ScalarProperty Name="CenEd_Id" ColumnName="CenEd_Id" />
+          <ScalarProperty Name="CenEd_Nombre" ColumnName="CenEd_Nombre" />
+          <ScalarProperty Name="CenEd_Direccion" ColumnName="CenEd_Direccion" />
+          <ScalarProperty Name="CenEd_Tipo" ColumnName="CenEd_Tipo" />
+          <ScalarProperty Name="Munic_Id" ColumnName="Munic_Id" />
+          <ScalarProperty Name="CenEd_UsuarioCreacion" ColumnName="CenEd_UsuarioCreacion" />
+          <ScalarProperty Name="CenEd_FechaCreacion" ColumnName="CenEd_FechaCreacion" />
+          <ScalarProperty Name="CenEd_UsuarioModificacion" ColumnName="CenEd_UsuarioModificacion" />
+          <ScalarProperty Name="CenEd_FechaModificacion" ColumnName="CenEd_FechaModificacion" />
+          <ScalarProperty Name="CenEd_Estado" ColumnName="CenEd_Estado" />
+          <ScalarProperty Name="Depar_Id" ColumnName="Depar_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_EmptyTable" FunctionName="dbAcademiaProgramadoresModel.Store.SP_EmptyTable">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_EmptyTable_Result">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbGeneraciones">
+      <EntityTypeMapping TypeName="dbAcademiaProgramadoresModel.tbGeneraciones">
+        <MappingFragment StoreEntitySet="tbGeneraciones">
+          <ScalarProperty Name="Gener_Estado" ColumnName="Gener_Estado" />
+          <ScalarProperty Name="Gener_FechaModificacion" ColumnName="Gener_FechaModificacion" />
+          <ScalarProperty Name="Gener_UsuarioModificacion" ColumnName="Gener_UsuarioModificacion" />
+          <ScalarProperty Name="Gener_FechaCreacion" ColumnName="Gener_FechaCreacion" />
+          <ScalarProperty Name="Gener_UsuarioCreacion" ColumnName="Gener_UsuarioCreacion" />
+          <ScalarProperty Name="Gener_FechaFin" ColumnName="Gener_FechaFin" />
+          <ScalarProperty Name="Gener_FechaInicio" ColumnName="Gener_FechaInicio" />
+          <ScalarProperty Name="Gener_Anhio" ColumnName="Gener_Anhio" />
+          <ScalarProperty Name="Gener_Nombre" ColumnName="Gener_Nombre" />
+          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" />
+    <FunctionImportMapping FunctionImportName="SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result">
+          <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
+          <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
+          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+          <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+          <ScalarProperty Name="InsCG_UsuarioCreacion" ColumnName="InsCG_UsuarioCreacion" />
+          <ScalarProperty Name="InsCG_FechaCreacion" ColumnName="InsCG_FechaCreacion" />
+          <ScalarProperty Name="InsCG_UsuarioModificacion" ColumnName="InsCG_UsuarioModificacion" />
+          <ScalarProperty Name="InsCG_FechaModificacion" ColumnName="InsCG_FechaModificacion" />
+          <ScalarProperty Name="InsCG_Estado" ColumnName="InsCG_Estado" />
+          <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Instructores_DropDownListPersonas" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Instructores_DropDownListPersonas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Instructores_DropDownListPersonas_Result">
+          <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_CursosPorGeneraciones_DropDownListCursos" FunctionName="dbAcademiaProgramadoresModel.Store.SP_CursosPorGeneraciones_DropDownListCursos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_CursosPorGeneraciones_DropDownListCursos_Result">
+          <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+          <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
+          <ScalarProperty Name="Categ_Id" ColumnName="Categ_Id" />
+          <ScalarProperty Name="Curso_UsuarioCreacion" ColumnName="Curso_UsuarioCreacion" />
+          <ScalarProperty Name="Curso_FechaCreacion" ColumnName="Curso_FechaCreacion" />
+          <ScalarProperty Name="Curso_UsuarioModificacion" ColumnName="Curso_UsuarioModificacion" />
+          <ScalarProperty Name="Curso_FechaModificacion" ColumnName="Curso_FechaModificacion" />
+          <ScalarProperty Name="Curso_Estado" ColumnName="Curso_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

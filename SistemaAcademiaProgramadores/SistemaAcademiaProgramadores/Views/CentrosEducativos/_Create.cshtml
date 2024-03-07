@@ -1,0 +1,105 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbCentrosEducativos
+    @{
+        ViewBag.Title = $"tbCentrosEducativos".Substring(2);  
+
+    }
+
+@using (Html.BeginForm("Create",(string)ViewBag.Title, FormMethod.Post, new { @id = "formCrear", @name = "formCrear" })) 
+{
+    @Html.AntiForgeryToken()
+<div class="modal-body form-row justify-content-center">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="col-sm-6 mb-2">
+        @Html.LabelFor(model => model.CenEd_Nombre, new { @class = "text-primary w-100 text-left" })
+        <div>
+            @Html.EditorFor(model => model.CenEd_Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CenEd_Nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-6 mb-2">
+        @Html.LabelFor(model => model.CenEd_Tipo, new { @class = "text-primary w-100 text-left" })
+        <div>
+            @Html.DropDownList("CenEd_Tipo",null, htmlAttributes: new { @class = "form-control" } )
+            @Html.ValidationMessageFor(model => model.CenEd_Tipo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-sm-12 mb-2">
+        @Html.LabelFor(model => model.CenEd_Direccion, new { @class = "text-primary w-100 text-left" })
+        <div>
+            @Html.EditorFor(model => model.CenEd_Direccion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CenEd_Direccion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-sm-6 mb-2">
+        @Html.LabelFor(model => model.tbMunicipios.Depar_Id, new { @class = "text-primary w-100 text-left" })
+        <div>
+            @Html.DropDownList("Depar_Id", null, htmlAttributes: new { @class = "form-control", @id = "Depar_Id2" })
+            @Html.ValidationMessageFor(model => model.tbMunicipios.Depar_Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-sm-6 mb-2">
+        @Html.LabelFor(model => model.Munic_Id, new { @class = "text-primary w-100 text-left" })
+        <div>
+            @Html.DropDownList("Munic_Id", null, htmlAttributes: new { @class = "form-control", @id = "Munic_Id2" })
+            @Html.ValidationMessageFor(model => model.Munic_Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                    <i class="fa fa-times"></i> Cancelar
+                </button>
+            </div>
+            <script>
+                var my_func = function (event) {
+                    if ($('#Munic_Id2').val() == "") {
+                        event.preventDefault();
+                    }
+                };
+                var form = document.getElementById("formCrear");
+
+                form.addEventListener("submit", my_func, true);
+
+        document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
+            grupo.children[1].children[0].addEventListener('focus', () => {
+                grupo.children[0].classList.add('text-secondary')
+            })
+            grupo.children[1].children[0].addEventListener('blur', () => {
+                grupo.children[0].classList.remove('text-secondary')
+            })
+        })
+                $('#Depar_Id2').change(function cargarDDLMunicipios() {
+                    var id = $('#Depar_Id2').val();
+                    $.ajax({
+                        url: "/Home/cargarDDLMunicipios",
+                        method: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ id: id }),
+
+                        success: function (data) {
+                            $('#Munic_Id2').empty();
+                            $.each(data, function (key, value) {
+                                var option = $('<option></option>')
+                                    .text(value.Munic_Descripcion)
+                                    .val(value.Munic_Id);
+
+                                $('#Munic_Id2').append(option);
+                            })
+                        },
+                    })
+                })
+    </script>
+  
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

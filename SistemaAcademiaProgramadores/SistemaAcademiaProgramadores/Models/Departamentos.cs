@@ -14,10 +14,10 @@ namespace SistemaAcademiaProgramadores.Models
     public class DepartamentosMetaData
     {
         [Display(Name ="Codigo")]
-        [Required]
+        [Required (ErrorMessage = "El campo {0} es requerido")]
         [RegularExpression(@"^[0-9]{2}$",ErrorMessage = "2 caracteres numericos ('01', '02'...)")]
         public string Depar_Id { get; set; }
-        [Required] 
+        [Required(ErrorMessage = "El campo {0} es requerido")] 
         [Display(Name ="Departamento")]
 
         public string Depar_Descripcion { get; set; }

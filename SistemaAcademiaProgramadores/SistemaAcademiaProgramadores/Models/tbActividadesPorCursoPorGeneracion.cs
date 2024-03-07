@@ -22,7 +22,7 @@ namespace SistemaAcademiaProgramadores.Models
     
         public int ActCG_Id { get; set; }
         public int Activ_Id { get; set; }
-        public int CuGen_Id { get; set; }
+        public int InsCG_Id { get; set; }
         public decimal ActCG_Nota { get; set; }
         public int ActCG_UsuarioCreacion { get; set; }
         public System.DateTime ActCG_FechaCreacion { get; set; }
@@ -30,7 +30,7 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> ActCG_FechaModificacion { get; set; }
         public bool ActCG_Estado { get; set; }
     
-        public virtual tbCursosPorGeneracion tbCursosPorGeneracion { get; set; }
+        public virtual tbInstructoresPorCursoPorGeneracion tbInstructoresPorCursoPorGeneracion { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         public virtual tbActividades tbActividades { get; set; }

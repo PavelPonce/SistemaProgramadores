@@ -68,7 +68,7 @@ if (ReferenceScriptLibraries) {
 <#
 }
 #>
-@using (Html.BeginForm("Create",(string)ViewBag.Title)) 
+@using (Html.BeginForm("Create",(string)ViewBag.Title@*, FormMethod.Post, new { @id = "formCrear", @name = "formCrear" }*@)) 
 {
     @Html.AntiForgeryToken()
            <div class="modal-body form-row justify-content-center">
@@ -192,6 +192,15 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
                 </button>
             </div>
             <script>
+                @*var my_func = function (event) {
+                    if ($('#Munic_Id2').val() == "") {
+                        event.preventDefault();
+                    }
+                };
+                var form = document.getElementById("formCrear");
+
+                form.addEventListener("submit", my_func, true);*@
+
         document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
             grupo.children[1].children[0].addEventListener('focus', () => {
                 grupo.children[0].classList.add('text-secondary')

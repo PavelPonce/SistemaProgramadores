@@ -50,26 +50,22 @@
                 </td>
                                                                         <td>
                     <div class="d-flex justify-content-center align-items-center form-group mx-2" style="gap: 10px;">
-                        <button data-id="@item.Depar_Id" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-3">
+                        <button data-id="@item.Depar_Id" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-4">
                             <i class="fa fa-edit (alias)"></i>
                             Editar
                         </button>
-                        @*<a class="btn btn-warning btn-outline btn-xs col-sm-3" href="@Url.Action("Edit", new { id=item.Depar_Id })">
+                        @*<a class="btn btn-warning btn-outline btn-xs col-sm-4" href="@Url.Action("Edit", new { id=item.Depar_Id })">
                             <i class="fa fa-edit (alias)"></i>
                             Editar
                         </a>*@
-                         <a class="btn btn-info btn-outline btn-xs col-sm-3" href="@Url.Action("Details", new { id=item.Depar_Id })" >
+                         <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details", new { id=item.Depar_Id })" >
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        <button class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-3" onclick="Eliminar('@item.Depar_Id')">
+                        <button class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4"  onclick="Eliminar('@item.Depar_Id')">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </button>
-                        @*<a class="btn btn-danger btn-outline btn-xs col-sm-3" href="@Url.Action("Delete", new { id=item.Depar_Id })">
-                            <i class="fa fa-trash-o"></i>
-                            Eliminar
-                        </a>*@
                     </div>
                 </td>
            
@@ -87,7 +83,7 @@
 @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
 
 <script>
-
+    
     $('.btnEditar').click(function () {
         var id = $(this).data("id");
 
@@ -103,48 +99,27 @@
                                     $('#Depar_Id').val(value.Depar_Id)
                                     $('#Depar_Descripcion').val(value.Depar_Descripcion)
                                 })
-
+                   
             },
-
+            
         })
 
         $('#modalEditar').modal('show');
     })
 
-
-    function Eliminar(Depar_Id)
+     function Eliminar(id)
     {
-        $("#Row_Id").val(Depar_Id);
+        $("#Row_Id").val(id);
 
-        localStorage.setItem("Row_Id", Depar_Id);
+        localStorage.setItem("Row_Id", id);
 
         $('#modalEliminar').modal('show');
     }
 
-    //$('.btnEliminar').click(function () {
-    //    //var id = $(this).data("id");
-    //    //$.ajax({
-    //    //    url: "/Home/llenarInputs",
-    //    //    method: "POST",
-    //    //    dataType: "json",
-    //    //    contentType: "application/json; charset=utf-8",
-    //    //    data: JSON.stringify({ id: id, spLlenarEditar: 'tbDepartamentos' }),
-
-    //    //     success: function (data) {
-    //    //        $.each(data, function (key, value) {
-    //    //                            $('#Row_Id').val(value.Depar_Id)
-    //    //                        })
-
-    //    //    },
-
-    //    //})
-    //    $('#modalEliminar').modal('show');
-    //})
-
      $('.btnNuevo').click(function () {
             $('#modalNuevo').modal('show');
         })
-
+     
 </script>
 
 

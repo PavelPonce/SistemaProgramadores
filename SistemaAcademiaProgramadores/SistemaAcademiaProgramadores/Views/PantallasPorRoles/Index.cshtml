@@ -19,14 +19,14 @@
     <div class="card py-4" style="display: grid; place-items: center; overflow: auto;">
         <div class="card-body-dragula">
             <div id="pantallasListBox" class="listBox">
-                <h1 id="pantallasListBoxH1" class="bg-white text-center mt-2 p-2 text-primary">Pantallas</h1>
+                <h1 id="pantallasListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Pantallas</h1>
                 @foreach (var pantalla in Model.Item2)
                 {
                     <div id="@pantalla.Panta_Id">@pantalla.Panta_Descripcion</div>
                 }
             </div>
             <div id="rolesListBox" class="listBox">
-                <select id="ddlRoles" class="form-control mt-2 p-2 text-primary text-center h-auto" style="font-size: x-large;">
+                <select id="ddlRoles" class="form-control mt-2 p-2 text-primary text-center h-auto no-drag" style="font-size: x-large;">
                     <option class="" value="">Seleccionar rol</option>
                     @foreach (var rol in Model.Item3)
                     {
@@ -45,7 +45,12 @@
 @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dragula/dragula.js")
 
 <script>
-    dragula([document.getElementById("pantallasListBox"), document.getElementById("rolesListBox")])
+    dragula([document.getElementById("pantallasListBox"), document.getElementById("rolesListBox")], {
+        accepts: function (el, target) {
+            return !
+                el.classList.contains('no-drag');
+        }
+    })
     let pantallasListBox = document.getElementById("pantallasListBox");
     let rolesListBox = document.getElementById("rolesListBox");
     let mapPantallasListBoxChildren = new Map();
@@ -126,7 +131,7 @@
     })
 </script>
 
-<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+@*<div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -135,9 +140,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @*@Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbPantallasPorRoles())*@
+            @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbPantallasPorRoles())
         </div>
     </div>
-</div>
+</div>*@
 
 

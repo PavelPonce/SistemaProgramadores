@@ -38,5 +38,6 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual ICollection<tbAlumnos> tbAlumnos1 { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
+        public virtual tbMunicipios tbMunicipios { get; set; }
     }
 }

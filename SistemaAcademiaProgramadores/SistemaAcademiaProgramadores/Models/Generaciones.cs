@@ -17,7 +17,7 @@ namespace SistemaAcademiaProgramadores.Models
 
         [Display(Name = "Nombre")]
         [Required(ErrorMessage = "El {0} es requerido")]
-        [MaxLength(ErrorMessage = "El {0} solo puede tener como maximo 30 caracteres")]
+        [MaxLength(30,ErrorMessage = "El campo {0} tiene un maximo de 30 caracteres")]
         public string Gener_Nombre { get; set; }
 
         [Display(Name = "Año")]

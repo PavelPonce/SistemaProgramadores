@@ -8,6 +8,7 @@
     <Property Name="CenEd_IdColegio" Type="int" Nullable="false" />
     <Property Name="CenEd_IdUniversidad" Type="int" Nullable="false" />
     <Property Name="Titul_Id" Type="int" Nullable="false" />
+    <Property Name="Gener_Id" Type="int" Nullable="false" />
     <Property Name="Alumn_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="Alumn_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Alumn_UsuarioModificacion" Type="int" />
@@ -15,6 +16,26 @@
     <Property Name="Alumn_Estado" Type="bit" Nullable="false" />
     <Property Name="Alumn_Observaciones" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="Alumn_FechaIngreso" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tbAlumnosBitacora">
+    <Key>
+      <PropertyRef Name="AlBit_Accion" />
+    </Key>
+    <Property Name="Perso_Id" Type="int" />
+    <Property Name="CenEd_IdColegio" Type="int" />
+    <Property Name="CenEd_IdUniversidad" Type="int" />
+    <Property Name="Titul_Id" Type="int" />
+    <Property Name="Alumn_UsuarioCreacion" Type="int" />
+    <Property Name="Alumn_FechaCreacion" Type="datetime" />
+    <Property Name="Alumn_UsuarioModificacion" Type="int" />
+    <Property Name="Alumn_FechaModificacion" Type="datetime" />
+    <Property Name="Alumn_Estado" Type="bit" />
+    <Property Name="Alumn_Observaciones" Type="varchar" MaxLength="150" />
+    <Property Name="Alumn_FechaIngreso" Type="datetime" />
+    <Property Name="AlBit_Accion" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="AlBit_FechaAccion" Type="datetime" />
   </EntityType>
   <EntityType Name="tbCategorias">
     <Key>
@@ -41,19 +62,6 @@
     <Property Name="Curso_FechaModificacion" Type="datetime" />
     <Property Name="Curso_Estado" Type="bit" Nullable="false" />
   </EntityType>
-  <EntityType Name="tbCursosPorGeneracion">
-    <Key>
-      <PropertyRef Name="CuGen_Id" />
-    </Key>
-    <Property Name="CuGen_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Curso_Id" Type="int" Nullable="false" />
-    <Property Name="Gener_Id" Type="int" Nullable="false" />
-    <Property Name="CuGen_UsuarioCreacion" Type="int" Nullable="false" />
-    <Property Name="CuGen_FechaCreacion" Type="datetime" Nullable="false" />
-    <Property Name="CuGen_UsuarioModificacion" Type="int" />
-    <Property Name="CuGen_FechaModificacion" Type="datetime" />
-    <Property Name="CuGen_Estado" Type="bit" Nullable="false" />
-  </EntityType>
   <EntityType Name="tbGeneraciones">
     <Key>
       <PropertyRef Name="Gener_Id" />
@@ -61,13 +69,13 @@
     <Property Name="Gener_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Gener_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Gener_Anhio" Type="int" Nullable="false" />
+    <Property Name="Gener_FechaInicio" Type="date" Nullable="false" />
+    <Property Name="Gener_FechaFin" Type="date" />
     <Property Name="Gener_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="Gener_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Gener_UsuarioModificacion" Type="int" />
     <Property Name="Gener_FechaModificacion" Type="datetime" />
     <Property Name="Gener_Estado" Type="bit" Nullable="false" />
-    <Property Name="Gener_FechaInicio" Type="datetime" Nullable="false" />
-    <Property Name="Gener_FechaFin" Type="datetime" />
   </EntityType>
   <EntityType Name="tbInstructores">
     <Key>
@@ -88,7 +96,8 @@
     </Key>
     <Property Name="InsCG_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Instr_Id" Type="int" Nullable="false" />
-    <Property Name="CuGen_Id" Type="int" Nullable="false" />
+    <Property Name="Gener_Id" Type="int" Nullable="false" />
+    <Property Name="Curso_Id" Type="int" Nullable="false" />
     <Property Name="InsCG_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="InsCG_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="InsCG_UsuarioModificacion" Type="int" />
@@ -106,6 +115,7 @@
     <Property Name="Panta_UsuarioModificacion" Type="int" />
     <Property Name="Panta_FechaModificacion" Type="datetime" />
     <Property Name="Panta_Estado" Type="bit" Nullable="false" />
+    <Property Name="Panta_Esquema" Type="varchar" MaxLength="5" Nullable="false" />
   </EntityType>
   <EntityType Name="tbPantallasPorRoles">
     <Key>
@@ -167,7 +177,7 @@
     </Key>
     <Property Name="ActCG_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Activ_Id" Type="int" Nullable="false" />
-    <Property Name="CuGen_Id" Type="int" Nullable="false" />
+    <Property Name="InsCG_Id" Type="int" Nullable="false" />
     <Property Name="ActCG_Nota" Type="numeric" Precision="4" Scale="2" Nullable="false" />
     <Property Name="ActCG_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="ActCG_FechaCreacion" Type="datetime" Nullable="false" />
@@ -180,7 +190,7 @@
       <PropertyRef Name="Calif_Id" />
     </Key>
     <Property Name="Calif_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AcCG_Id" Type="int" Nullable="false" />
+    <Property Name="ActCG_Id" Type="int" Nullable="false" />
     <Property Name="Alumn_Id" Type="int" Nullable="false" />
     <Property Name="Calif_Nota" Type="numeric" Precision="4" Scale="2" Nullable="false" />
     <Property Name="Calif_UsuarioCreacion" Type="int" Nullable="false" />
@@ -197,7 +207,7 @@
     <Property Name="CenEd_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="CenEd_Direccion" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="CenEd_Tipo" Type="char" MaxLength="1" Nullable="false" />
-    <Property Name="Munic_Id" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="Munic_Id" Type="char" MaxLength="4" Nullable="false" />
     <Property Name="CenEd_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="CenEd_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="CenEd_UsuarioModificacion" Type="int" />
@@ -324,15 +334,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id">
+    <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="1" />
     <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
+      <Principal Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="InsCG_Id" />
       </Principal>
       <Dependent Role="tbActividadesPorCursoPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
+        <PropertyRef Name="InsCG_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -452,7 +462,7 @@
         <PropertyRef Name="ActCG_Id" />
       </Principal>
       <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="AcCG_Id" />
+        <PropertyRef Name="ActCG_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -480,6 +490,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCategorias">
+        <PropertyRef Name="Categ_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCategorias">
+        <PropertyRef Name="Categ_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCentrosEducativos_tbMunicipios_Munic_Id">
+    <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="1" />
+    <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbMunicipios">
+        <PropertyRef Name="Munic_Id" />
+      </Principal>
+      <Dependent Role="tbCentrosEducativos">
+        <PropertyRef Name="Munic_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion">
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
     <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="*" />
@@ -501,30 +547,6 @@
       </Principal>
       <Dependent Role="tbCentrosEducativos">
         <PropertyRef Name="CenEd_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbTitulos">
-        <PropertyRef Name="Titul_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbTitulos">
-        <PropertyRef Name="Titul_UsuarioModificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -561,54 +583,6 @@
       </Principal>
       <Dependent Role="tbCursos">
         <PropertyRef Name="Curso_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
-    <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCursos">
-        <PropertyRef Name="Curso_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="Curso_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
-    <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbGeneraciones">
-        <PropertyRef Name="Gener_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="Gener_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_UsuarioModificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -720,15 +694,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id">
+    <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="1" />
     <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
+      <Principal Role="tbCursos">
+        <PropertyRef Name="Curso_Id" />
       </Principal>
       <Dependent Role="tbInstructoresPorCursoPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
+        <PropertyRef Name="Curso_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id">
+    <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="1" />
+    <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbGeneraciones">
+        <PropertyRef Name="Gener_Id" />
+      </Principal>
+      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="Gener_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -948,6 +934,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioCreacion">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbTitulos">
+        <PropertyRef Name="Titul_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioModificacion">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbTitulos">
+        <PropertyRef Name="Titul_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_tbUsuarios_tbInstructores_Instr_Id">
     <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="1" />
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
@@ -996,12 +1006,216 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="SP_tbUsuarios_DELETE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+  <Function Name="SP_Alumnos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Alumn_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Alumn_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Alumnos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="CenEd_IdColegio" Type="int" Mode="In" />
+    <Parameter Name="CenEd_IdUniversidad" Type="int" Mode="In" />
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Alumn_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Alumn_FechaCreacion" Type="datetime" Mode="In" />
+    <Parameter Name="Alumn_Observaciones" Type="varchar" Mode="In" />
+    <Parameter Name="Alumn_FechaIngreso" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Alumnos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="CenEd_IdColegio" Type="int" Mode="In" />
+    <Parameter Name="CenEd_IdUniversidad" Type="int" Mode="In" />
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Alumn_Observaciones" Type="varchar" Mode="In" />
+    <Parameter Name="Alumn_FechaIngreso" Type="datetime" Mode="In" />
+    <Parameter Name="Alumn_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Alumn_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Categorias_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Categ_Id" Type="int" Mode="In" />
+    <Parameter Name="Categ_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Categ_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Categorias_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Categ_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Categ_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Categ_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Categorias_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Categ_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Categorias_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Categ_Id" Type="int" Mode="In" />
+    <Parameter Name="Categ_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Categ_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Categ_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Cursos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="Curso_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Curso_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Cursos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Curso_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Categ_Id" Type="int" Mode="In" />
+    <Parameter Name="Curso_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Curso_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Cursos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Cursos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="Curso_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Categ_Id" Type="int" Mode="In" />
+    <Parameter Name="Curso_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Curso_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_CursosPorGeneraciones_DropDownListCursos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Generaciones_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Generaciones_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Gener_Anhio" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaInicio" Type="date" Mode="In" />
+    <Parameter Name="Gener_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Generaciones_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Generaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Gener_Anhio" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaInicio" Type="date" Mode="In" />
+    <Parameter Name="Gener_FechaFin" Type="date" Mode="In" />
+    <Parameter Name="Gener_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Instructores_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Instr_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Instr_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Instructores_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
+    <Parameter Name="Instr_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Instr_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Instructores_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
+    <Parameter Name="Instr_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Instr_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="InsCG_Id" Type="int" Mode="In" />
+    <Parameter Name="InsCG_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="InsCG_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Instr_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="InsCG_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="InsCG_Id" Type="int" Mode="In" />
+    <Parameter Name="Instr_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="InsCG_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="InsCG_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Curso_IdsXML" Type="xml" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="InsCG_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Pantallas_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Panta_Id" Type="int" Mode="In" />
+    <Parameter Name="Panta_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Panta_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Pantallas_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Panta_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Panta_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Panta_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Pantallas_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Panta_Id" Type="int" Mode="In" />
+    <Parameter Name="Panta_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Panta_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Panta_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_PantallasPorRoles_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Papro_Id" Type="int" Mode="In" />
+    <Parameter Name="Papro_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Papro_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_PantallasPorRoles_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Panta_Id" Type="int" Mode="In" />
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Papro_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Papro_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_PantallasPorRoles_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Panta_IdsXML" Type="xml" Mode="In" />
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Papro_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Papro_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_PantallasPorRoles_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Papro_Id" Type="int" Mode="In" />
+    <Parameter Name="Panta_Id" Type="int" Mode="In" />
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Papro_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Papro_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_PantallasPorRoles_SeleccionarPantallasPorRol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_PantallasPorRoles_SeleccionarRolesPorPantalla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Panta_Descripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Roles_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Roles_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Roles_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Roles_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Roles_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Roles_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Roles_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Roles_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Roles_Id" Type="int" Mode="In" />
+    <Parameter Name="Roles_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Roles_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Roles_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Usuarios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Usuar_Id" Type="int" Mode="In" />
     <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_tbUsuarios_INSERT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+  <Function Name="SP_Usuarios_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Usuar_Usuario" Type="varchar" Mode="In" />
     <Parameter Name="Usuar_Contrasena" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="Instr_Id" Type="int" Mode="In" />
@@ -1010,11 +1224,11 @@
     <Parameter Name="Usuar_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Usuar_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_tbUsuarios_LOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+  <Function Name="SP_Usuarios_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Usuario" Type="varchar" Mode="In" />
-    <Parameter Name="Contraseña" Type="varchar" Mode="In" />
+    <Parameter Name="Contrasena" Type="nvarchar" Mode="In" />
   </Function>
-  <Function Name="SP_tbUsuarios_UPDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+  <Function Name="SP_Usuarios_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Usuar_Id" Type="int" Mode="In" />
     <Parameter Name="Usuar_Usuario" Type="varchar" Mode="In" />
     <Parameter Name="New_Usuar_Contrasena" Type="nvarchar(max)" Mode="In" />
@@ -1024,11 +1238,215 @@
     <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_Usuarios_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces" />
+  <Function Name="SP_Actividades_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Activ_Id" Type="int" Mode="In" />
+    <Parameter Name="Activ_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Activ_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Actividades_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Activ_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Activ_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Activ_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Actividades_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Activ_Id" Type="int" Mode="In" />
+    <Parameter Name="Activ_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Activ_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Activ_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="ActCG_Id" Type="int" Mode="In" />
+    <Parameter Name="ActCG_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="ActCG_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Activ_Id" Type="int" Mode="In" />
+    <Parameter Name="InsCG_Id" Type="int" Mode="In" />
+    <Parameter Name="ActCG_Nota" Type="numeric" Mode="In" />
+    <Parameter Name="ActCG_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="ActCG_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="ActCG_Id" Type="int" Mode="In" />
+    <Parameter Name="Activ_Id" Type="int" Mode="In" />
+    <Parameter Name="InsCG_Id" Type="int" Mode="In" />
+    <Parameter Name="ActCG_Nota" Type="numeric" Mode="In" />
+    <Parameter Name="ActCG_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="ActCG_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Calificaciones_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Calif_Id" Type="int" Mode="In" />
+    <Parameter Name="Calif_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Calif_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Calificaciones_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="ActCG_Id" Type="int" Mode="In" />
+    <Parameter Name="Alumn_Id" Type="int" Mode="In" />
+    <Parameter Name="Calif_Nota" Type="numeric" Mode="In" />
+    <Parameter Name="Calif_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Calif_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Calificaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Calif_Id" Type="int" Mode="In" />
+    <Parameter Name="ActCG_Id" Type="int" Mode="In" />
+    <Parameter Name="Alumn_Id" Type="int" Mode="In" />
+    <Parameter Name="Calif_Nota" Type="numeric" Mode="In" />
+    <Parameter Name="Calif_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Calif_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Calificaciones_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_DropDownListTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
+  <Function Name="SP_CentrosEducativos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
+    <Parameter Name="CenEd_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="CenEd_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="CenEd_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="CenEd_Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="CenEd_Tipo" Type="char" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="CenEd_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="CenEd_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
+    <Parameter Name="CenEd_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="CenEd_Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="CenEd_Tipo" Type="char" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="CenEd_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="CenEd_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Departamentos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+  </Function>
+  <Function Name="SP_Departamentos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+    <Parameter Name="Depar_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Depar_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Depar_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Departamentos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+  </Function>
+  <Function Name="SP_Departamentos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+    <Parameter Name="Depar_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Depar_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Depar_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_EmptyTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
+  <Function Name="SP_EstadosCiviles_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_EstadosCiviles_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Estci_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Estci_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Estci_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_EstadosCiviles_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_EstadosCiviles_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Estci_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Estci_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Estci_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Instructores_DropDownListPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
+  <Function Name="SP_Municipios_DropDownListMunicipios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+  </Function>
+  <Function Name="SP_Municipios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+  </Function>
+  <Function Name="SP_Municipios_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Munic_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Municipios_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+  </Function>
+  <Function Name="SP_Municipios_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Munic_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Personas_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Perso_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Personas_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Perso_PrimerNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Perso_Sexo" Type="char" Mode="In" />
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_Direccion" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Perso_Telefono" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_CorreoElectronico" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Perso_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Perso_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Personas_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_PrimerNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Perso_Sexo" Type="char" Mode="In" />
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_Direccion" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Perso_Telefono" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_CorreoElectronico" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Perso_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Perso_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Titulos_DropDownListTipos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
+  <Function Name="SP_Titulos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+    <Parameter Name="Titul_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Titul_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Titulos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Titul_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Titul_Tipo" Type="char" Mode="In" />
+    <Parameter Name="Titul_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Titul_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Titulos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_Titulos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Titul_Id" Type="int" Mode="In" />
+    <Parameter Name="Titul_Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Titul_Tipo" Type="char" Mode="In" />
+    <Parameter Name="Titul_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Titul_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
   <EntityContainer Name="dbAcademiaProgramadoresModelStoreContainer">
     <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumnos" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbCategorias" EntityType="Self.tbCategorias" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbCursos" EntityType="Self.tbCursos" Schema="Acade" store:Type="Tables" />
-    <EntitySet Name="tbCursosPorGeneracion" EntityType="Self.tbCursosPorGeneracion" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbGeneraciones" EntityType="Self.tbGeneraciones" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbInstructores" EntityType="Self.tbInstructores" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbInstructoresPorCursoPorGeneracion" EntityType="Self.tbInstructoresPorCursoPorGeneracion" Schema="Acade" store:Type="Tables" />
@@ -1045,6 +1463,23 @@
     <EntitySet Name="tbMunicipios" EntityType="Self.tbMunicipios" Schema="Mante" store:Type="Tables" />
     <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" Schema="Mante" store:Type="Tables" />
     <EntitySet Name="tbTitulos" EntityType="Self.tbTitulos" Schema="Mante" store:Type="Tables" />
+    <EntitySet Name="tbAlumnosBitacora" EntityType="Self.tbAlumnosBitacora" store:Type="Tables" store:Schema="Acade">
+      <DefiningQuery>SELECT 
+    [tbAlumnosBitacora].[Perso_Id] AS [Perso_Id], 
+    [tbAlumnosBitacora].[CenEd_IdColegio] AS [CenEd_IdColegio], 
+    [tbAlumnosBitacora].[CenEd_IdUniversidad] AS [CenEd_IdUniversidad], 
+    [tbAlumnosBitacora].[Titul_Id] AS [Titul_Id], 
+    [tbAlumnosBitacora].[Alumn_UsuarioCreacion] AS [Alumn_UsuarioCreacion], 
+    [tbAlumnosBitacora].[Alumn_FechaCreacion] AS [Alumn_FechaCreacion], 
+    [tbAlumnosBitacora].[Alumn_UsuarioModificacion] AS [Alumn_UsuarioModificacion], 
+    [tbAlumnosBitacora].[Alumn_FechaModificacion] AS [Alumn_FechaModificacion], 
+    [tbAlumnosBitacora].[Alumn_Estado] AS [Alumn_Estado], 
+    [tbAlumnosBitacora].[Alumn_Observaciones] AS [Alumn_Observaciones], 
+    [tbAlumnosBitacora].[Alumn_FechaIngreso] AS [Alumn_FechaIngreso], 
+    [tbAlumnosBitacora].[AlBit_Accion] AS [AlBit_Accion], 
+    [tbAlumnosBitacora].[AlBit_FechaAccion] AS [AlBit_FechaAccion]
+    FROM [Acade].[tbAlumnosBitacora] AS [tbAlumnosBitacora]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_bInstructores_tbPersonas_Perso_Id" Association="Self.FK_bInstructores_tbPersonas_Perso_Id">
       <End Role="tbPersonas" EntitySet="tbPersonas" />
       <End Role="tbInstructores" EntitySet="tbInstructores" />
@@ -1061,8 +1496,8 @@
       <End Role="tbActividades" EntitySet="tbActividades" />
       <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id">
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
       <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
     </AssociationSet>
     <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
@@ -1113,6 +1548,18 @@
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
     </AssociationSet>
+    <AssociationSet Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion" Association="Self.FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion" Association="Self.FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCentrosEducativos_tbMunicipios_Munic_Id" Association="Self.FK_tbCentrosEducativos_tbMunicipios_Munic_Id">
+      <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+    </AssociationSet>
     <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
@@ -1120,14 +1567,6 @@
     <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbTitulos" EntitySet="tbTitulos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbTitulos" EntitySet="tbTitulos" />
     </AssociationSet>
     <AssociationSet Name="FK_tbCursos_tbCategorias_Categ_Id" Association="Self.FK_tbCursos_tbCategorias_Categ_Id">
       <End Role="tbCategorias" EntitySet="tbCategorias" />
@@ -1140,22 +1579,6 @@
     <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCursos" EntitySet="tbCursos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id" Association="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
-      <End Role="tbCursos" EntitySet="tbCursos" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" Association="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
-      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
     </AssociationSet>
     <AssociationSet Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" Association="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
@@ -1193,8 +1616,12 @@
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbInstructores" EntitySet="tbInstructores" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id">
+      <End Role="tbCursos" EntitySet="tbCursos" />
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id">
+      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
       <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
     </AssociationSet>
     <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
@@ -1268,6 +1695,14 @@
     <AssociationSet Name="FK_tbRoles_tbUsuarios_Roles_UsuarioModificacion" Association="Self.FK_tbRoles_tbUsuarios_Roles_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbRoles" EntitySet="tbRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioCreacion" Association="Self.FK_tbTitulos_tbUsuarios_Titul_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbTitulos" EntitySet="tbTitulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioModificacion" Association="Self.FK_tbTitulos_tbUsuarios_Titul_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbTitulos" EntitySet="tbTitulos" />
     </AssociationSet>
     <AssociationSet Name="FK_tbUsuarios_tbInstructores_Instr_Id" Association="Self.FK_tbUsuarios_tbInstructores_Instr_Id">
       <End Role="tbInstructores" EntitySet="tbInstructores" />

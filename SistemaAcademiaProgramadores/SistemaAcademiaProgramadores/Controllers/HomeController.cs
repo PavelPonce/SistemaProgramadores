@@ -32,6 +32,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             if (usuario.Count > 0)
             {
                 FormsAuthentication.SetAuthCookie(usuario[0].Usuar_Usuario, false);
+                Session["Usuar_Id"] = usuario[0].Usuar_Id;
                 Session["Perso_NombreCompleto"] = usuario[0].Perso_NombreCompleto;
                 Session["Roles_Descripcion"] = usuario[0].Roles_Descripcion;
                 string menuHTML = "<li>";
@@ -149,8 +150,24 @@ namespace SistemaAcademiaProgramadores.Controllers
                     return Json(db.SP_Municipios_LlenarEditar(id).ToList(), JsonRequestBehavior.AllowGet);
                 case "tbEstadosCiviles":
                     return Json(db.SP_EstadosCiviles_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbCentrosEducativos":
+                    return Json(db.SP_CentrosEducativos_LlenarEditar1(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbCategorias":
+                    return Json(db.SP_Categorias_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbCursos":
+                    return Json(db.SP_Cursos_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                case "tbGeneraciones":
+                    return Json(db.SP_Generaciones_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
             }
             return Json(0);
+        }
+        public JsonResult cargarDDLMunicipios(string id)
+        {
+            return Json(db.SP_Municipios_DropDownListMunicipios(id).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult cargarDDLCursos(string id)
+        {
+            return Json(db.SP_CursosPorGeneraciones_DropDownListCursos(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<SistemaAcademiaProgramadores.Models.tbTitulos>
 
 @{
-    ViewBag.Title = $"tbTitulos".Substring(2);
+    ViewBag.Title = $"tbTitulos".Substring(2);  
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,9 +22,12 @@
 <div class="card">
 <div class="card-body">
     <div class="text-left w-100 mb-4">
-        <a href="@Url.Action("Create")" class="btn btn-primary btn-outline" style="font-size: 1.2rem;">
+        <button class="btnNuevo btn btn-primary btn-outline">
             <i class="fa fa-plus-square-o"> </i> Nuevo
-        </a>
+        </button>
+        @*<a href="@Url.Action("Create")" class="btn btn-primary btn-outline">
+            <i class="fa fa-plus-square-o"> </i> Nuevo
+        </a>*@
     </div>
 
     <div class="w-100" style="overflow-x:scroll;">
@@ -36,7 +41,7 @@
                     @Html.DisplayNameFor(model => model.Titul_Tipo)
                 </th>
                                                                             
-                <th class="bg-primary">Acciones</th>
+                <th class="bg-primary" style="max-width: 50px;">Acciones</th>
            
             </tr>
             </thead>
@@ -50,19 +55,23 @@
                     @Html.DisplayFor(modelItem => item.Titul_Tipo)
                 </td>
                                                                                 <td>
-                    <div class="d-flex justify-content-around align-items-center form-group mx-2" style="gap: 10px;">
-                        <button data-id="@item.Titul_Id" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-4" @*href="@Url.Action("Edit", new { id=item.Titul_Id })"*@>
-                            <i class="fa fa-edit mr-1"></i>
+                    <div class="d-flex justify-content-center align-items-center form-group mx-2" style="gap: 10px;">
+                        <button data-id="@item.Titul_Id" class="btnEditar btn btn-warning btn-outline btn-xs col-sm-4">
+                            <i class="fa fa-edit (alias)"></i>
                             Editar
                         </button>
-                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete", new { id=item.Titul_Id })">
-                            <i class="fa fa-trash-o mr-1"></i>
-                            Eliminar
-                        </a>
-                        <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details", new { id=item.Titul_Id })">
-                            <i class="fa fa-eye mr-1"></i>
+                        @*<a class="btn btn-warning btn-outline btn-xs col-sm-4" href="@Url.Action("Edit", new { id=item.Titul_Id })">
+                            <i class="fa fa-edit (alias)"></i>
+                            Editar
+                        </a>*@
+                         <a class="btn btn-info btn-outline btn-xs col-sm-4" href="@Url.Action("Details", new { id=item.Titul_Id })" >
+                            <i class="fa fa-eye"></i>
                             Detalles
                         </a>
+                        <button class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4"  onclick="Eliminar('@item.Titul_Id')">
+                            <i class="fa fa-trash-o"></i>
+                            Eliminar
+                        </button>
                     </div>
                 </td>
            
@@ -80,7 +89,7 @@
 @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
 
 <script>
-
+    
     $('.btnEditar').click(function () {
         var id = $(this).data("id");
 
@@ -92,7 +101,6 @@
             data: JSON.stringify({id : id, spLlenarEditar : 'tbTitulos'}),
 
             success: function (data) {
-                console.log(data);
                 $.each(data, function (key, value) {
                                     $('#Titul_Id').val(value.Titul_Id)
                                     $('#Titul_Nombre').val(value.Titul_Nombre)
@@ -105,7 +113,23 @@
 
         $('#modalEditar').modal('show');
     })
+
+     function Eliminar(id)
+    {
+        $("#Row_Id").val(id);
+
+        localStorage.setItem("Row_Id", id);
+
+        $('#modalEliminar').modal('show');
+    }
+
+     $('.btnNuevo').click(function () {
+            $('#modalNuevo').modal('show');
+        })
+     
 </script>
+
+
 
 <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -116,7 +140,45 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbTitulos())
+                @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbTitulos())
+            
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.tbTitulos())
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modalEliminar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card-body form-row justify-content-center">
+                Esta seguro que desea eliminar este registro?
+            </div>
+            @Html.Partial("_Delete", new SistemaAcademiaProgramadores.Models.tbTitulos())
+
         </div>
     </div>
 </div>

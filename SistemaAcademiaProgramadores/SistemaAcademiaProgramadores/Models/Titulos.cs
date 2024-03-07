@@ -20,7 +20,7 @@ namespace SistemaAcademiaProgramadores.Models
         public string Titul_Nombre { get; set; }
         [Display(Name = "Tipo de Titulo")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
-
+        
         public string Titul_Tipo { get; set; }
     }
 }

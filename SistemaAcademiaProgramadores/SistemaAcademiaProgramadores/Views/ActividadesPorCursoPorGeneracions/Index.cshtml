@@ -1,0 +1,225 @@
+﻿@model Tuple<IEnumerable<SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion>, IEnumerable<SistemaAcademiaProgramadores.Models.tbActividades>, IEnumerable<SistemaAcademiaProgramadores.Models.tbCursos>, IEnumerable<SistemaAcademiaProgramadores.Models.tbGeneraciones>>
+
+@{
+    ViewBag.Title = $"tbActividadesPorCursoPorGeneracion".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary" style="font-size: 1.8rem;">@ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index", "Home")' class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+
+    <div class="card">
+        <div class="card-body  form-row justify-content-center">
+            <div class="card-body-dragula">
+                <div id="actividadesListBox" class="listBox">
+                    <h1 id="actividadesListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Actividades</h1>
+                    @foreach (var actividades in Model.Item2)
+                    {
+                        <div id="@actividades.Activ_Id" class="d-flex justify-content-between">
+                            <div>
+                                @actividades.Activ_Nombre
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control" sstyle="font-size:small; height:10px;" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div id="actividadesListBox" class="listBox">
+                    <div class="form-row mt-2 p-2 text-primary text-center h-auto no-drag">
+                        <div class="col-sm-6">
+                            <select id="ddlGeneraciones" class="form-control" style="font-size: small;">
+                                <option class="" value="">Seleccionar Generacion</option>
+                                @foreach (var generacion in Model.Item4)
+                                {
+                                    <option value="@generacion.Gener_Id">@generacion.Gener_Nombre</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select id="ddlCursos" class="form-control" style="font-size: small;">
+                                <option class="" value="">Seleccionar Generacion</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body-dragula" style="justify-content: end;">
+                <button id="btnGuardar" class="btn btn-primary mt-4"><i class="fa fa-save mr-2"></i>Guardar</button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+@Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dragula/dragula.js")
+
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+    let actividadesListBox = document.getElementById("actividadesListBox");
+    let cursosListBox = document.getElementById("cursosListBox");
+    let mapCursosListBoxChildren = new Map();
+    let setIdInstructoresPorCursoPorGeneracion = new Set();
+    $(document).ready(() => {
+        for (let i = 0; i < actividadesListBox.children.length; i++) {
+            mapCursosListBoxChildren.set(actividadesListBox.children[i].id, actividadesListBox.children[i]);
+        }
+    })
+
+    $('#ddlGeneraciones').change(function () {
+        cargarDDLCursos($('#ddlGeneraciones').val())
+    })
+
+    var dragulaList = dragula([document.getElementById("actividadesListBox"), document.getElementById("actividadesListBox")], {
+        accepts: function (el, target) {
+            return !
+                el.classList.contains('no-drag');
+        }
+    })
+
+    $('#ddlGeneraciones').change(() => {
+        Gener_Id = $('#ddlGeneraciones').val();
+        if (Gener_Id) {
+            $.ajax({
+                url: "/InstructoresPorCursoPorGeneracion/LlenarCursosPorGeneracion",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Gener_Id }),
+
+                success: function (data) {
+                    while (cursosListBox.children.length > 1) {
+                        cursosListBox.removeChild(cursosListBox.lastChild);
+                    }
+
+                    $.each(data, function (key, value) {
+                        setIdInstructoresPorCursoPorGeneracion.add(value.Curso_Id.toString());
+                    })
+
+
+                    iterador = 0;
+                    for (let item of mapCursosListBoxChildren) {
+
+                        if (item[0] !== "actividadesListBoxH1") {
+                            if (document.getElementById(item[0])) {
+                                document.getElementById(item[0]).remove();
+                            }
+                            if (setIdInstructoresPorCursoPorGeneracion.has(item[0])) {
+                                cursosListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
+                            } else {
+                                actividadesListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
+                            }
+                        }
+                    }
+                },
+            })
+        }
+    })
+    
+    @*$('.btnEditar').click(function () {
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: "/Home/llenarInputs",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({id : id, spLlenarEditar : 'tbActividadesPorCursoPorGeneracion'}),
+
+            success: function (data) {
+                $.each(data, function (key, value) {
+                                    $('#ActCG_Id').val(value.ActCG_Id)
+                                    $('#Activ_Id').val(value.Activ_Id)
+                                    $('#InsCG_Id').val(value.InsCG_Id)
+                                    $('#ActCG_Nota').val(value.ActCG_Nota)
+                                })
+
+            },
+
+        })
+
+        $('#modalEditar').modal('show');
+    })*@
+
+    // function Eliminar(id)
+    //{
+    //    $("#Row_Id").val(id);
+
+    //    localStorage.setItem("Row_Id", id);
+
+    //    $('#modalEliminar').modal('show');
+    //}
+
+     @*$('.btnNuevo').click(function () {
+            $('#modalNuevo').modal('show');
+        })
+     *@
+</script>
+
+
+@*
+    <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion())
+
+
+            </div>
+        </div>
+    </div>
+
+*@
+@*
+    <div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion())
+
+            </div>
+        </div>
+    </div>
+*@
+
+@*<div class="modal" id="modalEliminar" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card-body form-row justify-content-center">
+                Esta seguro que desea eliminar este registro?
+            </div>
+            @Html.Partial("_Delete", new SistemaAcademiaProgramadores.Models.tbActividadesPorCursoPorGeneracion())
+
+        </div>
+    </div>
+</div>*@
+
+

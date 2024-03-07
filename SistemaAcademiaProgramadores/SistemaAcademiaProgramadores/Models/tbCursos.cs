@@ -17,7 +17,7 @@ namespace SistemaAcademiaProgramadores.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbCursos()
         {
-            this.tbCursosPorGeneracion = new HashSet<tbCursosPorGeneracion>();
+            this.tbInstructoresPorCursoPorGeneracion = new HashSet<tbInstructoresPorCursoPorGeneracion>();
         }
     
         public int Curso_Id { get; set; }
@@ -29,10 +29,10 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> Curso_FechaModificacion { get; set; }
         public bool Curso_Estado { get; set; }
     
-        public virtual tbCategorias tbCategorias { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracion { get; set; }
+        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
+        public virtual tbCategorias tbCategorias { get; set; }
     }
 }

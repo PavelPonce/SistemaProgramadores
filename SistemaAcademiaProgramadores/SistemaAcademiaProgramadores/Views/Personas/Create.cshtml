@@ -1,0 +1,191 @@
+﻿@model SistemaAcademiaProgramadores.Models.tbPersonas
+
+@{
+    ViewBag.Title = $"tbPersonas".Substring(2);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary">Crear @ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index")' class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <section class="content">
+
+<div class="card">
+<div class="card-header">
+<h3 class="card-title text-primary">Nuevo @ViewBag.Title</h3>
+</div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="card-body form-row justify-content-center">
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_PrimerNombre, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_PrimerNombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_PrimerNombre, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_SegundoNombre, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_SegundoNombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_SegundoNombre, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_PrimerApellido, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_PrimerApellido, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_PrimerApellido, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_SegundoApellido, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_SegundoApellido, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_SegundoApellido, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_FechaNacimiento, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_FechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_FechaNacimiento, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_Sexo, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_Sexo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_Sexo, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Estci_Id, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                            @Html.DropDownList("Estci_Id", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Estci_Id, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_Direccion, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_Direccion, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Munic_Id, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                            @Html.DropDownList("Munic_Id", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Munic_Id, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_Telefono, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_Telefono, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+      
+            <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.Perso_CorreoElectronico, new { @class = "text-primary w-100 text-left" })
+                    <div >
+                        @Html.EditorFor(model => model.Perso_CorreoElectronico, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Perso_CorreoElectronico, "", new { @class = "text-danger" })
+                        </div>
+            </div>
+        
+      
+        
+
+  </div>
+  <div class="card-body">
+      <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
+        <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
+        <a href='@Url.Action("Index")' class="btn btn-primary btn-outline"><i class="fa fa-times"></i> Cancelar</a>
+      </div>
+    </div>
+        
+    </div>
+    </section>
+    <script>
+        document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
+            grupo.children[1].children[0].addEventListener('focus', () => {
+                grupo.children[0].classList.add('text-secondary')
+            })
+            grupo.children[1].children[0].addEventListener('blur', () => {
+                grupo.children[0].classList.remove('text-secondary')
+            })
+        })
+    </script>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

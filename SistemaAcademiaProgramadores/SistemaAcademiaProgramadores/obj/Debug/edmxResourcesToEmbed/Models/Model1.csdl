@@ -15,26 +15,14 @@
     <Property Name="Alumn_Estado" Type="Boolean" Nullable="false" />
     <Property Name="Alumn_Observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Alumn_FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="tbCentrosEducativos" Relationship="Self.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" FromRole="tbAlumnos" ToRole="tbCentrosEducativos" />
-    <NavigationProperty Name="tbCentrosEducativos1" Relationship="Self.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" FromRole="tbAlumnos" ToRole="tbCentrosEducativos" />
     <NavigationProperty Name="tbPersonas" Relationship="Self.FK_tbAlumnos_tbPersonas_Perso_Id" FromRole="tbAlumnos" ToRole="tbPersonas" />
     <NavigationProperty Name="tbTitulos" Relationship="Self.FK_tbAlumnos_tbTitulos_Titul_Id" FromRole="tbAlumnos" ToRole="tbTitulos" />
     <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbAlumnos_tbUsuarios_Alumn_UsuarioCreacion" FromRole="tbAlumnos" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbAlumnos_tbUsuarios_Alumn_UsuarioModificacion" FromRole="tbAlumnos" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbCalificaciones" Relationship="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id" FromRole="tbAlumnos" ToRole="tbCalificaciones" />
-  </EntityType>
-  <EntityType Name="tbCategorias">
-    <Key>
-      <PropertyRef Name="Categ_Id" />
-    </Key>
-    <Property Name="Categ_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Categ_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Categ_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="Categ_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Categ_UsuarioModificacion" Type="Int32" />
-    <Property Name="Categ_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="Categ_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbCursos" Relationship="Self.FK_tbCursos_tbCategorias_Categ_Id" FromRole="tbCategorias" ToRole="tbCursos" />
+    <Property Name="Gener_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbCalificaciones" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbAlumnos_Alumn_Id" FromRole="tbAlumnos" ToRole="tbCalificaciones" />
+    <NavigationProperty Name="tbCentrosEducativos" Relationship="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" FromRole="tbAlumnos" ToRole="tbCentrosEducativos" />
+    <NavigationProperty Name="tbCentrosEducativos1" Relationship="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" FromRole="tbAlumnos" ToRole="tbCentrosEducativos" />
   </EntityType>
   <EntityType Name="tbCursos">
     <Key>
@@ -48,48 +36,10 @@
     <Property Name="Curso_UsuarioModificacion" Type="Int32" />
     <Property Name="Curso_FechaModificacion" Type="DateTime" Precision="3" />
     <Property Name="Curso_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbCategorias" Relationship="Self.FK_tbCursos_tbCategorias_Categ_Id" FromRole="tbCursos" ToRole="tbCategorias" />
     <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" FromRole="tbCursos" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" FromRole="tbCursos" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id" FromRole="tbCursos" ToRole="tbCursosPorGeneracion" />
-  </EntityType>
-  <EntityType Name="tbCursosPorGeneracion">
-    <Key>
-      <PropertyRef Name="CuGen_Id" />
-    </Key>
-    <Property Name="CuGen_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Curso_Id" Type="Int32" Nullable="false" />
-    <Property Name="Gener_Id" Type="Int32" Nullable="false" />
-    <Property Name="CuGen_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="CuGen_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CuGen_UsuarioModificacion" Type="Int32" />
-    <Property Name="CuGen_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="CuGen_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbCursos" Relationship="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id" FromRole="tbCursosPorGeneracion" ToRole="tbCursos" />
-    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCursosPorGeneracion" ToRole="tbActividadesPorCursoPorGeneracion" />
-    <NavigationProperty Name="tbCalificaciones" Relationship="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCursosPorGeneracion" ToRole="tbCalificaciones" />
-    <NavigationProperty Name="tbGeneraciones" Relationship="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" FromRole="tbCursosPorGeneracion" ToRole="tbGeneraciones" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" FromRole="tbCursosPorGeneracion" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" FromRole="tbCursosPorGeneracion" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCursosPorGeneracion" ToRole="tbInstructoresPorCursoPorGeneracion" />
-  </EntityType>
-  <EntityType Name="tbGeneraciones">
-    <Key>
-      <PropertyRef Name="Gener_Id" />
-    </Key>
-    <Property Name="Gener_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Gener_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Gener_Anhio" Type="Int32" Nullable="false" />
-    <Property Name="Gener_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="Gener_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Gener_UsuarioModificacion" Type="Int32" />
-    <Property Name="Gener_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="Gener_Estado" Type="Boolean" Nullable="false" />
-    <Property Name="Gener_FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Gener_FechaFin" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" FromRole="tbGeneraciones" ToRole="tbCursosPorGeneracion" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" FromRole="tbGeneraciones" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" FromRole="tbGeneraciones" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id" FromRole="tbCursos" ToRole="tbInstructoresPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbCategorias" Relationship="dbAcademiaProgramadoresModel.FK_tbCursos_tbCategorias_Categ_Id" FromRole="tbCursos" ToRole="tbCategorias" />
   </EntityType>
   <EntityType Name="tbInstructores">
     <Key>
@@ -107,25 +57,8 @@
     <NavigationProperty Name="tbTitulos" Relationship="Self.FK_tbInstructores_tbTitulos_Titul_Id" FromRole="tbInstructores" ToRole="tbTitulos" />
     <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" FromRole="tbInstructores" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" FromRole="tbInstructores" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" FromRole="tbInstructores" ToRole="tbInstructoresPorCursoPorGeneracion" />
     <NavigationProperty Name="tbUsuarios2" Relationship="Self.FK_tbUsuarios_tbInstructores_Instr_Id" FromRole="tbInstructores" ToRole="tbUsuarios" />
-  </EntityType>
-  <EntityType Name="tbInstructoresPorCursoPorGeneracion">
-    <Key>
-      <PropertyRef Name="InsCG_Id" />
-    </Key>
-    <Property Name="InsCG_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Instr_Id" Type="Int32" Nullable="false" />
-    <Property Name="CuGen_Id" Type="Int32" Nullable="false" />
-    <Property Name="InsCG_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="InsCG_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="InsCG_UsuarioModificacion" Type="Int32" />
-    <Property Name="InsCG_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="InsCG_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbCursosPorGeneracion" />
-    <NavigationProperty Name="tbInstructores" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbInstructores" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" FromRole="tbInstructores" ToRole="tbInstructoresPorCursoPorGeneracion" />
   </EntityType>
   <EntityType Name="tbPantallas">
     <Key>
@@ -141,6 +74,7 @@
     <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbPantallas" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbPantallas" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbPantallasPorRoles" Relationship="Self.FK_tbPantallasPorRoles_tbPantallas_Panta_Id" FromRole="tbPantallas" ToRole="tbPantallasPorRoles" />
+    <Property Name="Panta_Esquema" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="tbPantallasPorRoles">
     <Key>
@@ -195,15 +129,9 @@
     <NavigationProperty Name="tbAlumnos1" Relationship="Self.FK_tbAlumnos_tbUsuarios_Alumn_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbAlumnos" />
     <NavigationProperty Name="tbCursos" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCursos" />
     <NavigationProperty Name="tbCursos1" Relationship="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCursos" />
-    <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCursosPorGeneracion" />
-    <NavigationProperty Name="tbCursosPorGeneracion1" Relationship="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCursosPorGeneracion" />
-    <NavigationProperty Name="tbGeneraciones" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbGeneraciones" />
-    <NavigationProperty Name="tbGeneraciones1" Relationship="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbGeneraciones" />
     <NavigationProperty Name="tbInstructores" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbInstructores" />
     <NavigationProperty Name="tbInstructores1" Relationship="Self.FK_tbInstructores_tbUsuarios_Instr_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbInstructores" />
     <NavigationProperty Name="tbInstructores2" Relationship="Self.FK_tbUsuarios_tbInstructores_Instr_Id" FromRole="tbUsuarios" ToRole="tbInstructores" />
-    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbInstructoresPorCursoPorGeneracion" />
-    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion1" Relationship="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbInstructoresPorCursoPorGeneracion" />
     <NavigationProperty Name="tbPantallas" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbPantallas" />
     <NavigationProperty Name="tbPantallas1" Relationship="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbPantallas" />
     <NavigationProperty Name="tbPantallasPorRoles" Relationship="Self.FK_tbPantallasPorRoles_tbUsuarios_5letras_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbPantallasPorRoles" />
@@ -213,12 +141,6 @@
     <NavigationProperty Name="tbRoles2" Relationship="Self.FK_tbUsuarios_tbRoles_Roles_Id" FromRole="tbUsuarios" ToRole="tbRoles" />
     <NavigationProperty Name="tbActividades" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbActividades" />
     <NavigationProperty Name="tbActividades1" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbActividades" />
-    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbActividadesPorCursoPorGeneracion" />
-    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion1" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbActividadesPorCursoPorGeneracion" />
-    <NavigationProperty Name="tbCalificaciones" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCalificaciones" />
-    <NavigationProperty Name="tbCalificaciones1" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCalificaciones" />
-    <NavigationProperty Name="tbCentrosEducativos" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCentrosEducativos" />
-    <NavigationProperty Name="tbCentrosEducativos1" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCentrosEducativos" />
     <NavigationProperty Name="tbTitulos" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbTitulos" />
     <NavigationProperty Name="tbTitulos1" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbTitulos" />
     <NavigationProperty Name="tbDepartamentos" Relationship="Self.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbDepartamentos" />
@@ -233,6 +155,18 @@
     <NavigationProperty Name="tbUsuarios2" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioCreacion" FromRole="tbUsuarios1" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios11" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbUsuarios1" />
     <NavigationProperty Name="tbUsuarios3" Relationship="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" FromRole="tbUsuarios1" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbInstructoresPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion1" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbInstructoresPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbActividadesPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion1" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbActividadesPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbCalificaciones" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCalificaciones" />
+    <NavigationProperty Name="tbCalificaciones1" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCalificaciones" />
+    <NavigationProperty Name="tbCentrosEducativos" Relationship="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCentrosEducativos" />
+    <NavigationProperty Name="tbCentrosEducativos1" Relationship="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCentrosEducativos" />
+    <NavigationProperty Name="tbCategorias" Relationship="dbAcademiaProgramadoresModel.FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbCategorias" />
+    <NavigationProperty Name="tbCategorias1" Relationship="dbAcademiaProgramadoresModel.FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbCategorias" />
+    <NavigationProperty Name="tbGeneraciones" Relationship="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" FromRole="tbUsuarios" ToRole="tbGeneraciones" />
+    <NavigationProperty Name="tbGeneraciones1" Relationship="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" FromRole="tbUsuarios" ToRole="tbGeneraciones" />
   </EntityType>
   <EntityType Name="tbActividades">
     <Key>
@@ -247,65 +181,7 @@
     <Property Name="Activ_Estado" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioCreacion" FromRole="tbActividades" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" FromRole="tbActividades" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividades" ToRole="tbActividadesPorCursoPorGeneracion" />
-  </EntityType>
-  <EntityType Name="tbActividadesPorCursoPorGeneracion">
-    <Key>
-      <PropertyRef Name="ActCG_Id" />
-    </Key>
-    <Property Name="ActCG_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Activ_Id" Type="Int32" Nullable="false" />
-    <Property Name="CuGen_Id" Type="Int32" Nullable="false" />
-    <Property Name="ActCG_Nota" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
-    <Property Name="ActCG_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="ActCG_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ActCG_UsuarioModificacion" Type="Int32" />
-    <Property Name="ActCG_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="ActCG_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbCursosPorGeneracion" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbActividades" Relationship="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbActividades" />
-    <NavigationProperty Name="tbCalificaciones" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbCalificaciones" />
-  </EntityType>
-  <EntityType Name="tbCalificaciones">
-    <Key>
-      <PropertyRef Name="Calif_Id" />
-    </Key>
-    <Property Name="Calif_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CuGen_Id" Type="Int32" Nullable="false" />
-    <Property Name="Alumn_Id" Type="Int32" Nullable="false" />
-    <Property Name="Calif_Nota" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
-    <Property Name="Calif_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="Calif_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Calif_UsuarioModificacion" Type="Int32" />
-    <Property Name="Calif_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="Calif_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbAlumnos" Relationship="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id" FromRole="tbCalificaciones" ToRole="tbAlumnos" />
-    <NavigationProperty Name="tbCursosPorGeneracion" Relationship="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" FromRole="tbCalificaciones" ToRole="tbCursosPorGeneracion" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
-    <Property Name="AcCG_Id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" FromRole="tbCalificaciones" ToRole="tbActividadesPorCursoPorGeneracion" />
-  </EntityType>
-  <EntityType Name="tbCentrosEducativos">
-    <Key>
-      <PropertyRef Name="CenEd_Id" />
-    </Key>
-    <Property Name="CenEd_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CenEd_Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CenEd_Direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CenEd_Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="Munic_Id" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CenEd_UsuarioCreacion" Type="Int32" Nullable="false" />
-    <Property Name="CenEd_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="CenEd_UsuarioModificacion" Type="Int32" />
-    <Property Name="CenEd_FechaModificacion" Type="DateTime" Precision="3" />
-    <Property Name="CenEd_Estado" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="tbAlumnos" Relationship="Self.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" FromRole="tbCentrosEducativos" ToRole="tbAlumnos" />
-    <NavigationProperty Name="tbAlumnos1" Relationship="Self.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" FromRole="tbCentrosEducativos" ToRole="tbAlumnos" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" FromRole="tbCentrosEducativos" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" FromRole="tbCentrosEducativos" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividades" ToRole="tbActividadesPorCursoPorGeneracion" />
   </EntityType>
   <EntityType Name="tbDepartamentos">
     <Key>
@@ -353,6 +229,7 @@
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbMunicipios_tbUsuarios_Munic_UsuarioModificacion" FromRole="tbMunicipios" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbDepartamentos" Relationship="Self.FK_tbMunicipios_tbDepartamentos_Depar_Id" FromRole="tbMunicipios" ToRole="tbDepartamentos" />
     <NavigationProperty Name="tbPersonas" Relationship="Self.FK_tbPersonas_tbMunicipios_Munic_Id" FromRole="tbMunicipios" ToRole="tbPersonas" />
+    <NavigationProperty Name="tbCentrosEducativos" Relationship="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbMunicipios_Munic_Id" FromRole="tbMunicipios" ToRole="tbCentrosEducativos" />
   </EntityType>
   <EntityType Name="tbPersonas">
     <Key>
@@ -399,30 +276,6 @@
     <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion" FromRole="tbTitulos" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion" FromRole="tbTitulos" ToRole="tbUsuarios" />
   </EntityType>
-  <Association Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio">
-    <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="1" />
-    <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCentrosEducativos">
-        <PropertyRef Name="CenEd_Id" />
-      </Principal>
-      <Dependent Role="tbAlumnos">
-        <PropertyRef Name="CenEd_IdColegio" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad">
-    <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="1" />
-    <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCentrosEducativos">
-        <PropertyRef Name="CenEd_Id" />
-      </Principal>
-      <Dependent Role="tbAlumnos">
-        <PropertyRef Name="CenEd_IdUniversidad" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbAlumnos_tbPersonas_Perso_Id">
     <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="1" />
     <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="0..1" />
@@ -471,30 +324,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id">
-    <End Role="tbAlumnos" Type="Self.tbAlumnos" Multiplicity="1" />
-    <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbAlumnos">
-        <PropertyRef Name="Perso_Id" />
-      </Principal>
-      <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="Alumn_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursos_tbCategorias_Categ_Id">
-    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="1" />
-    <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCategorias">
-        <PropertyRef Name="Categ_Id" />
-      </Principal>
-      <Dependent Role="tbCursos">
-        <PropertyRef Name="Categ_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion">
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
     <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="*" />
@@ -516,114 +345,6 @@
       </Principal>
       <Dependent Role="tbCursos">
         <PropertyRef Name="Curso_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
-    <End Role="tbCursos" Type="Self.tbCursos" Multiplicity="1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCursos">
-        <PropertyRef Name="Curso_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="Curso_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
-    <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
-      </Principal>
-      <Dependent Role="tbActividadesPorCursoPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
-    <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
-      </Principal>
-      <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="CuGen_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
-    <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbGeneraciones">
-        <PropertyRef Name="Gener_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="Gener_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-    <End Role="tbCursosPorGeneracion" Type="Self.tbCursosPorGeneracion" Multiplicity="1" />
-    <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbCursosPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
-      </Principal>
-      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
-        <PropertyRef Name="CuGen_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbGeneraciones">
-        <PropertyRef Name="Gener_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbGeneraciones" Type="Self.tbGeneraciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbGeneraciones">
-        <PropertyRef Name="Gener_UsuarioModificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -675,18 +396,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
-    <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="1" />
-    <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbInstructores">
-        <PropertyRef Name="Perso_Id" />
-      </Principal>
-      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
-        <PropertyRef Name="Instr_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbUsuarios_tbInstructores_Instr_Id">
     <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="1" />
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
@@ -696,30 +405,6 @@
       </Principal>
       <Dependent Role="tbUsuarios">
         <PropertyRef Name="Instr_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
-        <PropertyRef Name="InsCG_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
-        <PropertyRef Name="InsCG_UsuarioModificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -852,78 +537,6 @@
       </Principal>
       <Dependent Role="tbActividades">
         <PropertyRef Name="Activ_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbActividadesPorCursoPorGeneracion">
-        <PropertyRef Name="ActCG_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbActividadesPorCursoPorGeneracion">
-        <PropertyRef Name="ActCG_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="Calif_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbCalificaciones" Type="Self.tbCalificaciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="Calif_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCentrosEducativos">
-        <PropertyRef Name="CenEd_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCentrosEducativos">
-        <PropertyRef Name="CenEd_UsuarioModificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1071,18 +684,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
-    <End Role="tbActividades" Type="Self.tbActividades" Multiplicity="1" />
-    <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbActividades">
-        <PropertyRef Name="Activ_Id" />
-      </Principal>
-      <Dependent Role="tbActividadesPorCursoPorGeneracion">
-        <PropertyRef Name="Activ_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbMunicipios_tbDepartamentos_Depar_Id">
     <End Role="tbDepartamentos" Type="Self.tbDepartamentos" Multiplicity="1" />
     <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="*" />
@@ -1121,33 +722,18 @@
   </Association>
   <EntityContainer Name="dbAcademiaProgramadoresEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumnos" />
-    <EntitySet Name="tbCategorias" EntityType="Self.tbCategorias" />
     <EntitySet Name="tbCursos" EntityType="Self.tbCursos" />
-    <EntitySet Name="tbCursosPorGeneracion" EntityType="Self.tbCursosPorGeneracion" />
-    <EntitySet Name="tbGeneraciones" EntityType="Self.tbGeneraciones" />
     <EntitySet Name="tbInstructores" EntityType="Self.tbInstructores" />
-    <EntitySet Name="tbInstructoresPorCursoPorGeneracion" EntityType="Self.tbInstructoresPorCursoPorGeneracion" />
     <EntitySet Name="tbPantallas" EntityType="Self.tbPantallas" />
     <EntitySet Name="tbPantallasPorRoles" EntityType="Self.tbPantallasPorRoles" />
     <EntitySet Name="tbRoles" EntityType="Self.tbRoles" />
     <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" />
     <EntitySet Name="tbActividades" EntityType="Self.tbActividades" />
-    <EntitySet Name="tbActividadesPorCursoPorGeneracion" EntityType="Self.tbActividadesPorCursoPorGeneracion" />
-    <EntitySet Name="tbCalificaciones" EntityType="Self.tbCalificaciones" />
-    <EntitySet Name="tbCentrosEducativos" EntityType="Self.tbCentrosEducativos" />
     <EntitySet Name="tbDepartamentos" EntityType="Self.tbDepartamentos" />
     <EntitySet Name="tbEstadosCiviles" EntityType="Self.tbEstadosCiviles" />
     <EntitySet Name="tbMunicipios" EntityType="Self.tbMunicipios" />
     <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" />
     <EntitySet Name="tbTitulos" EntityType="Self.tbTitulos" />
-    <AssociationSet Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" Association="Self.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio">
-      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
-      <End Role="tbAlumnos" EntitySet="tbAlumnos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" Association="Self.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad">
-      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
-      <End Role="tbAlumnos" EntitySet="tbAlumnos" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbAlumnos_tbPersonas_Perso_Id" Association="Self.FK_tbAlumnos_tbPersonas_Perso_Id">
       <End Role="tbPersonas" EntitySet="tbPersonas" />
       <End Role="tbAlumnos" EntitySet="tbAlumnos" />
@@ -1164,14 +750,6 @@
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbAlumnos" EntitySet="tbAlumnos" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id" Association="Self.FK_tbCalificaciones_tbAlumnos_Alumn_Id">
-      <End Role="tbAlumnos" EntitySet="tbAlumnos" />
-      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursos_tbCategorias_Categ_Id" Association="Self.FK_tbCursos_tbCategorias_Categ_Id">
-      <End Role="tbCategorias" EntitySet="tbCategorias" />
-      <End Role="tbCursos" EntitySet="tbCursos" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioCreacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCursos" EntitySet="tbCursos" />
@@ -1179,42 +757,6 @@
     <AssociationSet Name="FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion" Association="Self.FK_tbCursos_tbUsuarios_Curso_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCursos" EntitySet="tbCursos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbCursos_Curso_Id" Association="Self.FK_tbCursosPorGeneracion_tbCursos_Curso_Id">
-      <End Role="tbCursos" EntitySet="tbCursos" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbCalificaciones_tbCursosPorGeneracion_CuGen_Id">
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id" Association="Self.FK_tbCursosPorGeneracion_tbGeneraciones_Gener_Id">
-      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion" Association="Self.FK_tbCursosPorGeneracion_tbUsuarios_CuGen_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbCursosPorGeneracion_CuGen_Id">
-      <End Role="tbCursosPorGeneracion" EntitySet="tbCursosPorGeneracion" />
-      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
     </AssociationSet>
     <AssociationSet Name="FK_bInstructores_tbPersonas_Perso_Id" Association="Self.FK_bInstructores_tbPersonas_Perso_Id">
       <End Role="tbPersonas" EntitySet="tbPersonas" />
@@ -1232,21 +774,9 @@
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbInstructores" EntitySet="tbInstructores" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
-      <End Role="tbInstructores" EntitySet="tbInstructores" />
-      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbUsuarios_tbInstructores_Instr_Id" Association="Self.FK_tbUsuarios_tbInstructores_Instr_Id">
       <End Role="tbInstructores" EntitySet="tbInstructores" />
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" Association="Self.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
     </AssociationSet>
     <AssociationSet Name="FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion" Association="Self.FK_tbPantallas_tbUsuarios_5letras_UsuarioCreacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
@@ -1291,30 +821,6 @@
     <AssociationSet Name="FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion" Association="Self.FK_tbActividades_tbUsuarios_Activ_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbActividades" EntitySet="tbActividades" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" Association="Self.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
     </AssociationSet>
     <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
@@ -1364,10 +870,6 @@
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
-      <End Role="tbActividades" EntitySet="tbActividades" />
-      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbMunicipios_tbDepartamentos_Depar_Id" Association="Self.FK_tbMunicipios_tbDepartamentos_Depar_Id">
       <End Role="tbDepartamentos" EntitySet="tbDepartamentos" />
       <End Role="tbMunicipios" EntitySet="tbMunicipios" />
@@ -1379,10 +881,6 @@
     <AssociationSet Name="FK_tbPersonas_tbMunicipios_Munic_Id" Association="Self.FK_tbPersonas_tbMunicipios_Munic_Id">
       <End Role="tbMunicipios" EntitySet="tbMunicipios" />
       <End Role="tbPersonas" EntitySet="tbPersonas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
-      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
-      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
     </AssociationSet>
     <FunctionImport Name="SP_tbUsuarios_DELETE">
       <Parameter Name="Usuar_Id" Mode="In" Type="Int32" />
@@ -1400,7 +898,7 @@
     </FunctionImport>
     <FunctionImport Name="SP_tbUsuarios_LOGIN" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_tbUsuarios_LOGIN_Result)">
       <Parameter Name="Usuario" Mode="In" Type="String" />
-      <Parameter Name="Contraseña" Mode="In" Type="String" />
+      <Parameter Name="Contrasena" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="SP_tbUsuarios_UPDATE">
       <Parameter Name="Usuar_Id" Mode="In" Type="Int32" />
@@ -1412,19 +910,554 @@
       <Parameter Name="Usuar_UsuarioModificacion" Mode="In" Type="Int32" />
       <Parameter Name="Usuar_FechaModificacion" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <EntitySet Name="tbInstructoresPorCursoPorGeneracion" EntityType="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" />
+    <EntitySet Name="tbActividadesPorCursoPorGeneracion" EntityType="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" />
+    <EntitySet Name="tbCalificaciones" EntityType="dbAcademiaProgramadoresModel.tbCalificaciones" />
+    <EntitySet Name="tbAlumnosBitacora" EntityType="dbAcademiaProgramadoresModel.tbAlumnosBitacora" />
+    <AssociationSet Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id" Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbAlumnos_Alumn_Id">
+      <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id" Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id">
+      <End Role="tbCursos" EntitySet="tbCursos" />
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
+      <End Role="tbInstructores" EntitySet="tbInstructores" />
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id" Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id">
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" Association="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
+      <End Role="tbActividades" EntitySet="tbActividades" />
+      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" Association="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+      <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
+      <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
+    </AssociationSet>
+    <FunctionImport Name="SP_Alumnos_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Alumnos_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_IdColegio" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_IdUniversidad" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_FechaCreacion" Mode="In" Type="DateTime" />
+      <Parameter Name="Alumn_Observaciones" Mode="In" Type="String" />
+      <Parameter Name="Alumn_FechaIngreso" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Alumnos_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_IdColegio" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_IdUniversidad" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_Observaciones" Mode="In" Type="String" />
+      <Parameter Name="Alumn_FechaIngreso" Mode="In" Type="DateTime" />
+      <Parameter Name="Alumn_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Categorias_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Categ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Categ_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Categ_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Categorias_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Categ_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Categ_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Categ_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Categorias_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Categ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Categ_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Categ_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Categ_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Cursos_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Cursos_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Curso_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Categ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Cursos_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Categ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Generaciones_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Generaciones_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Gener_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Gener_Anhio" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_FechaInicio" Mode="In" Type="DateTime" />
+      <Parameter Name="Gener_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Generaciones_Modificar">
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Gener_Anhio" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_FechaInicio" Mode="In" Type="DateTime" />
+      <Parameter Name="Gener_FechaFin" Mode="In" Type="DateTime" />
+      <Parameter Name="Gener_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Instructores_Eliminar">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Instructores_Insertar">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Instructores_Modificar">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="InsCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="InsCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Pantallas_Eliminar">
+      <Parameter Name="Panta_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Panta_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Panta_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Pantallas_Insertar">
+      <Parameter Name="Panta_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Panta_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Panta_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Pantallas_Modificar">
+      <Parameter Name="Panta_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Panta_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Panta_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Panta_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_PantallasPorRoles_Eliminar">
+      <Parameter Name="Papro_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_PantallasPorRoles_Insertar">
+      <Parameter Name="Panta_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_PantallasPorRoles_Modificar">
+      <Parameter Name="Papro_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Panta_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Roles_Eliminar">
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Roles_Insertar">
+      <Parameter Name="Roles_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Roles_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Roles_Modificar">
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Roles_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Usuarios_Eliminar">
+      <Parameter Name="Usuar_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Usuarios_Insertar" ReturnType="Collection(String)">
+      <Parameter Name="Usuar_Usuario" Mode="In" Type="String" />
+      <Parameter Name="Usuar_Contrasena" Mode="In" Type="String" />
+      <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_Admin" Mode="In" Type="Boolean" />
+      <Parameter Name="Usuar_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Usuarios_Login" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Usuarios_Login_Result)">
+      <Parameter Name="Usuario" Mode="In" Type="String" />
+      <Parameter Name="Contrasena" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Usuarios_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Usuar_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_Usuario" Mode="In" Type="String" />
+      <Parameter Name="New_Usuar_Contrasena" Mode="In" Type="String" />
+      <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_Admin" Mode="In" Type="Boolean" />
+      <Parameter Name="Usuar_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Usuar_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Usuarios_Seleccionar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Usuarios_Seleccionar_Result)" />
+    <FunctionImport Name="SP_Actividades_Eliminar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Actividades_Eliminar_Result)">
+      <Parameter Name="Activ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Activ_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Activ_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Actividades_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Activ_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Activ_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Activ_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Actividades_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Activ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Activ_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Activ_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Activ_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ActividadesPorCursoPorGeneracion_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="ActCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ActividadesPorCursoPorGeneracion_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Activ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_Nota" Mode="In" Type="Decimal" />
+      <Parameter Name="ActCG_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_ActividadesPorCursoPorGeneracion_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="ActCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Activ_Id" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_Nota" Mode="In" Type="Decimal" />
+      <Parameter Name="ActCG_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Calificaciones_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Calif_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Calif_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Calif_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Calificaciones_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="ActCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Calif_Nota" Mode="In" Type="Decimal" />
+      <Parameter Name="Calif_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Calif_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Calificaciones_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Calif_Id" Mode="In" Type="Int32" />
+      <Parameter Name="ActCG_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Alumn_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Calif_Nota" Mode="In" Type="Decimal" />
+      <Parameter Name="Calif_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Calif_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Calificaciones_Seleccionar">
+      <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CentrosEducativos_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="CenEd_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CentrosEducativos_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="CenEd_Nombre" Mode="In" Type="String" />
+      <Parameter Name="CenEd_Direccion" Mode="In" Type="String" />
+      <Parameter Name="CenEd_Tipo" Mode="In" Type="String" />
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+      <Parameter Name="CenEd_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CentrosEducativos_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="CenEd_Id" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_Nombre" Mode="In" Type="String" />
+      <Parameter Name="CenEd_Direccion" Mode="In" Type="String" />
+      <Parameter Name="CenEd_Tipo" Mode="In" Type="String" />
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+      <Parameter Name="CenEd_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="CenEd_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Departamentos_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Departamentos_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+      <Parameter Name="Depar_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Depar_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Depar_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Departamentos_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Departamentos_LlenarEditar_Result)">
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Departamentos_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+      <Parameter Name="Depar_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Depar_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Depar_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_EstadosCiviles_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Estci_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_EstadosCiviles_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Estci_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Estci_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Estci_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_EstadosCiviles_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Estci_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Estci_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Estci_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Estci_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Municipios_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Municipios_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+      <Parameter Name="Munic_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+      <Parameter Name="Munic_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Munic_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Municipios_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+      <Parameter Name="Munic_Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+      <Parameter Name="Munic_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Munic_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Personas_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Personas_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Perso_PrimerNombre" Mode="In" Type="String" />
+      <Parameter Name="Perso_SegundoNombre" Mode="In" Type="String" />
+      <Parameter Name="Perso_PrimerApellido" Mode="In" Type="String" />
+      <Parameter Name="Perso_SegundoApellido" Mode="In" Type="String" />
+      <Parameter Name="Perso_FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="Perso_Sexo" Mode="In" Type="String" />
+      <Parameter Name="Estci_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_Direccion" Mode="In" Type="String" />
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+      <Parameter Name="Perso_Telefono" Mode="In" Type="String" />
+      <Parameter Name="Perso_CorreoElectronico" Mode="In" Type="String" />
+      <Parameter Name="Perso_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Personas_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Perso_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_PrimerNombre" Mode="In" Type="String" />
+      <Parameter Name="Perso_SegundoNombre" Mode="In" Type="String" />
+      <Parameter Name="Perso_PrimerApellido" Mode="In" Type="String" />
+      <Parameter Name="Perso_SegundoApellido" Mode="In" Type="String" />
+      <Parameter Name="Perso_FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="Perso_Sexo" Mode="In" Type="String" />
+      <Parameter Name="Estci_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_Direccion" Mode="In" Type="String" />
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+      <Parameter Name="Perso_Telefono" Mode="In" Type="String" />
+      <Parameter Name="Perso_CorreoElectronico" Mode="In" Type="String" />
+      <Parameter Name="Perso_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Perso_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Titulos_Eliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Titulos_Insertar" ReturnType="Collection(Int32)">
+      <Parameter Name="Titul_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Titul_Tipo" Mode="In" Type="String" />
+      <Parameter Name="Titul_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Titulos_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Titulos_LlenarEditar_Result)">
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Titulos_Modificar" ReturnType="Collection(Int32)">
+      <Parameter Name="Titul_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_Nombre" Mode="In" Type="String" />
+      <Parameter Name="Titul_Tipo" Mode="In" Type="String" />
+      <Parameter Name="Titul_UsuarioModificacion" Mode="In" Type="Int32" />
+      <Parameter Name="Titul_FechaModificacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Municipios_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Municipios_LlenarEditar_Result1)">
+      <Parameter Name="Munic_Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="tbCentrosEducativos" EntityType="dbAcademiaProgramadoresModel.tbCentrosEducativos" />
+    <AssociationSet Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio">
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+      <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" Association="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad">
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+      <End Role="tbAlumnos" EntitySet="tbAlumnos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCentrosEducativos_tbMunicipios_Munic_Id" Association="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbMunicipios_Munic_Id">
+      <End Role="tbMunicipios" EntitySet="tbMunicipios" />
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+    </AssociationSet>
+    <FunctionImport Name="SP_EstadosCiviles_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_EstadosCiviles_LlenarEditar_Result)">
+      <Parameter Name="Estci_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_PantallasPorRoles_SeleccionarPantallasPorRol" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_PantallasPorRoles_SeleccionarPantallasPorRol_Result)">
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_PantallasPorRoles_SeleccionarRolesPorPantalla" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_PantallasPorRoles_SeleccionarRolesPorPantalla_Result)">
+      <Parameter Name="Panta_Descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Titulos_DropDownList" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Titulos_DropDownList_Result)" />
+    <FunctionImport Name="SP_PantallasPorRoles_InsertarEliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Panta_IdsXML" Mode="In" Type="String" />
+      <Parameter Name="Roles_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="Papro_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CentrosEducativos_DropDownListMunicipios" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_CentrosEducativos_DropDownListMunicipios_Result)">
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CentrosEducativos_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_CentrosEducativos_LlenarEditar_Result)">
+      <Parameter Name="CenEd_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Titulos_DropDownListTipos" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Titulos_DropDownListTipos_Result)" />
+    <FunctionImport Name="SP_CentrosEducativos_DropDownListTipo" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_CentrosEducativos_DropDownListTipo_Result)" />
+    <FunctionImport Name="SP_Municipios_DropDownListMunicipios" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Municipios_DropDownListMunicipios_Result)">
+      <Parameter Name="Depar_Id" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="tbCategorias" EntityType="dbAcademiaProgramadoresModel.tbCategorias" />
+    <AssociationSet Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion" Association="dbAcademiaProgramadoresModel.FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCursos_tbCategorias_Categ_Id" Association="dbAcademiaProgramadoresModel.FK_tbCursos_tbCategorias_Categ_Id">
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
+      <End Role="tbCursos" EntitySet="tbCursos" />
+    </AssociationSet>
+    <FunctionImport Name="SP_Categorias_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Categorias_LlenarEditar_Result)">
+      <Parameter Name="Categ_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Cursos_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Cursos_LlenarEditar_Result)">
+      <Parameter Name="Curso_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Generaciones_LlenarEditar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Generaciones_LlenarEditar_Result)">
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_CentrosEducativos_LlenarEditar1" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_CentrosEducativos_LlenarEditar1_Result)">
+      <Parameter Name="CenEd_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_EmptyTable" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_EmptyTable_Result)" />
+    <EntitySet Name="tbGeneraciones" EntityType="dbAcademiaProgramadoresModel.tbGeneraciones" />
+    <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" Association="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id" Association="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id">
+      <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+      <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
+    </AssociationSet>
+    <FunctionImport Name="SP_tbInstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_tbInstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result)">
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_tbInstructores_DropDownListPersonas" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_tbInstructores_DropDownListPersonas_Result)" />
+    <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" ReturnType="Collection(Int32)">
+      <Parameter Name="Curso_IdsXML" Mode="In" Type="String" />
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="InsCG_FechaCreacion" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result)">
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Instructores_DropDownListPersonas" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Instructores_DropDownListPersonas_Result)" />
+    <FunctionImport Name="SP_CursosPorGeneraciones_DropDownListCursos" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_CursosPorGeneraciones_DropDownListCursos_Result)">
+      <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
-  <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
-    <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="1" />
-    <End Type="dbAcademiaProgramadoresModel.tbCalificaciones" Role="tbCalificaciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbActividadesPorCursoPorGeneracion">
-        <PropertyRef Name="ActCG_Id" />
-      </Principal>
-      <Dependent Role="tbCalificaciones">
-        <PropertyRef Name="AcCG_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <ComplexType Name="SP_tbUsuarios_LOGIN_Result">
     <Property Type="Int32" Name="Usuar_Id" Nullable="false" />
     <Property Type="String" Name="Usuar_Contrasena" Nullable="false" />
@@ -1446,5 +1479,671 @@
     <Property Type="Int32" Name="Perso_UsuarioModificacion" Nullable="true" />
     <Property Type="DateTime" Name="Perso_FechaModificacion" Nullable="true" Precision="23" />
     <Property Type="Boolean" Name="Perso_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_tbDepartamentos_LlenarEditar_Result">
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Depar_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Depar_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Depar_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Depar_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Depar_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Depar_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_tbTitulos_LlenarEditar_Result">
+    <Property Type="Int32" Name="Titul_Id" Nullable="false" />
+    <Property Type="String" Name="Titul_Nombre" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="Titul_Tipo" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Titul_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Titul_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Titul_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Titul_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Titul_Estado" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="tbInstructoresPorCursoPorGeneracion">
+    <Key>
+      <PropertyRef Name="InsCG_Id" />
+    </Key>
+    <Property Name="InsCG_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Instr_Id" Type="Int32" Nullable="false" />
+    <Property Name="Gener_Id" Type="Int32" Nullable="false" />
+    <Property Name="Curso_Id" Type="Int32" Nullable="false" />
+    <Property Name="InsCG_UsuarioCreacion" Type="Int32" Nullable="false" />
+    <Property Name="InsCG_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="InsCG_UsuarioModificacion" Type="Int32" />
+    <Property Name="InsCG_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="InsCG_Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbCursos" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbCursos" />
+    <NavigationProperty Name="tbInstructores" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbInstructores" />
+    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbActividadesPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbUsuarios" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbGeneraciones" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id" FromRole="tbInstructoresPorCursoPorGeneracion" ToRole="tbGeneraciones" />
+  </EntityType>
+  <EntityType Name="tbActividadesPorCursoPorGeneracion">
+    <Key>
+      <PropertyRef Name="ActCG_Id" />
+    </Key>
+    <Property Name="ActCG_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Activ_Id" Type="Int32" Nullable="false" />
+    <Property Name="InsCG_Id" Type="Int32" Nullable="false" />
+    <Property Name="ActCG_Nota" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+    <Property Name="ActCG_UsuarioCreacion" Type="Int32" Nullable="false" />
+    <Property Name="ActCG_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ActCG_UsuarioModificacion" Type="Int32" />
+    <Property Name="ActCG_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="ActCG_Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbInstructoresPorCursoPorGeneracion" />
+    <NavigationProperty Name="tbUsuarios" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbActividades" Relationship="dbAcademiaProgramadoresModel.FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbActividades" />
+    <NavigationProperty Name="tbCalificaciones" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" FromRole="tbActividadesPorCursoPorGeneracion" ToRole="tbCalificaciones" />
+  </EntityType>
+  <EntityType Name="tbCalificaciones">
+    <Key>
+      <PropertyRef Name="Calif_Id" />
+    </Key>
+    <Property Name="Calif_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActCG_Id" Type="Int32" Nullable="false" />
+    <Property Name="Alumn_Id" Type="Int32" Nullable="false" />
+    <Property Name="Calif_Nota" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+    <Property Name="Calif_UsuarioCreacion" Type="Int32" Nullable="false" />
+    <Property Name="Calif_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Calif_UsuarioModificacion" Type="Int32" />
+    <Property Name="Calif_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="Calif_Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbAlumnos" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbAlumnos_Alumn_Id" FromRole="tbCalificaciones" ToRole="tbAlumnos" />
+    <NavigationProperty Name="tbUsuarios" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion" FromRole="tbCalificaciones" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbActividadesPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id" FromRole="tbCalificaciones" ToRole="tbActividadesPorCursoPorGeneracion" />
+  </EntityType>
+  <EntityType Name="tbAlumnosBitacora">
+    <Key>
+      <PropertyRef Name="AlBit_Accion" />
+    </Key>
+    <Property Name="Perso_Id" Type="Int32" />
+    <Property Name="CenEd_IdColegio" Type="Int32" />
+    <Property Name="CenEd_IdUniversidad" Type="Int32" />
+    <Property Name="Titul_Id" Type="Int32" />
+    <Property Name="Alumn_UsuarioCreacion" Type="Int32" />
+    <Property Name="Alumn_FechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="Alumn_UsuarioModificacion" Type="Int32" />
+    <Property Name="Alumn_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="Alumn_Estado" Type="Boolean" />
+    <Property Name="Alumn_Observaciones" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Alumn_FechaIngreso" Type="DateTime" Precision="3" />
+    <Property Name="AlBit_Accion" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="AlBit_FechaAccion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_tbCalificaciones_tbAlumnos_Alumn_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbAlumnos" Role="tbAlumnos" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCalificaciones" Role="tbCalificaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbAlumnos">
+        <PropertyRef Name="Perso_Id" />
+      </Principal>
+      <Dependent Role="tbCalificaciones">
+        <PropertyRef Name="Alumn_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbCursos_Curso_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbCursos" Role="tbCursos" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Role="tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCursos">
+        <PropertyRef Name="Curso_Id" />
+      </Principal>
+      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="Curso_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbInstructores_Instr_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbInstructores" Role="tbInstructores" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Role="tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbInstructores">
+        <PropertyRef Name="Perso_Id" />
+      </Principal>
+      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="Instr_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Role="tbInstructoresPorCursoPorGeneracion" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="InsCG_Id" />
+      </Principal>
+      <Dependent Role="tbActividadesPorCursoPorGeneracion">
+        <PropertyRef Name="InsCG_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioCreacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Role="tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="InsCG_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbUsuarios_InsCG_UsuarioModificacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Role="tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="InsCG_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioCreacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbActividadesPorCursoPorGeneracion">
+        <PropertyRef Name="ActCG_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbUsuarios_ActCG_UsuarioModificacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbActividadesPorCursoPorGeneracion">
+        <PropertyRef Name="ActCG_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioCreacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCalificaciones" Role="tbCalificaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCalificaciones">
+        <PropertyRef Name="Calif_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCalificaciones_tbUsuarios_Calif_UsuarioModificacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCalificaciones" Role="tbCalificaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCalificaciones">
+        <PropertyRef Name="Calif_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbActividades_Activ_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbActividades" Role="tbActividades" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbActividades">
+        <PropertyRef Name="Activ_Id" />
+      </Principal>
+      <Dependent Role="tbActividadesPorCursoPorGeneracion">
+        <PropertyRef Name="Activ_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCalificaciones_tbCursosPorGeneracion_AcCG_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbActividadesPorCursoPorGeneracion" Role="tbActividadesPorCursoPorGeneracion" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCalificaciones" Role="tbCalificaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbActividadesPorCursoPorGeneracion">
+        <PropertyRef Name="ActCG_Id" />
+      </Principal>
+      <Dependent Role="tbCalificaciones">
+        <PropertyRef Name="ActCG_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_Usuarios_Login_Result">
+    <Property Type="Int32" Name="Usuar_Id" Nullable="false" />
+    <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+    <Property Type="String" Name="Usuar_Usuario" Nullable="false" MaxLength="50" />
+    <Property Type="Boolean" Name="Usuar_Admin" Nullable="false" />
+    <Property Type="Int32" Name="Roles_Id" Nullable="false" />
+    <Property Type="String" Name="Roles_Descripcion" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="SP_Usuarios_Seleccionar_Result">
+    <Property Type="Int32" Name="Usuar_Id" Nullable="false" />
+    <Property Type="String" Name="Usuar_Usuario" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Perso_Id" Nullable="false" />
+    <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+  </ComplexType>
+  <ComplexType Name="SP_Departamentos_LlenarEditar_Result">
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Depar_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Depar_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Depar_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Depar_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Depar_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Depar_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Titulos_LlenarEditar_Result">
+    <Property Type="Int32" Name="Titul_Id" Nullable="false" />
+    <Property Type="String" Name="Titul_Nombre" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="Titul_Tipo" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Titul_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Titul_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Titul_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Titul_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Titul_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Municipios_LlenarEditar_Result">
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Munic_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Munic_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Munic_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Munic_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Munic_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Munic_Estado" Nullable="false" />
+    <Property Type="String" Name="Depar_Id1" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Depar_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Depar_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Depar_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Depar_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Depar_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Depar_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Municipios_LlenarEditar1_Result">
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Munic_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Munic_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Munic_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Munic_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Munic_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Munic_Estado" Nullable="false" />
+    <Property Type="String" Name="Depar_Descripcion" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SP_Municipios_LlenarEditar2_Result">
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Munic_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Munic_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Munic_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Munic_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Munic_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Munic_Estado" Nullable="false" />
+    <Property Type="String" Name="Depar_Descripcion" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SP_Municipios_LlenarEditar_Result1">
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Munic_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Munic_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Munic_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Munic_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Munic_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Munic_Estado" Nullable="false" />
+    <Property Type="String" Name="Depar_Descripcion" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="tbCentrosEducativos">
+    <Key>
+      <PropertyRef Name="CenEd_Id" />
+    </Key>
+    <Property Name="CenEd_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CenEd_Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CenEd_Direccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CenEd_Tipo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Munic_Id" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="CenEd_UsuarioCreacion" Type="Int32" Nullable="false" />
+    <Property Name="CenEd_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CenEd_UsuarioModificacion" Type="Int32" />
+    <Property Name="CenEd_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="CenEd_Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbAlumnos" Relationship="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio" FromRole="tbCentrosEducativos" ToRole="tbAlumnos" />
+    <NavigationProperty Name="tbAlumnos1" Relationship="dbAcademiaProgramadoresModel.FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad" FromRole="tbCentrosEducativos" ToRole="tbAlumnos" />
+    <NavigationProperty Name="tbUsuarios" Relationship="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion" FromRole="tbCentrosEducativos" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" FromRole="tbCentrosEducativos" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbMunicipios" Relationship="dbAcademiaProgramadoresModel.FK_tbCentrosEducativos_tbMunicipios_Munic_Id" FromRole="tbCentrosEducativos" ToRole="tbMunicipios" />
+  </EntityType>
+  <Association Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdColegio">
+    <End Type="dbAcademiaProgramadoresModel.tbCentrosEducativos" Role="tbCentrosEducativos" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbAlumnos" Role="tbAlumnos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCentrosEducativos">
+        <PropertyRef Name="CenEd_Id" />
+      </Principal>
+      <Dependent Role="tbAlumnos">
+        <PropertyRef Name="CenEd_IdColegio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbAlumnos_tbCentrosEducativos_CenEd_IdUniversidad">
+    <End Type="dbAcademiaProgramadoresModel.tbCentrosEducativos" Role="tbCentrosEducativos" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbAlumnos" Role="tbAlumnos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCentrosEducativos">
+        <PropertyRef Name="CenEd_Id" />
+      </Principal>
+      <Dependent Role="tbAlumnos">
+        <PropertyRef Name="CenEd_IdUniversidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioCreacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCentrosEducativos" Role="tbCentrosEducativos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCentrosEducativos">
+        <PropertyRef Name="CenEd_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCentrosEducativos" Role="tbCentrosEducativos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCentrosEducativos">
+        <PropertyRef Name="CenEd_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCentrosEducativos_tbMunicipios_Munic_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbMunicipios" Role="tbMunicipios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCentrosEducativos" Role="tbCentrosEducativos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbMunicipios">
+        <PropertyRef Name="Munic_Id" />
+      </Principal>
+      <Dependent Role="tbCentrosEducativos">
+        <PropertyRef Name="Munic_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_Actividades_Eliminar_Result">
+    <Property Type="Int32" Name="Column1" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_EstadosCiviles_LlenarEditar_Result">
+    <Property Type="Int32" Name="Estci_Id" Nullable="false" />
+    <Property Type="String" Name="Estci_Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Estci_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Estci_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Estci_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Estci_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Estci_Estado" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_PantallasPorRoles_SeleccionarPantallasPorRol_Result">
+    <Property Type="Int32" Name="Papro_Id" Nullable="false" />
+    <Property Type="Int32" Name="Roles_Id" Nullable="false" />
+    <Property Type="Int32" Name="Panta_Id" Nullable="false" />
+    <Property Type="String" Name="Panta_Descripcion" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Panta_Esquema" Nullable="false" MaxLength="5" />
+  </ComplexType>
+  <ComplexType Name="SP_PantallasPorRoles_SeleccionarRolesPorPantalla_Result">
+    <Property Type="Int32" Name="Papro_Id" Nullable="false" />
+    <Property Type="Int32" Name="Panta_Id" Nullable="false" />
+    <Property Type="Int32" Name="Roles_Id" Nullable="false" />
+    <Property Type="String" Name="Roles_Descripcion" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="SP_Titulos_DropDownList_Result">
+    <Property Type="String" Name="Titul_Tipo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Titul_TipoDescripcion" Nullable="false" MaxLength="1" />
+  </ComplexType>
+  <ComplexType Name="SP_CentrosEducativos_DropDownListMunicipios_Result">
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Munic_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Munic_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Munic_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Munic_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Munic_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Munic_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_CentrosEducativos_LlenarEditar_Result">
+    <Property Type="Int32" Name="CenEd_Id" Nullable="false" />
+    <Property Type="String" Name="CenEd_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="CenEd_Direccion" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="CenEd_Tipo" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="Int32" Name="CenEd_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="CenEd_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="CenEd_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="CenEd_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="CenEd_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Titulos_DropDownListTipos_Result">
+    <Property Type="String" Name="Titul_Tipo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Titul_TipoDescripcion" Nullable="false" MaxLength="9" />
+  </ComplexType>
+  <ComplexType Name="SP_CentrosEducativos_DropDownListTipo_Result">
+    <Property Type="String" Name="CenEd_Tipo" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="CenEd_TipoDescripcion" Nullable="false" MaxLength="11" />
+  </ComplexType>
+  <ComplexType Name="SP_Municipios_DropDownListMunicipios_Result">
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="String" Name="Munic_Descripcion" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+    <Property Type="Int32" Name="Munic_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Munic_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Munic_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Munic_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Munic_Estado" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="tbCategorias">
+    <Key>
+      <PropertyRef Name="Categ_Id" />
+    </Key>
+    <Property Name="Categ_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Categ_Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Categ_UsuarioCreacion" Type="Int32" Nullable="false" />
+    <Property Name="Categ_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Categ_UsuarioModificacion" Type="Int32" />
+    <Property Name="Categ_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="Categ_Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbUsuarios" Relationship="dbAcademiaProgramadoresModel.FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion" FromRole="tbCategorias" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="dbAcademiaProgramadoresModel.FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion" FromRole="tbCategorias" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbCursos" Relationship="dbAcademiaProgramadoresModel.FK_tbCursos_tbCategorias_Categ_Id" FromRole="tbCategorias" ToRole="tbCursos" />
+  </EntityType>
+  <Association Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCategorias" Role="tbCategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCategorias">
+        <PropertyRef Name="Categ_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCategorias" Role="tbCategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCategorias">
+        <PropertyRef Name="Categ_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCursos_tbCategorias_Categ_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbCategorias" Role="tbCategorias" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbCursos" Role="tbCursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCategorias">
+        <PropertyRef Name="Categ_Id" />
+      </Principal>
+      <Dependent Role="tbCursos">
+        <PropertyRef Name="Categ_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_Categorias_LlenarEditar_Result">
+    <Property Type="Int32" Name="Categ_Id" Nullable="false" />
+    <Property Type="String" Name="Categ_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Categ_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Categ_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Categ_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Categ_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Categ_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Cursos_LlenarEditar_Result">
+    <Property Type="Int32" Name="Curso_Id" Nullable="false" />
+    <Property Type="String" Name="Curso_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Categ_Id" Nullable="false" />
+    <Property Type="Int32" Name="Curso_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Curso_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Curso_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Curso_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Curso_Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Generaciones_LlenarEditar_Result">
+    <Property Type="Int32" Name="Gener_Id" Nullable="false" />
+    <Property Type="String" Name="Gener_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Gener_Anhio" Nullable="false" />
+    <Property Type="Int32" Name="Gener_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Gener_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Gener_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Gener_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Gener_Estado" Nullable="false" />
+    <Property Type="DateTime" Name="Gener_FechaInicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Gener_FechaFin" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="SP_CentrosEducativos_LlenarEditar1_Result">
+    <Property Type="Int32" Name="CenEd_Id" Nullable="false" />
+    <Property Type="String" Name="CenEd_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="CenEd_Direccion" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="CenEd_Tipo" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Munic_Id" Nullable="false" MaxLength="4" />
+    <Property Type="Int32" Name="CenEd_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="CenEd_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="CenEd_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="CenEd_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="CenEd_Estado" Nullable="false" />
+    <Property Type="String" Name="Depar_Id" Nullable="false" MaxLength="2" />
+  </ComplexType>
+  <ComplexType Name="SP_EmptyTable_Result">
+    <Property Type="String" Name="value" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="text" Nullable="false" MaxLength="1" />
+  </ComplexType>
+  <EntityType Name="tbGeneraciones">
+    <Key>
+      <PropertyRef Name="Gener_Id" />
+    </Key>
+    <Property Name="Gener_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Gener_Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Gener_Anhio" Type="Int32" Nullable="false" />
+    <Property Name="Gener_FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gener_FechaFin" Type="DateTime" Precision="0" />
+    <Property Name="Gener_UsuarioCreacion" Type="Int32" Nullable="false" />
+    <Property Name="Gener_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Gener_UsuarioModificacion" Type="Int32" />
+    <Property Name="Gener_FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="Gener_Estado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbUsuarios" Relationship="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion" FromRole="tbGeneraciones" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="dbAcademiaProgramadoresModel.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" FromRole="tbGeneraciones" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbInstructoresPorCursoPorGeneracion" Relationship="dbAcademiaProgramadoresModel.FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id" FromRole="tbGeneraciones" ToRole="tbInstructoresPorCursoPorGeneracion" />
+  </EntityType>
+  <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioCreacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbGeneraciones" Role="tbGeneraciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbGeneraciones">
+        <PropertyRef Name="Gener_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
+    <End Type="dbAcademiaProgramadoresModel.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="dbAcademiaProgramadoresModel.tbGeneraciones" Role="tbGeneraciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbGeneraciones">
+        <PropertyRef Name="Gener_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructoresPorCursoPorGeneracion_tbGeneraciones_Gener_Id">
+    <End Type="dbAcademiaProgramadoresModel.tbGeneraciones" Role="tbGeneraciones" Multiplicity="1" />
+    <End Type="dbAcademiaProgramadoresModel.tbInstructoresPorCursoPorGeneracion" Role="tbInstructoresPorCursoPorGeneracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbGeneraciones">
+        <PropertyRef Name="Gener_Id" />
+      </Principal>
+      <Dependent Role="tbInstructoresPorCursoPorGeneracion">
+        <PropertyRef Name="Gener_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="SP_tbInstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result">
+    <Property Type="Int32" Name="InsCG_Id" Nullable="false" />
+    <Property Type="Int32" Name="Instr_Id" Nullable="false" />
+    <Property Type="Int32" Name="Gener_Id" Nullable="false" />
+    <Property Type="Int32" Name="Curso_Id" Nullable="false" />
+    <Property Type="Int32" Name="InsCG_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="InsCG_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="InsCG_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="InsCG_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="InsCG_Estado" Nullable="false" />
+    <Property Type="String" Name="Curso_Nombre" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="SP_tbInstructores_DropDownListPersonas_Result">
+    <Property Type="Int32" Name="Perso_Id" Nullable="false" />
+    <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+  </ComplexType>
+  <ComplexType Name="SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result">
+    <Property Type="Int32" Name="InsCG_Id" Nullable="false" />
+    <Property Type="Int32" Name="Instr_Id" Nullable="false" />
+    <Property Type="Int32" Name="Gener_Id" Nullable="false" />
+    <Property Type="Int32" Name="Curso_Id" Nullable="false" />
+    <Property Type="Int32" Name="InsCG_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="InsCG_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="InsCG_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="InsCG_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="InsCG_Estado" Nullable="false" />
+    <Property Type="String" Name="Curso_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+  </ComplexType>
+  <ComplexType Name="SP_Instructores_DropDownListPersonas_Result">
+    <Property Type="Int32" Name="Perso_Id" Nullable="false" />
+    <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+  </ComplexType>
+  <ComplexType Name="SP_CursosPorGeneraciones_DropDownListCursos_Result">
+    <Property Type="Int32" Name="Curso_Id" Nullable="false" />
+    <Property Type="String" Name="Curso_Nombre" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="Categ_Id" Nullable="false" />
+    <Property Type="Int32" Name="Curso_UsuarioCreacion" Nullable="false" />
+    <Property Type="DateTime" Name="Curso_FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Curso_UsuarioModificacion" Nullable="true" />
+    <Property Type="DateTime" Name="Curso_FechaModificacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Curso_Estado" Nullable="false" />
   </ComplexType>
 </Schema>

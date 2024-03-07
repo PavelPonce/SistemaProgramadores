@@ -17,6 +17,7 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Titulos
         public ActionResult Index()
         {
+            ViewBag.Titul_Tipo = new SelectList(db.SP_Titulos_DropDownList().ToList(), "Titul_Tipo","Titul_TipoDescripcion");
             var tbTitulos = db.tbTitulos.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
             return View(tbTitulos.ToList());
         }
@@ -24,6 +25,8 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Titulos/Details/5
         public ActionResult Details(int? id)
         {
+                        ViewBag.Titul_Tipo = new SelectList(db.SP_Titulos_DropDownList().ToList(), "Titul_Tipo","Titul_TipoDescripcion");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,11 +52,11 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titul_Id,Titul_Nombre,Titul_Tipo,Titul_UsuarioCreacion,Titul_FechaCreacion,Titul_UsuarioModificacion,Titul_FechaModificacion,Titul_Estado")] tbTitulos tbTitulos)
+        public ActionResult Create([Bind(Include = "Titul_Nombre,Titul_Tipo")] tbTitulos tbTitulos)
         {
             if (ModelState.IsValid)
             {
-                db.tbTitulos.Add(tbTitulos);
+                db.SP_Titulos_Insertar(tbTitulos.Titul_Nombre,tbTitulos.Titul_Tipo,1,DateTime.Now);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,11 +88,11 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Titul_Id,Titul_Nombre,Titul_Tipo,Titul_UsuarioCreacion,Titul_FechaCreacion,Titul_UsuarioModificacion,Titul_FechaModificacion,Titul_Estado")] tbTitulos tbTitulos)
+        public ActionResult Edit([Bind(Include = "Titul_Id,Titul_Nombre,Titul_Tipo")] tbTitulos tbTitulos)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbTitulos).State = EntityState.Modified;
+                db.SP_Titulos_Modificar(tbTitulos.Titul_Id,tbTitulos.Titul_Nombre, tbTitulos.Titul_Tipo, 1, DateTime.Now);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -116,10 +119,10 @@ namespace SistemaAcademiaProgramadores.Controllers
         // POST: Titulos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed([Bind(Include = "Titul_Id")] tbTitulos tbTitulos)
         {
-            tbTitulos tbTitulos = db.tbTitulos.Find(id);
-            db.tbTitulos.Remove(tbTitulos);
+            int usuarioLogueado = int.Parse(Session["Usuar_Id"].ToString());
+            db.SP_Titulos_Eliminar(tbTitulos.Titul_Id,usuarioLogueado,DateTime.Now);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

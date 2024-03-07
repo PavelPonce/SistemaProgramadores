@@ -6,8 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h1 class="text-primary">Detalle @ViewBag.Title</h1>
@@ -20,82 +18,81 @@
 </div>
 <section class="content">
 
-    <div class="card">
-        <div class="card-body">
-            <div class="form-row justify-content-center">
+<div class="card">
+<div class="card-body">
+        <div class="form-row justify-content-center">
+    @Html.HiddenFor(model => model.Depar_Id, new { @id = "Item_Id"})
+      
+    <div class="col-sm-4">
+        <dl>
+            <dt class="text-primary text-center">
+                @Html.DisplayNameFor(model => model.Depar_Descripcion)
+            </dt>
 
-                @Html.HiddenFor(model => model.Depar_Id, new { @id = "Item_Id"})
+            <dd>
+                @Html.DisplayFor(model => model.Depar_Descripcion)
+            </dd>
+        </dl>
+     </div>
 
-                <div class="col-sm-4">
-                    <dl>
-                        <dt class="text-primary text-center">
-                            @Html.DisplayNameFor(model => model.Depar_Descripcion)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.Depar_Descripcion)
-                        </dd>
-                    </dl>
-                </div>
-
-
-
-
-
-
-
-            </div>
+      
+      
+      
+      
+      
+      
+    </div>
             <div class="d-flex justify-content-end" style="gap: 10px;">
 
-                <button class="btnEditar btn btn-primary btn-outline">
-                    <i class="fa fa-edit mr-2"></i>Editar
-                </button>
-                <button class="btnEliminar btn btn-danger btn-outline">
-                    <i class="fa fa-trash mr-2"></i>Eliminar
-                </button>
-                @*<a class="btn btn-primary btn-outline" href="@Url.Action("Edit", new { id = Model.Depar_Id })">
-                        <i class="fa fa-edit mr-2"></i>Editar
-                    </a>*@
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="card-title text-primary mb-4" style="font-size: 1.5rem;"> Auditoria </div>
-            <div class="w-100" style="overflow-x:scroll;">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr class="thead-purple thead-justify-content-center">
-                            <th class="bg-primary">Accion</th>
-                            <th class="bg-primary">Usuario</th>
-                            <th class="bg-primary">Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Creacion</td>
-                            <td>
-                                @Html.DisplayFor(model => model.tbUsuarios.Usuar_Usuario)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(model => model.Depar_FechaCreacion)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Modificacion</td>
-                            <td>
-                                @Html.DisplayFor(model => model.tbUsuarios1.Usuar_Usuario)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(model => model.Depar_FechaModificacion)
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <button class="btnEditar btn btn-primary btn-outline">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </button>
+            <button class="btnEliminar btn btn-danger btn-outline" onclick="Eliminar()">
+                <i class="fa fa-trash mr-2"></i>Eliminar
+            </button>
+            @*<a class="btn btn-primary btn-outline" href="@Url.Action("Edit", new { id = Model.Depar_Id })">
+                <i class="fa fa-edit mr-2"></i>Editar
+            </a>*@
         </div>
     </div>
+<div class="card-footer">
+    <div class="card-title text-primary mb-4" style="font-size: 1.5rem;"> Auditoria </div>
+    <div class="w-100" style="overflow-x:scroll;">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="thead-purple thead-justify-content-center">
+                    <th class="bg-primary">Accion</th>
+                    <th class="bg-primary">Usuario</th>
+                    <th class="bg-primary">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Creacion</td>
+                                                                                                                                                                <td>
+                                @Html.DisplayFor(model => model.tbUsuarios.Usuar_Usuario)
+                            </td>
+                                                                    
+                                                                                        <td>
+                                @Html.DisplayFor(model => model.Depar_FechaCreacion)
+                            </td>
+                                                                                                                                        </tr>
+            
+                <tr>
+                    <td>Modificacion</td>
+                                                                                                                                                                                    <td>
+                                @Html.DisplayFor(model => model.tbUsuarios1.Usuar_Usuario)
+                            </td>
+                                                
+                                                                                                            <td>
+                                @Html.DisplayFor(model => model.Depar_FechaModificacion)
+                            </td>
+                                                                                                                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
 </section>
 @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
 
@@ -108,43 +105,32 @@
             method: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ id: id, spLlenarEditar: 'tbDepartamentos' }),
+            data: JSON.stringify({id : id, spLlenarEditar : 'tbDepartamentos'}),
 
             success: function (data) {
                 $.each(data, function (key, value) {
-                    $('#Depar_Id').val(value.Depar_Id)
-                    $('#Depar_Descripcion').val(value.Depar_Descripcion)
-                })
-
+                                    $('#Depar_Id').val(value.Depar_Id)
+                                    $('#Depar_Descripcion').val(value.Depar_Descripcion)
+                                })
+                   
             },
-
+            
         })
 
         $('#modalEditar').modal('show');
     })
 
-    $('.btnEliminar').click(function () {
+    function Eliminar()
+    {
         var id = document.getElementById("Item_Id").value;
+        $('#Row_Id').val(id);
 
+        localStorage.setItem("Row_Id", id);
 
-        $.ajax({
-            url: "/Home/llenarInputs",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ id: id, spLlenarEditar: 'tbDepartamentos' }),
-
-            success: function (data) {
-                $.each(data, function (key, value) {
-                    $('#Row_Id').val(value.Depar_Id)
-                })
-
-            },
-
-        })
         $('#modalEliminar').modal('show');
-    })
+    }
 </script>
+
 
 <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -155,9 +141,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbDepartamentos())
-
-
+                @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbDepartamentos())
+            
+                
         </div>
     </div>
 </div>
@@ -180,3 +166,4 @@
         </div>
     </div>
 </div>
+

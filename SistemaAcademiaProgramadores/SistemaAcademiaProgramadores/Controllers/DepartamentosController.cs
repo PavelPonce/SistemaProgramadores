@@ -53,7 +53,7 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, 1, DateTime.Now);
+                db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

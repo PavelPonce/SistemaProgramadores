@@ -56,7 +56,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                 }
             }
             Panta_IdsXML += "</Panta_IdsXML>";
-            return Json(db.SP_PantallasPorRoles_InsertarEliminar(Panta_IdsXML,Roles_Id,1,DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.SP_PantallasPorRoles_InsertarEliminar(Panta_IdsXML, Roles_Id, 1, DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
         }
         // GET: PantallasPorRoles/Details/5
         public ActionResult Details(int? id)

@@ -19,6 +19,10 @@
     primary secondary:b579d6
 
 */
+.no-drag{
+    user-select: none;
+}
+
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../fonts/glyphicons-halflings-regular.eot');

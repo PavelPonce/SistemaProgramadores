@@ -108,7 +108,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
             @*<button class="btnEditar btn btn-primary btn-outline">
                 <i class="fa fa-edit mr-2"></i>Editar
             </button>*@
-            <button class="btnEliminar btn btn-danger btn-outline">
+            <button class="btnEliminar btn btn-danger btn-outline" onclick="Eliminar()">
                 <i class="fa fa-trash mr-2"></i>Eliminar
             </button>
             <a class="btn btn-primary btn-outline" href="@Url.Action("Edit", new { id = Model.<#= pkName #> })">
@@ -122,7 +122,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
             @*<button class="btnEditar btn btn-primary btn-outline">
                 <i class="fa fa-edit mr-2"></i>Editar
             </button>*@
-            <button class="btnEliminar btn btn-danger btn-outline">
+            <button class="btnEliminar btn btn-danger btn-outline" onclick="Eliminar()">
                 <i class="fa fa-trash mr-2"></i>Eliminar
             </button>
             <a class="btn btn-primary btn-outline" href="@Url.Action("Edit") id=Model.PrimaryKey">
@@ -290,37 +290,15 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
         $('#modalEditar').modal('show');
     })*@
 
-    @*$('.btnEliminar').click(function () {
+    function Eliminar()
+    {
         var id = document.getElementById("Item_Id").value;
-        
-            $.ajax({
-            url: "/Home/llenarInputs",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ id: id, spLlenarEditar: '<#= ViewDataTypeShortName #>' }),
+        $('#Row_Id').val(id);
 
-             success: function (data) {
-                $.each(data, function (key, value) {
-                <#
-                    foreach (PropertyMetadata property in ModelMetadata.Properties) {
+        localStorage.setItem("Row_Id", id);
 
-                        if (property.Scaffold && !property.IsAssociation) {
-                            if(property.IsPrimaryKey){
-                #>
-                    $('#Row_Id').val(value.<#= property.PropertyName #>)
-                <#
-                            }
-                        }
-                    }
-                #>
-                })
-                   
-            },
-
-        })
         $('#modalEliminar').modal('show');
-    })*@
+    }
 </script>
 
 @*

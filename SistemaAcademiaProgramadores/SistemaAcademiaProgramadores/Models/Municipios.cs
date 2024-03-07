@@ -19,6 +19,7 @@ namespace SistemaAcademiaProgramadores.Models
         [Required]
         [Display(Name = "Municipio")]
         public string Munic_Descripcion { get; set; }
+        [Display(Name = "Departamento")]
         public string Depar_Id { get; set; }
     }
 }

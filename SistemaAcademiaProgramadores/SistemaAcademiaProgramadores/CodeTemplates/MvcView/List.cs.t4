@@ -148,11 +148,10 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        <button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
+                        <button class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4"  onclick="Eliminar('@item.id')">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
                         </button>
-                        
                     </div>
                 </td>
            
@@ -173,14 +172,10 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
                             <i class="fa fa-eye"></i>
                             Detalles
                         </a>
-                        @*<button data-id="@item.ID" class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4">
+                        <button class="btnEliminar btn btn-danger btn-outline btn-xs col-sm-4"  onclick="Eliminar('@item.id')">
                             <i class="fa fa-trash-o"></i>
                             Eliminar
-                        </button>*@
-                        <a class="btn btn-danger btn-outline btn-xs col-sm-4" href="@Url.Action("Delete")" id="item.PrimaryKey">
-                            <i class="fa fa-trash-o"></i>
-                            Eliminar
-                        </a>
+                        </button>
                     </div>
                 </td>
            
@@ -245,36 +240,14 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
         $('#modalEditar').modal('show');
     })*@
 
-    @*$('.btnEliminar').click(function () {
-        var id = $(this).data("id");
-        $.ajax({
-            url: "/Home/llenarInputs",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ id: id, spLlenarEditar: '<#= ViewDataTypeShortName #>' }),
+     function Eliminar(id)
+    {
+        $("#Row_Id").val(id);
 
-             success: function (data) {
-                $.each(data, function (key, value) {
-                <#
-                    foreach (PropertyMetadata property in ModelMetadata.Properties) {
+        localStorage.setItem("Row_Id", id);
 
-                        if (property.Scaffold && !property.IsAssociation) {
-                            if(property.IsPrimaryKey){
-                #>
-                    $('#Row_Id').val(value.<#= property.PropertyName #>)
-                <#
-                            }
-                        }
-                    }
-                #>
-                })
-                   
-            },
-
-        })
         $('#modalEliminar').modal('show');
-    })*@
+    }
 
      @*$('.btnNuevo').click(function () {
             $('#modalNuevo').modal('show');

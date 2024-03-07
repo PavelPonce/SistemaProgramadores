@@ -14,14 +14,14 @@ namespace SistemaAcademiaProgramadores.Models
     public class CalificacionesMetaData
     {
         public int Calif_Id { get; set; }
-        [Display(Name = "Nombre del Curso")]
+        [Display(Name = "Nombre de la Actividad")]
 
-        public int CuGen_Id { get; set; }
+        public int ActCG_Id { get; set; }
         [Display(Name = "Alumno")]
 
         public int Alumn_Id { get; set; }
         [RegularExpression(@"^[0-9]{1,2}(?:\.[0-9]{1,2})?$", ErrorMessage = "El {0} acepta numeros decimales 0 - 100")]
-        [Display(Name ="Nota de Curso")]
+        [Display(Name = "Nota de Curso")]
         public decimal Calif_Nota { get; set; }
     }
 }

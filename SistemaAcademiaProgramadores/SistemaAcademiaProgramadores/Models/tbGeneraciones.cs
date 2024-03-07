@@ -17,23 +17,23 @@ namespace SistemaAcademiaProgramadores.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbGeneraciones()
         {
-            this.tbCursosPorGeneracion = new HashSet<tbCursosPorGeneracion>();
+            this.tbInstructoresPorCursoPorGeneracion = new HashSet<tbInstructoresPorCursoPorGeneracion>();
         }
     
         public int Gener_Id { get; set; }
         public string Gener_Nombre { get; set; }
         public int Gener_Anhio { get; set; }
+        public System.DateTime Gener_FechaInicio { get; set; }
+        public Nullable<System.DateTime> Gener_FechaFin { get; set; }
         public int Gener_UsuarioCreacion { get; set; }
         public System.DateTime Gener_FechaCreacion { get; set; }
         public Nullable<int> Gener_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Gener_FechaModificacion { get; set; }
         public bool Gener_Estado { get; set; }
-        public System.DateTime Gener_FechaInicio { get; set; }
-        public Nullable<System.DateTime> Gener_FechaFin { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbCursosPorGeneracion> tbCursosPorGeneracion { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
     }
 }
