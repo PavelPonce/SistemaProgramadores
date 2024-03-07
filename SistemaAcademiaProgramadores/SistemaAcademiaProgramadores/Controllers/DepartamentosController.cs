@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SistemaAcademiaProgramadores.Attributes;
 using SistemaAcademiaProgramadores.Models;
 
 namespace SistemaAcademiaProgramadores.Controllers
 {
+    [CustomAuthorize]
     public class DepartamentosController : Controller
     {
         private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();

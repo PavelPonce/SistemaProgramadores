@@ -1,15 +1,15 @@
-﻿using System;
+﻿using SistemaAcademiaProgramadores.Attributes;
+using SistemaAcademiaProgramadores.Models;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SistemaAcademiaProgramadores.Models;
 
 namespace SistemaAcademiaProgramadores.Controllers
 {
+    [CustomAuthorize]
     public class InstructoresPorCursoPorGeneracionController : Controller
     {
         private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
@@ -24,7 +24,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             var tbInstructores = db.tbInstructores.ToList();
             var tbCursos = db.tbCursos.ToList();
             var tbGeneraciones = db.tbGeneraciones.ToList();
-            return View(new Tuple <IEnumerable<tbInstructoresPorCursoPorGeneracion>, IEnumerable<tbInstructores>, IEnumerable<tbCursos>, IEnumerable<tbGeneraciones>>(tbInstructoresPorCursoPorGeneracion, tbInstructores, tbCursos, tbGeneraciones));
+            return View(new Tuple<IEnumerable<tbInstructoresPorCursoPorGeneracion>, IEnumerable<tbInstructores>, IEnumerable<tbCursos>, IEnumerable<tbGeneraciones>>(tbInstructoresPorCursoPorGeneracion, tbInstructores, tbCursos, tbGeneraciones));
         }
 
         // GET: InstructoresPorCursoPorGeneracions/Details/5
@@ -65,7 +65,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                     }
                 }
             }
-            
+
             if (cursosPorDeshabilitar != null)
             {
                 for (int i = 0; i < cursosPorDeshabilitar.Length; i++)

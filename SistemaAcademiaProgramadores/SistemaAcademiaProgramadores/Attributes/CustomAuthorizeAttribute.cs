@@ -39,29 +39,53 @@ namespace SistemaAcademiaProgramadores.Attributes
 
             return result.ToString();
         }
-        private string GetRolesFromDatabase(string Panta_Descripcion)
+        private string GetRolesFromDatabase(string Panta_Descripcion, string Usuar_Usuario)
         {
             dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
             var listaRolesPorPantalla = db.SP_PantallasPorRoles_SeleccionarRolesPorPantalla(Panta_Descripcion).ToList();
-
+            var Usuario = db.tbUsuarios.Where(t=>t.Usuar_Usuario == Usuar_Usuario);
             var str = "";
-            for (int i = 0; i < listaRolesPorPantalla.Count; i++)
+            bool Usuar_Admin = false;
+            foreach (var item in Usuario)
             {
-                if (i == listaRolesPorPantalla.Count - 1)
+                Usuar_Admin = item.Usuar_Admin;
+            }
+            if (Usuar_Admin)
+            {
+                var roles = db.tbRoles.ToList();
+                for (int i = 0; i < roles.Count; i++)
                 {
-                    str += listaRolesPorPantalla[i].Roles_Descripcion;
+                    if (i == roles.Count - 1)
+                    {
+                        str += roles[i].Roles_Descripcion;
+                    }
+                    else
+                    {
+                        str += $"{roles[i].Roles_Descripcion}, ";
+                    }
                 }
-                else
+            }
+            else
+            {
+                for (int i = 0; i < listaRolesPorPantalla.Count; i++)
                 {
-                    str += $"{listaRolesPorPantalla[i].Roles_Descripcion}, ";
+                    if (i == listaRolesPorPantalla.Count - 1)
+                    {
+                        str += listaRolesPorPantalla[i].Roles_Descripcion;
+                    }
+                    else
+                    {
+                        str += $"{listaRolesPorPantalla[i].Roles_Descripcion}, ";
+                    }
                 }
             }
             return str;
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
+            var Usuar_Usuario = filterContext.HttpContext.User.Identity.Name;
             ControllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-            string roles = GetRolesFromDatabase(ParsearControllerName(ControllerName));
+            string roles = GetRolesFromDatabase(ParsearControllerName(ControllerName), Usuar_Usuario);
             Roles = roles;
             base.OnAuthorization(filterContext);
         }

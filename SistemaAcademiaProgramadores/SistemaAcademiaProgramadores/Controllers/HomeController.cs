@@ -34,6 +34,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                 if (usuario.Count > 0)
                 {
                     FormsAuthentication.SetAuthCookie(usuario[0].Usuar_Usuario, false);
+                    Session["Usuario"] = usuario[0];
                     Session["Usuar_Id"] = usuario[0].Usuar_Id;
                     Session["Perso_Id"] = usuario[0].Perso_Id;
                     Session["Perso_NombreCompleto"] = usuario[0].Perso_NombreCompleto;
@@ -59,40 +60,83 @@ namespace SistemaAcademiaProgramadores.Controllers
                             "</li>";
                     string layoutWithReplacedIcon = "";
                     string layoutWithReplacedUrl = "";
-                    foreach (var item in pantallasPorRol)
+                    if (usuario[0].Usuar_Admin)
                     {
-                        switch (item.Panta_Esquema)
+                        var tbPantallas = db.tbPantallas.ToList();
+                        foreach (var item in tbPantallas)
                         {
-                            case "Acces":
-                                layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-spinner");
-                                layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
-                                esquemaAccesosHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
-                                layoutWithReplacedIcon = "";
-                                layoutWithReplacedUrl = "";
-                                break;
-                            case "Mante":
-                                layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-gear");
-                                layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
-                                esquemaMantenimientoHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
-                                layoutWithReplacedIcon = "";
-                                layoutWithReplacedUrl = "";
-                                break;
-                            case "Acade":
-                                layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-circle-o");
-                                layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
-                                esquemaAcademiaHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
-                                layoutWithReplacedIcon = "";
-                                layoutWithReplacedUrl = "";
-                                break;
-                            case "Calif":
-                                layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-circle-o");
-                                layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
-                                esquemaAcademiaHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
-                                layoutWithReplacedIcon = "";
-                                layoutWithReplacedUrl = "";
-                                break;
-                            default:
-                                break;
+                            switch (item.Panta_Esquema)
+                            {
+                                case "Acces":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-spinner");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaAccesosHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                case "Mante":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-gear");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaMantenimientoHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                case "Acade":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-circle-o");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaAcademiaHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                case "Calif":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-circle-o");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaAcademiaHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in pantallasPorRol)
+                        {
+                            switch (item.Panta_Esquema)
+                            {
+                                case "Acces":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-spinner");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaAccesosHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                case "Mante":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-gear");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaMantenimientoHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                case "Acade":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-circle-o");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaAcademiaHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                case "Calif":
+                                    layoutWithReplacedIcon = layout.Replace("{icon}", "fa fa-circle-o");
+                                    layoutWithReplacedUrl += layoutWithReplacedIcon.Replace("{url}", Url.Action("Index", item.Panta_Descripcion.Replace(" ", "")));
+                                    esquemaAcademiaHTML += layoutWithReplacedUrl.Replace("{item.Panta_Descripcion}", item.Panta_Descripcion);
+                                    layoutWithReplacedIcon = "";
+                                    layoutWithReplacedUrl = "";
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                     if (esquemaAccesosHTML.Contains("fa-spinner"))
