@@ -21,7 +21,7 @@
 */
 
 td input:focus {
-    outline: 1px dotted #F8941D;
+    outline: 1px solid #F8941D;
 }
 .no-drag{
     user-select: none;

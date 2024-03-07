@@ -1,3 +1,4 @@
+//https://datatables.net/examples/api/row_details.html
 ALTER PROCEDURE [Acces].[SP_Usuarios_Insertar] (
 	@Usuar_Usuario VARCHAR(50),
 	@Usuar_Contrasena NVARCHAR(MAX), -- Use NVARCHAR for better password storage

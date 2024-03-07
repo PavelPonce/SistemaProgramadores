@@ -135,7 +135,7 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                return Json(db.SP_Calificaciones_Modificar(ActCG_Id, Alumn_Id, decimal.Parse(Calif_Nota),Session["Usuar_Id"].ToString(), DateTime.Now), JsonRequestBehavior.AllowGet);
+                return Json(db.SP_Calificaciones_Modificar(ActCG_Id, Alumn_Id, decimal.Parse(Calif_Nota), Session["Usuar_Id"].ToString(), DateTime.Now), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

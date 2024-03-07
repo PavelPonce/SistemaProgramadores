@@ -29,9 +29,9 @@
 <section class="content">
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-around w-100 mb-4" style="gap: 10px;">
-                <select id="ddlGeneraciones" class="form-control text-primary" style="max-width: 250px;">
-                    <option value="">--Seleccionar generacion--</option>
+            <div class="d-flex justify-content-around w-100 mb-4" style="gap: 10px; flex-wrap: wrap;">
+                <select id="ddlGeneraciones" class="form-control text-primary" style="max-width: 180px;">
+                    <option value="">-- Generacion --</option>
                     @foreach (var generacion in Model)
                     {
                         if (Session["Gener_Id"] == null)
@@ -51,8 +51,8 @@
                         }
                     }
                 </select>
-                <select id="ddlCursos" class="form-control text-primary" style="max-width: 250px;">
-                    <option value="">--Seleccionar curso--</option>
+                <select id="ddlCursos" class="form-control text-primary" style="max-width: 180px;">
+                    <option value="">-- Curso --</option>
                     @if (Cursos.Count > 0)
                     {
                         foreach (var curso in Cursos)
@@ -363,7 +363,8 @@
                                     txtInput.disabled = true;
                                     txtInput.id = calificacionesTheadTr.children[i + 1].id;
                                     txtInput.value = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0 ).toFixed(2);
-                                    notaTableCell.textContent = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0 ).toFixed(2);
+                                    notaTableCell.textContent = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0).toFixed(2);
+                                    console.log(notaTableCell.textContent, "txtContent");
                                     total += parseFloat(notaTableCell.textContent);
                                     txtInput.classList.add("w-100");
                                     txtInput.style.position = "absolute";
@@ -397,10 +398,10 @@
                                                 console.log(nuevoMapCalificaciones.get(event.target.id), "antiguo valor")
                                                 if (event.target.value > puntajeActividad) {
                                                     console.log("Nota del alumno excede el puntaje de la actividad");
-                                                    tableRowElement.children[i].textContent = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                                    tableRowElement.children[i].textContent = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id)).toFixed(2);
                                                     let txtInput = document.createElement("input");
                                                     txtInput.id = event.target.id;
-                                                    txtInput.value = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                                    txtInput.value = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id).toFixed(2));
                                                     txtInput.classList.add("w-100");
                                                     txtInput.style.position = "absolute";
                                                     txtInput.style.left = 0;
@@ -410,11 +411,7 @@
                                                 } else {
                                                     nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(Alumn_Id, event.target.id, event.target.value) : modificarNota(Alumn_Id, event.target.id, event.target.value);
                                                     nuevoMapCalificaciones.set(event.target.id, event.target.value);
-                                                    tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
-                                                    //let nuevoMapCalificaciones = calificacionesMap.get(item[0]);
-                                                    //nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(item[0], event.target.id, event.target.value) : modificarNota(item[0], event.target.id, event.target.value);
-                                                    //nuevoMapCalificaciones.set(event.target.id, event.target.value);
-                                                    //tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
+                                                    tableRowElement.children[tableRowElement.children.length - 1].textContent = parseFloat(sumarNotas(tableRowElement)).toFixed(2);
                                                 }
                                             });
                                         }
