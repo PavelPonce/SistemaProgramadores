@@ -11,7 +11,7 @@ namespace SistemaAcademiaProgramadores.Models
 {
     using System;
     
-    public partial class SP_tbInstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result
+    public partial class SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result
     {
         public int InsCG_Id { get; set; }
         public int Instr_Id { get; set; }
@@ -23,5 +23,6 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> InsCG_FechaModificacion { get; set; }
         public bool InsCG_Estado { get; set; }
         public string Curso_Nombre { get; set; }
+        public string Perso_NombreCompleto { get; set; }
     }
 }

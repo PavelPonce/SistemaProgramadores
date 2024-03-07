@@ -277,6 +277,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({ Gener_Id }),
                 success: function (data) {
+                    console.log(data)
                     calificacionesMap.clear();
                     let ddlCursosChildren = document.getElementById("ddlCursos").children;
                     for (let i = ddlCursosChildren.length - 1; i > 0; i--) {
@@ -361,8 +362,8 @@
                                     let txtInput = document.createElement("input");
                                     txtInput.disabled = true;
                                     txtInput.id = calificacionesTheadTr.children[i + 1].id;
-                                    txtInput.value = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id)).toFixed(2) ?? 0;
-                                    notaTableCell.textContent = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id)).toFixed(2) ?? 0;
+                                    txtInput.value = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0 ).toFixed(2);
+                                    notaTableCell.textContent = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id) ?? 0 ).toFixed(2);
                                     total += parseFloat(notaTableCell.textContent);
                                     txtInput.classList.add("w-100");
                                     txtInput.style.position = "absolute";
@@ -375,7 +376,7 @@
                                 }
                                 calificacionesTbody.appendChild(tableRowElement);
                                 let totalTableCell = document.createElement("td");
-                                totalTableCell.textContent = total.toString();
+                                totalTableCell.textContent = parseFloat(total).toFixed(2);
                                 totalTableCell.classList.add("p-0");
                                 tableRowElement.appendChild(totalTableCell);
                                 for (let i = tableRowElement.children.length - 1; i > 0; i--) {

@@ -29,7 +29,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                     //Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] = db.SP_ActividadesPorCursoPorGeneracion_Seleccionar(Curso_Id, Gener_Id).ToList();
                     //Session["SP_Calificaciones2_Seleccionar"] = db.SP_Calificaciones2_Seleccionar(Curso_Id, Gener_Id).ToList();
 
-                    var Cursos = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(int.Parse(Session["Perso_Id"].ToString()), Gener_Id).ToList();
+                    var Cursos = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(Session["Perso_Id"].ToString(), Gener_Id.ToString()).ToList();
                     var Actividades = db.SP_ActividadesPorCursoPorGeneracion_Seleccionar(Curso_Id, Gener_Id).ToList();
                     var Calificaciones = db.SP_Calificaciones2_Seleccionar(Curso_Id, Gener_Id).ToList();
                     Session["Gener_Id"] = Gener_Id;
@@ -85,8 +85,9 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                var Usuar_Id = int.Parse(Session["Usuar_Id"].ToString());
-                return Json(db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(Usuar_Id, int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+                var Perso_Id = Session["Perso_Id"].ToString();
+                var resul = db.SP_InstructoresPorCursoPorGeneracion_Seleccionar(Perso_Id, Gener_Id).ToList();
+                return Json(resul, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -191,24 +192,24 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-
+                if (ModelState.IsValid)
+                {
+                    db.tbCalificaciones.Add(tbCalificaciones);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Alumn_Id = new SelectList(db.tbAlumnos, "Perso_Id", "Alumn_Observaciones", tbCalificaciones.Alumn_Id);
+                ViewBag.Calif_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioCreacion);
+                ViewBag.Calif_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioModificacion);
+                ViewBag.ActCG_Id = new SelectList(db.tbActividadesPorCursoPorGeneracion, "ActCG_Id", "ActCG_Id", tbCalificaciones.ActCG_Id);
+                return View(tbCalificaciones);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-            if (ModelState.IsValid)
-            {
-                db.tbCalificaciones.Add(tbCalificaciones);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
 
-            ViewBag.Alumn_Id = new SelectList(db.tbAlumnos, "Perso_Id", "Alumn_Observaciones", tbCalificaciones.Alumn_Id);
-            ViewBag.Calif_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioCreacion);
-            ViewBag.Calif_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioModificacion);
-            ViewBag.ActCG_Id = new SelectList(db.tbActividadesPorCursoPorGeneracion, "ActCG_Id", "ActCG_Id", tbCalificaciones.ActCG_Id);
-            return View(tbCalificaciones);
         }
 
         // GET: Calificaciones/Edit/5
@@ -216,26 +217,26 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbCalificaciones tbCalificaciones = db.tbCalificaciones.Find(id);
+                if (tbCalificaciones == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Alumn_Id = new SelectList(db.tbAlumnos, "Perso_Id", "Alumn_Observaciones", tbCalificaciones.Alumn_Id);
+                ViewBag.Calif_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioCreacion);
+                ViewBag.Calif_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioModificacion);
+                ViewBag.ActCG_Id = new SelectList(db.tbActividadesPorCursoPorGeneracion, "ActCG_Id", "ActCG_Id", tbCalificaciones.ActCG_Id);
+                return View(tbCalificaciones);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return View();
             }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tbCalificaciones tbCalificaciones = db.tbCalificaciones.Find(id);
-            if (tbCalificaciones == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Alumn_Id = new SelectList(db.tbAlumnos, "Perso_Id", "Alumn_Observaciones", tbCalificaciones.Alumn_Id);
-            ViewBag.Calif_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioCreacion);
-            ViewBag.Calif_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCalificaciones.Calif_UsuarioModificacion);
-            ViewBag.ActCG_Id = new SelectList(db.tbActividadesPorCursoPorGeneracion, "ActCG_Id", "ActCG_Id", tbCalificaciones.ActCG_Id);
-            return View(tbCalificaciones);
         }
 
         // POST: Calificaciones/Edit/5

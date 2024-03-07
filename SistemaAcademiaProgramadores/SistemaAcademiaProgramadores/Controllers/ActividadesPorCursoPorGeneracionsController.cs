@@ -43,7 +43,7 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             return Json(db.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion(int.Parse(InsCG_Id)).ToList(), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ModificarActividadesPorCursosPorGeneracion(string[] actividadesPorHabilitar, string[] actividadesPorDeshabilitar,string[] actividadesPorActualizar, int InsCG_Id)
+        public JsonResult ModificarActividadesPorCursosPorGeneracion(string[] actividadesPorHabilitar, string[] actividadesPorDeshabilitar,string[] actividadesPorActualizar, string InsCG_Id)
         {
             var Actividades_XML = "<Actividades_XML>";
             //if ()
@@ -90,7 +90,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                     }
             }
             Actividades_XML += "</Actividades_XML>";
-            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         // GET: ActividadesPorCursoPorGeneracions/Create

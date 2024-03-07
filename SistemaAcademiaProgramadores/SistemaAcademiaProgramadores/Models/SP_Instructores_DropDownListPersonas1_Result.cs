@@ -11,10 +11,8 @@ namespace SistemaAcademiaProgramadores.Models
 {
     using System;
     
-    public partial class SP_Usuarios_Seleccionar_Result
+    public partial class SP_Instructores_DropDownListPersonas1_Result
     {
-        public int Usuar_Id { get; set; }
-        public string Usuar_Usuario { get; set; }
         public int Perso_Id { get; set; }
         public string Perso_NombreCompleto { get; set; }
     }

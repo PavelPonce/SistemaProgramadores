@@ -185,6 +185,7 @@
           <ScalarProperty Name="Usuar_Admin" ColumnName="Usuar_Admin" />
           <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
           <ScalarProperty Name="Roles_Descripcion" ColumnName="Roles_Descripcion" />
+          <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -495,5 +496,53 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result">
+          <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
+          <ScalarProperty Name="Activ_Nombre" ColumnName="Activ_Nombre" />
+          <ScalarProperty Name="Activ_UsuarioCreacion" ColumnName="Activ_UsuarioCreacion" />
+          <ScalarProperty Name="Activ_FechaCreacion" ColumnName="Activ_FechaCreacion" />
+          <ScalarProperty Name="Activ_UsuarioModificacion" ColumnName="Activ_UsuarioModificacion" />
+          <ScalarProperty Name="Activ_FechaModificacion" ColumnName="Activ_FechaModificacion" />
+          <ScalarProperty Name="Activ_Estado" ColumnName="Activ_Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Titulos_DropDownList1" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_DropDownList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Titulos_DropDownList1_Result">
+          <ScalarProperty Name="Titul_Tipo" ColumnName="Titul_Tipo" />
+          <ScalarProperty Name="Titul_TipoDescripcion" ColumnName="Titul_TipoDescripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Instructores_DropDownListPersonas" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Instructores_DropDownListPersonas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Instructores_DropDownListPersonas_Result1">
+          <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result">
+          <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
+          <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
+          <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+          <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+          <ScalarProperty Name="InsCG_UsuarioCreacion" ColumnName="InsCG_UsuarioCreacion" />
+          <ScalarProperty Name="InsCG_FechaCreacion" ColumnName="InsCG_FechaCreacion" />
+          <ScalarProperty Name="InsCG_UsuarioModificacion" ColumnName="InsCG_UsuarioModificacion" />
+          <ScalarProperty Name="InsCG_FechaModificacion" ColumnName="InsCG_FechaModificacion" />
+          <ScalarProperty Name="InsCG_Estado" ColumnName="InsCG_Estado" />
+          <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
+          <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" />
+    <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" />
   </EntityContainerMapping>
 </Mapping>

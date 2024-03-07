@@ -17,8 +17,8 @@
     <Property Name="Alumn_Observaciones" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="Alumn_FechaIngreso" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="tbAlumnosBitacora">
     <Key>
       <PropertyRef Name="AlBit_Accion" />
@@ -991,6 +991,9 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="InsCG_Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_Alumnos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Perso_Id" Type="int" Mode="In" />
     <Parameter Name="Alumn_UsuarioModificacion" Type="int" Mode="In" />
@@ -1146,6 +1149,15 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="InsCG_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Curso_IdsXML" Type="xml" Mode="In" />
+    <Parameter Name="Gener_Id" Type="varchar" Mode="In" />
+    <Parameter Name="InsCG_UsuarioCreacion" Type="varchar" Mode="In" />
+    <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_InstructoresPorCursoPorGeneracion_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="InsCG_Id" Type="int" Mode="In" />
     <Parameter Name="Instr_Id" Type="int" Mode="In" />
@@ -1155,8 +1167,8 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="InsCG_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_InstructoresPorCursoPorGeneracion_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Instr_Id" Type="int" Mode="In" />
-    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Instr_Id" Type="varchar" Mode="In" />
+    <Parameter Name="Gener_Id" Type="varchar" Mode="In" />
   </Function>
   <Function Name="SP_Pantallas_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Panta_Id" Type="int" Mode="In" />
@@ -1277,6 +1289,12 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="ActCG_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="ActCG_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Actividades_XML" Type="xml" Mode="In" />
+    <Parameter Name="InsCG_Id" Type="varchar" Mode="In" />
+    <Parameter Name="ActCG_UsuarioModificacion" Type="varchar" Mode="In" />
+    <Parameter Name="ActCG_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="SP_ActividadesPorCursoPorGeneracion_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
     <Parameter Name="ActCG_Id" Type="int" Mode="In" />
     <Parameter Name="Activ_Id" Type="int" Mode="In" />
@@ -1377,6 +1395,7 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Estci_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Estci_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_Instructores_DropDownListPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <Function Name="SP_Municipios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Munic_Id" Type="char" Mode="In" />
     <Parameter Name="Munic_UsuarioModificacion" Type="int" Mode="In" />
@@ -1435,6 +1454,7 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Perso_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Perso_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_Titulos_DropDownList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <Function Name="SP_Titulos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Titul_Id" Type="int" Mode="In" />
     <Parameter Name="Titul_UsuarioModificacion" Type="int" Mode="In" />

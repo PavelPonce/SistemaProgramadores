@@ -46,9 +46,9 @@ namespace SistemaAcademiaProgramadores.Controllers
         }
         public JsonResult LlenarCursosPorGeneracion(string Gener_Id)
         {
-            return Json(db.SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion(int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion(int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ModificarCursosPorGeneracion(string[] cursosPorHabilitar, string[] cursosPorDeshabilitar, int Gener_Id)
+        public JsonResult ModificarCursosPorGeneracion(string[] cursosPorHabilitar, string[] cursosPorDeshabilitar, string Gener_Id)
         {
             var Curso_IdsXML = "<Curso_IdsXML>";
             if (cursosPorHabilitar != null)
@@ -77,7 +77,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                 }
             }
             Curso_IdsXML += "</Curso_IdsXML>";
-            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Curso_IdsXML, Gener_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Curso_IdsXML, Gener_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
         }
         // GET: InstructoresPorCursoPorGeneracions/Create
         public ActionResult Create()

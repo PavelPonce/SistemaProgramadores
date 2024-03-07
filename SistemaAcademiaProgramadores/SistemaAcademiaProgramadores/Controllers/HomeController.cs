@@ -35,6 +35,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(usuario[0].Usuar_Usuario, false);
                     Session["Usuar_Id"] = usuario[0].Usuar_Id;
+                    Session["Perso_Id"] = usuario[0].Perso_Id;
                     Session["Perso_NombreCompleto"] = usuario[0].Perso_NombreCompleto;
                     Session["Roles_Descripcion"] = usuario[0].Roles_Descripcion;
                     string menuHTML = "";

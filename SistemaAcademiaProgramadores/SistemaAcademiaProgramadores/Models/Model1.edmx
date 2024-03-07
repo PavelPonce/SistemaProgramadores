@@ -22,8 +22,8 @@
           <Property Name="Alumn_Observaciones" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Alumn_FechaIngreso" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="tbAlumnosBitacora">
           <Key>
             <PropertyRef Name="AlBit_Accion" />
@@ -996,6 +996,9 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+          <Parameter Name="InsCG_Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_Alumnos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
           <Parameter Name="Perso_Id" Type="int" Mode="In" />
           <Parameter Name="Alumn_UsuarioModificacion" Type="int" Mode="In" />
@@ -1151,6 +1154,15 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <Parameter Name="InsCG_UsuarioCreacion" Type="int" Mode="In" />
           <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+          <Parameter Name="Curso_IdsXML" Type="xml" Mode="In" />
+          <Parameter Name="Gener_Id" Type="varchar" Mode="In" />
+          <Parameter Name="InsCG_UsuarioCreacion" Type="varchar" Mode="In" />
+          <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+          <Parameter Name="Gener_Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_InstructoresPorCursoPorGeneracion_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
           <Parameter Name="InsCG_Id" Type="int" Mode="In" />
           <Parameter Name="Instr_Id" Type="int" Mode="In" />
@@ -1160,8 +1172,8 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <Parameter Name="InsCG_FechaModificacion" Type="datetime" Mode="In" />
         </Function>
         <Function Name="SP_InstructoresPorCursoPorGeneracion_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-          <Parameter Name="Instr_Id" Type="int" Mode="In" />
-          <Parameter Name="Gener_Id" Type="int" Mode="In" />
+          <Parameter Name="Instr_Id" Type="varchar" Mode="In" />
+          <Parameter Name="Gener_Id" Type="varchar" Mode="In" />
         </Function>
         <Function Name="SP_Pantallas_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
           <Parameter Name="Panta_Id" Type="int" Mode="In" />
@@ -1282,6 +1294,12 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <Parameter Name="ActCG_UsuarioCreacion" Type="int" Mode="In" />
           <Parameter Name="ActCG_FechaCreacion" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+          <Parameter Name="Actividades_XML" Type="xml" Mode="In" />
+          <Parameter Name="InsCG_Id" Type="varchar" Mode="In" />
+          <Parameter Name="ActCG_UsuarioModificacion" Type="varchar" Mode="In" />
+          <Parameter Name="ActCG_FechaModificacion" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="SP_ActividadesPorCursoPorGeneracion_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
           <Parameter Name="ActCG_Id" Type="int" Mode="In" />
           <Parameter Name="Activ_Id" Type="int" Mode="In" />
@@ -1382,6 +1400,7 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <Parameter Name="Estci_UsuarioModificacion" Type="int" Mode="In" />
           <Parameter Name="Estci_FechaModificacion" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="SP_Instructores_DropDownListPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
         <Function Name="SP_Municipios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
           <Parameter Name="Munic_Id" Type="char" Mode="In" />
           <Parameter Name="Munic_UsuarioModificacion" Type="int" Mode="In" />
@@ -1440,6 +1459,7 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <Parameter Name="Perso_UsuarioModificacion" Type="int" Mode="In" />
           <Parameter Name="Perso_FechaModificacion" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="SP_Titulos_DropDownList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
         <Function Name="SP_Titulos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
           <Parameter Name="Titul_Id" Type="int" Mode="In" />
           <Parameter Name="Titul_UsuarioModificacion" Type="int" Mode="In" />
@@ -2814,17 +2834,9 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <FunctionImport Name="SP_tbInstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_tbInstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result)">
           <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_tbInstructores_DropDownListPersonas" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_tbInstructores_DropDownListPersonas_Result)" />
-          <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" ReturnType="Collection(Int32)">
-            <Parameter Name="Curso_IdsXML" Mode="In" Type="String" />
-            <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
-            <Parameter Name="InsCG_UsuarioCreacion" Mode="In" Type="Int32" />
-            <Parameter Name="InsCG_FechaCreacion" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result)">
           <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_Instructores_DropDownListPersonas" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Instructores_DropDownListPersonas_Result)" />
           <FunctionImport Name="SP_CursosPorGeneraciones_DropDownListCursos" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_CursosPorGeneraciones_DropDownListCursos_Result)">
             <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -2837,8 +2849,8 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
             <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_Seleccionar" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result)">
-            <Parameter Name="Instr_Id" Mode="In" Type="Int32" />
-            <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Instr_Id" Mode="In" Type="String" />
+            <Parameter Name="Gener_Id" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="tbDepartamentos" EntityType="dbAcademiaProgramadoresModel.tbDepartamentos" />
           <AssociationSet Name="FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion" Association="dbAcademiaProgramadoresModel.FK_tbDepartamentos_tbUsuarios_Depar_UsuarioCreacion">
@@ -2998,6 +3010,32 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
             <End Role="tbMunicipios" EntitySet="tbMunicipios" />
             <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
           </AssociationSet>
+          <FunctionImport Name="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result)">
+          <Parameter Name="InsCG_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Titulos_DropDownList1" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Titulos_DropDownList1_Result)" />
+          <FunctionImport Name="SP_Instructores_DropDownListPersonas" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_Instructores_DropDownListPersonas_Result1)" />
+          <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" ReturnType="Collection(dbAcademiaProgramadoresModel.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result)">
+          <Parameter Name="Gener_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar1" ReturnType="Collection(Int32)">
+            <Parameter Name="Curso_IdsXML" Mode="In" Type="String" />
+            <Parameter Name="Gener_Id" Mode="In" Type="String" />
+            <Parameter Name="InsCG_UsuarioCreacion" Mode="In" Type="String" />
+            <Parameter Name="InsCG_FechaCreacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" ReturnType="Collection(Int32)">
+            <Parameter Name="Actividades_XML" Mode="In" Type="String" />
+            <Parameter Name="InsCG_Id" Mode="In" Type="String" />
+            <Parameter Name="ActCG_UsuarioModificacion" Mode="In" Type="String" />
+            <Parameter Name="ActCG_FechaModificacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" ReturnType="Collection(Int32)">
+            <Parameter Name="Curso_IdsXML" Mode="In" Type="String" />
+            <Parameter Name="Gener_Id" Mode="In" Type="String" />
+            <Parameter Name="InsCG_UsuarioCreacion" Mode="In" Type="String" />
+            <Parameter Name="InsCG_FechaCreacion" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_tbUsuarios_LOGIN_Result">
           <Property Type="Int32" Name="Usuar_Id" Nullable="false" />
@@ -3065,6 +3103,7 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
           <Property Type="Boolean" Name="Usuar_Admin" Nullable="false" />
           <Property Type="Int32" Name="Roles_Id" Nullable="false" />
           <Property Type="String" Name="Roles_Descripcion" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Perso_Id" Nullable="true" />
           </ComplexType>
         <ComplexType Name="SP_Usuarios_Seleccionar_Result">
           <Property Type="Int32" Name="Usuar_Id" Nullable="false" />
@@ -3977,6 +4016,40 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result">
+          <Property Type="Int32" Name="Activ_Id" Nullable="false" />
+          <Property Type="String" Name="Activ_Nombre" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="Activ_UsuarioCreacion" Nullable="false" />
+          <Property Type="DateTime" Name="Activ_FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Activ_UsuarioModificacion" Nullable="true" />
+          <Property Type="DateTime" Name="Activ_FechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Activ_Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_Instructores_DropDownListPersonas1_Result">
+          <Property Type="Int32" Name="Perso_Id" Nullable="false" />
+          <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+        </ComplexType>
+        <ComplexType Name="SP_Titulos_DropDownList1_Result">
+          <Property Type="String" Name="Titul_Tipo" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Titul_TipoDescripcion" Nullable="false" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="SP_Instructores_DropDownListPersonas_Result1">
+          <Property Type="Int32" Name="Perso_Id" Nullable="false" />
+          <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+        </ComplexType>
+        <ComplexType Name="SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result">
+          <Property Type="Int32" Name="InsCG_Id" Nullable="false" />
+          <Property Type="Int32" Name="Instr_Id" Nullable="false" />
+          <Property Type="Int32" Name="Gener_Id" Nullable="false" />
+          <Property Type="Int32" Name="Curso_Id" Nullable="false" />
+          <Property Type="Int32" Name="InsCG_UsuarioCreacion" Nullable="false" />
+          <Property Type="DateTime" Name="InsCG_FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="InsCG_UsuarioModificacion" Nullable="true" />
+          <Property Type="DateTime" Name="InsCG_FechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="InsCG_Estado" Nullable="false" />
+          <Property Type="String" Name="Curso_Nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Perso_NombreCompleto" Nullable="false" MaxLength="123" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4167,6 +4240,7 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
                 <ScalarProperty Name="Usuar_Admin" ColumnName="Usuar_Admin" />
                 <ScalarProperty Name="Roles_Id" ColumnName="Roles_Id" />
                 <ScalarProperty Name="Roles_Descripcion" ColumnName="Roles_Descripcion" />
+                <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4477,6 +4551,54 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result">
+                <ScalarProperty Name="Activ_Id" ColumnName="Activ_Id" />
+                <ScalarProperty Name="Activ_Nombre" ColumnName="Activ_Nombre" />
+                <ScalarProperty Name="Activ_UsuarioCreacion" ColumnName="Activ_UsuarioCreacion" />
+                <ScalarProperty Name="Activ_FechaCreacion" ColumnName="Activ_FechaCreacion" />
+                <ScalarProperty Name="Activ_UsuarioModificacion" ColumnName="Activ_UsuarioModificacion" />
+                <ScalarProperty Name="Activ_FechaModificacion" ColumnName="Activ_FechaModificacion" />
+                <ScalarProperty Name="Activ_Estado" ColumnName="Activ_Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Titulos_DropDownList1" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Titulos_DropDownList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Titulos_DropDownList1_Result">
+                <ScalarProperty Name="Titul_Tipo" ColumnName="Titul_Tipo" />
+                <ScalarProperty Name="Titul_TipoDescripcion" ColumnName="Titul_TipoDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Instructores_DropDownListPersonas" FunctionName="dbAcademiaProgramadoresModel.Store.SP_Instructores_DropDownListPersonas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_Instructores_DropDownListPersonas_Result1">
+                <ScalarProperty Name="Perso_Id" ColumnName="Perso_Id" />
+                <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbAcademiaProgramadoresModel.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result">
+                <ScalarProperty Name="InsCG_Id" ColumnName="InsCG_Id" />
+                <ScalarProperty Name="Instr_Id" ColumnName="Instr_Id" />
+                <ScalarProperty Name="Gener_Id" ColumnName="Gener_Id" />
+                <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
+                <ScalarProperty Name="InsCG_UsuarioCreacion" ColumnName="InsCG_UsuarioCreacion" />
+                <ScalarProperty Name="InsCG_FechaCreacion" ColumnName="InsCG_FechaCreacion" />
+                <ScalarProperty Name="InsCG_UsuarioModificacion" ColumnName="InsCG_UsuarioModificacion" />
+                <ScalarProperty Name="InsCG_FechaModificacion" ColumnName="InsCG_FechaModificacion" />
+                <ScalarProperty Name="InsCG_Estado" ColumnName="InsCG_Estado" />
+                <ScalarProperty Name="Curso_Nombre" ColumnName="Curso_Nombre" />
+                <ScalarProperty Name="Perso_NombreCompleto" ColumnName="Perso_NombreCompleto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" />
+          <FunctionImportMapping FunctionImportName="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" FunctionName="dbAcademiaProgramadoresModel.Store.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -11,11 +11,14 @@ namespace SistemaAcademiaProgramadores.Models
 {
     using System;
     
-    public partial class SP_Usuarios_Seleccionar_Result
+    public partial class SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result
     {
-        public int Usuar_Id { get; set; }
-        public string Usuar_Usuario { get; set; }
-        public int Perso_Id { get; set; }
-        public string Perso_NombreCompleto { get; set; }
+        public int Activ_Id { get; set; }
+        public string Activ_Nombre { get; set; }
+        public int Activ_UsuarioCreacion { get; set; }
+        public System.DateTime Activ_FechaCreacion { get; set; }
+        public Nullable<int> Activ_UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> Activ_FechaModificacion { get; set; }
+        public bool Activ_Estado { get; set; }
     }
 }
