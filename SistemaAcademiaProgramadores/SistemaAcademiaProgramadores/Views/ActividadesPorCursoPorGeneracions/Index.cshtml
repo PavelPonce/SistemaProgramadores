@@ -20,44 +20,48 @@
 <section class="content">
 
     <div class="card">
-        <div class="card-body  form-row justify-content-center">
-            <div class="card-body-dragula">
-                <div id="actividadesListBox" class="listBox">
-                    <h1 id="actividadesListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Actividades</h1>
-                    @foreach (var actividades in Model.Item2)
-                    {
-                        <div id="@actividades.Activ_Id" class="d-flex justify-content-between">
-                            <div>
-                                @actividades.Activ_Nombre
+        <div class="card-body form-row justify-content-center">
+                <div class="card-body-dragula">
+                    <div id="actividadesListBox" class="listBox">
+                        <h1 id="actividadesListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Actividades</h1>
+                        @foreach (var actividades in Model.Item2)
+                        {
+                            <div id="@actividades.Activ_Id" class="d-flex justify-content-between">
+                                <div>
+                                    @actividades.Activ_Nombre
+                                </div>
+                                <div class="col-sm-4 totalActividad">
+                                    <input type="number" class="form-control" style="font-size:small; height:80%;" />
+                                </div>
                             </div>
-                            <div class="col-sm-3">
-                                <input type="number" class="form-control" sstyle="font-size:small; height:10px;" />
+                        }
+                    </div>
+                    <div id="cursosListBox" class="listBox">
+                        <div class="form-row bg-white mt-2 p-2 text-primary text-center h-auto no-drag">
+                            <div class="col-sm-6">
+                                <select id="ddlGeneraciones" class="form-control" style="font-size: small;">
+                                    <option class="" value="">Seleccionar Generacion</option>
+                                    @foreach (var generacion in Model.Item4)
+                                    {
+                                        <option value="@generacion.Gener_Id">@generacion.Gener_Nombre</option>
+                                    }
+                                </select>
                             </div>
-                        </div>
-                    }
-                </div>
-                <div id="actividadesListBox" class="listBox">
-                    <div class="form-row mt-2 p-2 text-primary text-center h-auto no-drag">
-                        <div class="col-sm-6">
-                            <select id="ddlGeneraciones" class="form-control" style="font-size: small;">
-                                <option class="" value="">Seleccionar Generacion</option>
-                                @foreach (var generacion in Model.Item4)
-                                {
-                                    <option value="@generacion.Gener_Id">@generacion.Gener_Nombre</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <select id="ddlCursos" class="form-control" style="font-size: small;">
-                                <option class="" value="">Seleccionar Generacion</option>
-                            </select>
+                            <div class="col-sm-6">
+                                <select id="ddlCursos" class="form-control" style="font-size: small;">
+                                    <option class="" value="">Seleccionar Curso</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
+                    <div id="bitacoraListBox" class="listBox collapse" style="width:55%">
+                          <h1 class="bg-white text-center mt-2 p-2 text-primary no-drag">Bitacora</h1>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body-dragula" style="justify-content: end;">
-                <button id="btnGuardar" class="btn btn-primary mt-4"><i class="fa fa-save mr-2"></i>Guardar</button>
-            </div>
+                <div class="card-body-dragula" style="justify-content: end;">
+                    <button id="btnGuardar" class="btn btn-primary mt-4"><i class="fa fa-save mr-2"></i>Guardar</button>
+                </div>
+            
         </div>
 
     </div>
@@ -70,8 +74,10 @@
 <script>
     let actividadesListBox = document.getElementById("actividadesListBox");
     let cursosListBox = document.getElementById("cursosListBox");
+    let bitacoraListBox = document.getElementById("bitacoraListBox");
+
     let mapCursosListBoxChildren = new Map();
-    let setIdInstructoresPorCursoPorGeneracion = new Set();
+    let setIdActividadesPorCursoPorGeneracion = new Set();
     $(document).ready(() => {
         for (let i = 0; i < actividadesListBox.children.length; i++) {
             mapCursosListBoxChildren.set(actividadesListBox.children[i].id, actividadesListBox.children[i]);
@@ -79,44 +85,135 @@
     })
 
     $('#ddlGeneraciones').change(function () {
-        cargarDDLCursos($('#ddlGeneraciones').val())
+        var id = $('#ddlGeneraciones').val()
+        $('#ddlCursos').empty();
+        $.ajax({
+            url: "/Home/cargarDDLCursos",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ id }),
+            success: function (data) {
+                $('#ddlCursos').append('<option value="">Seleccionar Curso</option>');
+
+                $.each(data, function (key, value) {
+                    var option = $('<option></option>')
+                        .text(value.Curso_Nombre)
+                        .val(value.InsCG_Id);
+
+                    $('#ddlCursos').append(option);
+                })
+            },
+        })
     })
 
-    var dragulaList = dragula([document.getElementById("actividadesListBox"), document.getElementById("actividadesListBox")], {
+    let InsCG_Id = $('#ddlCursos').val();
+    $('#btnGuardar').click(() => {
+        let cantChildren = cursosListBox.children.length - 1;
+        let techo = 0;
+
+        if (cantChildren > 0) {
+            for (let i = 0; i <= cantChildren; i++) {
+                if (i != 0) {
+                    techo += cursosListBox.children[i].children[1].children[0].value
+                }
+            }
+        }
+        
+        if (techo != 100) {
+            alert('parace que el techo de clase no es igual a 100')
+            console.log(techo)
+
+        } else {
+            document.getElementById('btnGuardar').setAttribute("disabled", "disabled");
+            InsCG_Id = $('#ddlCursos').val();
+            if (InsCG_Id) {
+                let actividadesPorDeshabilitar = [];
+                let actividadesPorHabilitar = [];
+                let actividadesPorActualizar = []
+                let setActividadesSeleccionadas = new Set();
+                let setIdNotaDeActividadSeleccionada = [];
+                for (let i = 0; i < cursosListBox.children.length; i++) {
+                    if (cursosListBox.children[i].id !== "ddlCursos") {
+                        setActividadesSeleccionadas.add(cursosListBox.children[i].id);
+                        setIdNotaDeActividadSeleccionada.push(cursosListBox.children[i].children[1].children[0].value);
+                        for (let i = 0; i <= cursosListBox.children.length; i++) {
+                            for (let j = 0; j <= bitacoraListBox.children.length; j++) {
+                                if (cursosListBox.children[i].id == bitacoraListBox.children[j].id) {
+                                    if (cursosListBox.children[i].children[1].children[0].value != bitacoraListBox.children[j].children[1].children[0].value) {
+                                        actividadesPorActualizar.push(cursosListBox.children[i].id)
+                                        actividadesPorActualizar.push(cursosListBox.children[i].children[1].children[0].value)
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                var i = 0;
+                for (let idActividadSeleccionada of setActividadesSeleccionadas) {
+                    if (!setIdActividadesPorCursoPorGeneracion.has(idActividadSeleccionada)) {
+                        actividadesPorHabilitar.push(idActividadSeleccionada);
+                        actividadesPorHabilitar.push(setIdNotaDeActividadSeleccionada[i]);
+                    }
+                    i += 1;
+                }
+                for (let Activ_Id of setIdActividadesPorCursoPorGeneracion) {
+                    if (!setActividadesSeleccionadas.has(Activ_Id)) {
+                        actividadesPorDeshabilitar.push(Activ_Id);
+                    }
+                }
+                $.ajax({
+                    url: "/ActividadesPorCursoPorGeneracions/ModificarActividadesPorCursosPorGeneracion",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ actividadesPorHabilitar, actividadesPorDeshabilitar, actividadesPorActualizar, InsCG_Id }),
+                    success: function (data) {
+                        document.getElementById('btnGuardar').removeAttribute("disabled");
+                    },
+                })
+            }
+        }
+        
+    })
+
+    var dragulaList = dragula([document.getElementById("actividadesListBox"), document.getElementById("cursosListBox")], {
         accepts: function (el, target) {
             return !
                 el.classList.contains('no-drag');
         }
     })
 
-    $('#ddlGeneraciones').change(() => {
-        Gener_Id = $('#ddlGeneraciones').val();
-        if (Gener_Id) {
+    $('#ddlCursos').change(() => {
+        InsCG_Id = $('#ddlCursos').val();
+        if (InsCG_Id) {
             $.ajax({
-                url: "/InstructoresPorCursoPorGeneracion/LlenarCursosPorGeneracion",
+                url: "/ActividadesPorCursoPorGeneracions/LlenarActividadesPorCurso",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ Gener_Id }),
+                data: JSON.stringify({ InsCG_Id }),
 
                 success: function (data) {
+                    console.log(data)
                     while (cursosListBox.children.length > 1) {
                         cursosListBox.removeChild(cursosListBox.lastChild);
                     }
+                    setIdActividadesPorCursoPorGeneracion.clear();
 
                     $.each(data, function (key, value) {
-                        setIdInstructoresPorCursoPorGeneracion.add(value.Curso_Id.toString());
+                        setIdActividadesPorCursoPorGeneracion.add(value.Activ_Id.toString());
                     })
 
-
-                    iterador = 0;
                     for (let item of mapCursosListBoxChildren) {
 
                         if (item[0] !== "actividadesListBoxH1") {
                             if (document.getElementById(item[0])) {
                                 document.getElementById(item[0]).remove();
                             }
-                            if (setIdInstructoresPorCursoPorGeneracion.has(item[0])) {
+                            if (setIdActividadesPorCursoPorGeneracion.has(item[0])) {
                                 cursosListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
                             } else {
                                 actividadesListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
@@ -125,6 +222,57 @@
                     }
                 },
             })
+        }
+    })
+    dragulaList.on('drop', function (el, target, source, sibling) {
+        if (target == document.getElementById("cursosListBox")) {
+            let cantChildren = cursosListBox.children.length - 1;
+            if (cantChildren > 1) {
+                while (bitacoraListBox.children.length > 1) {
+                    bitacoraListBox.removeChild(bitacoraListBox.lastChild);
+                }
+                for (let i = 0; i <= cantChildren; i++) {
+                    if (i != 0 && cursosListBox.children[i].id != el.id) {
+                        var children = document.createElement('div');
+                        children.classList = "d-flex justify-content-between";
+                        children.id = cursosListBox.children[i].id;
+
+                        var actividad = document.createElement('div');
+                        actividad.style.fontSize = "xx-small"
+                        var textNode = document.createTextNode(cursosListBox.children[i].children[0].textContent);
+                        actividad.appendChild(textNode);
+
+                        children.appendChild(actividad);
+
+                        var porcentaje = document.createElement('div');
+                        porcentaje.classList = "col-sm-8 totalActividad";
+                        var input = document.createElement('input');
+                        input.classList = "form-control";
+                        input.style.fontSize = "small";
+                        input.style.width = "100%"
+                        input.type = "number"
+                        input.disabled = "true"
+                        input.value = cursosListBox.children[i].children[1].children[0].value;
+
+                        porcentaje.appendChild(input);
+
+                        children.appendChild(porcentaje);
+
+                        bitacoraListBox.appendChild(children);
+                    }
+                }
+                bitacoraListBox.classList.remove("collapse")
+            }
+            if (cantChildren > 0) {
+                for (let i = 0; i <= cantChildren; i++) {
+                    if (i != 0) {
+                        cursosListBox.children[i].children[1].children[0].value = 100 / cantChildren
+
+                    }
+                    el.children[1].children[0].value = 100 / cantChildren
+                }
+            }
+            
         }
     })
     
@@ -140,7 +288,7 @@
 
             success: function (data) {
                 $.each(data, function (key, value) {
-                                    $('#ActCG_Id').val(value.ActCG_Id)
+                                    $('#InsCG_Id').val(value.InsCG_Id)
                                     $('#Activ_Id').val(value.Activ_Id)
                                     $('#InsCG_Id').val(value.InsCG_Id)
                                     $('#ActCG_Nota').val(value.ActCG_Nota)

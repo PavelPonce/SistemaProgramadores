@@ -39,40 +39,58 @@ namespace SistemaAcademiaProgramadores.Controllers
             }
             return View(tbActividadesPorCursoPorGeneracion);
         }
-        public JsonResult LlenarCursosPorGeneracion(string Gener_Id)
+        public JsonResult LlenarActividadesPorCurso(string InsCG_Id)
         {
-            return Json(db.SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion(int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion(int.Parse(InsCG_Id)).ToList(), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ModificarCursosPorGeneracion(string[] cursosPorHabilitar, string[] cursosPorDeshabilitar, int Gener_Id)
+        public JsonResult ModificarActividadesPorCursosPorGeneracion(string[] actividadesPorHabilitar, string[] actividadesPorDeshabilitar,string[] actividadesPorActualizar, int InsCG_Id)
         {
-            var Curso_IdsXML = "<Curso_IdsXML>";
-            if (cursosPorHabilitar != null)
+            var Actividades_XML = "<Actividades_XML>";
+            //if ()
+            //{
+
+            //}
+            if (actividadesPorActualizar != null)
             {
-                for (int i = 0; i < cursosPorHabilitar.Length; i++)
+                for (int i = 0; i < actividadesPorHabilitar.Length; i++)
                 {
                     if (i % 2 == 0)
                     {
-                        Curso_IdsXML += "<Curso_Attr>";
-                        Curso_IdsXML += $"<Curso_Id>{cursosPorHabilitar[i]}</Curso_Id>";
-                        Curso_IdsXML += "<Bit>1</Bit>";
-                        Curso_IdsXML += $"<Instr_Id>{cursosPorHabilitar[i + 1]}</Instr_Id>";
-                        Curso_IdsXML += "</Curso_Attr>";
+                        Actividades_XML += "<Actividad";
+                        Actividades_XML += $"Activ_Id='" + actividadesPorActualizar[i] + "'";
+                        Actividades_XML += $"ActCG_Nota'" + actividadesPorActualizar[i + 1] + "'";
+                        Actividades_XML += $"Accion='U'";
+                        Actividades_XML += "/>";
                     }
                 }
             }
-
-            if (cursosPorDeshabilitar != null)
+            if (actividadesPorHabilitar != null)
             {
-                for (int i = 0; i < cursosPorDeshabilitar.Length; i++)
+                for (int i = 0; i < actividadesPorHabilitar.Length; i++)
                 {
-                    Curso_IdsXML += "<Curso_Attr>";
-                    Curso_IdsXML += $"<Curso_Id>{cursosPorDeshabilitar[i]}</Curso_Id>";
-                    Curso_IdsXML += "<Bit>0</Bit>";
-                    Curso_IdsXML += "</Curso_Attr>";
+                    if (i % 2 == 0)
+                    {
+                            Actividades_XML += "<Actividad";
+                            Actividades_XML += $"Activ_Id='" + actividadesPorHabilitar[i] + "'";
+                            Actividades_XML += $"ActCG_Nota'" + actividadesPorHabilitar[i + 1] + "'";
+                            Actividades_XML += $"Accion='I'";
+                            Actividades_XML += "/>";
+                        }
                 }
             }
-            Curso_IdsXML += "</Curso_IdsXML>";
-            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Curso_IdsXML, Gener_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+
+            if (actividadesPorDeshabilitar != null)
+            {
+                for (int i = 0; i < actividadesPorDeshabilitar.Length; i++)
+                {
+                        Actividades_XML += "<Actividad";
+                        Actividades_XML += $"Activ_Id='" + actividadesPorDeshabilitar[i] + "'";
+                        Actividades_XML += $"Accion='D'";
+                        Actividades_XML += "/>";
+                    }
+            }
+            Actividades_XML += "</Actividades_XML>";
+            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         // GET: ActividadesPorCursoPorGeneracions/Create
