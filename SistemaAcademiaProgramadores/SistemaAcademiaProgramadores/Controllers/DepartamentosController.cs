@@ -17,30 +17,53 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Departamentos
         public ActionResult Index()
         {
-            var tbDepartamentos = db.tbDepartamentos.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
-            return View(tbDepartamentos.ToList());
+            try
+            {
+                var tbDepartamentos = db.tbDepartamentos.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
+                return View(tbDepartamentos.ToList());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Departamentos/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
+                if (tbDepartamentos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbDepartamentos);
             }
-            tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
-            if (tbDepartamentos == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbDepartamentos);
         }
 
         // GET: Departamentos/Create
         public ActionResult Create()
         {
-            ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+            try
+            {
+                ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return View();
         }
 
@@ -51,33 +74,49 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Depar_Id,Depar_Descripcion")] tbDepartamentos tbDepartamentos)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);
-            ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioModificacion);
-            return View(tbDepartamentos);
+                ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);
+                ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioModificacion);
+                return View(tbDepartamentos);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Departamentos/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
+                if (tbDepartamentos == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);
+                ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioModificacion);
+                return View(tbDepartamentos);
             }
-            tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
-            if (tbDepartamentos == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);
-            ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioModificacion);
-            return View(tbDepartamentos);
         }
 
         // POST: Departamentos/Edit/5
@@ -86,31 +125,47 @@ namespace SistemaAcademiaProgramadores.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Depar_Id, Depar_Descripcion")] tbDepartamentos tbDepartamentos)
-        { 
-            if (ModelState.IsValid)
+        {
+            try
             {
-                db.SP_Departamentos_Modificar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SP_Departamentos_Modificar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);
+                ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioModificacion);
+                return View(tbDepartamentos);
             }
-            ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);
-            ViewBag.Depar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioModificacion);
-            return View(tbDepartamentos);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Departamentos/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
+                if (tbDepartamentos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbDepartamentos);
             }
-            tbDepartamentos tbDepartamentos = db.tbDepartamentos.Find(id);
-            if (tbDepartamentos == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbDepartamentos);
         }
 
         // POST: Departamentos/Delete/5
@@ -118,9 +173,16 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm([Bind(Include = "Depar_Id")] tbDepartamentos tbDepartamentos)
         {
-                db.SP_Departamentos_Eliminar(tbDepartamentos.Depar_Id);
+            try
+            {
+                db.SP_Departamentos_Eliminar(tbDepartamentos.Depar_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
                 db.SaveChanges();
-                return RedirectToAction("Index");   
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return RedirectToAction("Index");   
         }
        
       

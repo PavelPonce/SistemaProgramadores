@@ -17,34 +17,57 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Titulos
         public ActionResult Index()
         {
-            ViewBag.Titul_Tipo = new SelectList(db.SP_Titulos_DropDownList().ToList(), "Titul_Tipo","Titul_TipoDescripcion");
-            var tbTitulos = db.tbTitulos.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
-            return View(tbTitulos.ToList());
+            try
+            {
+                ViewBag.Titul_Tipo = new SelectList(db.SP_Titulos_DropDownList().ToList(), "Titul_Tipo","Titul_TipoDescripcion");
+                var tbTitulos = db.tbTitulos.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
+                return View(tbTitulos.ToList());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Titulos/Details/5
         public ActionResult Details(int? id)
         {
-                        ViewBag.Titul_Tipo = new SelectList(db.SP_Titulos_DropDownList().ToList(), "Titul_Tipo","Titul_TipoDescripcion");
-
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.Titul_Tipo = new SelectList(db.SP_Titulos_DropDownList().ToList(), "Titul_Tipo","Titul_TipoDescripcion");
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbTitulos tbTitulos = db.tbTitulos.Find(id);
+                if (tbTitulos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbTitulos);
             }
-            tbTitulos tbTitulos = db.tbTitulos.Find(id);
-            if (tbTitulos == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbTitulos);
         }
 
         // GET: Titulos/Create
         public ActionResult Create()
         {
-            ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            return View();
+            try
+            {
+                ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // POST: Titulos/Create
@@ -54,33 +77,49 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Titul_Nombre,Titul_Tipo")] tbTitulos tbTitulos)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SP_Titulos_Insertar(tbTitulos.Titul_Nombre,tbTitulos.Titul_Tipo,1,DateTime.Now);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.SP_Titulos_Insertar(tbTitulos.Titul_Nombre,tbTitulos.Titul_Tipo,1,DateTime.Now);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
-            ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
-            return View(tbTitulos);
+                ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
+                ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
+                return View(tbTitulos);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Titulos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbTitulos tbTitulos = db.tbTitulos.Find(id);
+                if (tbTitulos == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
+                ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
+                return View(tbTitulos);
             }
-            tbTitulos tbTitulos = db.tbTitulos.Find(id);
-            if (tbTitulos == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
-            ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
-            return View(tbTitulos);
         }
 
         // POST: Titulos/Edit/5
@@ -90,30 +129,46 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Titul_Id,Titul_Nombre,Titul_Tipo")] tbTitulos tbTitulos)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SP_Titulos_Modificar(tbTitulos.Titul_Id,tbTitulos.Titul_Nombre, tbTitulos.Titul_Tipo, 1, DateTime.Now);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SP_Titulos_Modificar(tbTitulos.Titul_Id,tbTitulos.Titul_Nombre, tbTitulos.Titul_Tipo, 1, DateTime.Now);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
+                ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
+                return View(tbTitulos);
             }
-            ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
-            ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
-            return View(tbTitulos);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Titulos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbTitulos tbTitulos = db.tbTitulos.Find(id);
+                if (tbTitulos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbTitulos);
             }
-            tbTitulos tbTitulos = db.tbTitulos.Find(id);
-            if (tbTitulos == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbTitulos);
         }
 
         // POST: Titulos/Delete/5
@@ -121,9 +176,16 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed([Bind(Include = "Titul_Id")] tbTitulos tbTitulos)
         {
-            int usuarioLogueado = int.Parse(Session["Usuar_Id"].ToString());
-            db.SP_Titulos_Eliminar(tbTitulos.Titul_Id,usuarioLogueado,DateTime.Now);
-            db.SaveChanges();
+            try
+            {
+                int usuarioLogueado = int.Parse(Session["Usuar_Id"].ToString());
+                db.SP_Titulos_Eliminar(tbTitulos.Titul_Id,usuarioLogueado,DateTime.Now);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return RedirectToAction("Index");
         }
 

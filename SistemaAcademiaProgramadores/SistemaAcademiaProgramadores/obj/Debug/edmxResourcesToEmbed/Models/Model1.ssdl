@@ -61,6 +61,8 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Curso_UsuarioModificacion" Type="int" />
     <Property Name="Curso_FechaModificacion" Type="datetime" />
     <Property Name="Curso_Estado" Type="bit" Nullable="false" />
+    <Property Name="Curso_FechaInicio" Type="datetime" Nullable="false" />
+    <Property Name="Curso_FechaFin" Type="datetime" />
   </EntityType>
   <EntityType Name="tbGeneraciones">
     <Key>
@@ -69,13 +71,14 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Gener_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Gener_Nombre" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Gener_Anhio" Type="int" Nullable="false" />
-    <Property Name="Gener_FechaInicio" Type="date" Nullable="false" />
-    <Property Name="Gener_FechaFin" Type="date" />
     <Property Name="Gener_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="Gener_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Gener_UsuarioModificacion" Type="int" />
     <Property Name="Gener_FechaModificacion" Type="datetime" />
     <Property Name="Gener_Estado" Type="bit" Nullable="false" />
+    <Property Name="Gener_FechaInicio" Type="datetime" Nullable="false" />
+    <Property Name="Gener_FechaFin" Type="datetime" />
+    <Property Name="Gener_Puntaje" Type="numeric" Precision="4" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="tbInstructores">
     <Key>
@@ -128,7 +131,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Papro_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Papro_UsuarioModificacion" Type="int" />
     <Property Name="Papro_FechaModificacion" Type="datetime" />
-    <Property Name="Papro_Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tbRoles">
     <Key>
@@ -183,7 +185,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="ActCG_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="ActCG_UsuarioModificacion" Type="int" />
     <Property Name="ActCG_FechaModificacion" Type="datetime" />
-    <Property Name="ActCG_Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tbCalificaciones">
     <Key>
@@ -197,7 +198,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Calif_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Calif_UsuarioModificacion" Type="int" />
     <Property Name="Calif_FechaModificacion" Type="datetime" />
-    <Property Name="Calif_Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tbCentrosEducativos">
     <Key>
@@ -224,7 +224,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Depar_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Depar_UsuarioModificacion" Type="int" />
     <Property Name="Depar_FechaModificacion" Type="datetime" />
-    <Property Name="Depar_Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tbEstadosCiviles">
     <Key>
@@ -236,7 +235,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Estci_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Estci_UsuarioModificacion" Type="int" />
     <Property Name="Estci_FechaModificacion" Type="datetime" />
-    <Property Name="Estci_Estado" Type="bit" />
   </EntityType>
   <EntityType Name="tbMunicipios">
     <Key>
@@ -249,7 +247,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Property Name="Munic_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Munic_UsuarioModificacion" Type="int" />
     <Property Name="Munic_FechaModificacion" Type="datetime" />
-    <Property Name="Munic_Estado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="tbPersonas">
     <Key>
@@ -490,30 +487,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCategorias">
-        <PropertyRef Name="Categ_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbCategorias">
-        <PropertyRef Name="Categ_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbCentrosEducativos_tbMunicipios_Munic_Id">
     <End Role="tbMunicipios" Type="Self.tbMunicipios" Multiplicity="1" />
     <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="*" />
@@ -547,6 +520,30 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
       </Principal>
       <Dependent Role="tbCentrosEducativos">
         <PropertyRef Name="CenEd_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbTitulos">
+        <PropertyRef Name="Titul_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbTitulos">
+        <PropertyRef Name="Titul_UsuarioModificacion" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -655,6 +652,18 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
       </Principal>
       <Dependent Role="tbGeneraciones">
         <PropertyRef Name="Gener_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbInstructores_tbCentrosEducativos_CenEd_Id">
+    <End Role="tbCentrosEducativos" Type="Self.tbCentrosEducativos" Multiplicity="1" />
+    <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCentrosEducativos">
+        <PropertyRef Name="CenEd_Id" />
+      </Principal>
+      <Dependent Role="tbInstructores">
+        <PropertyRef Name="CenEd_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -934,30 +943,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioCreacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbTitulos">
-        <PropertyRef Name="Titul_UsuarioCreacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioModificacion">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbTitulos" Type="Self.tbTitulos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="Usuar_Id" />
-      </Principal>
-      <Dependent Role="tbTitulos">
-        <PropertyRef Name="Titul_UsuarioModificacion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tbUsuarios_tbInstructores_Instr_Id">
     <End Role="tbInstructores" Type="Self.tbInstructores" Multiplicity="1" />
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
@@ -1012,7 +997,17 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Alumn_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Alumnos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_PrimerNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Perso_Sexo" Type="char" Mode="In" />
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Perso_Telefono" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_CorreoElectronico" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_IdColegio" Type="int" Mode="In" />
     <Parameter Name="CenEd_IdUniversidad" Type="int" Mode="In" />
     <Parameter Name="Titul_Id" Type="int" Mode="In" />
@@ -1024,6 +1019,17 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
   </Function>
   <Function Name="SP_Alumnos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_PrimerNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Perso_Sexo" Type="char" Mode="In" />
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Perso_Telefono" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_CorreoElectronico" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_IdColegio" Type="int" Mode="In" />
     <Parameter Name="CenEd_IdUniversidad" Type="int" Mode="In" />
     <Parameter Name="Titul_Id" Type="int" Mode="In" />
@@ -1043,9 +1049,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Categ_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Categ_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_Categorias_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Categ_Id" Type="int" Mode="In" />
-  </Function>
   <Function Name="SP_Categorias_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Categ_Id" Type="int" Mode="In" />
     <Parameter Name="Categ_Nombre" Type="varchar" Mode="In" />
@@ -1063,18 +1066,12 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Curso_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Curso_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_Cursos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Curso_Id" Type="int" Mode="In" />
-  </Function>
   <Function Name="SP_Cursos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Curso_Id" Type="int" Mode="In" />
     <Parameter Name="Curso_Nombre" Type="varchar" Mode="In" />
     <Parameter Name="Categ_Id" Type="int" Mode="In" />
     <Parameter Name="Curso_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Curso_FechaModificacion" Type="datetime" Mode="In" />
-  </Function>
-  <Function Name="SP_CursosPorGeneraciones_DropDownListCursos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Gener_Id" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_Generaciones_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Gener_Id" Type="int" Mode="In" />
@@ -1084,24 +1081,18 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
   <Function Name="SP_Generaciones_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Gener_Nombre" Type="varchar" Mode="In" />
     <Parameter Name="Gener_Anhio" Type="int" Mode="In" />
-    <Parameter Name="Gener_FechaInicio" Type="date" Mode="In" />
     <Parameter Name="Gener_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Gener_FechaCreacion" Type="datetime" Mode="In" />
-  </Function>
-  <Function Name="SP_Generaciones_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaInicio" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Generaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Gener_Id" Type="int" Mode="In" />
     <Parameter Name="Gener_Nombre" Type="varchar" Mode="In" />
     <Parameter Name="Gener_Anhio" Type="int" Mode="In" />
-    <Parameter Name="Gener_FechaInicio" Type="date" Mode="In" />
-    <Parameter Name="Gener_FechaFin" Type="date" Mode="In" />
     <Parameter Name="Gener_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Gener_FechaModificacion" Type="datetime" Mode="In" />
-  </Function>
-  <Function Name="SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_FechaInicio" Type="datetime" Mode="In" />
+    <Parameter Name="Gener_FechaFin" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Instructores_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Perso_Id" Type="int" Mode="In" />
@@ -1109,7 +1100,17 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Instr_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Instructores_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
-    <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_PrimerNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Perso_Sexo" Type="char" Mode="In" />
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Perso_Telefono" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_CorreoElectronico" Type="varchar" Mode="In" />
     <Parameter Name="Titul_Id" Type="int" Mode="In" />
     <Parameter Name="CenEd_Id" Type="int" Mode="In" />
     <Parameter Name="Instr_UsuarioCreacion" Type="int" Mode="In" />
@@ -1117,6 +1118,17 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
   </Function>
   <Function Name="SP_Instructores_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Perso_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_PrimerNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_PrimerApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_SegundoApellido" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Perso_Sexo" Type="char" Mode="In" />
+    <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Perso_Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Perso_Telefono" Type="varchar" Mode="In" />
+    <Parameter Name="Perso_CorreoElectronico" Type="varchar" Mode="In" />
     <Parameter Name="Titul_Id" Type="int" Mode="In" />
     <Parameter Name="CenEd_Id" Type="int" Mode="In" />
     <Parameter Name="Instr_UsuarioModificacion" Type="int" Mode="In" />
@@ -1142,11 +1154,9 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="InsCG_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="InsCG_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_InstructoresPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
-    <Parameter Name="Curso_IdsXML" Type="xml" Mode="In" />
+  <Function Name="SP_InstructoresPorCursoPorGeneracion_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Instr_Id" Type="int" Mode="In" />
     <Parameter Name="Gener_Id" Type="int" Mode="In" />
-    <Parameter Name="InsCG_UsuarioCreacion" Type="int" Mode="In" />
-    <Parameter Name="InsCG_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Pantallas_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Panta_Id" Type="int" Mode="In" />
@@ -1275,31 +1285,37 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="ActCG_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="ActCG_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_Calificaciones_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
     <Parameter Name="Calif_Id" Type="int" Mode="In" />
     <Parameter Name="Calif_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Calif_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Calificaciones_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
-    <Parameter Name="ActCG_Id" Type="int" Mode="In" />
-    <Parameter Name="Alumn_Id" Type="int" Mode="In" />
+    <Parameter Name="ActCG_Id" Type="varchar" Mode="In" />
+    <Parameter Name="Alumn_Id" Type="varchar" Mode="In" />
     <Parameter Name="Calif_Nota" Type="numeric" Mode="In" />
-    <Parameter Name="Calif_UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="Calif_UsuarioCreacion" Type="varchar" Mode="In" />
     <Parameter Name="Calif_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Calificaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
-    <Parameter Name="Calif_Id" Type="int" Mode="In" />
-    <Parameter Name="ActCG_Id" Type="int" Mode="In" />
-    <Parameter Name="Alumn_Id" Type="int" Mode="In" />
+    <Parameter Name="ActCG_Id" Type="varchar" Mode="In" />
+    <Parameter Name="Alumn_Id" Type="varchar" Mode="In" />
     <Parameter Name="Calif_Nota" Type="numeric" Mode="In" />
-    <Parameter Name="Calif_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Calif_UsuarioModificacion" Type="varchar" Mode="In" />
     <Parameter Name="Calif_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Calificaciones_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
     <Parameter Name="Curso_Id" Type="int" Mode="In" />
     <Parameter Name="Gener_Id" Type="int" Mode="In" />
   </Function>
-  <Function Name="SP_CentrosEducativos_DropDownListTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
+  <Function Name="SP_Calificaciones2_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_CentrosEducativos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="CenEd_Id" Type="int" Mode="In" />
     <Parameter Name="CenEd_UsuarioModificacion" Type="int" Mode="In" />
@@ -1309,24 +1325,23 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="CenEd_Nombre" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_Direccion" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_Tipo" Type="char" Mode="In" />
-    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_Id" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="CenEd_FechaCreacion" Type="datetime" Mode="In" />
-  </Function>
-  <Function Name="SP_CentrosEducativos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
-    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_CentrosEducativos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="CenEd_Id" Type="int" Mode="In" />
     <Parameter Name="CenEd_Nombre" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_Direccion" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_Tipo" Type="char" Mode="In" />
-    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_Id" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="CenEd_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Departamentos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Depar_Id" Type="char" Mode="In" />
+    <Parameter Name="Depar_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Depar_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Departamentos_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Depar_Id" Type="char" Mode="In" />
@@ -1343,9 +1358,10 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Depar_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Depar_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_EmptyTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <Function Name="SP_EstadosCiviles_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Estci_Id" Type="int" Mode="In" />
+    <Parameter Name="Estci_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Estci_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_EstadosCiviles_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Estci_Descripcion" Type="varchar" Mode="In" />
@@ -1361,12 +1377,10 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Estci_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Estci_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_Instructores_DropDownListPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
-  <Function Name="SP_Municipios_DropDownListMunicipios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
-    <Parameter Name="Depar_Id" Type="char" Mode="In" />
-  </Function>
   <Function Name="SP_Municipios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Munic_Id" Type="char" Mode="In" />
+    <Parameter Name="Munic_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="Munic_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Municipios_Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Munic_Id" Type="char" Mode="In" />
@@ -1421,7 +1435,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <Parameter Name="Perso_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Perso_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_Titulos_DropDownListTipos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <Function Name="SP_Titulos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Titul_Id" Type="int" Mode="In" />
     <Parameter Name="Titul_UsuarioModificacion" Type="int" Mode="In" />
@@ -1548,14 +1561,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCalificaciones" EntitySet="tbCalificaciones" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion" Association="Self.FK_tbCategorias_tbUsuarios_Categ_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCategorias" EntitySet="tbCategorias" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion" Association="Self.FK_tbCategorias_tbUsuarios_Categ_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbCategorias" EntitySet="tbCategorias" />
-    </AssociationSet>
     <AssociationSet Name="FK_tbCentrosEducativos_tbMunicipios_Munic_Id" Association="Self.FK_tbCentrosEducativos_tbMunicipios_Munic_Id">
       <End Role="tbMunicipios" EntitySet="tbMunicipios" />
       <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
@@ -1567,6 +1572,14 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_CenEd_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioCreacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbTitulos" EntitySet="tbTitulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion" Association="Self.FK_tbCentrosEducativos_tbUsuarios_Titul_UsuarioModificacion">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbTitulos" EntitySet="tbTitulos" />
     </AssociationSet>
     <AssociationSet Name="FK_tbCursos_tbCategorias_Categ_Id" Association="Self.FK_tbCursos_tbCategorias_Categ_Id">
       <End Role="tbCategorias" EntitySet="tbCategorias" />
@@ -1603,6 +1616,10 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <AssociationSet Name="FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion" Association="Self.FK_tbGeneraciones_tbUsuarios_Gener_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbGeneraciones" EntitySet="tbGeneraciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbInstructores_tbCentrosEducativos_CenEd_Id" Association="Self.FK_tbInstructores_tbCentrosEducativos_CenEd_Id">
+      <End Role="tbCentrosEducativos" EntitySet="tbCentrosEducativos" />
+      <End Role="tbInstructores" EntitySet="tbInstructores" />
     </AssociationSet>
     <AssociationSet Name="FK_tbInstructores_tbTitulos_Titul_Id" Association="Self.FK_tbInstructores_tbTitulos_Titul_Id">
       <End Role="tbTitulos" EntitySet="tbTitulos" />
@@ -1695,14 +1712,6 @@ warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' d
     <AssociationSet Name="FK_tbRoles_tbUsuarios_Roles_UsuarioModificacion" Association="Self.FK_tbRoles_tbUsuarios_Roles_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbRoles" EntitySet="tbRoles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioCreacion" Association="Self.FK_tbTitulos_tbUsuarios_Titul_UsuarioCreacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbTitulos" EntitySet="tbTitulos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbTitulos_tbUsuarios_Titul_UsuarioModificacion" Association="Self.FK_tbTitulos_tbUsuarios_Titul_UsuarioModificacion">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbTitulos" EntitySet="tbTitulos" />
     </AssociationSet>
     <AssociationSet Name="FK_tbUsuarios_tbInstructores_Instr_Id" Association="Self.FK_tbUsuarios_tbInstructores_Instr_Id">
       <End Role="tbInstructores" EntitySet="tbInstructores" />

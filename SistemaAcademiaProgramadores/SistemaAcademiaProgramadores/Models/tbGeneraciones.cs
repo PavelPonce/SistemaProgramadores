@@ -23,13 +23,14 @@ namespace SistemaAcademiaProgramadores.Models
         public int Gener_Id { get; set; }
         public string Gener_Nombre { get; set; }
         public int Gener_Anhio { get; set; }
-        public System.DateTime Gener_FechaInicio { get; set; }
-        public Nullable<System.DateTime> Gener_FechaFin { get; set; }
         public int Gener_UsuarioCreacion { get; set; }
         public System.DateTime Gener_FechaCreacion { get; set; }
         public Nullable<int> Gener_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Gener_FechaModificacion { get; set; }
         public bool Gener_Estado { get; set; }
+        public System.DateTime Gener_FechaInicio { get; set; }
+        public Nullable<System.DateTime> Gener_FechaFin { get; set; }
+        public decimal Gener_Puntaje { get; set; }
     
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }

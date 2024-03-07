@@ -17,30 +17,53 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Categorias
         public ActionResult Index()
         {
-            var tbCategorias = db.tbCategorias.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
-            return View(tbCategorias.ToList());
+            try
+            {
+                var tbCategorias = db.tbCategorias.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
+                return View(tbCategorias.ToList());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Categorias/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbCategorias tbCategorias = db.tbCategorias.Find(id);
+                if (tbCategorias == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbCategorias);
             }
-            tbCategorias tbCategorias = db.tbCategorias.Find(id);
-            if (tbCategorias == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbCategorias);
         }
 
         // GET: Categorias/Create
         public ActionResult Create()
         {
-            ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+            try
+            {
+                ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return View();
         }
 
@@ -51,33 +74,49 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Categ_Nombre")] tbCategorias tbCategorias)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SP_Categorias_Insertar(tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.SP_Categorias_Insertar(tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
-            ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
-            return View(tbCategorias);
+                ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
+                ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
+                return View(tbCategorias);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Categorias/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbCategorias tbCategorias = db.tbCategorias.Find(id);
+                if (tbCategorias == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
+                ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
+                return View(tbCategorias);
             }
-            tbCategorias tbCategorias = db.tbCategorias.Find(id);
-            if (tbCategorias == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
-            ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
-            return View(tbCategorias);
         }
 
         // POST: Categorias/Edit/5
@@ -87,30 +126,46 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Categ_Id,Categ_Nombre")] tbCategorias tbCategorias)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SP_Categorias_Modificar(tbCategorias.Categ_Id,tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SP_Categorias_Modificar(tbCategorias.Categ_Id,tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
+                ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
+                return View(tbCategorias);
             }
-            ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
-            ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
-            return View(tbCategorias);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Categorias/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbCategorias tbCategorias = db.tbCategorias.Find(id);
+                if (tbCategorias == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbCategorias);
             }
-            tbCategorias tbCategorias = db.tbCategorias.Find(id);
-            if (tbCategorias == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbCategorias);
         }
 
         // POST: Categorias/Delete/5
@@ -118,8 +173,15 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed([Bind(Include = "Categ_Id")] tbCategorias tbCategorias)
         {
-            db.SP_Categorias_Eliminar(tbCategorias.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-            db.SaveChanges();
+            try
+            {
+                db.SP_Categorias_Eliminar(tbCategorias.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return RedirectToAction("Index");
         }
 

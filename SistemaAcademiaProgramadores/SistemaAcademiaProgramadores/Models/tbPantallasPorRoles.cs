@@ -21,7 +21,6 @@ namespace SistemaAcademiaProgramadores.Models
         public System.DateTime Papro_FechaCreacion { get; set; }
         public Nullable<int> Papro_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Papro_FechaModificacion { get; set; }
-        public bool Papro_Estado { get; set; }
     
         public virtual tbPantallas tbPantallas { get; set; }
         public virtual tbRoles tbRoles { get; set; }

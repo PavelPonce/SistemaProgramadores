@@ -22,7 +22,6 @@ namespace SistemaAcademiaProgramadores.Models
         public System.DateTime Calif_FechaCreacion { get; set; }
         public Nullable<int> Calif_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Calif_FechaModificacion { get; set; }
-        public bool Calif_Estado { get; set; }
     
         public virtual tbAlumnos tbAlumnos { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }

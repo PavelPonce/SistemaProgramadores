@@ -30,12 +30,12 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> InsCG_FechaModificacion { get; set; }
         public bool InsCG_Estado { get; set; }
     
-        public virtual tbCursos tbCursos { get; set; }
         public virtual tbInstructores tbInstructores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         public virtual tbGeneraciones tbGeneraciones { get; set; }
+        public virtual tbCursos tbCursos { get; set; }
     }
 }

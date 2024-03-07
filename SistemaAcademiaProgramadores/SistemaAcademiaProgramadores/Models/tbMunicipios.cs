@@ -28,7 +28,6 @@ namespace SistemaAcademiaProgramadores.Models
         public System.DateTime Munic_FechaCreacion { get; set; }
         public Nullable<int> Munic_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Munic_FechaModificacion { get; set; }
-        public bool Munic_Estado { get; set; }
     
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }

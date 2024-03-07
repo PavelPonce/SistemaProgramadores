@@ -38,5 +38,6 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual ICollection<tbUsuarios> tbUsuarios2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
+        public virtual tbCentrosEducativos tbCentrosEducativos { get; set; }
     }
 }

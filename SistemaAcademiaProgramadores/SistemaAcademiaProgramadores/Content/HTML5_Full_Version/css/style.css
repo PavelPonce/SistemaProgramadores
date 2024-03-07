@@ -19,6 +19,10 @@
     primary secondary:b579d6
 
 */
+
+td input:focus {
+    outline: 1px dotted #F8941D;
+}
 .no-drag{
     user-select: none;
 }

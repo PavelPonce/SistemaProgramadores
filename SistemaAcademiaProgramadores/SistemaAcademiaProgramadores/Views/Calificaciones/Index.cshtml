@@ -1,0 +1,485 @@
+﻿@model IEnumerable<SistemaAcademiaProgramadores.Models.tbGeneraciones>
+
+
+@{
+    var SP_ActividadesPorCursoPorGeneracion_Seleccionar = Session["SP_ActividadesPorCursoPorGeneracion_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result>;
+    var Actividades = SP_ActividadesPorCursoPorGeneracion_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result>();
+    var SP_InstructoresPorCursoPorGeneracion_Seleccionar = Session["SP_InstructoresPorCursoPorGeneracion_Seleccionar"] as IEnumerable<SistemaAcademiaProgramadores.Models.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>;
+    var Cursos = SP_InstructoresPorCursoPorGeneracion_Seleccionar?.ToList() ?? new List<SistemaAcademiaProgramadores.Models.SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>();
+    var AlumnosDictionary = Session["AlumnosDictionary"] as Dictionary<int, string> ?? new Dictionary<int, string>();
+    var CalificacionesDictionary = Session["CalificacionesDictionary"] as Dictionary<int, Dictionary<string, decimal>> ?? new Dictionary<int, Dictionary<string, decimal>>();
+
+    //Session.Remove("SP_ActividadesPorCursoPorGeneracion_Seleccionar");
+    //Session.Remove("SP_InstructoresPorCursoPorGeneracion_Seleccionar");
+    //Session.Remove("SP_Calificaciones2_Seleccionar");
+    ViewBag.Title = $"tbCalificaciones".Substring(2);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h1 class="text-primary" style="font-size: 1.8rem;">@ViewBag.Title</h1>
+    </div>
+    <div class="col-sm-8">
+        <div class="title-action">
+            <a href='@Url.Action("Index", "Home")' class="btn btn-primary"><i class="glyphicon glyphicon-home"></i> Inicio</a>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-around w-100 mb-4" style="gap: 10px;">
+                <select id="ddlGeneraciones" class="form-control text-primary" style="max-width: 250px;">
+                    <option value="">--Seleccionar generacion--</option>
+                    @foreach (var generacion in Model)
+                    {
+                        if (Session["Gener_Id"] == null)
+                        {
+                            <option value="@generacion.Gener_Id" class="form-control">@generacion.Gener_Nombre</option>
+                        }
+                        else
+                        {
+                            if (generacion.Gener_Id == int.Parse(Session["Gener_Id"].ToString()))
+                            {
+                                <option value="@generacion.Gener_Id" class="form-control" selected>@generacion.Gener_Nombre</option>
+                            }
+                            else
+                            {
+                                <option value="@generacion.Gener_Id" class="form-control">@generacion.Gener_Nombre</option>
+                            }
+                        }
+                    }
+                </select>
+                <select id="ddlCursos" class="form-control text-primary" style="max-width: 250px;">
+                    <option value="">--Seleccionar curso--</option>
+                    @if (Cursos.Count > 0)
+                    {
+                        foreach (var curso in Cursos)
+                        {
+                            if (Session["Curso_Id"] == null)
+                            {
+                                <option value="@curso.Curso_Id" class="form-control">@curso.Curso_Nombre</option>
+                            }
+                            else
+                            {
+                                if (curso.Curso_Id == int.Parse(Session["Curso_Id"].ToString()))
+                                {
+                                    <option value="@curso.Curso_Id" class="form-control" selected>@curso.Curso_Nombre</option>
+                                }
+                                else
+                                {
+                                    <option value="@curso.Curso_Id" class="form-control">@curso.Curso_Nombre</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+                <button id="btnHabilitarEdicion" class="btn btn-primary btn-outline" onclick="habilitarEdicion()"><i class="fa fa-edit (alias)"></i> Editar</button>
+            </div>
+            <div class="w-100" style="overflow-x:scroll;">
+                @if (Actividades.Count > 0)
+                {
+                    <table class="table table-striped table-bordered dataTables-example">
+                        <thead>
+                            <tr id="calificacionesTheadTr" class="thead-purple thead-justify-content-center">
+                                <th id="ALUMNO" class="bg-primary">Alumno</th>
+                                @foreach (var item in Actividades)
+                                {
+                                    <th id="@item.ActCG_Id" class="bg-primary">@item.Activ_Nombre @item.ActCG_Nota%</th>
+                                }
+                                <th class="bg-primary">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calificacionesTbody">
+                            @foreach (var calificacion in CalificacionesDictionary)
+                            {
+                            <tr>
+                                <td id="@calificacion.Key" class="p-0" style="min-width: 350px;">@AlumnosDictionary[calificacion.Key]</td>
+
+                                @foreach (var actividad in Actividades)
+                                {
+                                    if (Convert.ToBoolean(calificacion.Value.TryGetValue(actividad.ActCG_Id.ToString(), out decimal nota)))
+                                    {
+                                        <td id="@actividad.ActCG_Id" style="position: relative; text-align: left; padding: 0 5px;">
+                                            @*onfocus="this.oldvalue = this.value;" onchange="establecerAntiguoValor(this);this.oldValue = this.value" value="@calificacion[actividad.ActCG_Id.ToString()].Value"*@
+                                            <input id="@actividad.ActCG_Id" value="@nota" disabled style="position: absolute; z-index: -1; left: 0; padding: 0 5px; border: 0; width: 100%;" />
+                                            @nota.ToString()
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td id="@actividad.ActCG_Id" style="position: relative; text-align: left; padding: 0 5px;">
+                                            @*onfocus="this.oldvalue = this.value;" onchange="establecerAntiguoValor(this);this.oldValue = this.value" value="@calificacion[actividad.ActCG_Id.ToString()].Value"*@
+                                            <input id="@actividad.ActCG_Id" value="0" disabled style="position: absolute; z-index: -1; left: 0; padding: 0 5px; border: 0; width: 100%;" />
+                                            0
+                                        </td>
+                                    }
+                                }
+                                <td class="p-0"></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <table class="table table-striped table-bordered dataTables-example">
+                        <thead>
+                            <tr id="calificacionesTheadTr" class="thead-purple thead-justify-content-center">
+                            </tr>
+                        </thead>
+                        <tbody id="calificacionesTbody">
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
+<script>
+    let edicionHabilitada = false;
+    let hrefSearch = window.location.search;
+    let Gener_Id = "";
+    let Curso_Id = "";
+    if (hrefSearch !== "") {
+        let hrefSplitted = hrefSearch.split("&");
+        Gener_Id = hrefSplitted[0][hrefSplitted[0].length - 1];
+        Curso_Id = hrefSplitted[1][hrefSplitted[1].length - 1];
+    }
+    let alumnosMap = new Map();
+    let calificacionesMap = new Map();
+    $(document).ready(() => {
+        if (hrefSearch !== "") {
+            $.ajax({
+                url: "/Calificaciones/ObtenerCalificacionesDictionary",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ nada: "" }),
+                success: function (data) {
+                    $.each(data, function (key, value) {
+                        let actividadNotaMap = new Map();
+                        for (let key in value.Value) {
+                            actividadNotaMap.set(key.toString(), value.Value[key])
+                        }
+                        calificacionesMap.set(value.Key.toString(), actividadNotaMap)
+                    })
+                },
+            })
+        }
+        //SI HAY SESIONES DE GENER Y CURSO GUARDAR EL DICIONARIO EN CALIFICACIONES_MAP
+    })
+    function habilitarEdicion() {
+        if (edicionHabilitada) {
+            document.getElementById("btnHabilitarEdicion").textContent = "Editar";
+            document.querySelectorAll("tbody tr").forEach(tr => {
+                for (let i = tr.children.length - 1; i > 0; i--) {
+                    if (i !== tr.children.length - 1) {
+                        tr.children[i].children[0].style.zIndex = -1;
+                        tr.children[i].children[0].disabled = true;
+                    }
+                }
+            })
+        } else {
+            document.getElementById("btnHabilitarEdicion").textContent = "Solo lectura";
+        }
+        edicionHabilitada = !edicionHabilitada;
+    }
+    function sumarNotas(tableRowElement) {
+        let suma = 0;
+        for (let i = tableRowElement.children.length - 2; i > 0; i--) {
+            suma += parseFloat(tableRowElement.children[i].children[0].value);
+        }
+        return suma;
+    }
+    function crearNota(Alumn_Id, ActCG_Id, Calif_Nota) {
+        $.ajax({
+            url: "/Calificaciones/CrearNota",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Alumn_Id, ActCG_Id, Calif_Nota }),
+            success: function (data) {
+                console.log(data, "resAjax");
+            },
+        })
+    }
+    function modificarNota(Alumn_Id, ActCG_Id, Calif_Nota) {
+        $.ajax({
+            url: "/Calificaciones/ModificarNota",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ Alumn_Id, ActCG_Id, Calif_Nota }),
+            success: function (data) {
+                console.log(data, "resAjax");
+            },
+        })
+    }
+    document.querySelectorAll("tbody tr").forEach(tr => {
+        for (let i = tr.children.length - 1; i > 0; i--) {
+            if (i === tr.children.length - 1) {
+                tr.children[i].textContent = sumarNotas(tr);
+            }
+            tr.addEventListener("dblclick", () => {
+                if (tr.children[i].children.length > 0)
+                {
+                    if (edicionHabilitada) {
+                        tr.children[i].children[0].style.zIndex = "auto";
+                        tr.children[i].children[0].disabled = false;
+                        tr.children[i].children[0].focus();
+                        tr.children[i].children[0].addEventListener("change", (event) => {
+                            console.log(calificacionesMap);
+                            let Alumn_Id = tr.children[0].id;
+                            let nuevoMapCalificaciones = calificacionesMap.get(Alumn_Id);
+                            console.log(nuevoMapCalificaciones)
+                            let actividadHeaderText = calificacionesTheadTr.children[i].textContent;
+                            let puntajeActividad = actividadHeaderText.substring(actividadHeaderText.length - 6, actividadHeaderText.length - 1);
+                            console.log(puntajeActividad, "puntajeActividad")
+                            console.log(event.target.value, "event.target.value")
+                            console.log(nuevoMapCalificaciones.get(event.target.id), "antiguo valor")
+                            if (event.target.value > puntajeActividad) {
+                                console.log("Nota del alumno excede el puntaje de la actividad");
+                                tr.children[i].textContent = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                let txtInput = document.createElement("input");
+                                txtInput.id = event.target.id;
+                                txtInput.value = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                txtInput.classList.add("w-100");
+                                txtInput.style.position = "absolute";
+                                txtInput.style.left = 0;
+                                txtInput.style.padding = "0 5px";
+                                txtInput.style.border = 0;
+                                tr.children[i].appendChild(txtInput);
+                            } else {
+                                nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(Alumn_Id, event.target.id, event.target.value) : modificarNota(Alumn_Id, event.target.id, event.target.value);
+                                nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                tr.children[tr.children.length - 1].textContent = sumarNotas(tr).toString();
+                            }
+                        });
+                    } else {
+                        console.log("Edicion Inhabilitada")
+                    }
+                }
+            })
+        }
+    })
+    $('#ddlGeneraciones').change(() => {
+        Gener_Id = $('#ddlGeneraciones').val();
+        if (Gener_Id !== "") {
+            $.ajax({
+                url: "/Calificaciones/LlenarCursosDdl",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Gener_Id }),
+                success: function (data) {
+                    calificacionesMap.clear();
+                    let ddlCursosChildren = document.getElementById("ddlCursos").children;
+                    for (let i = ddlCursosChildren.length - 1; i > 0; i--) {
+                        ddlCursosChildren[i].remove();
+                    }
+                    $.each(data, function (key, value) {
+                        let htmlOptionElement = new Option(value.Curso_Nombre, value.Curso_Id);
+                        document.getElementById('ddlCursos').appendChild(htmlOptionElement);
+                    })
+                },
+            })
+        }
+    })
+    $('#ddlCursos').change(() => {
+        Gener_Id = $('#ddlGeneraciones').val();
+        Curso_Id = $('#ddlCursos').val();
+        if (Gener_Id !== "" && Curso_Id !== "") {
+            $.ajax({
+                url: "/Calificaciones/CargarActividades",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ Gener_Id, Curso_Id }),
+                success: function (data) {
+                    calificacionesMap.clear();
+                    let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
+                    if (document.getElementById("ALUMNO")) {
+                        calificacionesTheadTr.innerHTML = "";
+                        document.getElementById("calificacionesTbody").innerHTML = "";
+                    }
+                    let alumnoCellHeaderElement = document.createElement("th");
+                    alumnoCellHeaderElement.id = "ALUMNO";
+                    alumnoCellHeaderElement.classList.add("bg-primary");
+                    alumnoCellHeaderElement.textContent = "Alumno";
+                    calificacionesTheadTr.appendChild(alumnoCellHeaderElement);
+                    $.each(data, function (key, value) {
+                        let cellHeaderElement = document.createElement("th");
+                        cellHeaderElement.id = value.ActCG_Id;
+                        cellHeaderElement.classList.add("bg-primary");
+
+                        cellHeaderElement.textContent = value.Activ_Nombre + " " + parseFloat(value.ActCG_Nota).toFixed(2) + "%";
+                        calificacionesTheadTr.appendChild(cellHeaderElement);
+                    })
+                    let totalCellHeaderElement = document.createElement("th");
+                    totalCellHeaderElement.id = "Total";
+                    totalCellHeaderElement.classList.add("bg-primary");
+                    totalCellHeaderElement.textContent = "Total";
+                    calificacionesTheadTr.appendChild(totalCellHeaderElement);
+                    $.ajax({
+                        url: "/Calificaciones/CargarCalificaciones",
+                        method: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ Gener_Id, Curso_Id }),
+                        success: function (data) {
+                            $.each(data, function (key, value) {
+                                alumnosMap.set(value.Perso_Id.toString(), value.ALUMNO);
+                                if (calificacionesMap.has(value.Perso_Id.toString())) {
+                                    let nuevoMapCalificaciones = calificacionesMap.get(value.Perso_Id.toString())
+                                    nuevoMapCalificaciones.set(value.ActCG_Id.toString(), value.Calif_Nota);
+                                } else {
+                                    calificacionesMap.set(value.Perso_Id.toString(), new Map().set(value.ActCG_Id.toString(), value.Calif_Nota));
+                                }
+                            })
+                            let calificacionesTbody = document.getElementById("calificacionesTbody");
+                            let calificacionesTheadTr = document.getElementById("calificacionesTheadTr");
+                            for (let item of calificacionesMap) {
+                                let tableRowElement = document.createElement("tr");
+                                let alumnoTableCell = document.createElement("td");
+                                alumnoTableCell.id = item[0];
+                                alumnoTableCell.classList.add("p-0");
+                                alumnoTableCell.textContent = alumnosMap.get(item[0]);
+                                alumnoTableCell.style.minWidth = "350px";
+                                tableRowElement.appendChild(alumnoTableCell);
+                                let total = 0;
+                                for (let i = 0; i < calificacionesTheadTr.children.length - 2; i++) {
+                                    let notaTableCell = document.createElement("td");
+                                    notaTableCell.id = calificacionesTheadTr.children[i + 1].id;
+                                    notaTableCell.style.position = "relative";
+                                    notaTableCell.style.padding = "0 5px";
+                                    notaTableCell.style.textAlign = "left";
+                                    let txtInput = document.createElement("input");
+                                    txtInput.disabled = true;
+                                    txtInput.id = calificacionesTheadTr.children[i + 1].id;
+                                    txtInput.value = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id)).toFixed(2) ?? 0;
+                                    notaTableCell.textContent = parseFloat(item[1].get(calificacionesTheadTr.children[i + 1].id)).toFixed(2) ?? 0;
+                                    total += parseFloat(notaTableCell.textContent);
+                                    txtInput.classList.add("w-100");
+                                    txtInput.style.position = "absolute";
+                                    txtInput.style.zIndex = -1;
+                                    txtInput.style.left = 0;
+                                    txtInput.style.padding = "0 5px";
+                                    txtInput.style.border = 0;
+                                    notaTableCell.appendChild(txtInput);
+                                    tableRowElement.appendChild(notaTableCell);
+                                }
+                                calificacionesTbody.appendChild(tableRowElement);
+                                let totalTableCell = document.createElement("td");
+                                totalTableCell.textContent = total.toString();
+                                totalTableCell.classList.add("p-0");
+                                tableRowElement.appendChild(totalTableCell);
+                                for (let i = tableRowElement.children.length - 1; i > 0; i--) {
+                                    tableRowElement.addEventListener("dblclick", () => {
+                                        if (tableRowElement.children[i].children.length > 0) {
+                                            tableRowElement.children[i].children[0].style.zIndex = "auto";
+                                            tableRowElement.children[i].children[0].disabled = false;
+                                            tableRowElement.children[i].children[0].focus();
+                                            tableRowElement.children[i].children[0].addEventListener("change", (event) => {
+                                                console.log(calificacionesMap);
+                                                let Alumn_Id = tableRowElement.children[0].id;
+                                                let nuevoMapCalificaciones = calificacionesMap.get(Alumn_Id);
+                                                console.log(nuevoMapCalificaciones)
+                                                let actividadHeaderText = calificacionesTheadTr.children[i].textContent;
+                                                let puntajeActividad = actividadHeaderText.substring(actividadHeaderText.length - 6, actividadHeaderText.length - 1);
+                                                console.log(puntajeActividad, "puntajeActividad")
+                                                console.log(event.target.value, "event.target.value")
+                                                console.log(nuevoMapCalificaciones.get(event.target.id), "antiguo valor")
+                                                if (event.target.value > puntajeActividad) {
+                                                    console.log("Nota del alumno excede el puntaje de la actividad");
+                                                    tableRowElement.children[i].textContent = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                                    let txtInput = document.createElement("input");
+                                                    txtInput.id = event.target.id;
+                                                    txtInput.value = nuevoMapCalificaciones.get(event.target.id) === undefined ? 0 : parseFloat(nuevoMapCalificaciones.get(event.target.id));
+                                                    txtInput.classList.add("w-100");
+                                                    txtInput.style.position = "absolute";
+                                                    txtInput.style.left = 0;
+                                                    txtInput.style.padding = "0 5px";
+                                                    txtInput.style.border = 0;
+                                                    tableRowElement.children[i].appendChild(txtInput);
+                                                } else {
+                                                    nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(Alumn_Id, event.target.id, event.target.value) : modificarNota(Alumn_Id, event.target.id, event.target.value);
+                                                    nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                                    tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
+                                                    //let nuevoMapCalificaciones = calificacionesMap.get(item[0]);
+                                                    //nuevoMapCalificaciones.get(event.target.id) === undefined ? crearNota(item[0], event.target.id, event.target.value) : modificarNota(item[0], event.target.id, event.target.value);
+                                                    //nuevoMapCalificaciones.set(event.target.id, event.target.value);
+                                                    //tableRowElement.children[tableRowElement.children.length - 1].textContent = sumarNotas(tableRowElement).toString();
+                                                }
+                                            });
+                                        }
+                                    })
+                                }
+                            }
+                            console.log(calificacionesMap);
+                        },
+                    })
+                },
+            })
+        }
+    })
+</script>
+
+@*
+    @using (Ajax.BeginForm("Create",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmNuevo{ViewBag.Title}" }))
+    {
+    <div class="modal" id="modalNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-row justify-content-center" id=$"frmNuevo{ViewBag.Title}">
+                    @Html.Partial("_Create", new SistemaAcademiaProgramadores.Models.tbCalificaciones())
+                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Cancelar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    }
+*@
+@*
+    @using (Ajax.BeginForm("Edit",$"{ViewBag.Title}", new AjaxOptions { HttpMethod = "POST",UpdateTargetId = "frmEditar{ViewBag.Title}" }))
+    {
+    <div class="modal" id="modalEditar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar @ViewBag.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-row justify-content-center" id=$"frmEditar{ViewBag.Title}">
+                    @Html.Partial("_Edit", new SistemaAcademiaProgramadores.Models.tbCalificaciones())
+                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Cancelar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    }
+*@
+
+

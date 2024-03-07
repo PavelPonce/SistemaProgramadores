@@ -28,11 +28,13 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<int> Curso_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Curso_FechaModificacion { get; set; }
         public bool Curso_Estado { get; set; }
+        public System.DateTime Curso_FechaInicio { get; set; }
+        public Nullable<System.DateTime> Curso_FechaFin { get; set; }
     
+        public virtual tbCategorias tbCategorias { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
-        public virtual tbCategorias tbCategorias { get; set; }
     }
 }

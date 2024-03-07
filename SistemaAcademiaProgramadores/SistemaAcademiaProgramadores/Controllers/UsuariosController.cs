@@ -18,36 +18,59 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion");
-            var tbUsuarios = db.tbUsuarios.Include(t => t.tbInstructores2).Include(t => t.tbRoles2).Include(t => t.tbUsuarios2).Include(t => t.tbUsuarios3);
-            return View(tbUsuarios.ToList());
+            try
+            {
+                ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion");
+                var tbUsuarios = db.tbUsuarios.Include(t => t.tbInstructores2).Include(t => t.tbRoles2).Include(t => t.tbUsuarios2).Include(t => t.tbUsuarios3);
+                return View(tbUsuarios.ToList());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
+                if (tbUsuarios == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbUsuarios);
             }
-            tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
-            if (tbUsuarios == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbUsuarios);
         }
 
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-
-            ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion");
-            ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            return View();
+            try
+            {
+                ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion");
+                ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // POST: Usuarios/Create
@@ -57,39 +80,54 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Usuar_Id,Usuar_Usuario,Usuar_Contrasena,Usuar_UltimaSesion,Instr_Id,Roles_Id,Usuar_Admin,Usuar_UsuarioCreacion,Usuar_FechaCreacion,Usuar_UsuarioModificacion,Usuar_FechaModificacion,Usuar_Estado")] tbUsuarios tbUsuarios)
         {
-            
-            if (ModelState.IsValid)
+            try
             {
-                db.tbUsuarios.Add(tbUsuarios);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.tbUsuarios.Add(tbUsuarios);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre", tbUsuarios.Instr_Id);
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbUsuarios.Roles_Id);
-            ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioCreacion);
-            ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioModificacion);
-            return View(tbUsuarios);
+                ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre", tbUsuarios.Instr_Id);
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbUsuarios.Roles_Id);
+                ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioCreacion);
+                ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioModificacion);
+                return View(tbUsuarios);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
-            if (tbUsuarios == null)
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
+                if (tbUsuarios == null)
 
-            {
-                return HttpNotFound();
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Instr_Id = new SelectList(db.tbInstructores, "Perso_Id", "Perso_Id", tbUsuarios.Instr_Id);
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbUsuarios.Roles_Id);
+                ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioCreacion);
+                ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioModificacion);
+                return View(tbUsuarios);
             }
-            ViewBag.Instr_Id = new SelectList(db.tbInstructores, "Perso_Id", "Perso_Id", tbUsuarios.Instr_Id);
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbUsuarios.Roles_Id);
-            ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioCreacion);
-            ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioModificacion);
-            return View(tbUsuarios);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // POST: Usuarios/Edit/5
@@ -99,32 +137,48 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Usuar_Id,Usuar_Usuario,Usuar_Contrasena,Usuar_UltimaSesion,Instr_Id,Roles_Id,Usuar_Admin,Usuar_UsuarioCreacion,Usuar_FechaCreacion,Usuar_UsuarioModificacion,Usuar_FechaModificacion,Usuar_Estado")] tbUsuarios tbUsuarios)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(tbUsuarios).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(tbUsuarios).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Instr_Id = new SelectList(db.tbInstructores, "Perso_Id", "Perso_Id", tbUsuarios.Instr_Id);
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbUsuarios.Roles_Id);
+                ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioCreacion);
+                ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioModificacion);
+                return View(tbUsuarios);
             }
-            ViewBag.Instr_Id = new SelectList(db.tbInstructores, "Perso_Id", "Perso_Id", tbUsuarios.Instr_Id);
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbUsuarios.Roles_Id);
-            ViewBag.Usuar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioCreacion);
-            ViewBag.Usuar_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbUsuarios.Usuar_UsuarioModificacion);
-            return View(tbUsuarios);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
+                if (tbUsuarios == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbUsuarios);
             }
-            tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
-            if (tbUsuarios == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbUsuarios);
         }
 
         // POST: Usuarios/Delete/5
@@ -132,9 +186,16 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
-            db.tbUsuarios.Remove(tbUsuarios);
-            db.SaveChanges();
+            try
+            {
+                tbUsuarios tbUsuarios = db.tbUsuarios.Find(id);
+                db.tbUsuarios.Remove(tbUsuarios);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return RedirectToAction("Index");
         }
 

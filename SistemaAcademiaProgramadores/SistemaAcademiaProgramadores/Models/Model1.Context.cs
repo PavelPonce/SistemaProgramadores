@@ -28,25 +28,25 @@ namespace SistemaAcademiaProgramadores.Models
         }
     
         public virtual DbSet<tbAlumnos> tbAlumnos { get; set; }
-        public virtual DbSet<tbCursos> tbCursos { get; set; }
         public virtual DbSet<tbInstructores> tbInstructores { get; set; }
         public virtual DbSet<tbPantallas> tbPantallas { get; set; }
-        public virtual DbSet<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
         public virtual DbSet<tbRoles> tbRoles { get; set; }
         public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
         public virtual DbSet<tbActividades> tbActividades { get; set; }
+        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
+        public virtual DbSet<tbTitulos> tbTitulos { get; set; }
+        public virtual DbSet<tbAlumnosBitacora> tbAlumnosBitacora { get; set; }
+        public virtual DbSet<tbCategorias> tbCategorias { get; set; }
         public virtual DbSet<tbDepartamentos> tbDepartamentos { get; set; }
         public virtual DbSet<tbEstadosCiviles> tbEstadosCiviles { get; set; }
         public virtual DbSet<tbMunicipios> tbMunicipios { get; set; }
-        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
-        public virtual DbSet<tbTitulos> tbTitulos { get; set; }
-        public virtual DbSet<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
-        public virtual DbSet<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
         public virtual DbSet<tbCalificaciones> tbCalificaciones { get; set; }
-        public virtual DbSet<tbAlumnosBitacora> tbAlumnosBitacora { get; set; }
-        public virtual DbSet<tbCentrosEducativos> tbCentrosEducativos { get; set; }
-        public virtual DbSet<tbCategorias> tbCategorias { get; set; }
+        public virtual DbSet<tbActividadesPorCursoPorGeneracion> tbActividadesPorCursoPorGeneracion { get; set; }
+        public virtual DbSet<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
+        public virtual DbSet<tbInstructoresPorCursoPorGeneracion> tbInstructoresPorCursoPorGeneracion { get; set; }
         public virtual DbSet<tbGeneraciones> tbGeneraciones { get; set; }
+        public virtual DbSet<tbCursos> tbCursos { get; set; }
+        public virtual DbSet<tbCentrosEducativos> tbCentrosEducativos { get; set; }
     
         public virtual int SP_tbUsuarios_DELETE(Nullable<int> usuar_Id, Nullable<int> usuar_UsuarioModificacion, Nullable<System.DateTime> usuar_FechaModificacion)
         {
@@ -165,11 +165,51 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Alumnos_Eliminar", perso_IdParameter, alumn_UsuarioModificacionParameter, alumn_FechaModificacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Alumnos_Insertar(Nullable<int> perso_Id, Nullable<int> cenEd_IdColegio, Nullable<int> cenEd_IdUniversidad, Nullable<int> titul_Id, Nullable<int> gener_Id, Nullable<int> alumn_UsuarioCreacion, Nullable<System.DateTime> alumn_FechaCreacion, string alumn_Observaciones, Nullable<System.DateTime> alumn_FechaIngreso)
+        public virtual ObjectResult<Nullable<int>> SP_Alumnos_Insertar(string perso_PrimerNombre, string perso_SegundoNombre, string perso_PrimerApellido, string perso_SegundoApellido, Nullable<System.DateTime> perso_FechaNacimiento, string perso_Sexo, Nullable<int> estci_Id, string perso_Direccion, string munic_Id, string perso_Telefono, string perso_CorreoElectronico, Nullable<int> cenEd_IdColegio, Nullable<int> cenEd_IdUniversidad, Nullable<int> titul_Id, Nullable<int> gener_Id, Nullable<int> alumn_UsuarioCreacion, Nullable<System.DateTime> alumn_FechaCreacion, string alumn_Observaciones, Nullable<System.DateTime> alumn_FechaIngreso)
         {
-            var perso_IdParameter = perso_Id.HasValue ?
-                new ObjectParameter("Perso_Id", perso_Id) :
-                new ObjectParameter("Perso_Id", typeof(int));
+            var perso_PrimerNombreParameter = perso_PrimerNombre != null ?
+                new ObjectParameter("Perso_PrimerNombre", perso_PrimerNombre) :
+                new ObjectParameter("Perso_PrimerNombre", typeof(string));
+    
+            var perso_SegundoNombreParameter = perso_SegundoNombre != null ?
+                new ObjectParameter("Perso_SegundoNombre", perso_SegundoNombre) :
+                new ObjectParameter("Perso_SegundoNombre", typeof(string));
+    
+            var perso_PrimerApellidoParameter = perso_PrimerApellido != null ?
+                new ObjectParameter("Perso_PrimerApellido", perso_PrimerApellido) :
+                new ObjectParameter("Perso_PrimerApellido", typeof(string));
+    
+            var perso_SegundoApellidoParameter = perso_SegundoApellido != null ?
+                new ObjectParameter("Perso_SegundoApellido", perso_SegundoApellido) :
+                new ObjectParameter("Perso_SegundoApellido", typeof(string));
+    
+            var perso_FechaNacimientoParameter = perso_FechaNacimiento.HasValue ?
+                new ObjectParameter("Perso_FechaNacimiento", perso_FechaNacimiento) :
+                new ObjectParameter("Perso_FechaNacimiento", typeof(System.DateTime));
+    
+            var perso_SexoParameter = perso_Sexo != null ?
+                new ObjectParameter("Perso_Sexo", perso_Sexo) :
+                new ObjectParameter("Perso_Sexo", typeof(string));
+    
+            var estci_IdParameter = estci_Id.HasValue ?
+                new ObjectParameter("Estci_Id", estci_Id) :
+                new ObjectParameter("Estci_Id", typeof(int));
+    
+            var perso_DireccionParameter = perso_Direccion != null ?
+                new ObjectParameter("Perso_Direccion", perso_Direccion) :
+                new ObjectParameter("Perso_Direccion", typeof(string));
+    
+            var munic_IdParameter = munic_Id != null ?
+                new ObjectParameter("Munic_Id", munic_Id) :
+                new ObjectParameter("Munic_Id", typeof(string));
+    
+            var perso_TelefonoParameter = perso_Telefono != null ?
+                new ObjectParameter("Perso_Telefono", perso_Telefono) :
+                new ObjectParameter("Perso_Telefono", typeof(string));
+    
+            var perso_CorreoElectronicoParameter = perso_CorreoElectronico != null ?
+                new ObjectParameter("Perso_CorreoElectronico", perso_CorreoElectronico) :
+                new ObjectParameter("Perso_CorreoElectronico", typeof(string));
     
             var cenEd_IdColegioParameter = cenEd_IdColegio.HasValue ?
                 new ObjectParameter("CenEd_IdColegio", cenEd_IdColegio) :
@@ -203,14 +243,58 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Alumn_FechaIngreso", alumn_FechaIngreso) :
                 new ObjectParameter("Alumn_FechaIngreso", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Alumnos_Insertar", perso_IdParameter, cenEd_IdColegioParameter, cenEd_IdUniversidadParameter, titul_IdParameter, gener_IdParameter, alumn_UsuarioCreacionParameter, alumn_FechaCreacionParameter, alumn_ObservacionesParameter, alumn_FechaIngresoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Alumnos_Insertar", perso_PrimerNombreParameter, perso_SegundoNombreParameter, perso_PrimerApellidoParameter, perso_SegundoApellidoParameter, perso_FechaNacimientoParameter, perso_SexoParameter, estci_IdParameter, perso_DireccionParameter, munic_IdParameter, perso_TelefonoParameter, perso_CorreoElectronicoParameter, cenEd_IdColegioParameter, cenEd_IdUniversidadParameter, titul_IdParameter, gener_IdParameter, alumn_UsuarioCreacionParameter, alumn_FechaCreacionParameter, alumn_ObservacionesParameter, alumn_FechaIngresoParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Alumnos_Modificar(Nullable<int> perso_Id, Nullable<int> cenEd_IdColegio, Nullable<int> cenEd_IdUniversidad, Nullable<int> titul_Id, Nullable<int> gener_Id, string alumn_Observaciones, Nullable<System.DateTime> alumn_FechaIngreso, Nullable<int> alumn_UsuarioModificacion, Nullable<System.DateTime> alumn_FechaModificacion)
+        public virtual ObjectResult<Nullable<int>> SP_Alumnos_Modificar(Nullable<int> perso_Id, string perso_PrimerNombre, string perso_SegundoNombre, string perso_PrimerApellido, string perso_SegundoApellido, Nullable<System.DateTime> perso_FechaNacimiento, string perso_Sexo, Nullable<int> estci_Id, string perso_Direccion, string munic_Id, string perso_Telefono, string perso_CorreoElectronico, Nullable<int> cenEd_IdColegio, Nullable<int> cenEd_IdUniversidad, Nullable<int> titul_Id, Nullable<int> gener_Id, string alumn_Observaciones, Nullable<System.DateTime> alumn_FechaIngreso, Nullable<int> alumn_UsuarioModificacion, Nullable<System.DateTime> alumn_FechaModificacion)
         {
             var perso_IdParameter = perso_Id.HasValue ?
                 new ObjectParameter("Perso_Id", perso_Id) :
                 new ObjectParameter("Perso_Id", typeof(int));
+    
+            var perso_PrimerNombreParameter = perso_PrimerNombre != null ?
+                new ObjectParameter("Perso_PrimerNombre", perso_PrimerNombre) :
+                new ObjectParameter("Perso_PrimerNombre", typeof(string));
+    
+            var perso_SegundoNombreParameter = perso_SegundoNombre != null ?
+                new ObjectParameter("Perso_SegundoNombre", perso_SegundoNombre) :
+                new ObjectParameter("Perso_SegundoNombre", typeof(string));
+    
+            var perso_PrimerApellidoParameter = perso_PrimerApellido != null ?
+                new ObjectParameter("Perso_PrimerApellido", perso_PrimerApellido) :
+                new ObjectParameter("Perso_PrimerApellido", typeof(string));
+    
+            var perso_SegundoApellidoParameter = perso_SegundoApellido != null ?
+                new ObjectParameter("Perso_SegundoApellido", perso_SegundoApellido) :
+                new ObjectParameter("Perso_SegundoApellido", typeof(string));
+    
+            var perso_FechaNacimientoParameter = perso_FechaNacimiento.HasValue ?
+                new ObjectParameter("Perso_FechaNacimiento", perso_FechaNacimiento) :
+                new ObjectParameter("Perso_FechaNacimiento", typeof(System.DateTime));
+    
+            var perso_SexoParameter = perso_Sexo != null ?
+                new ObjectParameter("Perso_Sexo", perso_Sexo) :
+                new ObjectParameter("Perso_Sexo", typeof(string));
+    
+            var estci_IdParameter = estci_Id.HasValue ?
+                new ObjectParameter("Estci_Id", estci_Id) :
+                new ObjectParameter("Estci_Id", typeof(int));
+    
+            var perso_DireccionParameter = perso_Direccion != null ?
+                new ObjectParameter("Perso_Direccion", perso_Direccion) :
+                new ObjectParameter("Perso_Direccion", typeof(string));
+    
+            var munic_IdParameter = munic_Id != null ?
+                new ObjectParameter("Munic_Id", munic_Id) :
+                new ObjectParameter("Munic_Id", typeof(string));
+    
+            var perso_TelefonoParameter = perso_Telefono != null ?
+                new ObjectParameter("Perso_Telefono", perso_Telefono) :
+                new ObjectParameter("Perso_Telefono", typeof(string));
+    
+            var perso_CorreoElectronicoParameter = perso_CorreoElectronico != null ?
+                new ObjectParameter("Perso_CorreoElectronico", perso_CorreoElectronico) :
+                new ObjectParameter("Perso_CorreoElectronico", typeof(string));
     
             var cenEd_IdColegioParameter = cenEd_IdColegio.HasValue ?
                 new ObjectParameter("CenEd_IdColegio", cenEd_IdColegio) :
@@ -244,7 +328,7 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Alumn_FechaModificacion", alumn_FechaModificacion) :
                 new ObjectParameter("Alumn_FechaModificacion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Alumnos_Modificar", perso_IdParameter, cenEd_IdColegioParameter, cenEd_IdUniversidadParameter, titul_IdParameter, gener_IdParameter, alumn_ObservacionesParameter, alumn_FechaIngresoParameter, alumn_UsuarioModificacionParameter, alumn_FechaModificacionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Alumnos_Modificar", perso_IdParameter, perso_PrimerNombreParameter, perso_SegundoNombreParameter, perso_PrimerApellidoParameter, perso_SegundoApellidoParameter, perso_FechaNacimientoParameter, perso_SexoParameter, estci_IdParameter, perso_DireccionParameter, munic_IdParameter, perso_TelefonoParameter, perso_CorreoElectronicoParameter, cenEd_IdColegioParameter, cenEd_IdUniversidadParameter, titul_IdParameter, gener_IdParameter, alumn_ObservacionesParameter, alumn_FechaIngresoParameter, alumn_UsuarioModificacionParameter, alumn_FechaModificacionParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> SP_Categorias_Eliminar(Nullable<int> categ_Id, Nullable<int> categ_UsuarioModificacion, Nullable<System.DateTime> categ_FechaModificacion)
@@ -382,7 +466,7 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Generaciones_Eliminar", gener_IdParameter, gener_UsuarioModificacionParameter, gener_FechaModificacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Generaciones_Insertar(string gener_Nombre, Nullable<int> gener_Anhio, Nullable<System.DateTime> gener_FechaInicio, Nullable<int> gener_UsuarioCreacion, Nullable<System.DateTime> gener_FechaCreacion)
+        public virtual ObjectResult<Nullable<int>> SP_Generaciones_Insertar(string gener_Nombre, Nullable<int> gener_Anhio, Nullable<int> gener_UsuarioCreacion, Nullable<System.DateTime> gener_FechaCreacion, Nullable<System.DateTime> gener_FechaInicio)
         {
             var gener_NombreParameter = gener_Nombre != null ?
                 new ObjectParameter("Gener_Nombre", gener_Nombre) :
@@ -392,10 +476,6 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Gener_Anhio", gener_Anhio) :
                 new ObjectParameter("Gener_Anhio", typeof(int));
     
-            var gener_FechaInicioParameter = gener_FechaInicio.HasValue ?
-                new ObjectParameter("Gener_FechaInicio", gener_FechaInicio) :
-                new ObjectParameter("Gener_FechaInicio", typeof(System.DateTime));
-    
             var gener_UsuarioCreacionParameter = gener_UsuarioCreacion.HasValue ?
                 new ObjectParameter("Gener_UsuarioCreacion", gener_UsuarioCreacion) :
                 new ObjectParameter("Gener_UsuarioCreacion", typeof(int));
@@ -404,10 +484,14 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Gener_FechaCreacion", gener_FechaCreacion) :
                 new ObjectParameter("Gener_FechaCreacion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Generaciones_Insertar", gener_NombreParameter, gener_AnhioParameter, gener_FechaInicioParameter, gener_UsuarioCreacionParameter, gener_FechaCreacionParameter);
+            var gener_FechaInicioParameter = gener_FechaInicio.HasValue ?
+                new ObjectParameter("Gener_FechaInicio", gener_FechaInicio) :
+                new ObjectParameter("Gener_FechaInicio", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Generaciones_Insertar", gener_NombreParameter, gener_AnhioParameter, gener_UsuarioCreacionParameter, gener_FechaCreacionParameter, gener_FechaInicioParameter);
         }
     
-        public virtual int SP_Generaciones_Modificar(Nullable<int> gener_Id, string gener_Nombre, Nullable<int> gener_Anhio, Nullable<System.DateTime> gener_FechaInicio, Nullable<System.DateTime> gener_FechaFin, Nullable<int> gener_UsuarioModificacion, Nullable<System.DateTime> gener_FechaModificacion)
+        public virtual int SP_Generaciones_Modificar(Nullable<int> gener_Id, string gener_Nombre, Nullable<int> gener_Anhio, Nullable<int> gener_UsuarioModificacion, Nullable<System.DateTime> gener_FechaModificacion, Nullable<System.DateTime> gener_FechaInicio, Nullable<System.DateTime> gener_FechaFin)
         {
             var gener_IdParameter = gener_Id.HasValue ?
                 new ObjectParameter("Gener_Id", gener_Id) :
@@ -421,14 +505,6 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Gener_Anhio", gener_Anhio) :
                 new ObjectParameter("Gener_Anhio", typeof(int));
     
-            var gener_FechaInicioParameter = gener_FechaInicio.HasValue ?
-                new ObjectParameter("Gener_FechaInicio", gener_FechaInicio) :
-                new ObjectParameter("Gener_FechaInicio", typeof(System.DateTime));
-    
-            var gener_FechaFinParameter = gener_FechaFin.HasValue ?
-                new ObjectParameter("Gener_FechaFin", gener_FechaFin) :
-                new ObjectParameter("Gener_FechaFin", typeof(System.DateTime));
-    
             var gener_UsuarioModificacionParameter = gener_UsuarioModificacion.HasValue ?
                 new ObjectParameter("Gener_UsuarioModificacion", gener_UsuarioModificacion) :
                 new ObjectParameter("Gener_UsuarioModificacion", typeof(int));
@@ -437,7 +513,15 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Gener_FechaModificacion", gener_FechaModificacion) :
                 new ObjectParameter("Gener_FechaModificacion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Generaciones_Modificar", gener_IdParameter, gener_NombreParameter, gener_AnhioParameter, gener_FechaInicioParameter, gener_FechaFinParameter, gener_UsuarioModificacionParameter, gener_FechaModificacionParameter);
+            var gener_FechaInicioParameter = gener_FechaInicio.HasValue ?
+                new ObjectParameter("Gener_FechaInicio", gener_FechaInicio) :
+                new ObjectParameter("Gener_FechaInicio", typeof(System.DateTime));
+    
+            var gener_FechaFinParameter = gener_FechaFin.HasValue ?
+                new ObjectParameter("Gener_FechaFin", gener_FechaFin) :
+                new ObjectParameter("Gener_FechaFin", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Generaciones_Modificar", gener_IdParameter, gener_NombreParameter, gener_AnhioParameter, gener_UsuarioModificacionParameter, gener_FechaModificacionParameter, gener_FechaInicioParameter, gener_FechaFinParameter);
         }
     
         public virtual int SP_Instructores_Eliminar(Nullable<int> perso_Id, Nullable<int> instr_UsuarioModificacion, Nullable<System.DateTime> instr_FechaModificacion)
@@ -457,11 +541,51 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Instructores_Eliminar", perso_IdParameter, instr_UsuarioModificacionParameter, instr_FechaModificacionParameter);
         }
     
-        public virtual int SP_Instructores_Insertar(Nullable<int> perso_Id, Nullable<int> titul_Id, Nullable<int> cenEd_Id, Nullable<int> instr_UsuarioCreacion, Nullable<System.DateTime> instr_FechaCreacion)
+        public virtual int SP_Instructores_Insertar(string perso_PrimerNombre, string perso_SegundoNombre, string perso_PrimerApellido, string perso_SegundoApellido, Nullable<System.DateTime> perso_FechaNacimiento, string perso_Sexo, Nullable<int> estci_Id, string perso_Direccion, string munic_Id, string perso_Telefono, string perso_CorreoElectronico, Nullable<int> titul_Id, Nullable<int> cenEd_Id, Nullable<int> instr_UsuarioCreacion, Nullable<System.DateTime> instr_FechaCreacion)
         {
-            var perso_IdParameter = perso_Id.HasValue ?
-                new ObjectParameter("Perso_Id", perso_Id) :
-                new ObjectParameter("Perso_Id", typeof(int));
+            var perso_PrimerNombreParameter = perso_PrimerNombre != null ?
+                new ObjectParameter("Perso_PrimerNombre", perso_PrimerNombre) :
+                new ObjectParameter("Perso_PrimerNombre", typeof(string));
+    
+            var perso_SegundoNombreParameter = perso_SegundoNombre != null ?
+                new ObjectParameter("Perso_SegundoNombre", perso_SegundoNombre) :
+                new ObjectParameter("Perso_SegundoNombre", typeof(string));
+    
+            var perso_PrimerApellidoParameter = perso_PrimerApellido != null ?
+                new ObjectParameter("Perso_PrimerApellido", perso_PrimerApellido) :
+                new ObjectParameter("Perso_PrimerApellido", typeof(string));
+    
+            var perso_SegundoApellidoParameter = perso_SegundoApellido != null ?
+                new ObjectParameter("Perso_SegundoApellido", perso_SegundoApellido) :
+                new ObjectParameter("Perso_SegundoApellido", typeof(string));
+    
+            var perso_FechaNacimientoParameter = perso_FechaNacimiento.HasValue ?
+                new ObjectParameter("Perso_FechaNacimiento", perso_FechaNacimiento) :
+                new ObjectParameter("Perso_FechaNacimiento", typeof(System.DateTime));
+    
+            var perso_SexoParameter = perso_Sexo != null ?
+                new ObjectParameter("Perso_Sexo", perso_Sexo) :
+                new ObjectParameter("Perso_Sexo", typeof(string));
+    
+            var estci_IdParameter = estci_Id.HasValue ?
+                new ObjectParameter("Estci_Id", estci_Id) :
+                new ObjectParameter("Estci_Id", typeof(int));
+    
+            var perso_DireccionParameter = perso_Direccion != null ?
+                new ObjectParameter("Perso_Direccion", perso_Direccion) :
+                new ObjectParameter("Perso_Direccion", typeof(string));
+    
+            var munic_IdParameter = munic_Id != null ?
+                new ObjectParameter("Munic_Id", munic_Id) :
+                new ObjectParameter("Munic_Id", typeof(string));
+    
+            var perso_TelefonoParameter = perso_Telefono != null ?
+                new ObjectParameter("Perso_Telefono", perso_Telefono) :
+                new ObjectParameter("Perso_Telefono", typeof(string));
+    
+            var perso_CorreoElectronicoParameter = perso_CorreoElectronico != null ?
+                new ObjectParameter("Perso_CorreoElectronico", perso_CorreoElectronico) :
+                new ObjectParameter("Perso_CorreoElectronico", typeof(string));
     
             var titul_IdParameter = titul_Id.HasValue ?
                 new ObjectParameter("Titul_Id", titul_Id) :
@@ -479,14 +603,58 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Instr_FechaCreacion", instr_FechaCreacion) :
                 new ObjectParameter("Instr_FechaCreacion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Instructores_Insertar", perso_IdParameter, titul_IdParameter, cenEd_IdParameter, instr_UsuarioCreacionParameter, instr_FechaCreacionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Instructores_Insertar", perso_PrimerNombreParameter, perso_SegundoNombreParameter, perso_PrimerApellidoParameter, perso_SegundoApellidoParameter, perso_FechaNacimientoParameter, perso_SexoParameter, estci_IdParameter, perso_DireccionParameter, munic_IdParameter, perso_TelefonoParameter, perso_CorreoElectronicoParameter, titul_IdParameter, cenEd_IdParameter, instr_UsuarioCreacionParameter, instr_FechaCreacionParameter);
         }
     
-        public virtual int SP_Instructores_Modificar(Nullable<int> perso_Id, Nullable<int> titul_Id, Nullable<int> cenEd_Id, Nullable<int> instr_UsuarioModificacion, Nullable<System.DateTime> instr_FechaModificacion)
+        public virtual int SP_Instructores_Modificar(Nullable<int> perso_Id, string perso_PrimerNombre, string perso_SegundoNombre, string perso_PrimerApellido, string perso_SegundoApellido, Nullable<System.DateTime> perso_FechaNacimiento, string perso_Sexo, Nullable<int> estci_Id, string perso_Direccion, string munic_Id, string perso_Telefono, string perso_CorreoElectronico, Nullable<int> titul_Id, Nullable<int> cenEd_Id, Nullable<int> instr_UsuarioModificacion, Nullable<System.DateTime> instr_FechaModificacion)
         {
             var perso_IdParameter = perso_Id.HasValue ?
                 new ObjectParameter("Perso_Id", perso_Id) :
                 new ObjectParameter("Perso_Id", typeof(int));
+    
+            var perso_PrimerNombreParameter = perso_PrimerNombre != null ?
+                new ObjectParameter("Perso_PrimerNombre", perso_PrimerNombre) :
+                new ObjectParameter("Perso_PrimerNombre", typeof(string));
+    
+            var perso_SegundoNombreParameter = perso_SegundoNombre != null ?
+                new ObjectParameter("Perso_SegundoNombre", perso_SegundoNombre) :
+                new ObjectParameter("Perso_SegundoNombre", typeof(string));
+    
+            var perso_PrimerApellidoParameter = perso_PrimerApellido != null ?
+                new ObjectParameter("Perso_PrimerApellido", perso_PrimerApellido) :
+                new ObjectParameter("Perso_PrimerApellido", typeof(string));
+    
+            var perso_SegundoApellidoParameter = perso_SegundoApellido != null ?
+                new ObjectParameter("Perso_SegundoApellido", perso_SegundoApellido) :
+                new ObjectParameter("Perso_SegundoApellido", typeof(string));
+    
+            var perso_FechaNacimientoParameter = perso_FechaNacimiento.HasValue ?
+                new ObjectParameter("Perso_FechaNacimiento", perso_FechaNacimiento) :
+                new ObjectParameter("Perso_FechaNacimiento", typeof(System.DateTime));
+    
+            var perso_SexoParameter = perso_Sexo != null ?
+                new ObjectParameter("Perso_Sexo", perso_Sexo) :
+                new ObjectParameter("Perso_Sexo", typeof(string));
+    
+            var estci_IdParameter = estci_Id.HasValue ?
+                new ObjectParameter("Estci_Id", estci_Id) :
+                new ObjectParameter("Estci_Id", typeof(int));
+    
+            var perso_DireccionParameter = perso_Direccion != null ?
+                new ObjectParameter("Perso_Direccion", perso_Direccion) :
+                new ObjectParameter("Perso_Direccion", typeof(string));
+    
+            var munic_IdParameter = munic_Id != null ?
+                new ObjectParameter("Munic_Id", munic_Id) :
+                new ObjectParameter("Munic_Id", typeof(string));
+    
+            var perso_TelefonoParameter = perso_Telefono != null ?
+                new ObjectParameter("Perso_Telefono", perso_Telefono) :
+                new ObjectParameter("Perso_Telefono", typeof(string));
+    
+            var perso_CorreoElectronicoParameter = perso_CorreoElectronico != null ?
+                new ObjectParameter("Perso_CorreoElectronico", perso_CorreoElectronico) :
+                new ObjectParameter("Perso_CorreoElectronico", typeof(string));
     
             var titul_IdParameter = titul_Id.HasValue ?
                 new ObjectParameter("Titul_Id", titul_Id) :
@@ -504,7 +672,7 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Instr_FechaModificacion", instr_FechaModificacion) :
                 new ObjectParameter("Instr_FechaModificacion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Instructores_Modificar", perso_IdParameter, titul_IdParameter, cenEd_IdParameter, instr_UsuarioModificacionParameter, instr_FechaModificacionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Instructores_Modificar", perso_IdParameter, perso_PrimerNombreParameter, perso_SegundoNombreParameter, perso_PrimerApellidoParameter, perso_SegundoApellidoParameter, perso_FechaNacimientoParameter, perso_SexoParameter, estci_IdParameter, perso_DireccionParameter, munic_IdParameter, perso_TelefonoParameter, perso_CorreoElectronicoParameter, titul_IdParameter, cenEd_IdParameter, instr_UsuarioModificacionParameter, instr_FechaModificacionParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> SP_InstructoresPorCursoPorGeneracion_Eliminar(Nullable<int> insCG_Id, Nullable<int> insCG_UsuarioModificacion, Nullable<System.DateTime> insCG_FechaModificacion)
@@ -999,23 +1167,23 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Calificaciones_Eliminar", calif_IdParameter, calif_UsuarioModificacionParameter, calif_FechaModificacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Calificaciones_Insertar(Nullable<int> actCG_Id, Nullable<int> alumn_Id, Nullable<decimal> calif_Nota, Nullable<int> calif_UsuarioCreacion, Nullable<System.DateTime> calif_FechaCreacion)
+        public virtual ObjectResult<Nullable<int>> SP_Calificaciones_Insertar(string actCG_Id, string alumn_Id, Nullable<decimal> calif_Nota, string calif_UsuarioCreacion, Nullable<System.DateTime> calif_FechaCreacion)
         {
-            var actCG_IdParameter = actCG_Id.HasValue ?
+            var actCG_IdParameter = actCG_Id != null ?
                 new ObjectParameter("ActCG_Id", actCG_Id) :
-                new ObjectParameter("ActCG_Id", typeof(int));
+                new ObjectParameter("ActCG_Id", typeof(string));
     
-            var alumn_IdParameter = alumn_Id.HasValue ?
+            var alumn_IdParameter = alumn_Id != null ?
                 new ObjectParameter("Alumn_Id", alumn_Id) :
-                new ObjectParameter("Alumn_Id", typeof(int));
+                new ObjectParameter("Alumn_Id", typeof(string));
     
             var calif_NotaParameter = calif_Nota.HasValue ?
                 new ObjectParameter("Calif_Nota", calif_Nota) :
                 new ObjectParameter("Calif_Nota", typeof(decimal));
     
-            var calif_UsuarioCreacionParameter = calif_UsuarioCreacion.HasValue ?
+            var calif_UsuarioCreacionParameter = calif_UsuarioCreacion != null ?
                 new ObjectParameter("Calif_UsuarioCreacion", calif_UsuarioCreacion) :
-                new ObjectParameter("Calif_UsuarioCreacion", typeof(int));
+                new ObjectParameter("Calif_UsuarioCreacion", typeof(string));
     
             var calif_FechaCreacionParameter = calif_FechaCreacion.HasValue ?
                 new ObjectParameter("Calif_FechaCreacion", calif_FechaCreacion) :
@@ -1024,33 +1192,29 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Calificaciones_Insertar", actCG_IdParameter, alumn_IdParameter, calif_NotaParameter, calif_UsuarioCreacionParameter, calif_FechaCreacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Calificaciones_Modificar(Nullable<int> calif_Id, Nullable<int> actCG_Id, Nullable<int> alumn_Id, Nullable<decimal> calif_Nota, Nullable<int> calif_UsuarioModificacion, Nullable<System.DateTime> calif_FechaModificacion)
+        public virtual ObjectResult<Nullable<int>> SP_Calificaciones_Modificar(string actCG_Id, string alumn_Id, Nullable<decimal> calif_Nota, string calif_UsuarioModificacion, Nullable<System.DateTime> calif_FechaModificacion)
         {
-            var calif_IdParameter = calif_Id.HasValue ?
-                new ObjectParameter("Calif_Id", calif_Id) :
-                new ObjectParameter("Calif_Id", typeof(int));
-    
-            var actCG_IdParameter = actCG_Id.HasValue ?
+            var actCG_IdParameter = actCG_Id != null ?
                 new ObjectParameter("ActCG_Id", actCG_Id) :
-                new ObjectParameter("ActCG_Id", typeof(int));
+                new ObjectParameter("ActCG_Id", typeof(string));
     
-            var alumn_IdParameter = alumn_Id.HasValue ?
+            var alumn_IdParameter = alumn_Id != null ?
                 new ObjectParameter("Alumn_Id", alumn_Id) :
-                new ObjectParameter("Alumn_Id", typeof(int));
+                new ObjectParameter("Alumn_Id", typeof(string));
     
             var calif_NotaParameter = calif_Nota.HasValue ?
                 new ObjectParameter("Calif_Nota", calif_Nota) :
                 new ObjectParameter("Calif_Nota", typeof(decimal));
     
-            var calif_UsuarioModificacionParameter = calif_UsuarioModificacion.HasValue ?
+            var calif_UsuarioModificacionParameter = calif_UsuarioModificacion != null ?
                 new ObjectParameter("Calif_UsuarioModificacion", calif_UsuarioModificacion) :
-                new ObjectParameter("Calif_UsuarioModificacion", typeof(int));
+                new ObjectParameter("Calif_UsuarioModificacion", typeof(string));
     
             var calif_FechaModificacionParameter = calif_FechaModificacion.HasValue ?
                 new ObjectParameter("Calif_FechaModificacion", calif_FechaModificacion) :
                 new ObjectParameter("Calif_FechaModificacion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Calificaciones_Modificar", calif_IdParameter, actCG_IdParameter, alumn_IdParameter, calif_NotaParameter, calif_UsuarioModificacionParameter, calif_FechaModificacionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Calificaciones_Modificar", actCG_IdParameter, alumn_IdParameter, calif_NotaParameter, calif_UsuarioModificacionParameter, calif_FechaModificacionParameter);
         }
     
         public virtual int SP_Calificaciones_Seleccionar(Nullable<int> curso_Id, Nullable<int> gener_Id)
@@ -1145,13 +1309,21 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_CentrosEducativos_Modificar", cenEd_IdParameter, cenEd_NombreParameter, cenEd_DireccionParameter, cenEd_TipoParameter, munic_IdParameter, cenEd_UsuarioModificacionParameter, cenEd_FechaModificacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Departamentos_Eliminar(string depar_Id)
+        public virtual ObjectResult<Nullable<int>> SP_Departamentos_Eliminar(string depar_Id, Nullable<int> depar_UsuarioModificacion, Nullable<System.DateTime> depar_FechaModificacion)
         {
             var depar_IdParameter = depar_Id != null ?
                 new ObjectParameter("Depar_Id", depar_Id) :
                 new ObjectParameter("Depar_Id", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Departamentos_Eliminar", depar_IdParameter);
+            var depar_UsuarioModificacionParameter = depar_UsuarioModificacion.HasValue ?
+                new ObjectParameter("Depar_UsuarioModificacion", depar_UsuarioModificacion) :
+                new ObjectParameter("Depar_UsuarioModificacion", typeof(int));
+    
+            var depar_FechaModificacionParameter = depar_FechaModificacion.HasValue ?
+                new ObjectParameter("Depar_FechaModificacion", depar_FechaModificacion) :
+                new ObjectParameter("Depar_FechaModificacion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Departamentos_Eliminar", depar_IdParameter, depar_UsuarioModificacionParameter, depar_FechaModificacionParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> SP_Departamentos_Insertar(string depar_Id, string depar_Descripcion, Nullable<int> depar_UsuarioCreacion, Nullable<System.DateTime> depar_FechaCreacion)
@@ -1205,13 +1377,21 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Departamentos_Modificar", depar_IdParameter, depar_DescripcionParameter, depar_UsuarioModificacionParameter, depar_FechaModificacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_EstadosCiviles_Eliminar(Nullable<int> estci_Id)
+        public virtual ObjectResult<Nullable<int>> SP_EstadosCiviles_Eliminar(Nullable<int> estci_Id, Nullable<int> estci_UsuarioModificacion, Nullable<System.DateTime> estci_FechaModificacion)
         {
             var estci_IdParameter = estci_Id.HasValue ?
                 new ObjectParameter("Estci_Id", estci_Id) :
                 new ObjectParameter("Estci_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EstadosCiviles_Eliminar", estci_IdParameter);
+            var estci_UsuarioModificacionParameter = estci_UsuarioModificacion.HasValue ?
+                new ObjectParameter("Estci_UsuarioModificacion", estci_UsuarioModificacion) :
+                new ObjectParameter("Estci_UsuarioModificacion", typeof(int));
+    
+            var estci_FechaModificacionParameter = estci_FechaModificacion.HasValue ?
+                new ObjectParameter("Estci_FechaModificacion", estci_FechaModificacion) :
+                new ObjectParameter("Estci_FechaModificacion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EstadosCiviles_Eliminar", estci_IdParameter, estci_UsuarioModificacionParameter, estci_FechaModificacionParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> SP_EstadosCiviles_Insertar(string estci_Descripcion, Nullable<int> estci_UsuarioCreacion, Nullable<System.DateTime> estci_FechaCreacion)
@@ -1252,13 +1432,21 @@ namespace SistemaAcademiaProgramadores.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EstadosCiviles_Modificar", estci_IdParameter, estci_DescripcionParameter, estci_UsuarioModificacionParameter, estci_FechaModificacionParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> SP_Municipios_Eliminar(string munic_Id)
+        public virtual ObjectResult<Nullable<int>> SP_Municipios_Eliminar(string munic_Id, Nullable<int> munic_UsuarioModificacion, Nullable<System.DateTime> munic_FechaModificacion)
         {
             var munic_IdParameter = munic_Id != null ?
                 new ObjectParameter("Munic_Id", munic_Id) :
                 new ObjectParameter("Munic_Id", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Municipios_Eliminar", munic_IdParameter);
+            var munic_UsuarioModificacionParameter = munic_UsuarioModificacion.HasValue ?
+                new ObjectParameter("Munic_UsuarioModificacion", munic_UsuarioModificacion) :
+                new ObjectParameter("Munic_UsuarioModificacion", typeof(int));
+    
+            var munic_FechaModificacionParameter = munic_FechaModificacion.HasValue ?
+                new ObjectParameter("Munic_FechaModificacion", munic_FechaModificacion) :
+                new ObjectParameter("Munic_FechaModificacion", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Municipios_Eliminar", munic_IdParameter, munic_UsuarioModificacionParameter, munic_FechaModificacionParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> SP_Municipios_Insertar(string munic_Id, string munic_Descripcion, string depar_Id, Nullable<int> munic_UsuarioCreacion, Nullable<System.DateTime> munic_FechaCreacion)
@@ -1714,6 +1902,45 @@ namespace SistemaAcademiaProgramadores.Models
                 new ObjectParameter("Gener_Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CursosPorGeneraciones_DropDownListCursos_Result>("SP_CursosPorGeneraciones_DropDownListCursos", gener_IdParameter);
+        }
+    
+        public virtual ObjectResult<SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result> SP_ActividadesPorCursoPorGeneracion_Seleccionar(Nullable<int> curso_Id, Nullable<int> gener_Id)
+        {
+            var curso_IdParameter = curso_Id.HasValue ?
+                new ObjectParameter("Curso_Id", curso_Id) :
+                new ObjectParameter("Curso_Id", typeof(int));
+    
+            var gener_IdParameter = gener_Id.HasValue ?
+                new ObjectParameter("Gener_Id", gener_Id) :
+                new ObjectParameter("Gener_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result>("SP_ActividadesPorCursoPorGeneracion_Seleccionar", curso_IdParameter, gener_IdParameter);
+        }
+    
+        public virtual ObjectResult<SP_Calificaciones2_Seleccionar_Result> SP_Calificaciones2_Seleccionar(Nullable<int> curso_Id, Nullable<int> gener_Id)
+        {
+            var curso_IdParameter = curso_Id.HasValue ?
+                new ObjectParameter("Curso_Id", curso_Id) :
+                new ObjectParameter("Curso_Id", typeof(int));
+    
+            var gener_IdParameter = gener_Id.HasValue ?
+                new ObjectParameter("Gener_Id", gener_Id) :
+                new ObjectParameter("Gener_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Calificaciones2_Seleccionar_Result>("SP_Calificaciones2_Seleccionar", curso_IdParameter, gener_IdParameter);
+        }
+    
+        public virtual ObjectResult<SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result> SP_InstructoresPorCursoPorGeneracion_Seleccionar(Nullable<int> instr_Id, Nullable<int> gener_Id)
+        {
+            var instr_IdParameter = instr_Id.HasValue ?
+                new ObjectParameter("Instr_Id", instr_Id) :
+                new ObjectParameter("Instr_Id", typeof(int));
+    
+            var gener_IdParameter = gener_Id.HasValue ?
+                new ObjectParameter("Gener_Id", gener_Id) :
+                new ObjectParameter("Gener_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result>("SP_InstructoresPorCursoPorGeneracion_Seleccionar", instr_IdParameter, gener_IdParameter);
         }
     }
 }

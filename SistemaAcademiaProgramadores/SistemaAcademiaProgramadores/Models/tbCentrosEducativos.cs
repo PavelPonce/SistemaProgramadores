@@ -19,6 +19,7 @@ namespace SistemaAcademiaProgramadores.Models
         {
             this.tbAlumnos = new HashSet<tbAlumnos>();
             this.tbAlumnos1 = new HashSet<tbAlumnos>();
+            this.tbInstructores = new HashSet<tbInstructores>();
         }
     
         public int CenEd_Id { get; set; }
@@ -36,6 +37,8 @@ namespace SistemaAcademiaProgramadores.Models
         public virtual ICollection<tbAlumnos> tbAlumnos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbAlumnos> tbAlumnos1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbInstructores> tbInstructores { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         public virtual tbMunicipios tbMunicipios { get; set; }

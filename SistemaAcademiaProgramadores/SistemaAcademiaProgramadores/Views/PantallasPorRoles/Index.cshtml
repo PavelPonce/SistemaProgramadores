@@ -17,15 +17,16 @@
 </div>
 <section class="content">
     <div class="card py-4" style="display: grid; place-items: center; overflow: auto;">
-        <div class="card-body-dragula">
-            <div id="pantallasListBox" class="listBox">
-                <h1 id="pantallasListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Pantallas</h1>
+        <button class="btn btn-primary btn-outline" style=" justify-self: start; margin: 0 0 20px 40px;">Nueva pantalla</button>
+        <div class="card-body-dragula justify-content-around">
+            <div id="pantallasListBox" class="listBox" style="overflow-y: auto; max-height: 400px; max-width: 400px;">
+                <h2 id="pantallasListBoxH1" class="bg-white text-center mt-2 p-2 text-primary no-drag">Pantallas</h2>
                 @foreach (var pantalla in Model.Item2)
                 {
-                    <div id="@pantalla.Panta_Id">@pantalla.Panta_Descripcion</div>
+                    <div id="@pantalla.Panta_Id" class="no-drag" style="padding: 5px">@pantalla.Panta_Descripcion</div>
                 }
             </div>
-            <div id="rolesListBox" class="listBox">
+            <div id="rolesListBox" class="listBox" style="overflow-y: auto; max-height: 400px; max-width: 400px;">
                 <select id="ddlRoles" class="form-control mt-2 p-2 text-primary text-center h-auto no-drag" style="font-size: x-large;">
                     <option class="" value="">Seleccionar rol</option>
                     @foreach (var rol in Model.Item3)
@@ -106,6 +107,12 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({ Roles_Id}),
                 success: function (data) {
+                    for (let i = 1; i < pantallasListBox.children.length - 1; i++) {
+                        pantallasListBox.children[i].classList.remove("no-drag");
+                    }
+                    for (let i = 1; i < rolesListBox.children.length - 1; i++) {
+                        rolesListBox.children[i].classList.remove("no-drag");
+                    }
                     while (rolesListBox.children.length > 1) {
                         rolesListBox.removeChild(rolesListBox.lastChild);
                     }

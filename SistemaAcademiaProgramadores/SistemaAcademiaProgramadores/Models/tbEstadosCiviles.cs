@@ -26,7 +26,6 @@ namespace SistemaAcademiaProgramadores.Models
         public System.DateTime Estci_FechaCreacion { get; set; }
         public Nullable<int> Estci_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Estci_FechaModificacion { get; set; }
-        public Nullable<bool> Estci_Estado { get; set; }
     
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }

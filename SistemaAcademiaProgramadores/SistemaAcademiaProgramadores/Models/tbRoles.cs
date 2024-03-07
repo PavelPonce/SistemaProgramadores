@@ -17,8 +17,8 @@ namespace SistemaAcademiaProgramadores.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbRoles()
         {
-            this.tbPantallasPorRoles = new HashSet<tbPantallasPorRoles>();
             this.tbUsuarios2 = new HashSet<tbUsuarios>();
+            this.tbPantallasPorRoles = new HashSet<tbPantallasPorRoles>();
         }
     
         public int Roles_Id { get; set; }
@@ -29,11 +29,11 @@ namespace SistemaAcademiaProgramadores.Models
         public Nullable<System.DateTime> Roles_FechaModificacion { get; set; }
         public bool Roles_Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbUsuarios> tbUsuarios2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPantallasPorRoles> tbPantallasPorRoles { get; set; }
     }
 }

@@ -26,7 +26,6 @@ namespace SistemaAcademiaProgramadores.Models
         public System.DateTime Depar_FechaCreacion { get; set; }
         public Nullable<int> Depar_UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> Depar_FechaModificacion { get; set; }
-        public bool Depar_Estado { get; set; }
     
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }

@@ -20,16 +20,32 @@ namespace SistemaAcademiaProgramadores.Controllers
         // GET: PantallasPorRoles
         public ActionResult Index()
         {
-            var tbPantallasPorRoles = db.tbPantallasPorRoles.Include(t => t.tbPantallas).Include(t => t.tbRoles).Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
-            var tbPantallas = db.tbPantallas.ToList();
-            var tbRoles = db.tbRoles.ToList();
-            //return View(tbPantallasPorRoles.ToList());
-            return View(new Tuple<IEnumerable<tbPantallasPorRoles>, IEnumerable<tbPantallas>, IEnumerable<tbRoles>>(tbPantallasPorRoles, tbPantallas, tbRoles));
+            try
+            {
+                var tbPantallasPorRoles = db.tbPantallasPorRoles.Include(t => t.tbPantallas).Include(t => t.tbRoles).Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
+                var tbPantallas = db.tbPantallas.ToList();
+                var tbRoles = db.tbRoles.ToList();
+                //return View(tbPantallasPorRoles.ToList());
+                return View(new Tuple<IEnumerable<tbPantallasPorRoles>, IEnumerable<tbPantallas>, IEnumerable<tbRoles>>(tbPantallasPorRoles, tbPantallas, tbRoles));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
         
         public JsonResult LlenarPantallasPorRol(string Roles_Id)
         {
-            return Json(db.SP_PantallasPorRoles_SeleccionarPantallasPorRol(int.Parse(Roles_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            try
+            {
+                return Json(db.SP_PantallasPorRoles_SeleccionarPantallasPorRol(int.Parse(Roles_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
         //FORMATO DEL XML: 
          //   <Panta_IdsXML>
@@ -40,47 +56,71 @@ namespace SistemaAcademiaProgramadores.Controllers
 	        //</Panta_IdsXML>
         public JsonResult ModificarPantallasPorRol(List<string> pantallasPorHabilitar, List<string> pantallasPorDeshabilitar, int Roles_Id)
         {
-            var Panta_IdsXML = "<Panta_IdsXML>";
-            if (pantallasPorHabilitar != null)
-                foreach (var Panta_Id in pantallasPorHabilitar)
-                {
-                    Panta_IdsXML += $"<True>{Panta_Id}</True>";
-                }
-            { 
-            }
-            if (pantallasPorDeshabilitar != null)
+            try
             {
-                foreach (var Panta_Id in pantallasPorDeshabilitar)
-                {
-                    Panta_IdsXML += $"<False>{Panta_Id}</False>";
+                var Panta_IdsXML = "<Panta_IdsXML>";
+                if (pantallasPorHabilitar != null)
+                    foreach (var Panta_Id in pantallasPorHabilitar)
+                    {
+                        Panta_IdsXML += $"<True>{Panta_Id}</True>";
+                    }
+                { 
                 }
+                if (pantallasPorDeshabilitar != null)
+                {
+                    foreach (var Panta_Id in pantallasPorDeshabilitar)
+                    {
+                        Panta_IdsXML += $"<False>{Panta_Id}</False>";
+                    }
+                }
+                Panta_IdsXML += "</Panta_IdsXML>";
+                return Json(db.SP_PantallasPorRoles_InsertarEliminar(Panta_IdsXML, Roles_Id, 1, DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
             }
-            Panta_IdsXML += "</Panta_IdsXML>";
-            return Json(db.SP_PantallasPorRoles_InsertarEliminar(Panta_IdsXML, Roles_Id, 1, DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
         // GET: PantallasPorRoles/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
+                if (tbPantallasPorRoles == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbPantallasPorRoles);
             }
-            tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
-            if (tbPantallasPorRoles == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbPantallasPorRoles);
         }
 
         // GET: PantallasPorRoles/Create
         public ActionResult Create()
         {
-            ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion");
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion");
-            ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
-            return View();
+            try
+            {
+                ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion");
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion");
+                ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // POST: PantallasPorRoles/Create
@@ -90,37 +130,52 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Papro_Id,Panta_Id,Roles_Id,Papro_UsuarioCreacion,Papro_FechaCreacion,Papro_UsuarioModificacion,Papro_FechaModificacion")] tbPantallasPorRoles tbPantallasPorRoles)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.tbPantallasPorRoles.Add(tbPantallasPorRoles);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.tbPantallasPorRoles.Add(tbPantallasPorRoles);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion", tbPantallasPorRoles.Panta_Id);
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbPantallasPorRoles.Roles_Id);
+                ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioCreacion);
+                ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioModificacion);
+                return View(tbPantallasPorRoles);
             }
-
-            ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion", tbPantallasPorRoles.Panta_Id);
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbPantallasPorRoles.Roles_Id);
-            ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioCreacion);
-            ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioModificacion);
-            return View(tbPantallasPorRoles);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: PantallasPorRoles/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
+                if (tbPantallasPorRoles == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion", tbPantallasPorRoles.Panta_Id);
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbPantallasPorRoles.Roles_Id);
+                ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioCreacion);
+                ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioModificacion);
+                return View(tbPantallasPorRoles);
             }
-            tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
-            if (tbPantallasPorRoles == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion", tbPantallasPorRoles.Panta_Id);
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbPantallasPorRoles.Roles_Id);
-            ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioCreacion);
-            ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioModificacion);
-            return View(tbPantallasPorRoles);
         }
 
         // POST: PantallasPorRoles/Edit/5
@@ -130,32 +185,48 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Papro_Id,Panta_Id,Roles_Id,Papro_UsuarioCreacion,Papro_FechaCreacion,Papro_UsuarioModificacion,Papro_FechaModificacion")] tbPantallasPorRoles tbPantallasPorRoles)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(tbPantallasPorRoles).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(tbPantallasPorRoles).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion", tbPantallasPorRoles.Panta_Id);
+                ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbPantallasPorRoles.Roles_Id);
+                ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioCreacion);
+                ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioModificacion);
+                return View(tbPantallasPorRoles);
             }
-            ViewBag.Panta_Id = new SelectList(db.tbPantallas, "Panta_Id", "Panta_Descripcion", tbPantallasPorRoles.Panta_Id);
-            ViewBag.Roles_Id = new SelectList(db.tbRoles, "Roles_Id", "Roles_Descripcion", tbPantallasPorRoles.Roles_Id);
-            ViewBag.Papro_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioCreacion);
-            ViewBag.Papro_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbPantallasPorRoles.Papro_UsuarioModificacion);
-            return View(tbPantallasPorRoles);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
 
         // GET: PantallasPorRoles/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
+                if (tbPantallasPorRoles == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tbPantallasPorRoles);
             }
-            tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
-            if (tbPantallasPorRoles == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                Console.WriteLine(ex.Message);
+                return View();
             }
-            return View(tbPantallasPorRoles);
         }
 
         // POST: PantallasPorRoles/Delete/5
@@ -163,9 +234,16 @@ namespace SistemaAcademiaProgramadores.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
-            db.tbPantallasPorRoles.Remove(tbPantallasPorRoles);
-            db.SaveChanges();
+            try
+            {
+                tbPantallasPorRoles tbPantallasPorRoles = db.tbPantallasPorRoles.Find(id);
+                db.tbPantallasPorRoles.Remove(tbPantallasPorRoles);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return RedirectToAction("Index");
         }
 

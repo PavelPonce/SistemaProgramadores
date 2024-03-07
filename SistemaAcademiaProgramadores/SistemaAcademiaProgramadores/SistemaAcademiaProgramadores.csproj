@@ -134,6 +134,7 @@
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Controllers\ActividadesPorCursoPorGeneracionsController.cs" />
     <Compile Include="Controllers\AlumnosController.cs" />
+    <Compile Include="Controllers\CalificacionesController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\CentrosEducativosController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
@@ -181,7 +182,13 @@
     <Compile Include="Models\PantallasPorRoles.cs" />
     <Compile Include="Models\Personas.cs" />
     <Compile Include="Models\Roles.cs" />
+    <Compile Include="Models\SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Actividades_Eliminar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Calificaciones2_Seleccionar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Categorias_LlenarEditar_Result.cs">
@@ -218,6 +225,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Instructores_DropDownListPersonas_Result.cs">
@@ -565,6 +575,7 @@
     <Content Include="Content\HTML5_Full_Version\img\email_1.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\email_2.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\email_3.jpg" />
+    <Content Include="Content\HTML5_Full_Version\img\estudiantes-universitarios.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\flags\16\Abkhazia.png" />
     <Content Include="Content\HTML5_Full_Version\img\flags\16\Afghanistan.png" />
     <Content Include="Content\HTML5_Full_Version\img\flags\16\Aland.png" />
@@ -1371,6 +1382,8 @@
     <Content Include="Content\HTML5_Full_Version\img\gallery\9.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\gallery\9s.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\headphones.jpg" />
+    <Content Include="Content\HTML5_Full_Version\img\home-img.jpg" />
+    <Content Include="Content\HTML5_Full_Version\img\home-img.png" />
     <Content Include="Content\HTML5_Full_Version\img\html_logo.png" />
     <Content Include="Content\HTML5_Full_Version\img\landing\avatar1.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\landing\avatar2.jpg" />
@@ -1401,6 +1414,7 @@
     <Content Include="Content\HTML5_Full_Version\img\p6.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\p7.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\p8.jpg" />
+    <Content Include="Content\HTML5_Full_Version\img\Procinco.png" />
     <Content Include="Content\HTML5_Full_Version\img\profile.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\profile_big.jpg" />
     <Content Include="Content\HTML5_Full_Version\img\profile_small.jpg" />
@@ -2058,6 +2072,7 @@
     <Content Include="Views\ActividadesPorCursoPorGeneracions\Details.cshtml" />
     <Content Include="Views\ActividadesPorCursoPorGeneracions\Edit.cshtml" />
     <Content Include="Views\ActividadesPorCursoPorGeneracions\Index.cshtml" />
+    <Content Include="Views\Calificaciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
