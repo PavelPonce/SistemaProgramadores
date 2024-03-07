@@ -54,15 +54,17 @@ namespace SistemaAcademiaProgramadores.Controllers
             //}
             if (actividadesPorActualizar != null)
             {
-                for (int i = 0; i < actividadesPorHabilitar.Length; i++)
+                for (int i = 0; i < actividadesPorActualizar.Length; i++)
                 {
                     if (i % 2 == 0)
                     {
-                        Actividades_XML += "<Actividad";
-                        Actividades_XML += $"Activ_Id='" + actividadesPorActualizar[i] + "'";
-                        Actividades_XML += $"ActCG_Nota'" + actividadesPorActualizar[i + 1] + "'";
-                        Actividades_XML += $"Accion='U'";
-                        Actividades_XML += "/>";
+                        Actividades_XML += "<Actividad>";
+                        Actividades_XML += $"<Activ_Id>"+actividadesPorActualizar[i]+"</Activ_Id>";
+                        Actividades_XML += $"<ActCG_Nota>" + actividadesPorActualizar[i + 1] + "</ActCG_Nota>";
+                        Actividades_XML += $" <Accion>U</Accion>";
+
+
+                        Actividades_XML += "</Actividad>";
                     }
                 }
             }
@@ -72,11 +74,11 @@ namespace SistemaAcademiaProgramadores.Controllers
                 {
                     if (i % 2 == 0)
                     {
-                            Actividades_XML += "<Actividad";
-                            Actividades_XML += $"Activ_Id='" + actividadesPorHabilitar[i] + "'";
-                            Actividades_XML += $"ActCG_Nota'" + actividadesPorHabilitar[i + 1] + "'";
-                            Actividades_XML += $"Accion='I'";
-                            Actividades_XML += "/>";
+                            Actividades_XML += "<Actividad>";
+                            Actividades_XML += $" <Activ_Id>" + actividadesPorHabilitar[i]+ " </Activ_Id>";
+                            Actividades_XML += $" <ActCG_Nota>" + actividadesPorHabilitar[i + 1]+ " </ActCG_Nota>";
+                            Actividades_XML += $" <Accion>I</Accion>";
+                            Actividades_XML += "</Actividad>";
                         }
                 }
             }
@@ -85,14 +87,14 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 for (int i = 0; i < actividadesPorDeshabilitar.Length; i++)
                 {
-                        Actividades_XML += "<Actividad";
-                        Actividades_XML += $"Activ_Id='" + actividadesPorDeshabilitar[i] + "'";
-                        Actividades_XML += $"Accion='D'";
-                        Actividades_XML += "/>";
+                        Actividades_XML += "<Actividad>";
+                        Actividades_XML += $" <Activ_Id>" + actividadesPorDeshabilitar[i]+ "</Activ_Id>";
+                        Actividades_XML += $" <Accion>D</Accion>";
+                        Actividades_XML += "</Actividad>";
                     }
             }
             Actividades_XML += "</Actividades_XML>";
-            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(db.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         // GET: ActividadesPorCursoPorGeneracions/Create

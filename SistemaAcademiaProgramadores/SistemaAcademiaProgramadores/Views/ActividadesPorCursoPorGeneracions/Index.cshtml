@@ -54,9 +54,6 @@
                             </div>
                         </div>
                     </div>
-                    <div id="bitacoraListBox" class="listBox collapse" style="width:55%">
-                          <h1 class="bg-white text-center mt-2 p-2 text-primary no-drag">Bitacora</h1>
-                    </div>
                 </div>
                 <div class="card-body-dragula" style="justify-content: end;">
                     <button id="btnGuardar" class="btn btn-primary mt-4"><i class="fa fa-save mr-2"></i>Guardar</button>
@@ -72,10 +69,11 @@
 @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
 
 <script>
+
     let actividadesListBox = document.getElementById("actividadesListBox");
     let cursosListBox = document.getElementById("cursosListBox");
     let bitacoraListBox = document.getElementById("bitacoraListBox");
-
+    let IdNotaActividadesPorCursoPorGeneracion = []
     let mapCursosListBoxChildren = new Map();
     let setIdActividadesPorCursoPorGeneracion = new Set();
     $(document).ready(() => {
@@ -86,7 +84,6 @@
 
     $('#ddlGeneraciones').change(function () {
         var id = $('#ddlGeneraciones').val()
-        $('#ddlCursos').empty();
         $.ajax({
             url: "/Home/cargarDDLCursos",
             method: "POST",
@@ -94,6 +91,7 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ id }),
             success: function (data) {
+                $('#ddlCursos').empty();
                 $('#ddlCursos').append('<option value="">Seleccionar Curso</option>');
 
                 $.each(data, function (key, value) {
@@ -114,16 +112,14 @@
 
         if (cantChildren > 0) {
             for (let i = 0; i <= cantChildren; i++) {
-                if (i != 0) {
-                    techo += cursosListBox.children[i].children[1].children[0].value
+                if (i != 0 && cursosListBox.children[i].children[1].children[0].value != "") {
+                    techo += parseInt(cursosListBox.children[i].children[1].children[0].value)
                 }
             }
         }
         
-        if (techo != 100) {
+        if (techo != 100 || techo > 100) {
             alert('parace que el techo de clase no es igual a 100')
-            console.log(techo)
-
         } else {
             document.getElementById('btnGuardar').setAttribute("disabled", "disabled");
             InsCG_Id = $('#ddlCursos').val();
@@ -134,30 +130,36 @@
                 let setActividadesSeleccionadas = new Set();
                 let setIdNotaDeActividadSeleccionada = [];
                 for (let i = 0; i < cursosListBox.children.length; i++) {
-                    if (cursosListBox.children[i].id !== "ddlCursos") {
+                    if (i != 0) {
                         setActividadesSeleccionadas.add(cursosListBox.children[i].id);
                         setIdNotaDeActividadSeleccionada.push(cursosListBox.children[i].children[1].children[0].value);
-                        for (let i = 0; i <= cursosListBox.children.length; i++) {
-                            for (let j = 0; j <= bitacoraListBox.children.length; j++) {
-                                if (cursosListBox.children[i].id == bitacoraListBox.children[j].id) {
-                                    if (cursosListBox.children[i].children[1].children[0].value != bitacoraListBox.children[j].children[1].children[0].value) {
-                                        actividadesPorActualizar.push(cursosListBox.children[i].id)
-                                        actividadesPorActualizar.push(cursosListBox.children[i].children[1].children[0].value)
+                    }
+                }
+                iterador = 0
+                for (let idActividadSeleccionada of setActividadesSeleccionadas) {
+                    if (setIdActividadesPorCursoPorGeneracion.has(idActividadSeleccionada)) {
+                        for (let i = 0; i < cursosListBox.children.length; i++) {
+                            if (i != 0) {
+                                if (idActividadSeleccionada == cursosListBox.children[i].id) {
+                                    if (setIdNotaDeActividadSeleccionada[iterador] != cursosListBox.children[i].children[1].children[0].value) {
+                                        actividadesPorActualizar.push(idActividadSeleccionada);
+                                        actividadesPorActualizar.push(setIdNotaDeActividadSeleccionada[iterador]);
                                     }
                                 }
                             }
                         }
-
                     }
+                    iterador += 1;
                 }
-
-                var i = 0;
+                iterador = 0;
                 for (let idActividadSeleccionada of setActividadesSeleccionadas) {
                     if (!setIdActividadesPorCursoPorGeneracion.has(idActividadSeleccionada)) {
+                        console.log(idActividadSeleccionada, '1')
+
                         actividadesPorHabilitar.push(idActividadSeleccionada);
-                        actividadesPorHabilitar.push(setIdNotaDeActividadSeleccionada[i]);
+                        actividadesPorHabilitar.push(setIdNotaDeActividadSeleccionada[iterador]);
                     }
-                    i += 1;
+                    iterador += 1;
                 }
                 for (let Activ_Id of setIdActividadesPorCursoPorGeneracion) {
                     if (!setActividadesSeleccionadas.has(Activ_Id)) {
@@ -171,6 +173,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ actividadesPorHabilitar, actividadesPorDeshabilitar, actividadesPorActualizar, InsCG_Id }),
                     success: function (data) {
+                        console.log(data)
                         document.getElementById('btnGuardar').removeAttribute("disabled");
                     },
                 })
@@ -197,16 +200,21 @@
                 data: JSON.stringify({ InsCG_Id }),
 
                 success: function (data) {
-                    console.log(data)
                     while (cursosListBox.children.length > 1) {
                         cursosListBox.removeChild(cursosListBox.lastChild);
                     }
                     setIdActividadesPorCursoPorGeneracion.clear();
 
+                    
+                    let iterador = 0;
                     $.each(data, function (key, value) {
+
                         setIdActividadesPorCursoPorGeneracion.add(value.Activ_Id.toString());
+                        IdNotaActividadesPorCursoPorGeneracion[iterador] = value.ActCG_Nota;
+                        iterador += 1;
                     })
 
+                    iterador = 0;
                     for (let item of mapCursosListBoxChildren) {
 
                         if (item[0] !== "actividadesListBoxH1") {
@@ -214,7 +222,10 @@
                                 document.getElementById(item[0]).remove();
                             }
                             if (setIdActividadesPorCursoPorGeneracion.has(item[0])) {
+                                mapCursosListBoxChildren.get(item[0]).children[1].children[0].value = IdNotaActividadesPorCursoPorGeneracion[iterador];
+
                                 cursosListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
+                                iterador += 1;
                             } else {
                                 actividadesListBox.appendChild(mapCursosListBoxChildren.get(item[0]));
                             }
@@ -227,51 +238,23 @@
     dragulaList.on('drop', function (el, target, source, sibling) {
         if (target == document.getElementById("cursosListBox")) {
             let cantChildren = cursosListBox.children.length - 1;
-            if (cantChildren > 1) {
-                while (bitacoraListBox.children.length > 1) {
-                    bitacoraListBox.removeChild(bitacoraListBox.lastChild);
-                }
-                for (let i = 0; i <= cantChildren; i++) {
-                    if (i != 0 && cursosListBox.children[i].id != el.id) {
-                        var children = document.createElement('div');
-                        children.classList = "d-flex justify-content-between";
-                        children.id = cursosListBox.children[i].id;
-
-                        var actividad = document.createElement('div');
-                        actividad.style.fontSize = "xx-small"
-                        var textNode = document.createTextNode(cursosListBox.children[i].children[0].textContent);
-                        actividad.appendChild(textNode);
-
-                        children.appendChild(actividad);
-
-                        var porcentaje = document.createElement('div');
-                        porcentaje.classList = "col-sm-8 totalActividad";
-                        var input = document.createElement('input');
-                        input.classList = "form-control";
-                        input.style.fontSize = "small";
-                        input.style.width = "100%"
-                        input.type = "number"
-                        input.disabled = "true"
-                        input.value = cursosListBox.children[i].children[1].children[0].value;
-
-                        porcentaje.appendChild(input);
-
-                        children.appendChild(porcentaje);
-
-                        bitacoraListBox.appendChild(children);
-                    }
-                }
-                bitacoraListBox.classList.remove("collapse")
-            }
+            var sobre100 = 0;
             if (cantChildren > 0) {
                 for (let i = 0; i <= cantChildren; i++) {
-                    if (i != 0) {
-                        cursosListBox.children[i].children[1].children[0].value = 100 / cantChildren
-
+                    if (i != 0 && cursosListBox.children[i].children[1].children[0].value != "") {
+                        sobre100 += parseInt(cursosListBox.children[i].children[1].children[0].value);
                     }
-                    el.children[1].children[0].value = 100 / cantChildren
                 }
             }
+            if (sobre100 == 100|| sobre100 > 100) {
+                actividadesListBox.appendChild(el);
+            }
+        }
+    })
+    dragulaList.on('drop', function (el, target, source, sibling) {
+        if (target == document.getElementById("actividadesListBox")) {
+
+            el.children[1].children[0].value = "";
             
         }
     })

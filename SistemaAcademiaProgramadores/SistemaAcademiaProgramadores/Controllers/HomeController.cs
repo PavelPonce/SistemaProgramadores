@@ -241,7 +241,7 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                return Json(db.SP_CursosPorGeneraciones_DropDownListCursos(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                return Json(db.SP_ActividadesPorCursosPorGeneraciones_DropDownListCursos(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
