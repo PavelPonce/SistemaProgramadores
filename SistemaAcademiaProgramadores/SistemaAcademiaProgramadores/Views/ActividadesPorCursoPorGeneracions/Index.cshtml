@@ -73,7 +73,7 @@
     let actividadesListBox = document.getElementById("actividadesListBox");
     let cursosListBox = document.getElementById("cursosListBox");
     let bitacoraListBox = document.getElementById("bitacoraListBox");
-    let IdNotaActividadesPorCursoPorGeneracion = []
+    let IdNotaActividadesPorCursoPorGeneracion = [];
     let mapCursosListBoxChildren = new Map();
     let setIdActividadesPorCursoPorGeneracion = new Set();
     $(document).ready(() => {
@@ -105,7 +105,12 @@
         })
     })
 
-    let InsCG_Id = $('#ddlCursos').val();
+    //let InsCG_Id = $('#ddlCursos').val();
+    //let actividadesPorDeshabilitar = [];
+    //let actividadesPorHabilitar = [];
+    //let actividadesPorActualizar = []
+    //let setActividadesSeleccionadas = new Set();
+    //let setIdNotaDeActividadSeleccionada = [];
     $('#btnGuardar').click(() => {
         let cantChildren = cursosListBox.children.length - 1;
         let techo = 0;
@@ -118,7 +123,7 @@
             }
         }
         
-        if (techo != 100 || techo > 100) {
+        if (techo != 100) {
             alert('parace que el techo de clase no es igual a 100')
         } else {
             document.getElementById('btnGuardar').setAttribute("disabled", "disabled");
@@ -135,15 +140,20 @@
                         setIdNotaDeActividadSeleccionada.push(cursosListBox.children[i].children[1].children[0].value);
                     }
                 }
-                iterador = 0
+                let iterador = 0;
                 for (let idActividadSeleccionada of setActividadesSeleccionadas) {
                     if (setIdActividadesPorCursoPorGeneracion.has(idActividadSeleccionada)) {
                         for (let i = 0; i < cursosListBox.children.length; i++) {
                             if (i != 0) {
-                                if (idActividadSeleccionada == cursosListBox.children[i].id) {
-                                    if (setIdNotaDeActividadSeleccionada[iterador] != cursosListBox.children[i].children[1].children[0].value) {
+                                //console.log(idActividadSeleccionada, "idActividadSeleccionada", cursosListBox.children[i].id, "cursosListBox.children[i].id");
+                                if (idActividadSeleccionada === cursosListBox.children[i].id) {
+                                    //console.log(IdNotaActividadesPorCursoPorGeneracion[iterador], "IdNotaActividadesPorCursoPorGeneracion[iterador]", cursosListBox.children[i].children[1].children[0].value, "cursosListBox.children[i].children[1].children[0].value");
+                                    //AQUI LO MODIFIQUÉ
+                                    if (IdNotaActividadesPorCursoPorGeneracion[iterador] !== cursosListBox.children[i].children[1].children[0].value) {
                                         actividadesPorActualizar.push(idActividadSeleccionada);
                                         actividadesPorActualizar.push(setIdNotaDeActividadSeleccionada[iterador]);
+                                        setIdNotaDeActividadSeleccionada[iterador] = cursosListBox.children[i].children[1].children[0].value;
+                                        IdNotaActividadesPorCursoPorGeneracion[iterador] = setIdNotaDeActividadSeleccionada[iterador];
                                     }
                                 }
                             }
@@ -155,7 +165,6 @@
                 for (let idActividadSeleccionada of setActividadesSeleccionadas) {
                     if (!setIdActividadesPorCursoPorGeneracion.has(idActividadSeleccionada)) {
                         console.log(idActividadSeleccionada, '1')
-
                         actividadesPorHabilitar.push(idActividadSeleccionada);
                         actividadesPorHabilitar.push(setIdNotaDeActividadSeleccionada[iterador]);
                     }
@@ -175,6 +184,9 @@
                     success: function (data) {
                         console.log(data)
                         document.getElementById('btnGuardar').removeAttribute("disabled");
+                        actividadesPorHabilitar = [];
+                        actividadesPorDeshabilitar = [];
+                        actividadesPorActualizar = [];
                     },
                 })
             }
@@ -184,8 +196,7 @@
 
     var dragulaList = dragula([document.getElementById("actividadesListBox"), document.getElementById("cursosListBox")], {
         accepts: function (el, target) {
-            return !
-                el.classList.contains('no-drag');
+            return !el.classList.contains('no-drag');
         }
     })
 
@@ -200,6 +211,7 @@
                 data: JSON.stringify({ InsCG_Id }),
 
                 success: function (data) {
+                    console.log(data);
                     while (cursosListBox.children.length > 1) {
                         cursosListBox.removeChild(cursosListBox.lastChild);
                     }
@@ -246,7 +258,7 @@
                     }
                 }
             }
-            if (sobre100 == 100|| sobre100 > 100) {
+            if (sobre100 > 100) {
                 actividadesListBox.appendChild(el);
             }
         }

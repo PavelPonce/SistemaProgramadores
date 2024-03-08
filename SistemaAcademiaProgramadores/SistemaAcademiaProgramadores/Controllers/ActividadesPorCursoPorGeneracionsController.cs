@@ -43,58 +43,97 @@ namespace SistemaAcademiaProgramadores.Controllers
         }
         public JsonResult LlenarActividadesPorCurso(string InsCG_Id)
         {
-            return Json(db.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion(int.Parse(InsCG_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            try
+            {
+                return Json(db.SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion(int.Parse(InsCG_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
         public JsonResult ModificarActividadesPorCursosPorGeneracion(string[] actividadesPorHabilitar, string[] actividadesPorDeshabilitar,string[] actividadesPorActualizar, string InsCG_Id)
         {
-            var Actividades_XML = "<Actividades_XML>";
-            //if ()
-            //{
-
-            //}
-            if (actividadesPorActualizar != null)
+            try
             {
-                for (int i = 0; i < actividadesPorActualizar.Length; i++)
+                int parsedInsCG_Id = int.Parse(InsCG_Id);
+                var Actividades = db.tbActividadesPorCursoPorGeneracion.Where(t => t.InsCG_Id == parsedInsCG_Id).ToList();
+
+                var Actividades_XML = "<Actividades_XML>";
+                //if ()
+                //{
+
+                //}
+                if (actividadesPorActualizar != null)
                 {
-                    if (i % 2 == 0)
+                    for (int i = 0; i < actividadesPorActualizar.Length; i++)
                     {
-                        Actividades_XML += "<Actividad>";
-                        Actividades_XML += $"<Activ_Id>"+actividadesPorActualizar[i]+"</Activ_Id>";
-                        Actividades_XML += $"<ActCG_Nota>" + actividadesPorActualizar[i + 1] + "</ActCG_Nota>";
-                        Actividades_XML += $" <Accion>U</Accion>";
+                        if (i % 2 == 0)
+                        {
+                            int parsedActividadPorActualizarId = int.Parse(actividadesPorActualizar[i]);
+                            Actividades_XML += "<Actividad>";
+                            Actividades_XML += $"<Activ_Id>"+actividadesPorActualizar[i]+"</Activ_Id>";
+                            decimal parsedNotaPorActualizar = Convert.ToDecimal(actividadesPorActualizar[i+1]);
+                            Actividades_XML += $"<ActCG_Nota>" + actividadesPorActualizar[i + 1] + "</ActCG_Nota>";
+                            Actividades_XML += $"<Accion>U</Accion>";
+                            Actividades_XML += "</Actividad>";
+                            
 
+                            var actividadPorActualizar =  Actividades.Find(act=>act.InsCG_Id == parsedInsCG_Id && act.Activ_Id == parsedActividadPorActualizarId);
+                            var indiceActividadPorActualizar =  Actividades.IndexOf(actividadPorActualizar);
 
-                        Actividades_XML += "</Actividad>";
+                            Actividades[indiceActividadPorActualizar].ActCG_Nota = parsedNotaPorActualizar;
+                        }
                     }
                 }
-            }
-            if (actividadesPorHabilitar != null)
-            {
-                for (int i = 0; i < actividadesPorHabilitar.Length; i++)
+                if (actividadesPorHabilitar != null)
                 {
-                    if (i % 2 == 0)
+                    for (int i = 0; i < actividadesPorHabilitar.Length; i++)
                     {
+                        if (i % 2 == 0)
+                        {
                             Actividades_XML += "<Actividad>";
-                            Actividades_XML += $" <Activ_Id>" + actividadesPorHabilitar[i]+ " </Activ_Id>";
-                            Actividades_XML += $" <ActCG_Nota>" + actividadesPorHabilitar[i + 1]+ " </ActCG_Nota>";
-                            Actividades_XML += $" <Accion>I</Accion>";
+                            Actividades_XML += $"<Activ_Id>" + actividadesPorHabilitar[i]+ " </Activ_Id>";
+                            Actividades_XML += $"<ActCG_Nota>" + actividadesPorHabilitar[i + 1]+ " </ActCG_Nota>";
+                            Actividades_XML += $"<Accion>I</Accion>";
                             Actividades_XML += "</Actividad>";
+                            var nuevaActividad = new tbActividadesPorCursoPorGeneracion();
+                            nuevaActividad.ActCG_Nota = Convert.ToDecimal(actividadesPorHabilitar[i + 1]);
+                            Actividades.Add(nuevaActividad);
                         }
+                    }
                 }
-            }
 
-            if (actividadesPorDeshabilitar != null)
-            {
-                for (int i = 0; i < actividadesPorDeshabilitar.Length; i++)
+                if (actividadesPorDeshabilitar != null)
                 {
+                    for (int i = 0; i < actividadesPorDeshabilitar.Length; i++)
+                    {
+                        var parsedActividadPorDeshabilitar = int.Parse(actividadesPorDeshabilitar[i]);
                         Actividades_XML += "<Actividad>";
                         Actividades_XML += $" <Activ_Id>" + actividadesPorDeshabilitar[i]+ "</Activ_Id>";
                         Actividades_XML += $" <Accion>D</Accion>";
                         Actividades_XML += "</Actividad>";
+                        var actividadPorDeshabilitar =  Actividades.Find(act=>act.InsCG_Id == parsedInsCG_Id && act.Activ_Id == parsedActividadPorDeshabilitar);
+                        Actividades.Remove(actividadPorDeshabilitar);
                     }
+                }
+                Actividades_XML += "</Actividades_XML>";
+                if (Actividades.Sum(act => act.ActCG_Nota) == 100)
+                {
+                    var result = db.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList();
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
             }
-            Actividades_XML += "</Actividades_XML>";
-            return Json(db.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: ActividadesPorCursoPorGeneracions/Create
