@@ -16,9 +16,6 @@ namespace SistemaAcademiaProgramadores.Models
         public int CenEd_Id { get; set; }
         [Display(Name = "Centro Educativo")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
-
-
-
         public string CenEd_Nombre { get; set; }
         [Display(Name = "Direccion")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
@@ -30,7 +27,6 @@ namespace SistemaAcademiaProgramadores.Models
         public string CenEd_Tipo { get; set; }
         [Display(Name = "Municipio")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
-
 
         public string Munic_Id { get; set; }
     }

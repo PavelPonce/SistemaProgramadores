@@ -1,8 +1,8 @@
-﻿@model SistemaAcademiaProgramadores.Models.tbInstructores
+﻿﻿@model SistemaAcademiaProgramadores.Models.tbInstructores
 
 @{
     ViewBag.Title = $"tbInstructores".Substring(2);
-    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 1);
+    ViewBag.Title = ViewBag.Title.Substring(0, ViewBag.Title.Length - 2);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,64 +18,188 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <section class="content">
 
-<div class="card">
-<div class="card-header">
-<h3 class="card-title text-primary">Nuevo @ViewBag.Title</h3>
-</div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="card-body form-row justify-content-center">
-      
-            <div class="col-sm-6 mb-2">
-                    @Html.LabelFor(model => model.Perso_Id, new { @class = "text-primary w-100 text-left" })
-                    <div >
-                            @Html.DropDownList("Perso_Id", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Perso_Id, "", new { @class = "text-danger" })
-                        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title text-primary">Nuevo @ViewBag.Title</h3>
             </div>
-        
-      
-        
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="card-body form-row justify-content-center">
 
-      
-            <div class="col-sm-6 mb-2">
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_PrimerNombre, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_PrimerNombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_PrimerNombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_SegundoNombre, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_SegundoNombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_SegundoNombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_PrimerApellido, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_PrimerApellido, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_PrimerApellido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_SegundoApellido, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_SegundoApellido, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_SegundoApellido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_FechaNacimiento, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_FechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_FechaNacimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_Sexo, new { @class = "text-primary w-100 text-left" })
+                    <div class="d-flex justify-content-around">
+                        <label>@Html.RadioButton("Perso_Sexo", "sexoM", new { htmlAttributes = new { @class = "form-control" } }) Masculino</label>
+                        <label>@Html.RadioButton("Perso_Sexo", "sexoF", true, new { htmlAttributes = new { @class = "form-control" } }) Femenino</label>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_Telefono, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_Telefono, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Estci_Id, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.DropDownList("Estci_Id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Estci_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-12 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_Direccion, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_Direccion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.tbMunicipios.Depar_Id, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.DropDownList("Depar_Id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.tbMunicipios.Depar_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Munic_Id, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.DropDownList("Munic_Id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Munic_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="col-sm-6 mb-2">
+                    @Html.LabelFor(model => model.tbPersonas.Perso_CorreoElectronico, new { @class = "text-primary w-100 text-left" })
+                    <div>
+                        @Html.EditorFor(model => model.tbPersonas.Perso_CorreoElectronico, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tbPersonas.Perso_CorreoElectronico, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-sm-6 mb-2">
                     @Html.LabelFor(model => model.Titul_Id, new { @class = "text-primary w-100 text-left" })
-                    <div >
-                            @Html.DropDownList("Titul_Id", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Titul_Id, "", new { @class = "text-danger" })
-                        </div>
-            </div>
-        
-      
-        
+                    <div>
+                        @Html.DropDownList("Titul_Id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Titul_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-      
-            <div class="col-sm-6 mb-2">
+
+
+                <div class="col-sm-6 mb-2">
                     @Html.LabelFor(model => model.CenEd_Id, new { @class = "text-primary w-100 text-left" })
-                    <div >
+                    <div>
                         @Html.EditorFor(model => model.CenEd_Id, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CenEd_Id, "", new { @class = "text-danger" })
-                        </div>
-            </div>
-        
-      
-        
+                        @Html.ValidationMessageFor(model => model.CenEd_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-  </div>
-  <div class="card-body">
-      <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
-        <a href='@Url.Action("Index")' class="btn btn-primary btn-outline"><i class="fa fa-times"></i> Cancelar</a>
-        <button type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> Guardar</button>
-      </div>
-    </div>
-        
-    </div>
+            </div>
+
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-end" style="gap: 10px">
+                    <a href='@Url.Action("Index")' class="btn btn-primary btn-outline"><i class="fa fa-times"></i> Cancelar</a>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                </div>
+            </div>
+
+        </div>
     </section>
+    @Scripts.Render("~/Content/HTML5_Full_Version/js/jquery-3.1.1.min.js")
+
     <script>
         document.querySelectorAll('.col-sm-6.mb-2').forEach(grupo => {
             grupo.children[1].children[0].addEventListener('focus', () => {
@@ -83,6 +207,50 @@
             })
             grupo.children[1].children[0].addEventListener('blur', () => {
                 grupo.children[0].classList.remove('text-secondary')
+            })
+        })
+        $('#Munic_Id').change(function () {
+            let id = $('#Munic_Id').val();
+            $.ajax({
+                url: "/Home/cargarDDLCentrosEducativos",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ id: id }),
+
+                success: function (data) {
+                    $('#CenEd_Id').empty();
+                    $.each(data, function (key, value) {
+                        var option = $('<option></option>')
+                            .text(value.CenEd_Nombre)
+                            .val(value.CenEd_Id);
+
+                        $('#CenEd_Id').append(option);
+                    })
+                },
+            })
+        })
+        $('#Depar_Id').change(function () {
+            let id = $('#Depar_Id').val();
+            $.ajax({
+                url: "/Home/cargarDDLMunicipios",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ id: id }),
+
+                success: function (data) {
+                    console.log(data)
+                    $('#Munic_Id').empty();
+                    $.each(data, function (key, value) {
+
+                        var option = $('<option></option>')
+                            .text(value.Munic_Descripcion)
+                            .val(value.Munic_Id);
+
+                        $('#Munic_Id').append(option);
+                    })
+                },
             })
         })
     </script>

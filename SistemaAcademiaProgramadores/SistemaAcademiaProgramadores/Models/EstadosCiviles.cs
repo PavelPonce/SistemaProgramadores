@@ -13,6 +13,7 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class EstadosCivilesMetaData
     {
+        [Display(Name = "Estado Civil")]
         public int Estci_Id { get; set; }
         [Display(Name = "Estado Civil")]
         [Required]

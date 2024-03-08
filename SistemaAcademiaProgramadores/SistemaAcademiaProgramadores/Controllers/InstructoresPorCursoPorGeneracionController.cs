@@ -46,38 +46,55 @@ namespace SistemaAcademiaProgramadores.Controllers
         }
         public JsonResult LlenarCursosPorGeneracion(string Gener_Id)
         {
-            return Json(db.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion(int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+            try
+            {
+                return Json(db.SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion(int.Parse(Gener_Id)).ToList(), JsonRequestBehavior.AllowGet);
+
+            }
+            catch
+            {
+                TempData["error"] = "Algo salio mal";
+                return Json(new {success = false });
+            }
         }
         public JsonResult ModificarCursosPorGeneracion(string[] cursosPorHabilitar, string[] cursosPorDeshabilitar, string Gener_Id)
         {
-            var Curso_IdsXML = "<Curso_IdsXML>";
-            if (cursosPorHabilitar != null)
+            try
             {
-                for (int i = 0; i < cursosPorHabilitar.Length; i++)
+                var Curso_IdsXML = "<Curso_IdsXML>";
+                if (cursosPorHabilitar != null)
                 {
-                    if (i % 2 == 0)
+                    for (int i = 0; i < cursosPorHabilitar.Length; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            Curso_IdsXML += "<Curso_Attr>";
+                            Curso_IdsXML += $"<Curso_Id>{cursosPorHabilitar[i]}</Curso_Id>";
+                            Curso_IdsXML += "<Bit>1</Bit>";
+                            Curso_IdsXML += $"<Instr_Id>{cursosPorHabilitar[i + 1]}</Instr_Id>";
+                            Curso_IdsXML += "</Curso_Attr>";
+                        }
+                    }
+                }
+
+                if (cursosPorDeshabilitar != null)
+                {
+                    for (int i = 0; i < cursosPorDeshabilitar.Length; i++)
                     {
                         Curso_IdsXML += "<Curso_Attr>";
-                        Curso_IdsXML += $"<Curso_Id>{cursosPorHabilitar[i]}</Curso_Id>";
-                        Curso_IdsXML += "<Bit>1</Bit>";
-                        Curso_IdsXML += $"<Instr_Id>{cursosPorHabilitar[i + 1]}</Instr_Id>";
+                        Curso_IdsXML += $"<Curso_Id>{cursosPorDeshabilitar[i]}</Curso_Id>";
+                        Curso_IdsXML += "<Bit>0</Bit>";
                         Curso_IdsXML += "</Curso_Attr>";
                     }
                 }
+                Curso_IdsXML += "</Curso_IdsXML>";
+                return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Curso_IdsXML, Gener_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
             }
-
-            if (cursosPorDeshabilitar != null)
+            catch (Exception)
             {
-                for (int i = 0; i < cursosPorDeshabilitar.Length; i++)
-                {
-                    Curso_IdsXML += "<Curso_Attr>";
-                    Curso_IdsXML += $"<Curso_Id>{cursosPorDeshabilitar[i]}</Curso_Id>";
-                    Curso_IdsXML += "<Bit>0</Bit>";
-                    Curso_IdsXML += "</Curso_Attr>";
-                }
+                return Json(new { success = false });
             }
-            Curso_IdsXML += "</Curso_IdsXML>";
-            return Json(db.SP_InstructoresPorCursoPorGeneracion_InsertarEliminar(Curso_IdsXML, Gener_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList(), JsonRequestBehavior.AllowGet);
+            
         }
         // GET: InstructoresPorCursoPorGeneracions/Create
         public ActionResult Create()

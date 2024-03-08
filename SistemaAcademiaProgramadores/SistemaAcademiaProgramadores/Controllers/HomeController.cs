@@ -210,7 +210,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                     case "tbEstadosCiviles":
                         return Json(db.SP_EstadosCiviles_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
                     case "tbCentrosEducativos":
-                        return Json(db.SP_CentrosEducativos_LlenarEditar1(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+                        return Json(db.SP_CentrosEducativos_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
                     case "tbCategorias":
                         return Json(db.SP_Categorias_LlenarEditar(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
                     case "tbCursos":
@@ -242,6 +242,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             try
             {
                 return Json(db.SP_ActividadesPorCursosPorGeneraciones_DropDownListCursos(int.Parse(id)).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult cargarDDLCentrosEducativos(string id)
+        {
+            try
+            {
+                return Json(db.SP_CentrosEducativos_DropDownListSegunLugar(id).ToList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

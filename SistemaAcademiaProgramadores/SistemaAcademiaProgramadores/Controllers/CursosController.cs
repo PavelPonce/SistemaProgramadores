@@ -83,9 +83,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Cursos_Insertar(tbCursos.Curso_Nombre,tbCursos.Categ_Id,int.Parse(Session["Usuar_Id"].ToString()),DateTime.Now);
-                    db.SaveChanges();
-                    if(paginaAlterna != "1")
+                    var toastr = db.SP_Cursos_Insertar(tbCursos.Curso_Nombre,tbCursos.Categ_Id,int.Parse(Session["Usuar_Id"].ToString()),DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha insertado correctamente";
+                    }
+                    else
+                    {
+                        TempData["error"] = "Se trato de ingresar un campo duplicado";
+                    }
+
+                    if (paginaAlterna != "1")
                     {
                         return RedirectToAction("Index");
                     }
@@ -143,9 +152,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Cursos_Modificar(tbCursos.Curso_Id,tbCursos.Curso_Nombre, tbCursos.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Cursos_Modificar(tbCursos.Curso_Id,tbCursos.Curso_Nombre, tbCursos.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha insertado correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Se trato de ingresar un campo duplicado";
+                        return RedirectToAction("Index");
+                    }
                 }
                 ViewBag.Curso_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCursos.Curso_UsuarioCreacion);
                 ViewBag.Curso_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCursos.Curso_UsuarioModificacion);
@@ -189,9 +207,18 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                db.SP_Cursos_Eliminar(tbCursos.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.tbCursos.Remove(tbCursos);
-                db.SaveChanges();
+                var toastr = db.SP_Cursos_Eliminar(tbCursos.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Se ha actualizado el estado correctamente";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["error"] = "Algo salio mal";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

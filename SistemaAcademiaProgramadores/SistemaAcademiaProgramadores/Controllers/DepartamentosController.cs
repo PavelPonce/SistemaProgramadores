@@ -80,9 +80,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Departamentos_Insertar(tbDepartamentos.Depar_Id, tbDepartamentos.Depar_Descripcion, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha insertado correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Se trato de ingresar un campo duplicado";
+                        return RedirectToAction("Index");
+                    }
                 }
 
                 ViewBag.Depar_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbDepartamentos.Depar_UsuarioCreacion);

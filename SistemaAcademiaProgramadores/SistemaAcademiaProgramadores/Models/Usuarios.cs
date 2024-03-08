@@ -13,7 +13,6 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class UsuariosMetaData
     {
-        [Display(Name = "Id")]
         public int Usuar_Id { get; set; }
 
         [Display(Name = "Usuario")]

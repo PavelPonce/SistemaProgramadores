@@ -17,8 +17,8 @@
     <Property Name="Alumn_Observaciones" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="Alumn_FechaIngreso" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'dbAcademiaProgramadores.Acade.tbAlumnosBitacora' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="tbAlumnosBitacora">
     <Key>
       <PropertyRef Name="AlBit_Accion" />
@@ -61,8 +61,6 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Property Name="Curso_UsuarioModificacion" Type="int" />
     <Property Name="Curso_FechaModificacion" Type="datetime" />
     <Property Name="Curso_Estado" Type="bit" Nullable="false" />
-    <Property Name="Curso_FechaInicio" Type="datetime" Nullable="false" />
-    <Property Name="Curso_FechaFin" Type="datetime" />
   </EntityType>
   <EntityType Name="tbGeneraciones">
     <Key>
@@ -101,6 +99,8 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Property Name="Instr_Id" Type="int" Nullable="false" />
     <Property Name="Gener_Id" Type="int" Nullable="false" />
     <Property Name="Curso_Id" Type="int" Nullable="false" />
+    <Property Name="InsCG_FechaInicio" Type="datetime" />
+    <Property Name="InsCG_FechaFin" Type="datetime" />
     <Property Name="InsCG_UsuarioCreacion" Type="int" Nullable="false" />
     <Property Name="InsCG_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="InsCG_UsuarioModificacion" Type="int" />
@@ -331,7 +331,7 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id">
+  <Association Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursoPorGeneracion_InsCG_Id">
     <End Role="tbInstructoresPorCursoPorGeneracion" Type="Self.tbInstructoresPorCursoPorGeneracion" Multiplicity="1" />
     <End Role="tbActividadesPorCursoPorGeneracion" Type="Self.tbActividadesPorCursoPorGeneracion" Multiplicity="*" />
     <ReferentialConstraint>
@@ -991,6 +991,33 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="Vale_pija_la_vida">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCategorias">
+        <PropertyRef Name="Categ_UsuarioCreacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Vale_pija_la_vidax2">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="tbCategorias" Type="Self.tbCategorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="Usuar_Id" />
+      </Principal>
+      <Dependent Role="tbCategorias">
+        <PropertyRef Name="Categ_UsuarioModificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_ActividadesPorCursosPorGeneraciones_DropDownListCursos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="InsCG_Id" Type="int" Mode="In" />
   </Function>
@@ -1052,6 +1079,9 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Categ_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Categ_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_Categorias_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Categ_Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_Categorias_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Categ_Id" Type="int" Mode="In" />
     <Parameter Name="Categ_Nombre" Type="varchar" Mode="In" />
@@ -1068,6 +1098,9 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Categ_Id" Type="int" Mode="In" />
     <Parameter Name="Curso_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Curso_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Cursos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_Cursos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Curso_Id" Type="int" Mode="In" />
@@ -1087,6 +1120,10 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Gener_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="Gener_FechaCreacion" Type="datetime" Mode="In" />
     <Parameter Name="Gener_FechaInicio" Type="datetime" Mode="In" />
+    <Parameter Name="Gener_Puntaje" Type="numeric" Mode="In" />
+  </Function>
+  <Function Name="SP_Generaciones_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_Generaciones_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acade">
     <Parameter Name="Gener_Id" Type="int" Mode="In" />
@@ -1170,6 +1207,14 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Instr_Id" Type="varchar" Mode="In" />
     <Parameter Name="Gener_Id" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="ActividadesPorCurso_Index" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces" />
+  <Function Name="PantallasPorRoles_Index" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces" />
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Actividades_XML" Type="xml" Mode="In" />
+    <Parameter Name="ActCG_UsuarioModificacion" Type="int" Mode="In" />
+    <Parameter Name="ActCG_FechaModificacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_Pantallas_DropDownListEsquema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces" />
   <Function Name="SP_Pantallas_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Panta_Id" Type="int" Mode="In" />
     <Parameter Name="Panta_UsuarioModificacion" Type="int" Mode="In" />
@@ -1232,6 +1277,10 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Roles_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Roles_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_tbUsuarios_LOGIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
+    <Parameter Name="Usuario" Type="varchar" Mode="In" />
+    <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="SP_Usuarios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces">
     <Parameter Name="Usuar_Id" Type="int" Mode="In" />
     <Parameter Name="Usuar_UsuarioModificacion" Type="int" Mode="In" />
@@ -1261,6 +1310,8 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Usuar_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Usuarios_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces" />
+  <Function Name="tbInstructoresPorCursoPorGeneracion_Index" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Acces" />
+  <Function Name="chanchada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif" />
   <Function Name="SP_Actividades_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
     <Parameter Name="Activ_Id" Type="int" Mode="In" />
     <Parameter Name="Activ_UsuarioModificacion" Type="int" Mode="In" />
@@ -1289,7 +1340,7 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="ActCG_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="ActCG_FechaCreacion" Type="datetime" Mode="In" />
   </Function>
-  <Function Name="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+  <Function Name="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif" StoreFunctionName="SP_ActividadesPorCursoPorGeneracion_InsertarEliminar">
     <Parameter Name="Actividades_XML" Type="xml" Mode="In" />
     <Parameter Name="InsCG_Id" Type="varchar" Mode="In" />
     <Parameter Name="ActCG_UsuarioModificacion" Type="varchar" Mode="In" />
@@ -1334,6 +1385,14 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Curso_Id" Type="int" Mode="In" />
     <Parameter Name="Gener_Id" Type="int" Mode="In" />
   </Function>
+  <Function Name="SP_CalificacionesTemp_Seleccionar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Calif">
+    <Parameter Name="Curso_Id" Type="int" Mode="In" />
+    <Parameter Name="Gener_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_DropDownListSegunLugar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_DropDownListTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <Function Name="SP_CentrosEducativos_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="CenEd_Id" Type="int" Mode="In" />
     <Parameter Name="CenEd_UsuarioModificacion" Type="int" Mode="In" />
@@ -1343,9 +1402,12 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="CenEd_Nombre" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_Direccion" Type="varchar" Mode="In" />
     <Parameter Name="CenEd_Tipo" Type="char" Mode="In" />
-    <Parameter Name="Munic_Id" Type="varchar" Mode="In" />
+    <Parameter Name="Munic_Id" Type="char" Mode="In" />
     <Parameter Name="CenEd_UsuarioCreacion" Type="int" Mode="In" />
     <Parameter Name="CenEd_FechaCreacion" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="SP_CentrosEducativos_LlenarEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="CenEd_Id" Type="int" Mode="In" />
   </Function>
   <Function Name="SP_CentrosEducativos_Modificar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="CenEd_Id" Type="int" Mode="In" />
@@ -1376,6 +1438,7 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Depar_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Depar_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="SP_EmptyTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <Function Name="SP_EstadosCiviles_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Estci_Id" Type="int" Mode="In" />
     <Parameter Name="Estci_UsuarioModificacion" Type="int" Mode="In" />
@@ -1396,6 +1459,9 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Estci_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
   <Function Name="SP_Instructores_DropDownListPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
+  <Function Name="SP_Municipios_DropDownListMunicipios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
+    <Parameter Name="Depar_Id" Type="char" Mode="In" />
+  </Function>
   <Function Name="SP_Municipios_Eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante">
     <Parameter Name="Munic_Id" Type="char" Mode="In" />
     <Parameter Name="Munic_UsuarioModificacion" Type="int" Mode="In" />
@@ -1476,6 +1542,7 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <Parameter Name="Titul_UsuarioModificacion" Type="int" Mode="In" />
     <Parameter Name="Titul_FechaModificacion" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="tbPersonas_SeleccionarUltimoId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Mante" />
   <EntityContainer Name="dbAcademiaProgramadoresModelStoreContainer">
     <EntitySet Name="tbAlumnos" EntityType="Self.tbAlumnos" Schema="Acade" store:Type="Tables" />
     <EntitySet Name="tbCategorias" EntityType="Self.tbCategorias" Schema="Acade" store:Type="Tables" />
@@ -1529,7 +1596,7 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
       <End Role="tbActividades" EntitySet="tbActividades" />
       <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
     </AssociationSet>
-    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursosPorGeneracion_CuGen_Id">
+    <AssociationSet Name="FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursoPorGeneracion_InsCG_Id" Association="Self.FK_tbActividadesPorCursoPorGeneracion_tbInstructoresPorCursoPorGeneracion_InsCG_Id">
       <End Role="tbInstructoresPorCursoPorGeneracion" EntitySet="tbInstructoresPorCursoPorGeneracion" />
       <End Role="tbActividadesPorCursoPorGeneracion" EntitySet="tbActividadesPorCursoPorGeneracion" />
     </AssociationSet>
@@ -1748,6 +1815,14 @@ advertencia 6002: La tabla o vista 'dbAcademiaProgramadores.Acade.tbAlumnosBitac
     <AssociationSet Name="FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion" Association="Self.FK_tbUsuarios_tbUsuarios_Usuar_UsuarioModificacion">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbUsuarios1" EntitySet="tbUsuarios" />
+    </AssociationSet>
+    <AssociationSet Name="Vale_pija_la_vida" Association="Self.Vale_pija_la_vida">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
+    </AssociationSet>
+    <AssociationSet Name="Vale_pija_la_vidax2" Association="Self.Vale_pija_la_vidax2">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategorias" EntitySet="tbCategorias" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

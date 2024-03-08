@@ -8,6 +8,8 @@
     @Styles.Render("~/Content/HTML5_Full_Version/font-awesome/css/font-awesome.css")
     @Styles.Render("~/Content/HTML5_Full_Version/css/plugins/dataTables/datatables.min.css")
     @Styles.Render("~/Content/HTML5_Full_Version/css/animate.css")
+    <link href="~/Content/HTML5_Full_Version/css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+
     <link href="~/Content/HTML5_Full_Version/css/plugins/dragula/dragula.css" rel="stylesheet" />
     @Styles.Render("~/Content/HTML5_Full_Version/css/style.css")
 </head>
@@ -90,7 +92,7 @@
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/datatables.min.js")
     @Scripts.Render("~/Content/HTML5_Full_Version/js/plugins/dataTables/dataTables.bootstrap4.min.js")
     @RenderSection("scripts", required: false)
-    <script>
+<script>
         // Upgrade button class name
         $(document).ready(function () {
             $('.dataTables-example').DataTable({
@@ -106,7 +108,16 @@
                     { extend: 'pdf', title: '@ViewBag.Title' },
                 ]
             });
+
+              @if(TempData["success"] != null)
+            {
+                @:toastr.success('@TempData["success"]', 'Exito')
+            }
+            @if(TempData["error"] != null)
+            {
+                @:toastr.error('@TempData["error"]', 'Error')
+            }
         });
-    </script>
+</script>
 </body>
 </html>

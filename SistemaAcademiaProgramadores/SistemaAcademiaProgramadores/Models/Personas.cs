@@ -13,6 +13,7 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class PersonasMetaData
     {
+        [Display(Name = "Persona")]
         public int Perso_Id { get; set; }
         [Display(Name = "Primer Nombre")]
         [Required(ErrorMessage = "El campo {0} es requerido")]

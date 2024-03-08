@@ -39,7 +39,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
     }
 }
 #>
-    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
+    <button type="submit" class="btn btn-primary"><i class="fa handshake-o"></i> Aceptar</button>
     <button type="button" class="btn btn-primary btn-outline" data-dismiss="modal">
         <i class="fa fa-times"></i> Cancelar
     </button>

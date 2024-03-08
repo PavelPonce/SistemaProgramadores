@@ -15,7 +15,11 @@ namespace SistemaAcademiaProgramadores.Controllers
     public class InstructoresController : Controller
     {
         private dbAcademiaProgramadoresEntities2 db = new dbAcademiaProgramadoresEntities2();
-
+        public MyStaticList myStaticList = new MyStaticList();
+        public class MyStaticList
+        {
+            public static List<string> SingleValueList = new List<string>() { "" };
+        }
         // GET: Instructores
         public ActionResult Index()
         {
@@ -23,6 +27,10 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
                 ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre");
+                ViewBag.Estci_Id = new SelectList(db.tbEstadosCiviles, "Estci_Id", "Estci_Descripcion");
+                ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion");
+                ViewBag.Munic_Id = new SelectList(MyStaticList.SingleValueList);
+
                 var tbInstructores = db.tbInstructores.Include(t => t.tbPersonas).Include(t => t.tbTitulos).Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
                 return View(tbInstructores.ToList());
             }
@@ -40,6 +48,9 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
                 ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre");
+                ViewBag.Estci_Id = new SelectList(db.tbEstadosCiviles, "Estci_Id", "Estci_Descripcion");
+                ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion");
+                ViewBag.Munic_Id = new SelectList(MyStaticList.SingleValueList);
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -65,6 +76,9 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
                 ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre");
+                ViewBag.Estci_Id = new SelectList(db.tbEstadosCiviles, "Estci_Id", "Estci_Descripcion");
+                ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion");
+                ViewBag.Munic_Id = new SelectList(MyStaticList.SingleValueList);
                 ViewBag.Instr_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
                 ViewBag.Instr_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario");
                 return View();
@@ -81,19 +95,36 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Perso_Id,Titul_Id,CenEd_Id,Instr_UsuarioCreacion,Instr_FechaCreacion,Instr_UsuarioModificacion,Instr_FechaModificacion,Instr_Estado")] tbInstructores tbInstructores)
+        public ActionResult Create([Bind(Include = "Perso_Id,Titul_Id,CenEd_Id,Instr_UsuarioCreacion,Instr_FechaCreacion,Instr_UsuarioModificacion,Instr_FechaModificacion,Instr_Estado")] tbInstructores tbInstructores, [Bind(Include = "Perso_Id,Perso_PrimerNombre,Perso_SegundoNombre,Perso_PrimerApellido,Perso_SegundoApellido,Perso_FechaNacimiento,Perso_Sexo,Estci_Id,Perso_Direccion,Munic_Id,Perso_Telefono,Perso_CorreoElectronico,Perso_UsuarioCreacion,Perso_FechaCreacion,Perso_UsuarioModificacion,Perso_FechaModificacion,Perso_Estado")] tbPersonas tbPersonas)
         {
             try
             {
+                ModelState.Remove("Perso_Id");
                 if (ModelState.IsValid)
                 {
-                    db.tbInstructores.Add(tbInstructores);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Instructores_Insertar(tbPersonas.Perso_PrimerNombre, tbPersonas.Perso_SegundoNombre, tbPersonas.Perso_PrimerApellido, tbPersonas.Perso_SegundoApellido, tbPersonas.Perso_FechaNacimiento, tbPersonas.Perso_Sexo, tbPersonas.Estci_Id, tbPersonas.Perso_Direccion, tbPersonas.Munic_Id, tbPersonas.Perso_Telefono, tbPersonas.Perso_CorreoElectronico, tbInstructores.Titul_Id, tbInstructores.CenEd_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha ingresado el registro correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Valor repetido. Parece que el registro que estas tratando de ingresar, ya existe";
+                        return RedirectToAction("Index");
+
+                    }
+
                 }
 
                 ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre", tbInstructores.Perso_Id);
                 ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre", tbInstructores.Titul_Id);
+                ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
+                ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre");
+                ViewBag.Estci_Id = new SelectList(db.tbEstadosCiviles, "Estci_Id", "Estci_Descripcion");
+                ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion");
+                ViewBag.Munic_Id = new SelectList(MyStaticList.SingleValueList);
                 ViewBag.Instr_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbInstructores.Instr_UsuarioCreacion);
                 ViewBag.Instr_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbInstructores.Instr_UsuarioModificacion);
                 return View(tbInstructores);
@@ -121,6 +152,11 @@ namespace SistemaAcademiaProgramadores.Controllers
                 }
                 ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre", tbInstructores.Perso_Id);
                 ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre", tbInstructores.Titul_Id);
+                ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
+                ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre");
+                ViewBag.Estci_Id = new SelectList(db.tbEstadosCiviles, "Estci_Id", "Estci_Descripcion");
+                ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion");
+                ViewBag.Munic_Id = new SelectList(MyStaticList.SingleValueList);
                 ViewBag.Instr_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbInstructores.Instr_UsuarioCreacion);
                 ViewBag.Instr_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbInstructores.Instr_UsuarioModificacion);
                 return View(tbInstructores);
@@ -137,25 +173,42 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Perso_Id,Titul_Id,CenEd_Id,Instr_UsuarioCreacion,Instr_FechaCreacion,Instr_UsuarioModificacion,Instr_FechaModificacion,Instr_Estado")] tbInstructores tbInstructores)
+        public ActionResult Edit([Bind(Include = "Perso_Id,Titul_Id,CenEd_Id,Instr_UsuarioCreacion,Instr_FechaCreacion,Instr_UsuarioModificacion,Instr_FechaModificacion,Instr_Estado")] tbInstructores tbInstructores, [Bind(Include = "Perso_Id,Perso_PrimerNombre,Perso_SegundoNombre,Perso_PrimerApellido,Perso_SegundoApellido,Perso_FechaNacimiento,Perso_Sexo,Estci_Id,Perso_Direccion,Munic_Id,Perso_Telefono,Perso_CorreoElectronico,Perso_UsuarioCreacion,Perso_FechaCreacion,Perso_UsuarioModificacion,Perso_FechaModificacion,Perso_Estado")] tbPersonas tbPersonas)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(tbInstructores).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Instructores_Modificar(tbInstructores.Perso_Id,tbPersonas.Perso_PrimerNombre, tbPersonas.Perso_SegundoNombre, tbPersonas.Perso_PrimerApellido, tbPersonas.Perso_SegundoApellido, tbPersonas.Perso_FechaNacimiento, tbPersonas.Perso_Sexo, tbPersonas.Estci_Id, tbPersonas.Perso_Direccion, tbPersonas.Munic_Id, tbPersonas.Perso_Telefono, tbPersonas.Perso_CorreoElectronico, tbInstructores.Titul_Id, tbInstructores.CenEd_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha actualizado el registro correctamente";
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Parece que el registro al que tratas de cambiar ya existe.";
+
+                        return RedirectToAction("Index");
+                    }
                 }
                 ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre", tbInstructores.Perso_Id);
                 ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre", tbInstructores.Titul_Id);
+                ViewBag.Perso_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre");
+                ViewBag.Titul_Id = new SelectList(db.tbTitulos, "Titul_Id", "Titul_Nombre");
+                ViewBag.Estci_Id = new SelectList(db.tbEstadosCiviles, "Estci_Id", "Estci_Descripcion");
+                ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion");
+                ViewBag.Munic_Id = new SelectList(MyStaticList.SingleValueList);
                 ViewBag.Instr_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbInstructores.Instr_UsuarioCreacion);
                 ViewBag.Instr_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbInstructores.Instr_UsuarioModificacion);
                 return View(tbInstructores);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                TempData["error"] = "Algo salio mal";
                 return View();
             }
         }
@@ -186,13 +239,23 @@ namespace SistemaAcademiaProgramadores.Controllers
         // POST: Instructores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed([Bind(Include = "Perso_Id,Titul_Id,CenEd_Id,Instr_UsuarioCreacion,Instr_FechaCreacion,Instr_UsuarioModificacion,Instr_FechaModificacion,Instr_Estado")] tbInstructores tbInstructores)
         {
             try
             {
-                tbInstructores tbInstructores = db.tbInstructores.Find(id);
-                db.tbInstructores.Remove(tbInstructores);
-                db.SaveChanges();
+                var toastr = db.SP_Instructores_Eliminar(tbInstructores.Perso_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Se ha modificado el estado del registro correctamente";
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    TempData["error"] = "Algo salio mal";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

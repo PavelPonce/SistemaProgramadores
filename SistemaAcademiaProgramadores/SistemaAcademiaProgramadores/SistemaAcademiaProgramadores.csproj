@@ -180,12 +180,27 @@
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\Pantallas.cs" />
     <Compile Include="Models\PantallasPorRoles.cs" />
+    <Compile Include="Models\PantallasPorRoles_Index_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Personas.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_ActividadesPorCursoPorGeneracion_Seleccionar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_ActividadesPorCursosPorGeneraciones_DropDownListCursos_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_ActividadesPorCursosPorGeneraciones_DropDownListCursos_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_ActividadesPorCursosPorGeneraciones_LlenarEditarActividadesPorCursoPorGeneracion_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Actividades_Eliminar_Result.cs">
@@ -194,13 +209,31 @@
     <Compile Include="Models\SP_Calificaciones2_Seleccionar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Calificaciones2_Seleccionar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Categorias_LlenarEditar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Categorias_LlenarEditar_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_CentrosEducativos_DropDownListMunicipios_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_CentrosEducativos_DropDownListSegunLugar1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_CentrosEducativos_DropDownListSegunLugar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_CentrosEducativos_DropDownListSegunLugar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_CentrosEducativos_DropDownListTipo_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_CentrosEducativos_DropDownListTipo_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_CentrosEducativos_LlenarEditar1_Result.cs">
@@ -209,22 +242,40 @@
     <Compile Include="Models\SP_CentrosEducativos_LlenarEditar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_CentrosEducativos_LlenarEditar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_CursosPorGeneraciones_DropDownListCursos_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Cursos_LlenarEditar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Cursos_LlenarEditar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Departamentos_LlenarEditar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Departamentos_LlenarEditar_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_EmptyTable_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_EmptyTable_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_EstadosCiviles_LlenarEditar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_EstadosCiviles_LlenarEditar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Generaciones_LlenarEditar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Generaciones_LlenarEditar_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_InstrucoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result.cs">
@@ -233,10 +284,19 @@
     <Compile Include="Models\SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_InstructoresPorCursoPorGeneracion_LlenarCursosPorGeneracion_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_InstructoresPorCursoPorGeneracion_Seleccionar_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Instructores_DropDownListPersonas1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Instructores_DropDownListPersonas1_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Instructores_DropDownListPersonas_Result.cs">
@@ -245,7 +305,13 @@
     <Compile Include="Models\SP_Instructores_DropDownListPersonas_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Instructores_DropDownListPersonas_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Municipios_DropDownListMunicipios_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Municipios_DropDownListMunicipios_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Municipios_LlenarEditar1_Result.cs">
@@ -260,10 +326,28 @@
     <Compile Include="Models\SP_Municipios_LlenarEditar_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Municipios_LlenarEditar_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_PantallasPorRoles_SeleccionarPantallasPorRol_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_PantallasPorRoles_SeleccionarPantallasPorRol_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_PantallasPorRoles_SeleccionarRolesPorPantalla_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_PantallasPorRoles_SeleccionarRolesPorPantalla_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Pantallas_DropDownListEsquema1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Pantallas_DropDownListEsquema_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Pantallas_DropDownListEsquema_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_tbDepartamentos_LlenarEditar_Result.cs">
@@ -278,10 +362,19 @@
     <Compile Include="Models\SP_tbTitulos_LlenarEditar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_tbUsuarios_LOGIN1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_tbUsuarios_LOGIN_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_tbUsuarios_LOGIN_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Titulos_DropDownList1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Titulos_DropDownList2_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Titulos_DropDownListTipos_Result.cs">
@@ -290,13 +383,25 @@
     <Compile Include="Models\SP_Titulos_DropDownList_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Titulos_DropDownList_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Titulos_LlenarEditar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Titulos_LlenarEditar_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Usuarios_Login_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Usuarios_Login_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Usuarios_Seleccionar_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Usuarios_Seleccionar_Result1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbActividades.cs">
@@ -338,6 +443,9 @@
     <Compile Include="Models\tbInstructoresPorCursoPorGeneracion.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbInstructoresPorCursoPorGeneracion_Index_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbMunicipios.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -365,6 +473,7 @@
     <Compile Include="WebProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CodeTemplates\MvcView\_Create.cs.t4" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1982,7 +2091,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="CodeTemplates\MvcView\_Create.cs.t4" />
     <Content Include="CodeTemplates\MvcView\_Edit.cs.t4" />
     <Content Include="Content\HTML5_Full_Version\js\plugins\dataTables\esLanguageDataTable.json" />
     <Content Include="CodeTemplates\MvcView\_Delete.cs.t4" />
@@ -2088,6 +2196,7 @@
     <Content Include="Views\ActividadesPorCursoPorGeneracions\Edit.cshtml" />
     <Content Include="Views\ActividadesPorCursoPorGeneracions\Index.cshtml" />
     <Content Include="Views\Calificaciones\Index.cshtml" />
+    <Content Include="Views\PantallasPorRoles\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -121,7 +121,7 @@ namespace SistemaAcademiaProgramadores.Controllers
                 Actividades_XML += "</Actividades_XML>";
                 if (Actividades.Sum(act => act.ActCG_Nota) == 100)
                 {
-                    var result = db.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar(Actividades_XML, InsCG_Id, Session["Usuar_Id"].ToString(), DateTime.Now).ToList();
+                    var result = db.SP_ActividadesPorCursoPorGeneracion_InsertarEliminar1(Actividades_XML, InsCG_Id,Session["Usuar_Id"].ToString(), DateTime.Now).ToList();
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
                 else

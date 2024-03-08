@@ -80,9 +80,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Categorias_Insertar(tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Categorias_Insertar(tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha insertado correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Se trato de ingresar un campo duplicado";
+                        return RedirectToAction("Index");
+                    }
                 }
 
                 ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
@@ -132,9 +141,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Categorias_Modificar(tbCategorias.Categ_Id,tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Categorias_Modificar(tbCategorias.Categ_Id,tbCategorias.Categ_Nombre, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha insertado correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Se trato de ingresar un campo duplicado";
+                        return RedirectToAction("Index");
+                    }
                 }
                 ViewBag.Categ_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioCreacion);
                 ViewBag.Categ_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbCategorias.Categ_UsuarioModificacion);
@@ -177,8 +195,18 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                db.SP_Categorias_Eliminar(tbCategorias.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
+                var toastr = db.SP_Categorias_Eliminar(tbCategorias.Categ_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Se ha actualizado el estado correctamente";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["error"] = "Algo salio mal";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

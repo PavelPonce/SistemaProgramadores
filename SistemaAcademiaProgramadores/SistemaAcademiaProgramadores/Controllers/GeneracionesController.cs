@@ -75,15 +75,25 @@ namespace SistemaAcademiaProgramadores.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Gener_Nombre,Gener_Anhio")] tbGeneraciones tbGeneraciones)
+        public ActionResult Create([Bind(Include = "Gener_Nombre,Gener_Anhio")] tbGeneraciones tbGeneraciones, string Gener_FechaInicio)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Generaciones_Insertar(tbGeneraciones.Gener_Nombre,tbGeneraciones.Gener_Anhio, int.Parse(Session["Usuar_Id"].ToString()),DateTime.Now, tbGeneraciones.Gener_FechaInicio);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Generaciones_Insertar(tbGeneraciones.Gener_Nombre,tbGeneraciones.Gener_Anhio, int.Parse(Session["Usuar_Id"].ToString()),DateTime.Now, DateTime.Parse(Gener_FechaInicio), tbGeneraciones.Gener_Puntaje);
+                    if(int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha hecho una insercion correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Valor UNico,";
+                        return RedirectToAction("Index");
+                    }
+                    
                 }
                 ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioCreacion);
                 ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioModificacion);
@@ -133,9 +143,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Generaciones_Modificar(tbGeneraciones.Gener_Id,tbGeneraciones.Gener_Nombre, tbGeneraciones.Gener_Anhio, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now, tbGeneraciones.Gener_FechaInicio, tbGeneraciones.Gener_FechaFin);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Generaciones_Modificar(tbGeneraciones.Gener_Id,tbGeneraciones.Gener_Nombre, tbGeneraciones.Gener_Anhio, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now, tbGeneraciones.Gener_FechaInicio, tbGeneraciones.Gener_FechaFin);
+                     if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha modificado el registro correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Se trato de actualizar un campo duplicado";
+                        return RedirectToAction("Index");
+                    }
                 }
                 ViewBag.Gener_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioCreacion);
                 ViewBag.Gener_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbGeneraciones.Gener_UsuarioModificacion);
@@ -178,8 +197,18 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                db.SP_Generaciones_Eliminar(tbGeneraciones.Gener_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
+                var toastr = db.SP_Generaciones_Eliminar(tbGeneraciones.Gener_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Se ha eliminado el registro correctamente";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["error"] = "Algo salio mal";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

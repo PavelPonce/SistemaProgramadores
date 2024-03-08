@@ -13,6 +13,7 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class TitulosMetaData
     {
+        [Display(Name = "Titulo")]
         public int Titul_Id { get; set; }
         [Display(Name = "Titulo")]
         [StringLength(60)]

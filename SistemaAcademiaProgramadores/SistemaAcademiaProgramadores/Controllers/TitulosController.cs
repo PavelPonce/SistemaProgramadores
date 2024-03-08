@@ -83,9 +83,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.SP_Titulos_Insertar(tbTitulos.Titul_Nombre,tbTitulos.Titul_Tipo,1,DateTime.Now);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Titulos_Insertar(tbTitulos.Titul_Nombre,tbTitulos.Titul_Tipo,1,DateTime.Now);
+                    if (int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Se ha insertado el registro correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Algo salio mal( Se ingreso un campo duplicado)";
+                        return RedirectToAction("Index");
+                    }
                 }
 
                 ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
@@ -133,12 +142,20 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                
+                var toastr = db.SP_Titulos_Modificar(tbTitulos.Titul_Id,tbTitulos.Titul_Nombre, tbTitulos.Titul_Tipo, 1, DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
                 {
-                    db.SP_Titulos_Modificar(tbTitulos.Titul_Id,tbTitulos.Titul_Nombre, tbTitulos.Titul_Tipo, 1, DateTime.Now);
                     db.SaveChanges();
+                    TempData["success"] = "Se ha insertado el registro correctamente";
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    TempData["error"] = "Algo salio mal( Se ha ingresado un registro duplicado)";
+                    return RedirectToAction("Index");
+                }
+
                 ViewBag.Titul_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioCreacion);
                 ViewBag.Titul_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbTitulos.Titul_UsuarioModificacion);
                 return View(tbTitulos);
@@ -181,8 +198,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             try
             {
                 int usuarioLogueado = int.Parse(Session["Usuar_Id"].ToString());
-                db.SP_Titulos_Eliminar(tbTitulos.Titul_Id,usuarioLogueado,DateTime.Now);
-                db.SaveChanges();
+                var toastr = db.SP_Titulos_Eliminar(tbTitulos.Titul_Id,usuarioLogueado,DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Se ha actualizado el estado correctamente";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["error"] = "Algo salio mal";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

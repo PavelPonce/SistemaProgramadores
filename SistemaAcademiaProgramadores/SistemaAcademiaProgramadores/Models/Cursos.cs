@@ -13,6 +13,7 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class CursosMetaData
     {
+        [Display(Name = "Curso")]
         public int Curso_Id { get; set; }
         [Display(Name = "Curso")]
         [Required(ErrorMessage = "El campo {0} es requerido")]

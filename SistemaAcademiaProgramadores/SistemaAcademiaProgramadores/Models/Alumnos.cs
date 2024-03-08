@@ -13,6 +13,7 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class AlumnosMetaData
     {
+        [Display(Name = "Alumno")]
         public int Perso_Id { get; set; }
         [Display(Name = "Colegio")]
 

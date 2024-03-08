@@ -86,9 +86,18 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.tbUsuarios.Add(tbUsuarios);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var toastr = db.SP_Usuarios_Insertar(tbUsuarios.Usuar_Usuario, tbUsuarios.Usuar_Contrasena, tbUsuarios.Instr_Id, tbUsuarios.Roles_Id, tbUsuarios.Usuar_Admin, int.Parse(Session["Usuar_Id"].ToString()), tbUsuarios.Usuar_FechaCreacion);
+                    if(int.Parse(toastr.ToString()) == 1)
+                    {
+                        db.SaveChanges();
+                        TempData["success"] = "Usuario ingresado correctamente";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Valor duplicado en el";
+                        return RedirectToAction("Index");
+                    }
                 }
 
                 ViewBag.Instr_Id = new SelectList(db.tbPersonas, "Perso_Id", "Perso_PrimerNombre", tbUsuarios.Instr_Id);
@@ -143,7 +152,7 @@ namespace SistemaAcademiaProgramadores.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(tbUsuarios).State = EntityState.Modified;
+                    //db.SP_Usuarios_Modificar()
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

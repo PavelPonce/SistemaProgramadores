@@ -82,12 +82,19 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var toastr = db.SP_Municipios_Insertar(tbMunicipios.Munic_Id,tbMunicipios.Munic_Descripcion,tbMunicipios.Depar_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
                 {
-                    db.SP_Municipios_Insertar(tbMunicipios.Munic_Id,tbMunicipios.Munic_Descripcion,tbMunicipios.Depar_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
                     db.SaveChanges();
+                    TempData["success"] = "Se ha insertado el registro correctamente";
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    TempData["error"] = "Algo salio mal(probablemente ingreso un campo duplicado)";
+                    return RedirectToAction("Index");
+                }
+                
 
                 ViewBag.Munic_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbMunicipios.Munic_UsuarioCreacion);
                 ViewBag.Munic_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbMunicipios.Munic_UsuarioModificacion);
@@ -136,12 +143,20 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                
+                 var toastr = db.SP_Municipios_Modificar(tbMunicipios.Munic_Id,tbMunicipios.Munic_Descripcion,tbMunicipios.Depar_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
                 {
-                    db.SP_Municipios_Modificar(tbMunicipios.Munic_Id,tbMunicipios.Munic_Descripcion,tbMunicipios.Depar_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
                     db.SaveChanges();
+                    TempData["success"] = "Se ha actualizado el registro correctamente";
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    TempData["error"] = "Algo salio mal(quiso actualizar un campo duplicado)";
+                    return RedirectToAction("Index");
+                }
+
                 ViewBag.Munic_UsuarioCreacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbMunicipios.Munic_UsuarioCreacion);
                 ViewBag.Munic_UsuarioModificacion = new SelectList(db.tbUsuarios, "Usuar_Id", "Usuar_Usuario", tbMunicipios.Munic_UsuarioModificacion);
                 ViewBag.Depar_Id = new SelectList(db.tbDepartamentos, "Depar_Id", "Depar_Descripcion", tbMunicipios.Depar_Id);
@@ -184,8 +199,18 @@ namespace SistemaAcademiaProgramadores.Controllers
         {
             try
             {
-                db.SP_Municipios_Eliminar(tbMunicipios.Munic_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
-                db.SaveChanges();
+                var toastr = db.SP_Municipios_Eliminar(tbMunicipios.Munic_Id, int.Parse(Session["Usuar_Id"].ToString()), DateTime.Now);
+                if (int.Parse(toastr.ToString()) == 1)
+                {
+                    db.SaveChanges();
+                    TempData["success"] = "Se ha eliminado correctamente";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["error"] = "Algo salio mal";
+                    return RedirectToAction("Index");
+                }
             }
             catch (Exception ex)
             {

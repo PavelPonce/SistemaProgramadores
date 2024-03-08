@@ -20,6 +20,7 @@ namespace SistemaAcademiaProgramadores.Models
         [Required(ErrorMessage = "La {0} es requerido")]
         [RegularExpression("[a-zA-Z]*$", ErrorMessage = "La {0} solo puede contener letras")]
         public string Categ_Nombre { get; set; }
+
         public int Categ_UsuarioCreacion { get; set; }
     }
 }

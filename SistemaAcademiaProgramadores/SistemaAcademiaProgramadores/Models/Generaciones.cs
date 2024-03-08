@@ -13,9 +13,11 @@ namespace SistemaAcademiaProgramadores.Models
     }
     public class GeneracionesMetaData
     {
+        [Display(Name = "Generacion")]
+
         public int Gener_Id { get; set; }
 
-        [Display(Name = "Nombre")]
+        [Display(Name = "Generacion")]
         [Required(ErrorMessage = "El {0} es requerido")]
         [MaxLength(30,ErrorMessage = "El campo {0} tiene un maximo de 30 caracteres")]
         public string Gener_Nombre { get; set; }
